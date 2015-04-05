@@ -4,7 +4,7 @@
     <!-- sidebar menu start-->
     <ul class="sidebar-menu" id="nav-accordion">
       <li class="item-menu centered">
-        <a href="<c:url value="/perfil.jsp" />">
+        <a href="<c:url value="/perfil" />">
           <img src="https://pbs.twimg.com/profile_images/2934946269/d069c7c3ebf55fdecc7fb1c552804026_400x400.jpeg"
                alt="Gerald Richie"
                class="img-circle sidebar-avatar" />
@@ -22,7 +22,7 @@
       </li>
 
       <li class="item-menu">
-        <a href="<c:url value="/index.jsp" />">
+        <a href="<c:url value="/inicio" />">
           <i class="fa fa-home"></i>
           <span>Início</span>
         </a>
@@ -35,12 +35,12 @@
         </a>
         <ul class="sub">
           <li class="item-menu">
-            <a  href="<c:url value="/hotel/clientes/cadastrar-novo.jsp" />">
+            <a  href="<c:url value="/hotel/clientes/cadastrar-novo" />">
               Cadastrar Novo
             </a>
           </li>
           <li class="item-menu">
-            <a  href="<c:url value="/hotel/clientes/buscar.jsp" />">
+            <a  href="<c:url value="/hotel/clientes/buscar" />">
               Buscar &amp; Editar
             </a>
           </li>
@@ -48,7 +48,7 @@
       </li>
 
       <li class="item-menu">
-        <a href="<c:url value="/hotel/reservas.jsp" />" >
+        <a href="<c:url value="/hotel/reservas" />" >
           <i class="fa fa-th"></i>
           <span>
             Reservas
@@ -57,7 +57,7 @@
       </li>
 
       <li class="item-menu">
-        <a href="<c:url value="/hotel/servicos.jsp" />" >
+        <a href="<c:url value="/hotel/servicos" />" >
           <i class="fa fa-book"></i>
           <span>Serviços de Quarto</span>
         </a>
@@ -70,12 +70,12 @@
         </a>
         <ul class="sub">
           <li class="item-menu">
-            <a  href="<c:url value="/adm/relatorios/vendas.jsp" />">
+            <a  href="<c:url value="/adm/relatorios/vendas" />">
               Vendas
             </a>
           </li>
           <li class="item-menu">
-            <a  href="<c:url value="/adm/relatorios/cadastros.jsp" />">
+            <a  href="<c:url value="/adm/relatorios/cadastros" />">
               Cadastros
             </a>
           </li>
@@ -89,17 +89,17 @@
         </a>
         <ul class="sub">
           <li class="item-menu">
-            <a href="<c:url value="/adm/produtos.jsp" />">
+            <a href="<c:url value="/adm/produtos" />">
               Produtos
             </a>
           </li>
           <li class="item-menu">
-            <a href="<c:url value="/adm/serviços.jsp" />">
+            <a href="<c:url value="/adm/serviços" />">
               Serviços
             </a>
           </li>
           <li class="item-menu">
-            <a href="<c:url value="/adm/usarios.jsp" />">
+            <a href="<c:url value="/adm/usarios" />">
               Usuários do Sistema
             </a>
           </li>
@@ -107,7 +107,7 @@
       </li>
 
       <li class="item-menu">
-        <a href="<c:url value="/configuracoes.jsp" />" >
+        <a href="<c:url value="/configuracoes" />" >
           <i class="fa fa-cogs"></i>
           <span>Configurações</span>
         </a>

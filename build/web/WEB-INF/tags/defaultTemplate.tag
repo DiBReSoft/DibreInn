@@ -33,7 +33,8 @@
   </head>
   <body>
 
-    <t:defaultNavbar/><t:defaultSidebar/>
+    <t:defaultNavbar/>    
+    <t:defaultSidebar/>
 
     <section id="main-content">
 
@@ -45,7 +46,7 @@
 
       <footer class="site-footer">
         <div class="text-center">
-          2015 - Desenvolvido pela DiBRe Soft
+          <span id="mostrarAno"></span> - Desenvolvido pela DiBRe Soft
           <a class="go-top" title="voltar ao topo">
             <i class="fa fa-angle-up"></i>
           </a>
@@ -61,6 +62,12 @@
     <script type="text/javascript" src="<c:url value="/assets/js/jquery.nicescroll.js" />"></script>
     <script type="text/javascript" src="<c:url value="/assets/js/jquery.scrollTo.min.js" />"></script>
     <script type="text/javascript" src="<c:url value="/assets/js/dibre-inn.js" />"></script>
+
+    <script type="text/javascript">
+      var today = new Date();
+      var y = today.getFullYear();
+      document.getElementById('mostrarAno').innerHTML = y;
+    </script>
 
     <jsp:invoke fragment="paginaBottom"/>
 

@@ -11,7 +11,7 @@
     <meta name="author" content="Luciano Lourenço, Thiago Medeiros, Fabio Ernani, Udimberto Junior" />
 
     <title>
-      D.I. | Lebre Hotel :
+      D.I. | Lebre Hotel:
       <jsp:invoke fragment="paginaTitulo"/>
     </title>
 
@@ -19,6 +19,9 @@
     <link rel="stylesheet" type="text/css" href="<c:url value="/assets/css/bootstrap.css" />" />
     <link rel="stylesheet" type="text/css" href="<c:url value="/assets/css/style.css" />" />
     <link rel="stylesheet" type="text/css" href="<c:url value="/assets/css/style-responsive.css" />" />
+
+    <!-- CSS Especial para este tipo de pagina -->
+    <link rel="stylesheet" type="text/css" href="<c:url value="/assets/css/lockscreen.css" />" />
 
     <!-- CSS Externo: icones -->
     <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
@@ -30,38 +33,66 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <!-- JS Especial para o relogio exibido neste tipo de pagina -->
+    <script type="text/javascript">
+      function getTime() {
+        var today = new Date();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        var s = today.getSeconds();
+
+        m = checkTime(m);
+        s = checkTime(s);
+        document.getElementById('showtime').innerHTML = h + ":" + m + ":" + s;
+        t = setTimeout(function () {
+          getTime()
+        }, 500);
+      }
+
+      function checkTime(i) {
+        if (i < 10) {
+          i = "0" + i;
+        }
+        return i;
+      }
+    </script>
+
   </head>
-  <body>
+  <body onload="getTime()">
 
-    <t:defaultNavbar/>    
-    <t:defaultSidebar/>
+    <header>
+      
+      <div class="text-right">
+        <span id="showtime"></span>
+      </div>
 
-    <section id="main-content">
+    </header>
 
-      <section class="wrapper site-min-height" id="paginaConteudo">
+    <section>
 
-        <jsp:doBody/>
-
-      </section>
-
-      <footer class="site-footer">
-        <div class="text-center">
-          <span id="mostrarAno"></span> - Desenvolvido pela DiBRe Soft
-          <a class="go-top" title="voltar ao topo">
-            <i class="fa fa-angle-up"></i>
-          </a>
-        </div>
-      </footer>
+      <jsp:doBody/>
 
     </section>
 
+    <br style="clear: both;" />
+
+    <footer>
+      <div class="text-left">
+        <span id="mostrarAno"></span> <i class="fa fa-fw fa-lg fa-copyright"></i> Desenvolvido pela DiBRe Soft
+      </div>
+    </footer>
+
     <!-- JS Base -->
     <script type="text/javascript" src="<c:url value="/assets/js/jquery-2.1.3.min.js" />"></script>
-    <script type="text/javascript" src="<c:url value="/assets/js/bootstrap.min.js" />"></script>    
-    <script type="text/javascript" src="<c:url value="/assets/js/jquery-dcjqaccordion.2.7.js" />" class="include"></script>
-    <script type="text/javascript" src="<c:url value="/assets/js/jquery.nicescroll.js" />"></script>
-    <script type="text/javascript" src="<c:url value="/assets/js/jquery.scrollTo.min.js" />"></script>
-    <script type="text/javascript" src="<c:url value="/assets/js/dibre-inn.js" />"></script>
+    <script type="text/javascript" src="<c:url value="/assets/js/bootstrap.min.js" />"></script>
+    <script type="text/javascript" src="<c:url value="/assets/js/jquery.backstretch.min.js" />"></script>
+
+    <!-- JS Especial para este tipo de pagina -->
+    <script type="text/javascript" src="<c:url value="/assets/js/lockscreen.js" />"></script>
+    <script type="text/javascript">
+    $.backstretch("<c:url value="/assets/img/login-bg.jpg" />", {speed: 500});
+    </script>
 
     <script type="text/javascript">
       var today = new Date();

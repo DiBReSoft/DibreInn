@@ -8,7 +8,7 @@
     </div>
   </div>
   <!--logo start-->
-  <a href="<c:url value="/index.jsp" />" class="logo"
+  <a href="<c:url value="/inicio" />" class="logo"
      title="Hotel System Management">
     <strong>
       Lebre Hotel
@@ -22,15 +22,15 @@
   <div class="top-menu pull-right">
     <ul class="nav top-menu">
       <li>
-        <a class="logout" href="<c:url value="/bloqueado.jsp" />">
+        <a class="logout" href="<c:url value="/bloquear" />">
           <i class="fa fa-fw fa-lock"></i>
           <span class="hidden-xs">
-            Bloquear
+            Bloquear Sessão
           </span>
         </a>
       </li>
       <li>
-        <a class="logout" href="<c:url value="/logout.jsp" />">
+        <a class="logout" href="<c:url value="/logout" />">
           <i class="fa fa-fw fa-power-off"></i>
           <span class="hidden-xs">
             Sair

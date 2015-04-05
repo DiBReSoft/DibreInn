@@ -1976,44 +1976,6 @@ label {
 }
 
 
-/*LOCK SCREEN CONF*/
-#showtime {
-  width: 100%;
-  color: #fff;
-  font-size: 90px;
-  margin-bottom: 30px;
-  margin-top: 250px;
-  display: inline-block;
-  text-align: center;
-  font-weight: 400;
-}
-
-.lock-screen {
-  text-align: center;
-}
-
-.lock-screen a {
-  color: white;
-}
-
-.lock-screen a:hover {
-  color: #48cfad
-}
-
-.lock-screen i {
-  font-size: 20px;
-}
-
-.lock-screen .modal-content {
-  position: relative;
-  background-color: #f2f2f2;
-  background-clip: padding-box;
-  border: 1px solid #999;
-  border: 1px solid rgba(0, 0, 0, .2);
-  border-radius: 5px;
-}
-
-
 .btn-facebook {
   color: #fff;
   background-color: #5193ea;

@@ -7,7 +7,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<t:defaultTemplate>
+<t:lockTemplate>
 
   <jsp:attribute name="paginaTitulo">
     Login
@@ -23,12 +23,71 @@
 
   <jsp:body>
 
-    <h1><i class="fa fa-angle-right"></i> Página Inicial</h1>
-    <!-- page start-->
-    <div class="row mt">
-      
+    <div class="lock-panel">
+
+      <div class="lock-panel-header">
+        Login ${valorData}
+      </div>
+
+      <div class="lock-panel-body">
+
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-2 control-label"
+                   for="loginEmail">
+              <small>
+                E-mail:
+              </small>
+            </label>
+            <div class="col-sm-10">
+              <input class="form-control input-sm" 
+                     type="email" id="loginEmail"
+                     placeholder="exemplo@lebrehotel.com.br"
+                     required="true" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label"
+                   for="loginSenha">
+              <small>
+                Senha:
+              </small>
+            </label>
+            <div class="col-sm-10">
+              <input class="form-control input-sm" 
+                     type="password" id="loginSenha"
+                     required="true" />
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-6 pull-right">
+              <!-- 
+              Precisa criar o controle de acesso para habilitar esse botão
+              <button class="btn btn-block btn-sm btn-default" 
+                     type="submit" id="loginSubmit">
+                Entrar
+                <i class="fa fa-sign-in"></i>
+              </button>
+              -->
+              <button class="btn btn-block btn-sm btn-primary" 
+                      type="button" id="loginSubmit" onclick="location.href='inicio'">
+                Entrar
+                <i class="fa fa-sign-in"></i>
+              </button>
+            </div>
+            <div class="col-sm-6">
+              <button class="btn btn-block btn-sm" 
+                     type="button" id="loginForgot">
+                Esqueci a senha
+              </button>
+            </div>
+          </div>
+        </form>
+
+      </div>
+
     </div>
-      
+
   </jsp:body>
 
-</t:defaultTemplate>
+</t:lockTemplate>

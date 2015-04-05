@@ -42,7 +42,7 @@
                 <div class="col-xs-6 col-sm-6 col-md-6">
                   <div class="form-group">
                     <input type="text" name="first_name" id="first_name" class="form-control input-lg" 
-                           placeholder="Nome" tabindex="1">
+                           placeholder="Nome" tabindex="1" required="true">
                   </div>
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6">
