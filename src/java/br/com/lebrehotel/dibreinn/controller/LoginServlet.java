@@ -1,4 +1,4 @@
-package br.com.lebrehotel.dibreinn.view;
+package br.com.lebrehotel.dibreinn.controller;
 
 import java.io.IOException;
 import java.util.Date;
@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jSilverize
  */
-@WebServlet(name = "InicioServlet", urlPatterns = {"/inicio"})
-public class InicioServlet extends HttpServlet {
+@WebServlet(name = "LoginServlet", urlPatterns = {"/login","/bloquear","/logout"})
+public class LoginServlet extends HttpServlet {
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
   /**
@@ -30,12 +30,12 @@ public class InicioServlet extends HttpServlet {
           throws ServletException, IOException {
     
     // EXEMPLIFICAÇÃO
-    // Essa é uma instância de data que será chamada na tela inicio.jsp
+    // Essa é uma instância de data que será chamada na tela login.jsp
     // a partir da expressão regualar ${valorData}
     Date data = new Date();
     request.setAttribute("valorData", data.toString());
 
-    RequestDispatcher rd = request.getRequestDispatcher("inicio.jsp");
+    RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
     rd.forward(request, response);
 
   }

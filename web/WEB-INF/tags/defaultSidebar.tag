@@ -36,7 +36,7 @@
         <ul class="sub">
           <li class="item-menu">
             <a  href="<c:url value="/hotel/pessoas/cadastrar" />">
-              Cadastrar Novo
+              Cadastrar
             </a>
           </li>
           <li class="item-menu">

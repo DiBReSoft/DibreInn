@@ -26,7 +26,7 @@
     <div class="lock-panel">
 
       <div class="lock-panel-header">
-        Login ${valorData}
+        Login
       </div>
 
       <div class="lock-panel-body">
@@ -69,14 +69,14 @@
                 <i class="fa fa-sign-in"></i>
               </button>
               -->
-              <button class="btn btn-block btn-sm btn-primary" 
+              <button class="btn btn-block btn-sm btn-default" 
                       type="button" id="loginSubmit" onclick="location.href='inicio'">
                 Entrar
                 <i class="fa fa-sign-in"></i>
               </button>
             </div>
             <div class="col-sm-6">
-              <button class="btn btn-block btn-sm" 
+              <button class="btn btn-block btn-sm btn-primary" 
                      type="button" id="loginForgot">
                 Esqueci a senha
               </button>
