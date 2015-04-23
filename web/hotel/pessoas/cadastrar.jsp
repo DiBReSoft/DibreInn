@@ -11,7 +11,7 @@
 <t:defaultTemplate>
 
   <jsp:attribute name="paginaTitulo">
-    Cliente: Cadastrar
+    Pessoas: Cadastrar
   </jsp:attribute>
 
   <jsp:attribute name="paginaHead">
@@ -26,7 +26,7 @@
 
     <h1>
       <i class="fa fa-angle-right"></i> 
-      Cadastrar Cliente
+      Cadastrar Pessoa
     </h1>
     <!-- page start-->
     <div class="row mt">
@@ -36,7 +36,7 @@
         <div class="row">
           <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
             <form role="form">
-              <h2>Dados Cadastrais</h2>
+              <h2>Dados</h2>
               <hr class="colorgraph">
               <div class="row">
                 <div class="col-xs-6 col-sm-6 col-md-6">

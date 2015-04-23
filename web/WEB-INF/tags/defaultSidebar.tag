@@ -31,16 +31,16 @@
       <li class="sub-menu">
         <a href="javascript:;" >
           <i class="fa fa-users"></i>
-          <span>Clientes</span>
+          <span>Pessoas</span>
         </a>
         <ul class="sub">
           <li class="item-menu">
-            <a  href="<c:url value="/hotel/clientes/cadastrar-novo" />">
+            <a  href="<c:url value="/hotel/pessoas/cadastrar" />">
               Cadastrar Novo
             </a>
           </li>
           <li class="item-menu">
-            <a  href="<c:url value="/hotel/clientes/buscar" />">
+            <a  href="<c:url value="/hotel/pessoas/buscar" />">
               Buscar &amp; Editar
             </a>
           </li>
