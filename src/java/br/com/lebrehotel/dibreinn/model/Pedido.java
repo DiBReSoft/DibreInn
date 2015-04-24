@@ -10,6 +10,7 @@ public class Pedido {
     private double precoTotal;
     private int formaPagamento;
     private int codigoItens;
+    private boolean pago;
 
     public int getCodigoCliente() {
         return codigoCliente;
@@ -51,6 +52,14 @@ public class Pedido {
     
     
     return true;
+    }
+
+    public boolean isPago() {
+        return pago;
+    }
+
+    public void setPago(boolean pago) {
+        this.pago = pago;
     }
     
 }

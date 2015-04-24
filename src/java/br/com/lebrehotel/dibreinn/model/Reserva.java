@@ -14,12 +14,28 @@ public class Reserva {
     private int idHospede;
     private int idQuarto;
     private int idPedido;
-    private Date dataReserva;
+    private Date checkIn;
+    private Date checkOut;
     
     public Reserva(){
         
     }
     
+    public boolean abrirReserva(Reserva reserva, Quarto quarto, Hospede hospede, Funcionario funcionario){
+        this.idFuncionario = funcionario.getId();
+        this.idHospede = hospede.getId();
+        this.idQuarto = quarto.getId();
+        this.checkIn = reserva.checkIn;
+        return true;
+    }
+    public boolean fecharReserva(Reserva reserva, Pedido pedido){
+        if (!pedido.isPago()){
+            return false;
+        }else{
+        this.checkOut = reserva.checkOut;
+        return true;
+        }
+    }
     public int getId() {
         return id;
     }
@@ -62,10 +78,24 @@ public class Reserva {
         this.idPedido = idPedido;
     }
 
-    public Date getDataReserva() {
-        return dataReserva;
+    public Date getCheckIn() {
+        return checkIn;
     }
-    public void setDataReserva(Date dataReserva) {
-        this.dataReserva = dataReserva;
+    public void setCheckIn(Date checkIn) {
+        this.checkIn = checkIn;
+    }
+
+    /**
+     * @return the checkOut
+     */
+    public Date getCheckOut() {
+        return checkOut;
+    }
+
+    /**
+     * @param checkOut the checkOut to set
+     */
+    public void setCheckOut(Date checkOut) {
+        this.checkOut = checkOut;
     }
 }

@@ -6,6 +6,7 @@ package br.com.lebrehotel.dibreinn.model;
  * Essa CRASSE faz porra nenhuma.
  */
 public class Funcionario {
+    private int id;
     private double salario;
     private int dependentes;
     private String departamento;
@@ -44,5 +45,13 @@ public class Funcionario {
 
     public void setCargo(String cargo) {
         this.cargo = cargo;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
