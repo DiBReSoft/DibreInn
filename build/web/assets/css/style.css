@@ -6,15 +6,13 @@ Website: http://blacktie.co
 Premium: http://www.gridgum.com
 */
 
-/* Import fonts
-@import url(http://fonts.googleapis.com/css?family=Ruda:400,700,900);
- */
+@import url(http://fonts.googleapis.com/css?family=Varela+Round);
 
 /* BASIC THEME CONFIGURATION */
 body {
   color: #797979;	
-  background: #f8f8f8;
-  font-family: Segoe UI, sans-serif;
+  background: #fff;
+  font-family: 'Varela Round', Segoe UI, Helvetica Neue, Ubuntu, sans-serif;
   padding: 0px !important;
   margin: 0px !important;
   font-size:13px;
@@ -27,6 +25,7 @@ ul li {
 a, a:hover, a:focus {
   text-decoration: none;
   outline: none;
+  transition: .3s;
 }
 ::selection {
   background: #000000;
@@ -217,7 +216,7 @@ ul.top-menu > li > .logout {
   font-size: 12px;
   border-radius: 4px;
   -webkit-border-radius: 4px;
-  border: 1px solid orange !important;
+  border: 1px solid #e7e7e7 !important;
   padding: 5px 15px;
   /* margin-right: 15px; */
   /* background: #FF732A; */
@@ -231,11 +230,14 @@ ul.top-menu > li > .logout {
   width: 210px;
   height: 100%;
   position: fixed;
-  background: #515151;
+  background-color: #dfdfdf;   
+  background-image: -webkit-linear-gradient(top,#dddbd1,#d2dbdc);   background-image: linear-gradient(top,#dddbd1,#d2dbdc);
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.48),0 2px 5px 0 rgba(0,0,0,.2);
+  transition: .3s;
 }
 
 #sidebar h4 {
-  color: #f2f2f2;
+  color: #525252;
   font-weight: 700;
   margin-bottom: 0px;
   line-height: 30px;
@@ -289,8 +291,10 @@ ul.top-menu > li > .logout {
 }
 
 ul.sidebar-menu , ul.sidebar-menu li ul.sub{
-  margin: -2px 0 0;
+  margin: -3px 0 0;
   padding: 0;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 ul.sidebar-menu {
@@ -300,6 +304,7 @@ ul.sidebar-menu {
 
 #sidebar > ul > li > ul.sub {
   display: none;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.48),0 2px 5px 0 rgba(0,0,0,.2);
 }
 
 #sidebar > ul > li.active > ul.sub, #sidebar > ul > li > ul.sub > li > a {
@@ -307,7 +312,7 @@ ul.sidebar-menu {
 }
 
 ul.sidebar-menu li ul.sub li{
-  background: #626262;
+  background: #E0E0E0;
   margin-bottom: 0;
   margin-left: 0;
   margin-right: 0;
@@ -320,19 +325,20 @@ ul.sidebar-menu li ul.sub li:last-child{
 
 ul.sidebar-menu li ul.sub li a {
   font-size: 12px;
-  padding: 6px 0;
+  padding: 7px 0;
   line-height: 35px;
-  height: 35px;
+  height: 40px;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
   -ms-transition: all 0.3s ease;
   transition: all 0.3s ease;
-  color: #A9A9A9;
+  color: #333;
+  box-shadow: none;
 }
 
 ul.sidebar-menu li ul.sub li a:hover {
-  color: white;
+  color: #009688;
   background: transparent;
 }
 
@@ -354,7 +360,15 @@ ul.sidebar-menu li{
 }
 
 ul.sidebar-menu li.sub-menu{
-  line-height: 15px;
+  line-height: 20px;
+}
+ul.sidebar-menu li.sub-menu:before{
+    position: absolute;
+    top: 16px;
+    right: 10px;
+    content: "+";
+    font-weight: bold;
+    font-size: 18px;
 }
 
 ul.sidebar-menu li a span{
@@ -362,7 +376,7 @@ ul.sidebar-menu li a span{
 }
 
 ul.sidebar-menu li a{
-  color: #aeb2b7;
+  color: #525252;
   text-decoration: none;
   display: block;
   padding: 15px 10px 15px 10px;
@@ -372,13 +386,13 @@ ul.sidebar-menu li a{
   -moz-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
   -ms-transition: all 0.3s ease;
-  transition: all 0.3s ease;
+  transition: all .3s ease-in;
   border-radius: 5px;
 }
 
-ul.sidebar-menu li a.active, ul.sidebar-menu li a:hover, ul.sidebar-menu li a:focus {
-  background: orange;
-  color: #fff;
+ul.sidebar-menu li a.active, ul.sidebar-menu li a:hover {
+  background: #eee;
+  /* color: #fff; */
   display: block;
 
   -webkit-transition: all 0.3s ease;
@@ -386,6 +400,7 @@ ul.sidebar-menu li a.active, ul.sidebar-menu li a:hover, ul.sidebar-menu li a:fo
   -o-transition: all 0.3s ease;
   -ms-transition: all 0.3s ease;
   transition: all 0.3s ease;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.48),0 2px 5px 0 rgba(0,0,0,.2);
 }
 
 
@@ -395,11 +410,11 @@ ul.sidebar-menu li a i {
 }
 
 ul.sidebar-menu li a:hover i, ul.sidebar-menu li a:focus i {
-  color: #fff;
+  /* color: #fff; */
 }
 
 ul.sidebar-menu li a.active i {
-  color: #fff;
+  /* color: #fff; */
 }
 
 
@@ -411,6 +426,7 @@ ul.sidebar-menu li a.active i {
 /* MAIN CONTENT CONFIGURATION */
 #main-content {
   margin-left: 210px;
+  transition: .3s;
 }
 
 .header, .footer {
@@ -423,10 +439,12 @@ ul.sidebar-menu li a.active i {
   left: 0;
   right: 0;
   z-index: 1002;
+  background-color: #009688;
+  box-shadow: 0 1px 1px 0 rgba(0,0,0,.06),0 2px 5px 0 rgba(0,0,0,.2);
 }
 
 .black-bg {
-  background: #373737;
+  background: #333;
   border-bottom: 1px solid #666666;
 }
 
@@ -444,8 +462,9 @@ a.logo {
   font-size: 20px;
   color: #ffffff;
   float: left;
-  padding: 15px;
+  padding: 17px 10px;
   min-width: 177px;
+  transition: .3s;
 }
 
 a.logo b {
@@ -455,7 +474,7 @@ a.logo b {
 a.logo:hover, a.logo:focus {
   text-decoration: none;
   outline: none;
-  color: #999;
+  color: #ccc;
 }
 
 a.logo span {
@@ -755,14 +774,17 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 
 .sidebar-toggle-box {
   float: left;
-  padding-right: 0px;
-  margin-top: 18px;
+  /* padding: 14px 10px 17px; */
+  color: #fff;
+  transition: .3s;
 }
 
 .sidebar-toggle-box .fa-bars {
   cursor: pointer;
   display: inline-block;
-  font-size: 20px;
+  font-size: 30px;
+  padding: 15px 7px 17px;
+  transition: .3s;
 }
 
 
@@ -1754,7 +1776,7 @@ PANELS CONFIGURATIONS
 
 /* FORMS CONFIGURATION */
 .form-panel {
-  background: #ffffff;
+  background: #f8f8f8;
   margin: 10px;
   padding: 10px;
   box-shadow: 0px 3px 2px #aab2bd;
@@ -2197,7 +2219,7 @@ label {
 
 /*footer*/
 .site-footer {
-  background: #373737;
+  background: #009688;
   color: #fff;
   padding: 10px 0;
 }
@@ -2251,11 +2273,16 @@ label {
 }
 
 .sidebar-username > small {
-    color: #EEE;
+    color: #626262;
 }
 
 .sidebar hr {}
 
 .sidebar-menu > li > hr {
     margin: 5px 0px;
+}
+
+.sidebar-toggle-box:hover, .sidebar-toggle-box:focus, .sidebar-toggle-box:active {
+    color: #ccc;
+    background-color: #f2f2f2;
 }

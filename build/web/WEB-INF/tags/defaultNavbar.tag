@@ -1,5 +1,5 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<header class="header black-bg">
+<header class="header">
 
   <div class="sidebar-toggle-box">
     <div class="fa fa-bars tooltips" 

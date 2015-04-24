@@ -1,6 +1,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <aside>
-  <div id="sidebar" class="nav-collapse darkblue-bg">
+  <div id="sidebar" class="nav-collapse">
     <!-- sidebar menu start-->
     <ul class="sidebar-menu" id="nav-accordion">
       <li class="item-menu centered">

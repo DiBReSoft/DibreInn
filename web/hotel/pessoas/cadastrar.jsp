@@ -11,15 +11,15 @@
 <t:defaultTemplate>
 
   <jsp:attribute name="paginaTitulo">
-    Pessoas: Cadastrar
+    Pessoa: Cadastrar
   </jsp:attribute>
 
   <jsp:attribute name="paginaHead">
-    
+
   </jsp:attribute>
 
   <jsp:attribute name="paginaBottom">
-    
+
   </jsp:attribute>
 
   <jsp:body>
@@ -33,95 +33,301 @@
 
       <div class="form-panel">
 
-        <div class="row">
-          <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-            <form role="form">
-              <h2>Dados</h2>
-              <hr class="colorgraph">
-              <div class="row">
-                <div class="col-xs-6 col-sm-6 col-md-6">
-                  <div class="form-group">
-                    <input type="text" name="first_name" id="first_name" class="form-control input-lg" 
-                           placeholder="Nome" tabindex="1" required="true">
-                  </div>
-                </div>
-                <div class="col-xs-6 col-sm-6 col-md-6">
-                  <div class="form-group">
-                    <input type="text" name="last_name" id="last_name" class="form-control input-lg" 
-                           placeholder="Sobrenome" tabindex="2">
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <input type="text" name="display_name" id="display_name" class="form-control input-lg" 
-                       placeholder="Apelido" tabindex="3">
-              </div>
-              <div class="form-group">
-                <input type="email" name="email" id="email" class="form-control input-lg" 
-                       placeholder="Endereço" tabindex="4">
-              </div>
+
+        <!-- Início do Formulário -->
+        <form role="form" method="post" action="cadastrado" name="formCadastrar">
+
+          <!-- Início da linha de GRID do formulário -->
+          <div class="row">
+
+            <!-- Início da primeira coluna: lado esquerdo -->
+            <div class="col-sm-6">
+
+              <h2>Dados Cadastrais</h2>
+
+              <hr />
 
               <div class="row">
-                <div class="col-xs-6 col-sm-6 col-md-6">
+
+                <div class="col-xs-6">
+
                   <div class="form-group">
-                    <input type="password" name="password" id="password" 
-                           class="form-control input-lg" 
-                           placeholder="Número" tabindex="5">
+                    <label for="formNome">
+                      Nome:
+                    </label>
+                    <input type="text" class="form-control"
+                           tabindex="1"
+                           name="formNome" id="formNome" 
+                           placeholder="Fulano"
+                           required="true" />
                   </div>
+
                 </div>
-                <div class="col-xs-6 col-sm-6 col-md-6">
+
+                <div class="col-xs-6">
+
                   <div class="form-group">
-                    <input type="password" name="password_confirmation" id="password_confirmation" 
-                           class="form-control input-lg" placeholder="Complemento" tabindex="6">
+                    <label for="formSobrenome">
+                      Sobrenome:
+                    </label>
+                    <input type="text" class="form-control" 
+                           tabindex="2"
+                           name="formSobrenome" id="formSobrenome"
+                           placeholder="da Silva"
+                           required="true" />
                   </div>
+
                 </div>
+
+                <div class="col-sm-4">
+
+                  <div class="form-group">
+                    <label for="formSexo">
+                      Sexo:
+                    </label>
+                    <select class="form-control"
+                            tabindex="3"
+                            name="formSexo" id="formSexo"                         
+                            placeholder="Sexo"
+                            required="true">
+                      <option value="m">
+                        Masculino
+                      </option>
+                      <option value="f">
+                        Feminino
+                      </option>
+                    </select>
+                  </div>
+
+                </div>
+
+                <div class="col-sm-4">
+
+                  <div class="form-group">                    
+                    <label for="formRg">
+                      RG:
+                    </label>                  
+                    <input type="text" class="form-control"
+                           tabindex="4"
+                           name="formRg" id="formRg" 
+                           placeholder="RG" />
+                  </div>
+
+                </div>
+
+                <div class="col-sm-4">
+
+                  <div class="form-group">                    
+                    <label for="formCpf">
+                      CPF:
+                    </label>
+                    <input type="text" class="form-control"
+                           tabindex="5"
+                           name="formCpf" id="formCpf" 
+                           placeholder="CPF" />
+                  </div>
+
+                </div>
+
+                <div class="col-sm-4">
+
+                  <div class="form-group">
+                    <label for="formDataNasc">
+                      Data de Nascimento:
+                    </label>
+                    <input type="date" class="form-control" 
+                           tabindex="6"
+                           name="formDataNasc" id="formDataNasc" 
+                           placeholder="DD/MM/AAAA" />
+                  </div>
+
+                </div>
+
+                <div class="col-sm-4">
+
+                  <div class="form-group">
+                    <label for="formTel">
+                      Telefone:
+                    </label>
+                    <input type="tel" class="form-control" 
+                           tabindex="7"
+                           name="formTel" id="formTel"
+                           placeholder="Telefone" />
+                  </div>
+
+                </div>
+
+                <div class="col-sm-4">
+
+                  <div class="form-group">
+                    <label for="formEmail">
+                      E-mail:
+                    </label>
+                    <input type="email" class="form-control" 
+                           tabindex="8"
+                           name="formEmail" id="formEmail"
+                           placeholder="fulano@dasilva.com.br" />
+                  </div>
+
+                </div>
+
               </div>
+
+            </div>
+            <!-- Fim da primeira coluna: lado esquerdo -->
+
+            <!-- Início da segunda coluna: lado direito -->
+            <div class="col-sm-6">
+
+              <h2>Endereço</h2>
+
+              <hr />
+
               <div class="row">
-                <div class="col-xs-6 col-sm-6 col-md-6">
+
+                <div class="col-xs-8">
+
                   <div class="form-group">
-                    <input type="password" name="password" id="password" 
-                           class="form-control input-lg" 
-                           placeholder="Cidade" tabindex="5">
+                    <label for="formLogradouro">
+                      Logradouro:
+                    </label>
+                    <input type="text" class="form-control"
+                           tabindex="9"
+                           name="formLogradouro" id="formLogradouro" 
+                           placeholder="Av. Xpto" />
                   </div>
+
                 </div>
-                <div class="col-xs-3 col-sm-3 col-md-3">
+
+                <div class="col-xs-4">
+
                   <div class="form-group">
-                    <input type="password" name="password_confirmation" id="password_confirmation" 
-                           class="form-control input-lg" placeholder="Estado" tabindex="6">
+                    <label for="formNumero">
+                      Número:
+                    </label>
+                    <input type="number" class="form-control" 
+                           tabindex="10"
+                           name="formNumero" id="formNumero"
+                           placeholder="999" />
                   </div>
+
                 </div>
-                <div class="col-xs-3 col-sm-3 col-md-3">
+
+                <div class="col-xs-6">
+
                   <div class="form-group">
-                    <input type="password" name="password_confirmation" id="password_confirmation" 
-                           class="form-control input-lg" placeholder="País" tabindex="6">
+                    <label for="formComplemento">
+                      Complemento:
+                    </label>                  
+                    <input type="text" class="form-control"
+                           tabindex="12"
+                           name="formComplemento" id="formComplemento" 
+                           placeholder="Casa 1" />
                   </div>
+
                 </div>
+
+                <div class="col-xs-6">
+
+                  <div class="form-group">
+                    <label for="formCep">
+                      CEP: 
+                      <span class="badge badge-event">
+                        autocompleta
+                      </span>
+                    </label>
+                    <input type="text" class="form-control"
+                           tabindex="11"
+                           name="formCep" id="formCep"                         
+                           placeholder="000000-000" />
+                  </div>
+
+                </div>
+
+                <div class="col-sm-4">
+
+                  <div class="form-group">                    
+                    <label for="formBairro">
+                      Bairro:
+                    </label>
+                    <input type="text" class="form-control"
+                           tabindex="13"
+                           name="formBairro" id="formBairro" 
+                           placeholder="Jardim das Cidades" />
+                  </div>
+
+                </div>
+
+                <div class="col-sm-5">
+
+                  <div class="form-group">
+                    <label for="formCidade">
+                      Cidade:
+                    </label>
+                    <input type="text" class="form-control" 
+                           tabindex="14"
+                           name="formCidade" id="formCidade" 
+                           placeholder="São Paulo" />
+                  </div>
+
+                </div>
+
+                <div class="col-sm-3">
+
+                  <div class="form-group">
+                    <label for="formEstado" title="Estado">
+                      UF:
+                    </label>
+                    <input type="text" class="form-control" 
+                           tabindex="14"
+                           name="formEstado" id="formEstado" 
+                           placeholder="SP" />
+                  </div>
+
+                </div>
+
               </div>
-              <div class="row">
-                <div class="col-sm-6 text-center">
-                  <h4>Recebe visitas</h4>
-                </div>
-                <div class="col-sm-6 text-center">
-                  <div style="padding: 2px 0px;"></div>
-                  <div class="switch switch-square has-switch" data-on-label="<i class=' fa fa-check'></i>" data-off-label="<i class='fa fa-times'></i>">
-                    <div class="switch-on switch-animate"><input type="checkbox" checked=""><span class="switch-left"><i class=" fa fa-check"></i></span><label>&nbsp;</label><span class="switch-right"><i class="fa fa-times"></i></span></div>
-                  </div>
-                </div>
-              </div>
-              <hr class="colorgraph">
-              <div class="row">
-                <div class="col-xs-6 col-md-6">
-                  <input type="submit" value="Cancelar" 
-                         class="btn btn-block btn-lg btn-primary" tabindex="7"></div>
-                <div class="col-xs-6 col-md-6">
-                  <a href="#" class="btn btn-block btn-lg btn-default">
-                    Prosseguir
-                  </a>
-                </div>
-              </div>                    
-            </form>
+
+            </div>
+            <!-- Fim da segunda coluna: lado direito -->
+
           </div>
-        </div>
+          <!-- Fim da linha de GRID do formulário -->          
+
+          <hr />
+
+
+          <!-- Linha de botões do formulário -->
+          <div class="row">
+
+            <div class="col-sm-3 hidden-xs"></div>
+
+            <div class="col-xs-6 col-sm-3">
+
+              <button type="reset" class="btn btn-block btn-lg btn-primary" 
+                      tabindex="16">
+                <i class="fa fa-eraser"></i>
+                CANCELAR
+              </button>
+
+            </div>
+
+            <div class="col-xs-6 col-sm-3">
+
+              <button type="submit" class="btn btn-block btn-lg btn-default" 
+                      tabindex="15">
+                CADASTRAR
+                <i class="fa fa-check-square"></i>
+              </button>
+
+            </div>
+
+          </div>
+          <!-- Linha de botões do formulário -->
+
+        </form>
+        <!-- Fim do Formulário -->
+
 
         <div style="padding: 15px 0px;"></div>
 
