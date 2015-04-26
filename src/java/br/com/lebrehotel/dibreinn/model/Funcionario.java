@@ -3,7 +3,7 @@ package br.com.lebrehotel.dibreinn.model;
  *
  * @author Thiago
  * data: 04/04/2015
- * Essa CRASSE faz porra nenhuma.
+ * 
  */
 public class Funcionario {
     private int id;
@@ -11,10 +11,12 @@ public class Funcionario {
     private int dependentes;
     private String departamento;
     private String cargo;
+    private int Unidade;
 
     public Funcionario() {
     }
 
+    
     public double getSalario() {
         return salario;
     }
@@ -54,4 +56,13 @@ public class Funcionario {
     public void setId(int id) {
         this.id = id;
     }
+
+    public int getUnidade() {
+        return Unidade;
+    }
+
+    public void setUnidade(int Unidade) {
+        this.Unidade = Unidade;
+    }
+    
 }

@@ -15,11 +15,15 @@
   </jsp:attribute>
 
   <jsp:attribute name="paginaHead">
+<!-- CSS e outros que vão no <head> da página -->
 
+    <link rel="stylesheet" type="text/css" href="<c:url value="/assets/css/CadastrarPessoa.css" />" />
   </jsp:attribute>
 
   <jsp:attribute name="paginaBottom">
 
+    <script type="text/javascript" src="<c:url value="/assets/js/cadastrar.js" />"></script>
+    <!-- JavaScript e outros que vão ao final -->
   </jsp:attribute>
 
   <jsp:body>
@@ -238,7 +242,7 @@
                     </label>
                     <input type="text" class="form-control"
                            tabindex="11"
-                           name="formCep" id="formCep"                         
+                           name="formCep" id="formCep" onblur="consultacep(this.value)"                        
                            placeholder="000000-000" />
                   </div>
 
@@ -290,11 +294,203 @@
 
             </div>
             <!-- Fim da segunda coluna: lado direito -->
+            
+            <div class="col-sm-6">
+
+              <h2>Escolha uma opção para continuar:</h2>
+
+              <hr />
+
+              <div class="row">
+
+                <div class="col-xs-6">
+
+             <div class="col-sm-6">
+
+                  <div class="form-group">
+                    <label for="formEscolhaTipoCadastro">
+                      Tipo de Cadastro:
+                    </label>
+                    <select class="form-control"
+                            tabindex="3"
+                            name="formEscolhaTipoCadastro" id="formEscolhaTipoCadastro"                         
+                            placeholder="Escolha uma opção"
+                            required="true">
+                      <option value="1">
+                        Hospede
+                      </option>
+                      <option value="2">
+                        Funcionario
+                      </option>
+                    </select>
+                  </div>
+
+                </div>
+                    
+                </div>
+
+                </div>
+             </div>
+
+            
+            
+            <!-- Início da terceira coluna: lado esquerdo -->
+            <div class="col-sm-6" id="formHospede">
+
+              <h2>Dados Complementares Hospede</h2>
+
+              <hr />
+
+              <div class="row">
+
+                <div class="col-xs-6">
+
+                  <div class="form-group">
+                    <label for="formNacionalidade">
+                      Nacionalidade:
+                    </label>
+                    <input type="text" class="form-control"
+                           tabindex="15"
+                           name="formNacionalidade" id="formNacionalidade" 
+                           placeholder="Brasil"
+                           required="true" />
+                  </div>
+
+                </div>
+
+                <div class="col-xs-6">
+
+                  <div class="form-group">
+                    <label for="formCartao">
+                      Número do Cartão:
+                    </label>
+                    <input type="text" class="form-control" 
+                           tabindex="16"
+                           name="formCartao" id="formCartao"
+                           placeholder="9999 9999 9999 9999"
+                           required="true" />
+                  </div>
+
+                </div>
+
+                <div class="col-sm-4">
+
+                  <div class="form-group">
+                    <label for="formPassaporte">
+                      Número do Passaporte:
+                    </label>
+                    <input type="text" class="form-control" 
+                           tabindex="17"
+                           name="formPassaporte" id="formPassaporte"
+                           placeholder="9999 9999 9999 9999"
+                           required="true" />
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+            <!-- Fim da terceira coluna: lado esquerdo -->
+            
+            
+            <!-- Início da quarta coluna: lado direito -->
+            <div class="col-sm-6" id="formFuncionario">
+
+              <h2>Dados Complementares Fúncionarios</h2>
+
+              <hr />
+
+              <div class="row">
+
+                <div class="col-xs-8">
+
+                  <div class="form-group">
+                    <label for="formUnidade">
+                      Unidade:
+                    </label>
+                    <input type="text" class="form-control"
+                           tabindex="18"
+                           name="formUnidade" id="formUnidade" 
+                           placeholder="Hotel 2" />
+                  </div>
+
+                </div>
+
+                <div class="col-xs-4">
+
+                  <div class="form-group">
+                    <label for="formDepartamento">
+                      Departamento:
+                    </label>
+                    <input type="text" class="form-control" 
+                           tabindex="19"
+                           name="formDepartamento" id="formDepartamento"
+                           placeholder="Recepção" />
+                  </div>
+
+                </div>
+
+                <div class="col-xs-6">
+
+                  <div class="form-group">
+                    <label for="formCargo">
+                      Cargo:
+                    </label>                  
+                    <input type="text" class="form-control"
+                           tabindex="20"
+                           name="formCargo" id="formCargo" 
+                           placeholder="Recepcionista" />
+                  </div>
+
+                </div>
+
+                <div class="col-xs-6">
+
+                  <div class="form-group">
+                    <label for="formDependentes">
+                      Número Dependentes:
+                    </label>
+                    <input type="number" class="form-control" 
+                           tabindex="21"
+                           name="formDependentes" id="formDependentes"
+                           placeholder="999" />
+                  </div>
+
+                </div>
+
+                <div class="col-sm-4">
+
+                  <div class="form-group">                    
+                     <label for="formSalario">
+                      Sálario:
+                    </label>
+                    <input type="number" class="form-control" 
+                           tabindex="22"
+                           name="formSalario" id="formSalario"
+                           placeholder="1400" />
+                  </div>
+
+                </div>
+
+              </div>
+            <!-- Fim da quarta coluna: lado direito -->
+            
+            
+            
+            
+            
+            
+            
+            
 
           </div>
           <!-- Fim da linha de GRID do formulário -->          
 
           <hr />
+          
+          
+          
 
 
           <!-- Linha de botões do formulário -->

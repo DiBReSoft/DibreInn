@@ -3,19 +3,24 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Thiago/Desktop/DiBReInn-v1/DiBReInn/src/java/br/com/lebrehotel/dibreinn/model/Quarto.java</file>
-            <file>file:/C:/Users/Thiago/Desktop/DiBReInn-v1/DiBReInn/src/java/br/com/lebrehotel/dibreinn/model/Hospede.java</file>
-            <file>file:/C:/Users/Thiago/Desktop/DiBReInn-v1/DiBReInn/src/java/br/com/lebrehotel/dibreinn/model/Funcionario.java</file>
-            <file>file:/C:/Users/Thiago/Desktop/DiBReInn-v1/DiBReInn/src/java/br/com/lebrehotel/dibreinn/model/Pessoa.java</file>
-            <file>file:/C:/Users/Thiago/Desktop/DiBReInn-v1/DiBReInn/src/java/br/com/lebrehotel/dibreinn/controller/InicioController.java</file>
-            <file>file:/C:/Users/Thiago/Desktop/DiBReInn-v1/DiBReInn/src/java/br/com/lebrehotel/dibreinn/model/Itens.java</file>
-            <file>file:/C:/Users/Thiago/Desktop/DiBReInn-v1/DiBReInn/web/assets/js/dibre-inn.js</file>
-            <file>file:/C:/Users/Thiago/Desktop/DiBReInn-v1/DiBReInn/web/hotel/clientes/cadastrar-novo.jsp</file>
-            <file>file:/C:/Users/Thiago/Desktop/DiBReInn-v1/DiBReInn/src/java/br/com/lebrehotel/dibreinn/model/Pedido.java</file>
-            <file>file:/C:/Users/Thiago/Desktop/DiBReInn-v1/DiBReInn/src/java/br/com/lebrehotel/dibreinn/model/DAO.java</file>
-            <file>file:/C:/Users/Thiago/Desktop/DiBReInn-v1/DiBReInn/src/java/br/com/lebrehotel/dibreinn/model/ItemPedido.java</file>
-            <file>file:/C:/Users/Thiago/Desktop/DiBReInn-v1/DiBReInn/src/java/br/com/lebrehotel/dibreinn/model/Categoria.java</file>
-            <file>file:/C:/Users/Thiago/Desktop/DiBReInn-v1/DiBReInn/src/java/br/com/lebrehotel/dibreinn/model/Reserva.java</file>
+            <file>file:/Users/Thi/DibreInn/src/java/br/com/lebrehotel/dibreinn/model/Funcionario.java</file>
+            <file>file:/Users/Thi/DibreInn/src/java/br/com/lebrehotel/dibreinn/model/mer_dibreinn.jpg</file>
+            <file>file:/Users/Thi/DibreInn/web/inicio.jsp</file>
+            <file>file:/Users/Thi/DibreInn/src/java/br/com/lebrehotel/dibreinn/model/ItemPedido.java</file>
+            <file>file:/Users/Thi/DibreInn/src/java/br/com/lebrehotel/dibreinn/controller/PessoaCadastrarServlet.java</file>
+            <file>file:/Users/Thi/DibreInn/src/java/br/com/lebrehotel/dibreinn/model/Pedido.java</file>
+            <file>file:/Users/Thi/DibreInn/src/java/br/com/lebrehotel/dibreinn/model/Reserva.java</file>
+            <file>file:/Users/Thi/DibreInn/src/java/br/com/lebrehotel/dibreinn/model/Hospede.java</file>
+            <file>file:/Users/Thi/DibreInn/web/assets/json/EnderecoCompleto.json</file>
+            <file>file:/Users/Thi/DibreInn/src/java/br/com/lebrehotel/dibreinn/model/Itens.java</file>
+            <file>file:/Users/Thi/DibreInn/web/assets/js/cadastrar.js</file>
+            <file>file:/Users/Thi/DibreInn/src/java/br/com/lebrehotel/dibreinn/model/Quarto.java</file>
+            <file>file:/Users/Thi/DibreInn/src/java/br/com/lebrehotel/dibreinn/model/Pessoa.java</file>
+            <file>file:/Users/Thi/DibreInn/web/hotel/pessoas/cadastrar.jsp</file>
+            <file>file:/Users/Thi/DibreInn/web/login.jsp</file>
+            <file>file:/Users/Thi/DibreInn/src/java/br/com/lebrehotel/dibreinn/model/Diagrama%20de%20Classes%20-%20v1.JPG</file>
+            <file>file:/Users/Thi/DibreInn/web/assets/js/dibre-inn.js</file>
+            <file>file:/Users/Thi/DibreInn/web/index.jsp</file>
         </group>
     </open-files>
 </project-private>
