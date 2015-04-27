@@ -29,7 +29,7 @@ a, a:hover, a:focus {
 }
 ::selection {
   background: #000000;
-  color: orange;
+  color: #009688;
 }
 ::-moz-selection {
   background: orange;
@@ -363,12 +363,12 @@ ul.sidebar-menu li.sub-menu{
   line-height: 20px;
 }
 ul.sidebar-menu li.sub-menu:before{
-    position: absolute;
-    top: 16px;
-    right: 10px;
-    content: "+";
-    font-weight: bold;
-    font-size: 18px;
+  position: absolute;
+  top: 16px;
+  right: 10px;
+  content: "+";
+  font-weight: bold;
+  font-size: 18px;
 }
 
 ul.sidebar-menu li a span{
@@ -439,7 +439,7 @@ ul.sidebar-menu li a.active i {
   left: 0;
   right: 0;
   z-index: 1002;
-  background-color: #009688;
+  background-color: #00967D;
   box-shadow: 0 1px 1px 0 rgba(0,0,0,.06),0 2px 5px 0 rgba(0,0,0,.2);
 }
 
@@ -1874,21 +1874,21 @@ label {
   left: 0%;
 }
 .has-switch > div.switch-on label {
-  background-color: orange;
+  background-color: #009688;
 }
 .has-switch input[type=checkbox] {
   display: none;
 }
 .has-switch span {
   cursor: pointer;
-  font-size: 14.994px;
+  font-size: 15px;
   font-weight: 700;
   float: left;
-  height: 29px;
-  line-height: 19px;
+  height: 35px;
+  line-height: 15px;
   margin: 0;
   padding-bottom: 6px;
-  padding-top: 5px;
+  padding-top: 10px;
   position: relative;
   text-align: center;
   width: 50%;
@@ -1904,25 +1904,25 @@ label {
 }
 .has-switch span.switch-left {
   border-radius: 30px 0 0 30px;
-  background-color: #333;
-  color: orange;
+  background-color: #eee;
+  color: #009688;
   border-left: 1px solid transparent;
 }
 .has-switch span.switch-right {
   border-radius: 0 30px 30px 0;
-  background-color: #bdc3c7;
-  color: #ffffff;
+  background-color: #eee;
+  color: #FF7979;
   text-indent: 7px;
 }
 .has-switch span.switch-right [class*="fui-"] {
   text-indent: 0;
 }
 .has-switch label {
-  border: 3px solid #333;
+  /* border: 3px solid #333; */
   border-radius: 50%;
   -webkit-border-radius: 50%;
   float: left;
-  height: 29px;
+  height: 35px;
   margin: 0 -21px 0 -14px;
   padding: 0;
   position: relative;
@@ -1946,13 +1946,13 @@ label {
   border-radius: 6px 0 0 6px;
 }
 .switch-square span.switch-left {
-  border-radius: 6px 0 0 6px;
+  border-radius: 2px 0 0 2px;
 }
 .switch-square span.switch-left [class*="fui-"] {
   text-indent: -10px;
 }
 .switch-square span.switch-right {
-  border-radius: 0 6px 6px 0;
+  border-radius: 0 2px 2px 0;
 }
 .switch-square span.switch-right [class*="fui-"] {
   text-indent: 5px;
@@ -2253,19 +2253,19 @@ label {
 }
 
 .lock-screen .fa-unlock-alt {
-    font-size: 70px;
+  font-size: 70px;
 }
 
 .top-menu > li {
-    margin-right: 15px;
+  margin-right: 15px;
 }
 
 .top-menu > li:last-child {
-    margin-right: 1px;
+  margin-right: 1px;
 }
 
 .darkblue-bg {
-    background-color: #002753;
+  background-color: #002753;
 }
 
 .blue-bg {
@@ -2273,16 +2273,48 @@ label {
 }
 
 .sidebar-username > small {
-    color: #626262;
+  color: #626262;
 }
-
-.sidebar hr {}
 
 .sidebar-menu > li > hr {
-    margin: 5px 0px;
+  margin: 5px 0px;
 }
 
-.sidebar-toggle-box:hover, .sidebar-toggle-box:focus, .sidebar-toggle-box:active {
-    color: #ccc;
-    background-color: #f2f2f2;
+.sidebar-toggle-box:hover,�.sidebar-toggle-box:focus, .sidebar-toggle-box:active {
+  color: #ccc;
+  background-color: #f2f2f2;
+}
+
+.page-title {
+  font-weight: bold;
+  padding-bottom: 10px;
+}
+
+.page-title::before {
+  font: normal normal normal 18px/1 FontAwesome;
+  content: "\f10d";
+  float: left;
+  margin: 0px 5px 10px 0px;
+  color: #00967D;
+}
+
+.tab-pane {
+}
+
+.form-di hr {
+  border-color: #e7e7e7;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.form-di h4 {
+  margin-top: 25px;
+  margin-bottom: 15px;
+  color: #009688;
+}
+
+.form-di .badge {
+  float: right;
+  margin: -2px 4px;
+  padding: 3px 9px;
 }
