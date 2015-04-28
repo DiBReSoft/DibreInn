@@ -9,26 +9,29 @@
 
 <t:defaultTemplate>
 
-  <jsp:attribute name="paginaTitulo">
-    Início
-  </jsp:attribute>
+    <jsp:attribute name="paginaTitulo">
+        Início
+    </jsp:attribute>
 
-  <jsp:attribute name="paginaHead">
-    <!-- CSS e outros que vão no <head> da página -->
-  </jsp:attribute>
+    <jsp:attribute name="paginaHead">
+        <!-- CSS e outros que vão no <head> da página -->
+    </jsp:attribute>
 
-  <jsp:attribute name="paginaBottom">
-    <!-- JavaScript e outros que vão ao final -->
-  </jsp:attribute>
+    <jsp:attribute name="paginaBottom">
+        <!-- JavaScript e outros que vão ao final -->
+    </jsp:attribute>
 
-  <jsp:body>
+    <jsp:body>
 
-    <h1><i class="fa fa-angle-right"></i> Página Inicial</h1>
-    <!-- page start-->
-    <div class="row mt">
-      
-    </div>
-      
-  </jsp:body>
+        <h1 class="page-title">
+          Página Inicial
+        </h1>
+
+        <!-- page start-->
+        <div class="row mt">
+
+        </div>
+
+    </jsp:body>
 
 </t:defaultTemplate>

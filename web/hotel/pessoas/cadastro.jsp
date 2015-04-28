@@ -16,7 +16,6 @@
 
     <jsp:attribute name="paginaHead">
         <!-- CSS e outros que vão no <head> da página -->
-        <link rel="stylesheet" type="text/css" href="<c:url value="/assets/css/CadastrarPessoa.css" />" />
     </jsp:attribute>
 
     <jsp:attribute name="paginaBottom">
@@ -30,15 +29,15 @@
     <jsp:body>
 
         <h1 class="page-title">
-          Cadastrar Pessoa
+          Visualizar Pessoa
         </h1>
-
+        
         <!-- page start-->
         <div class="mt">
 
           <!-- Início do Formulário -->
           <form role="form" method="post" class="form-di"
-                action="cadastrado" name="formCadastrar">
+                action="cadastrado" name="formEditar">
 
             <!-- Início da #1 linha de GRID do formulário -->
             <div class="row">
@@ -60,7 +59,7 @@
                       <label for="formNome">
                         Nome:
                       </label>
-                      <input type="text" class="form-control"
+                      <input readonly="true" type="text" class="form-control"
                              tabindex="1"
                              name="formNome" id="formNome" 
                              placeholder="Fulano"
@@ -75,7 +74,7 @@
                       <label for="formSobrenome">
                         Sobrenome:
                       </label>
-                      <input type="text" class="form-control" 
+                      <input readonly="true" type="text" class="form-control" 
                              tabindex="2"
                              name="formSobrenome" id="formSobrenome"
                              placeholder="da Silva"
@@ -112,7 +111,7 @@
                       <label for="formRg">
                         RG:
                       </label>                  
-                      <input type="text" class="form-control"
+                      <input readonly="true" type="text" class="form-control"
                              tabindex="4"
                              name="formRg" id="formRg" 
                              placeholder="RG" />
@@ -126,7 +125,7 @@
                       <label for="formCpf">
                         CPF:
                       </label>
-                      <input type="text" class="form-control"
+                      <input readonly="true" type="text" class="form-control"
                              tabindex="5"
                              name="formCpf" id="formCpf" 
                              placeholder="CPF" />
@@ -140,7 +139,7 @@
                       <label for="formDataNasc">
                         Data de Nascimento:
                       </label>
-                      <input type="date" class="form-control" 
+                      <input readonly="true" type="date" class="form-control" 
                              tabindex="6"
                              name="formDataNasc" id="formDataNasc" 
                              placeholder="DD/MM/AAAA" />
@@ -154,7 +153,7 @@
                       <label for="formTel">
                         Telefone:
                       </label>
-                      <input type="tel" class="form-control" 
+                      <input readonly="true" type="tel" class="form-control" 
                              tabindex="7"
                              name="formTel" id="formTel"
                              placeholder="Telefone" />
@@ -168,7 +167,7 @@
                       <label for="formEmail">
                         E-mail:
                       </label>
-                      <input type="email" class="form-control" 
+                      <input readonly="true" type="email" class="form-control" 
                              tabindex="8"
                              name="formEmail" id="formEmail"
                              placeholder="fulano@dasilva.com.br" />
@@ -186,7 +185,7 @@
                       <div class="switch switch-square"
                            data-on-label="<i class=' fa fa-check'></i>"
                            data-off-label="<i class='fa fa-times'></i>">
-                        <input type="checkbox" checked
+                        <input readonly="true" type="checkbox" checked
                                tabindex="9"
                                name="formNewsletter" id="formNewsletter"
                                />
@@ -220,11 +219,10 @@
                           autocompleta
                         </span>
                       </label>
-                      <input type="text" class="form-control"
+                      <input readonly="true" type="text" class="form-control"
                              tabindex="10"
                              name="formCep" id="formCep"                                                     
-                             placeholder="04696-000"
-                             onblur="consultacep(this.value)"/>
+                             placeholder="04696-000"/>
                     </div>
 
                   </div>
@@ -248,7 +246,7 @@
                       <label for="formLogradouro">
                         Logradouro:
                       </label>
-                      <input type="text" class="form-control"
+                      <input readonly="true" type="text" class="form-control"
                              tabindex="11"
                              name="formLogradouro" id="formLogradouro" 
                              placeholder="Av. Engenheiro Eusébio Stevaux" />
@@ -262,7 +260,7 @@
                       <label for="formNumero">
                         Número:
                       </label>
-                      <input type="number" class="form-control" 
+                      <input readonly="true" type="number" class="form-control" 
                              tabindex="12"
                              name="formNumero" id="formNumero"
                              placeholder="823" />
@@ -276,7 +274,7 @@
                       <label for="formComplemento">
                         Complemento:
                       </label>                  
-                      <input type="text" class="form-control"
+                      <input readonly="true" type="text" class="form-control"
                              tabindex="13"
                              name="formComplemento" id="formComplemento" 
                              placeholder="Sala C143" />
@@ -290,7 +288,7 @@
                       <label for="formBairro">
                         Bairro:
                       </label>
-                      <input type="text" class="form-control"
+                      <input readonly="true" type="text" class="form-control"
                              tabindex="14"
                              name="formBairro" id="formBairro" 
                              placeholder="Campo Grande" />
@@ -304,7 +302,7 @@
                       <label for="formCidade">
                         Cidade:
                       </label>
-                      <input type="text" class="form-control" 
+                      <input readonly="true" type="text" class="form-control" 
                              tabindex="15"
                              name="formCidade" id="formCidade" 
                              placeholder="São Paulo" />
@@ -318,7 +316,7 @@
                       <label for="formEstado" title="Estado">
                         UF:
                       </label>
-                      <input type="text" class="form-control" 
+                      <input readonly="true" type="text" class="form-control" 
                              tabindex="16"
                              name="formEstado" id="formEstado" 
                              placeholder="SP" />
@@ -332,7 +330,7 @@
                       <label for="formPais" title="País">
                         País
                       </label>
-                      <input type="text" class="form-control" 
+                      <input readonly="true" type="text" class="form-control" 
                              tabindex="17"
                              name="formPais" id="formPais" 
                              placeholder="Brasil" />
@@ -360,7 +358,7 @@
                    href="#abaHospede">
                   Hospede
                 </a>
-                <input type="radio"
+                <input readonly="true" type="radio"
                        tabindex="0"
                        name="formTipo" id="formTipo1"
                        value="hospede" 
@@ -372,7 +370,7 @@
                    href="#abaFuncionario">
                   Funcionário
                 </a>
-                <input type="radio"
+                <input readonly="true" type="radio"
                        tabindex="0"
                        name="formTipo" id="formTipo2"
                        value="funcionario" 
@@ -402,7 +400,7 @@
                       <label for="formCartao">
                         Número do Cartão:
                       </label>
-                      <input type="text" class="form-control" 
+                      <input readonly="true" type="text" class="form-control" 
                              tabindex="18"
                              name="formCartao" id="formCartao"
                              placeholder="9999 9999 9999 9999"
@@ -417,7 +415,7 @@
                       <label for="formNacionalidade">
                         Nacionalidade:
                       </label>
-                      <input type="text" class="form-control"
+                      <input readonly="true" type="text" class="form-control"
                              tabindex="19"
                              name="formNacionalidade" id="formNacionalidade" 
                              placeholder="Brasileiro" />
@@ -431,7 +429,7 @@
                       <label for="formPassaporte">
                         Número do Passaporte:
                       </label>
-                      <input type="text" class="form-control" 
+                      <input readonly="true" type="text" class="form-control" 
                              tabindex="20"
                              name="formPassaporte" id="formPassaporte"
                              placeholder="9999 9999 9999 9999" />
@@ -460,7 +458,7 @@
                       <label for="formUnidade">
                         Unidade:
                       </label>
-                      <input type="text" class="form-control"
+                      <input readonly="true" type="text" class="form-control"
                              tabindex="18"
                              name="formUnidade" id="formUnidade" 
                              placeholder="Hotel 2" />
@@ -474,7 +472,7 @@
                       <label for="formDepartamento">
                         Departamento:
                       </label>
-                      <input type="text" class="form-control" 
+                      <input readonly="true" type="text" class="form-control" 
                              tabindex="19"
                              name="formDepartamento" id="formDepartamento"
                              placeholder="Recepção" />
@@ -488,7 +486,7 @@
                       <label for="formCargo">
                         Cargo:
                       </label>                  
-                      <input type="text" class="form-control"
+                      <input readonly="true" type="text" class="form-control"
                              tabindex="20"
                              name="formCargo" id="formCargo" 
                              placeholder="Recepcionista" />
@@ -502,7 +500,7 @@
                       <label for="formDependentes">
                         Número Dependentes:
                       </label>
-                      <input type="number" class="form-control" 
+                      <input readonly="true" type="number" class="form-control" 
                              tabindex="21"
                              name="formDependentes" id="formDependentes"
                              placeholder="999" />
@@ -516,7 +514,7 @@
                       <label for="formSalario">
                         Sálario:
                       </label>
-                      <input type="number" class="form-control" 
+                      <input readonly="true" type="number" class="form-control" 
                              tabindex="22"
                              name="formSalario" id="formSalario"
                              placeholder="1400" />
@@ -533,15 +531,7 @@
             </div>
             <!-- Fim: ABAS de Hospede e Funcionário -->
 
-            <div style="padding: 10px 0px;"></div>
-
-            <p>
-              Os campos marcados com
-              <i class="fa fa-fw fa-lg fa-asterisk"></i>
-              são obrigatórios.
-            </p>
-            
-            <div style="padding: 10px 0px;"></div>
+            <div style="padding: 15px 0px;"></div>
 
             <!-- Linha de botões do formulário -->
             <div class="row">
@@ -552,8 +542,8 @@
 
                 <button type="reset" class="btn btn-block btn-lg btn-primary" 
                         tabindex="24">
-                  <i class="fa fa-eraser"></i>
-                  LIMPAR
+                  <i class="fa fa-lg fa-times"></i>
+                  EXCLUIR
                 </button>
 
               </div>
@@ -562,8 +552,8 @@
 
                 <button type="submit" class="btn btn-block btn-lg btn-default" 
                         tabindex="23">
-                  CADASTRAR
-                  <i class="fa fa-check-square"></i>
+                  EDITAR
+                  <i class="fa fa-lg fa-edit"></i>
                 </button>
 
               </div>
