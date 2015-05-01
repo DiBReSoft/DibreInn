@@ -8,7 +8,7 @@
     </div>
   </div>
   <!--logo start-->
-  <a href="<c:url value="/inicio" />" class="logo"
+  <a href="<c:url value="/erp/inicio" />" class="logo"
      title="Hotel System Management">
     <strong>
       Lebre Hotel
@@ -21,21 +21,30 @@
 
   <div class="top-menu pull-right">
     <ul class="nav top-menu">
-      <li>
-        <a class="logout" href="<c:url value="/bloquear" />">
-          <i class="fa fa-fw fa-lock"></i>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
           <span class="hidden-xs">
-            Bloquear Sessão
+            Gerald Richie
           </span>
+          <img class="img-responsive img-circle"
+               src="//pbs.twimg.com/profile_images/2934946269/d069c7c3ebf55fdecc7fb1c552804026_400x400.jpeg" />
+          <span class="caret"></span>
         </a>
-      </li>
-      <li>
-        <a class="logout" href="<c:url value="/logout" />">
-          <i class="fa fa-fw fa-power-off"></i>
-          <span class="hidden-xs">
-            Sair
-          </span>                
-        </a>
+        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+          <li>
+            <a href="<c:url value="/erp/pessoas/perfil" />">
+              <i class="fa fa-fw fa-lg fa-user"></i>
+              Dados Cadastrais
+            </a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a href="<c:url value="/logout" />">
+              <i class="fa fa-fw fa-lg fa-power-off"></i>
+              Fazer Logoff
+            </a>
+          </li>
+        </ul>
       </li>
     </ul>
   </div>

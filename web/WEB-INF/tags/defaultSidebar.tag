@@ -3,44 +3,27 @@
   <div id="sidebar" class="nav-collapse">
     <!-- sidebar menu start-->
     <ul class="sidebar-menu" id="nav-accordion">
-      <li class="item-menu centered">
-        <a href="<c:url value="/perfil" />">
-          <img src="https://pbs.twimg.com/profile_images/2934946269/d069c7c3ebf55fdecc7fb1c552804026_400x400.jpeg"
-               alt="Gerald Richie"
-               class="img-circle sidebar-avatar" />
-          <h4 class="sidebar-username">
-            Gerald Richie
-            <br />
-            <small>
-              <i>
-                Diretor
-              </i>
-            </small>
-          </h4>
-        </a>
-        <hr style="clear: both;" />
-      </li>
 
       <li class="item-menu">
-        <a href="<c:url value="/inicio" />">
-          <i class="fa fa-home"></i>
+        <a href="<c:url value="/erp/inicio" />">
+          <i class="fa fa-fw fa-lg fa-home"></i>
           <span>Início</span>
         </a>
       </li>
 
       <li class="sub-menu">
         <a href="javascript:;" >
-          <i class="fa fa-users"></i>
+          <i class="fa fa-fw fa-lg fa-users"></i>
           <span>Pessoas</span>
         </a>
         <ul class="sub">
           <li class="item-menu">
-            <a  href="<c:url value="/hotel/pessoas/cadastrar" />">
+            <a  href="<c:url value="/erp/pessoas/cadastrar" />">
               Cadastrar
             </a>
           </li>
           <li class="item-menu">
-            <a  href="<c:url value="/hotel/pessoas/buscar" />">
+            <a  href="<c:url value="/erp/pessoas/buscar" />">
               Buscar &amp; Editar
             </a>
           </li>
@@ -48,8 +31,8 @@
       </li>
 
       <li class="item-menu">
-        <a href="<c:url value="/hotel/reservas" />" >
-          <i class="fa fa-th"></i>
+        <a href="<c:url value="/erp/reservas" />" >
+          <i class="fa fa-fw fa-lg fa-th"></i>
           <span>
             Reservas
           </span>
@@ -57,25 +40,25 @@
       </li>
 
       <li class="item-menu">
-        <a href="<c:url value="/hotel/servicos" />" >
-          <i class="fa fa-book"></i>
+        <a href="<c:url value="/erp/servicos" />" >
+          <i class="fa fa-fw fa-lg fa-book"></i>
           <span>Serviços de Quarto</span>
         </a>
       </li>
 
       <li class="sub-menu">
         <a href="javascript:;" >
-          <i class="fa fa-bar-chart-o"></i>
+          <i class="fa fa-fw fa-lg fa-bar-chart-o"></i>
           <span>Relatórios</span>
         </a>
         <ul class="sub">
           <li class="item-menu">
-            <a  href="<c:url value="/adm/relatorios/vendas" />">
+            <a  href="<c:url value="/erp/relatorios/vendas" />">
               Vendas
             </a>
           </li>
           <li class="item-menu">
-            <a  href="<c:url value="/adm/relatorios/cadastros" />">
+            <a  href="<c:url value="/erp/relatorios/cadastros" />">
               Cadastros
             </a>
           </li>
@@ -84,22 +67,22 @@
 
       <li class="sub-menu">
         <a href="javascript:;" >
-          <i class="fa fa-briefcase"></i>
+          <i class="fa fa-fw fa-lg fa-briefcase"></i>
           <span>Administração</span>
         </a>
         <ul class="sub">
           <li class="item-menu">
-            <a href="<c:url value="/adm/produtos" />">
+            <a href="<c:url value="/erp/produtos" />">
               Produtos
             </a>
           </li>
           <li class="item-menu">
-            <a href="<c:url value="/adm/serviços" />">
+            <a href="<c:url value="/erp/serviços" />">
               Serviços
             </a>
           </li>
           <li class="item-menu">
-            <a href="<c:url value="/adm/usarios" />">
+            <a href="<c:url value="/erp/usarios" />">
               Usuários do Sistema
             </a>
           </li>
@@ -107,8 +90,8 @@
       </li>
 
       <li class="item-menu">
-        <a href="<c:url value="/configuracoes" />" >
-          <i class="fa fa-cogs"></i>
+        <a href="<c:url value="/erp/configuracoes" />" >
+          <i class="fa fa-fw fa-lg fa-cogs"></i>
           <span>Configurações</span>
         </a>
       </li>
