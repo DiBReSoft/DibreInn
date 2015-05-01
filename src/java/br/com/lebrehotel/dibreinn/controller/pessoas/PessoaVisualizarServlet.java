@@ -1,4 +1,4 @@
-package br.com.lebrehotel.dibreinn.controller;
+package br.com.lebrehotel.dibreinn.controller.pessoas;
 
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jSilverize
  */
-@WebServlet(name = "PessoaVisualizarServlet", urlPatterns = {"/hotel/pessoas/visualizar", "/pessoas/visualizar", "/hotel/pessoas/cadastrado", "/pessoas/cadastrado"})
+@WebServlet(name = "PessoaVisualizarServlet", urlPatterns = {"/erp/pessoas/visualizar"})
 public class PessoaVisualizarServlet extends HttpServlet {
 
     /**
@@ -27,7 +27,7 @@ public class PessoaVisualizarServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        RequestDispatcher rd = request.getRequestDispatcher("/hotel/pessoas/cadastro.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/erp/pessoas/cadastro.jsp");
         rd.forward(request, response);
 
     }

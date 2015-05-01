@@ -1,4 +1,4 @@
-package br.com.lebrehotel.dibreinn.controller;
+package br.com.lebrehotel.dibreinn.controller.pessoas;
 
 import java.io.IOException;
 import java.util.Date;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jSilverize
  */
-@WebServlet(name = "PessoaCadastrarServlet", urlPatterns = {"/hotel/pessoas/cadastrar","/pessoas/cadastrar"})
+@WebServlet(name = "PessoaCadastrarServlet", urlPatterns = {"/erp/pessoas/cadastrar"})
 public class PessoaCadastrarServlet extends HttpServlet {
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -35,7 +35,7 @@ public class PessoaCadastrarServlet extends HttpServlet {
     Date data = new Date();
     request.setAttribute("valorData", data.toString());
 
-    RequestDispatcher rd = request.getRequestDispatcher("/hotel/pessoas/cadastrar.jsp");
+    RequestDispatcher rd = request.getRequestDispatcher("/erp/pessoas/cadastrar.jsp");
     rd.forward(request, response);
 
   }

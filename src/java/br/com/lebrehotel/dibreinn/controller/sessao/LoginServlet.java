@@ -1,4 +1,4 @@
-package br.com.lebrehotel.dibreinn.controller;
+package br.com.lebrehotel.dibreinn.controller.sessao;
 
 import java.io.IOException;
 import java.util.Date;

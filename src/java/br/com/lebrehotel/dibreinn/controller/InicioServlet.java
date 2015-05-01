@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jSilverize
  */
-@WebServlet(name = "InicioServlet", urlPatterns = {"/inicio"})
+@WebServlet(name = "InicioServlet", urlPatterns = {"/erp/inicio"})
 public class InicioServlet extends HttpServlet {
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -35,7 +35,7 @@ public class InicioServlet extends HttpServlet {
     Date data = new Date();
     request.setAttribute("valorData", data.toString());
 
-    RequestDispatcher rd = request.getRequestDispatcher("inicio.jsp");
+    RequestDispatcher rd = request.getRequestDispatcher("/erp/inicio.jsp");
     rd.forward(request, response);
 
   }

@@ -1,4 +1,4 @@
-package br.com.lebrehotel.dibreinn.controller;
+package br.com.lebrehotel.dibreinn.controller.emails;
 import br.com.lebrehotel.dibreinn.model.Email;
 
 import java.util.Properties;
@@ -15,7 +15,7 @@ import javax.mail.internet.MimeMessage;
  *
  * @author thiago.mlima
  */
-public class DisparaEmail {
+public class EnviarEmail {
 
     public static void main(String[] args) {
   Properties props = new Properties();
