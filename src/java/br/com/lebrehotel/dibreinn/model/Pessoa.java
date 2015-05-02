@@ -12,7 +12,7 @@ public abstract class Pessoa {
    private int id;
    private String nome;
    private String sobrenome;
-   private char sexo;
+   private String sexo;
    private String rg;
    private int cpf;
    private Date dataNascimento;
@@ -24,6 +24,7 @@ public abstract class Pessoa {
    private int cep;
    private String bairro;
    private String cidade;
+   private String Complemento;
    private int telefone;
    private String email;
 
@@ -55,11 +56,11 @@ public abstract class Pessoa {
         this.sobrenome = sobrenome;
     }
 
-    public char getSexo() {
+    public String getSexo() {
         return sexo;
     }
 
-    public void setSexo(char sexo) {
+    public void setSexo(String sexo) {
         this.sexo = sexo;
     }
 
@@ -125,6 +126,14 @@ public abstract class Pessoa {
 
     public void setCidade(String cidade) {
         this.cidade = cidade;
+    }
+
+    public String getComplemento() {
+        return Complemento;
+    }
+
+    public void setComplemento(String Complemento) {
+        this.Complemento = Complemento;
     }
 
     public int getTelefone() {

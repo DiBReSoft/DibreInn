@@ -36,7 +36,7 @@
 
           <!-- Início do Formulário -->
           <form role="form" method="post" class="form-di"
-                action="consulta" name="formConsulta">
+                action="Buscar" name="formConsulta">
 
             <!-- Início da #1 linha de GRID do formulário -->
             <div class="row">

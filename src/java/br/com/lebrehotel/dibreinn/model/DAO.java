@@ -39,10 +39,13 @@ public class DAO {
         for(int i=1; i < Pessoa.size(); i++ ){
             smt.setString(i, Pessoa.get(i));            
         }        
-        if(smt.execute()==true)
-            return true;            
+        if(smt.execute()==true){
+         desconectar();
+          return true;   
+        }
+                    
         
-        desconectar();
+       
         return false;
     }
     

@@ -18,12 +18,12 @@
         </a>
         <ul class="sub">
           <li class="item-menu">
-            <a  href="<c:url value="/erp/pessoas/cadastrar" />">
+            <a  href="<c:url value="/Cadastrar" />">
               Cadastrar
             </a>
           </li>
           <li class="item-menu">
-            <a  href="<c:url value="/erp/pessoas/buscar" />">
+            <a  href="<c:url value="/Buscar" />">
               Buscar &amp; Editar
             </a>
           </li>

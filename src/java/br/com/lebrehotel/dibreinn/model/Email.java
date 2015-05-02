@@ -9,12 +9,12 @@ import java.util.ArrayList;
 public class Email {
     private String assunto;
     private String mensagem;
-    private ArrayList<String> destinatario;
+    private ArrayList<String> Listadestinatario;
 
     public Email() {
         assunto = "";
         mensagem="";
-            destinatario = new ArrayList<String>();
+            Listadestinatario = new ArrayList<String>();
     }
 
     public String getAssunto() {
@@ -34,18 +34,12 @@ public class Email {
     }
 
     public ArrayList<String> getDestinatario() {
-        return destinatario;
+        return Listadestinatario;
     }
 
-    public void setDestinatario(ArrayList<String> destinatario) {
-        this.destinatario = destinatario;
+    public void setDestinatario(String destinatario) {
+        this.Listadestinatario.add(destinatario);
     }
     
-    public void addDestinatario(String destinatario){
-    this.destinatario.add(destinatario);
-    }
-    
-    
-    
-    
+
 }

@@ -7,7 +7,7 @@ package br.com.lebrehotel.dibreinn.model;
  */
 public class Hospede extends Pessoa{
     
-    private int cpfNf;
+ 
     private String nacionalidade;
     private int nPassaporte;
     private String foto;
@@ -15,13 +15,7 @@ public class Hospede extends Pessoa{
 
     public Hospede() {
     }
-    public int getCpfNf() {
-        return cpfNf;
-    }
-
-    public void setCpfNf(int cpfNf) {
-        this.cpfNf = cpfNf;
-    }
+ 
 
     public String getNacionalidade() {
         return nacionalidade;

@@ -5,7 +5,7 @@ package br.com.lebrehotel.dibreinn.model;
  * data: 04/04/2015
  * 
  */
-public class Funcionario {
+public class Funcionario extends Pessoa{
     private int id;
     private double salario;
     private int dependentes;

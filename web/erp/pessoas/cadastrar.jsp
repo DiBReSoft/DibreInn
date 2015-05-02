@@ -38,7 +38,7 @@
 
           <!-- Início do Formulário -->
           <form role="form" method="post" class="form-di"
-                action="cadastrado" name="formCadastrar">
+                action="Cadastrar" name="formCadastrar">
 
             <!-- Início da #1 linha de GRID do formulário -->
             <div class="row">
