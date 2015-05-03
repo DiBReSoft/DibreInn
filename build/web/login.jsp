@@ -70,7 +70,7 @@
               </button>
               -->
               <button class="btn btn-block btn-sm btn-default" 
-                      type="button" id="loginSubmit" onclick="location.href='inicio'">
+                      type="button" id="loginSubmit" onclick="location.href='erp/inicio'">
                 Entrar
                 <i class="fa fa-sign-in"></i>
               </button>
