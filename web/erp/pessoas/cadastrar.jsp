@@ -526,7 +526,45 @@
 
                 </div>
                 <!-- Fim da linha de GRID do formulário -->
-
+              <div class="form-group">
+                    <label for="formUsuario">
+                      Cadastrar Usuário?
+                    </label>
+                    <br style="clear: both;" />
+                    <div class="switch switch-square"
+                         data-on-label="<i class='fa fa-check'></i>"
+                         data-off-label="<i class='fa fa-times'></i>"
+                         id="checkOpUsuario">
+                      <input type="checkbox" checked
+                             name="formOpUsuario" id="formOpUsuario"
+                             />
+                    </div>
+                <!-- Radio Button de Criação de id e senha -->
+                </div>
+                <div class="row" id="formUsuario">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="formLogin">
+                            Login:
+                          </label>                  
+                          <input type="text" class="form-control"
+                                 name="formLogin" id="formLogin" 
+                                 placeholder="Nome de Usuário" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="formCargo">
+                            Senha:
+                          </label>                  
+                          <input type="password" class="form-control"
+                                 name="formSenha" id="formSenha" 
+                                 placeholder="********" />
+                        </div>
+                    </div>
+                </div>
+            <!-- GRID com os campos de id e senha -->
+              
               </div>
               <!-- Fim: Adicionais sobre o Funcionário -->
 

@@ -77,7 +77,7 @@ public class PessoaCadastrarServlet extends HttpServlet {
       p.setComplemento(request.getParameter("formComplemento"));
       p.setNumero(Integer.parseInt(request.getParameter("formCidade")));
       p.setSexo(request.getParameter("formSexo"));
-
+      
       DateFormat formatadorData = new SimpleDateFormat("dd/MM/yyyy");
 
       p.setDataNascimento(formatadorData.parse((request.getParameter("Form"))));
@@ -90,7 +90,11 @@ public class PessoaCadastrarServlet extends HttpServlet {
 	// faço um cast de pessoa para funcionario para 
 	// acessar os atributos especificos de funcionario
 	Funcionario funcionario = (Funcionario) p;
-
+        
+        if (request.getParameter("checkOpUsuario").equalsIgnoreCase("checked")){
+            funcionario.setLogin(request.getParameter("formUsuario"));
+            funcionario.setSenha(request.getParameter("formSenha"));
+        }
 	funcionario.setSalario(Double.parseDouble(request.getParameter("formSalario")));
 	funcionario.setDependentes(Integer.parseInt(request.getParameter("formDependentes")));
 	funcionario.setDepartamento(request.getParameter("formDepartamento"));

@@ -12,6 +12,8 @@ public class Funcionario extends Pessoa{
     private String departamento;
     private String cargo;
     private int Unidade;
+    private String login;
+    private String senha;
 
     public Funcionario() {
     }
@@ -64,5 +66,20 @@ public class Funcionario extends Pessoa{
     public void setUnidade(int Unidade) {
         this.Unidade = Unidade;
     }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
     
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
 }

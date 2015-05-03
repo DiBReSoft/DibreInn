@@ -47,3 +47,18 @@ function correiocontrolcep(valor) {
     cidade.value = valor.localidade;
     estado.value = valor.uf;
 }
+
+var opUsuario = document.querySelector("#checkOpUsuario");
+
+var check = opUsuario.addEventListener("click", camposUsuario);
+
+function camposUsuario(opUsuario){
+    console.log(opUsuario.toElement);
+    if (opUsuario.toElement.class == "switch-right"){
+        alert("Condição Ok!");
+        var camposUsuario = document.querySelector("#formUsuario");
+        caposUsuarios.classList.toggle("invisivel");
+    } else if (opUsuario.class == "switch-right"){
+        alert("ue");
+    }
+}

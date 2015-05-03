@@ -7,7 +7,9 @@ and open the template in the editor.
     Created on : 25/04/2015, 13:36:20
     Author     : Thi
 */
-
+.invisivel{
+    display: none;
+}
 //#formFuncionario,#formHospede{
   //  display:none;
 //}
