@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jSilverize
  */
-@WebServlet(name = "ReservaServlet", urlPatterns = {"/erp/reservas"})
-public class ReservaServlet extends HttpServlet {
+@WebServlet(name = "ReservasServlet", urlPatterns = {"/erp/reservas"})
+public class ReservasServlet extends HttpServlet {
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -27,7 +27,7 @@ public class ReservaServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        RequestDispatcher rd = request.getRequestDispatcher("/erp/reservas.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/erp/reservas/reservas.jsp");
         rd.forward(request, response);
 
     }
