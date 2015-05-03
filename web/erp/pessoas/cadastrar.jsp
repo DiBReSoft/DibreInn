@@ -34,11 +34,11 @@
         </h1>
 
         <!-- page start-->
-        <div class="mt">
+        <div>
 
           <!-- Início do Formulário -->
           <form role="form" method="post" class="form-di"
-                action="Cadastrar" name="formCadastrar">
+                action="cadastrar" name="formCadastrar">
 
             <!-- Início da #1 linha de GRID do formulário -->
             <div class="row">
