@@ -136,7 +136,7 @@
           <div class="input-group">
 
             <input type="text" class="form-control"
-                   tabindex="1"
+                   tabindex="5"
                    name="cpf" id="cpf" 
                    placeholder="111.222.333-44" />
 
