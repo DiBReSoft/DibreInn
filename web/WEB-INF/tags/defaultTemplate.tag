@@ -4,6 +4,7 @@
 <%@attribute name="paginaTitulo" fragment="true" %>
 <%@attribute name="paginaHead" fragment="true" %>
 <%@attribute name="paginaBottom" fragment="true" %>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" />

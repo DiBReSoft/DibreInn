@@ -71,31 +71,31 @@ var Script = function () {
         id: y+m+1,
         title: 'Nova Reserva',
         start: new Date(y, m, 1),
-        url: 'reservas/nova?data=' + y + '-' + m + '-' + 1
+        url: 'reservas/nova?data=' + y + '-' + (m + 1) + '-' + 1
       },
       {
         id: y+m+2,
         title: 'Nova Reserva',
         start: new Date(y, m, 2),
-        url: 'reservas/nova?data=' + y + '-' + m + '-' + 2
+        url: 'reservas/nova?data=' + y + '-' + (m + 1) + '-' + 2
       },
       {
         id: y+m+3,
         title: 'Nova Reserva',
         start: new Date(y, m, 3),
-        url: 'reservas/nova?data=' + y + '-' + m + '-' + 3
+        url: 'reservas/nova?data=' + y + '-' + (m + 1) + '-' + 3
       },
       {
         id: y+m+4,
         title: 'Nova Reserva',
         start: new Date(y, m, 4),
-        url: 'reservas/nova?data=' + y + '-' + m + '-' + 4
+        url: 'reservas/nova?data=' + y + '-' + (m + 1) + '-' + 4
       },
       {
         id: y+m+5,
         title: 'Nova Reserva',
         start: new Date(y, m, 5),
-        url: 'reservas/nova?data=' + y + '-' + m + '-' + 5
+        url: 'reservas/nova?data=' + y + '-' + (m + 1) + '-' + 5
       }
     ]
   });
