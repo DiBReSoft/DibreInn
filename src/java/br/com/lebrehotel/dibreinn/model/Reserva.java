@@ -5,6 +5,8 @@ package br.com.lebrehotel.dibreinn.model;
  * @author Fabio Ernanni data: 05/04/15 essa classe tem como finalidade definir
  * os atributos de Reserva
  */
+import br.com.lebrehotel.dibreinn.model.pessoa.Hospede;
+import br.com.lebrehotel.dibreinn.model.pessoa.Funcionario;
 import java.util.Date;
 
 public class Reserva {

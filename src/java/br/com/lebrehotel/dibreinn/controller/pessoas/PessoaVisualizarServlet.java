@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jSilverize
  */
-@WebServlet(name = "PessoaVisualizarServlet", urlPatterns = {"/erp/pessoas/visualizar"})
+@WebServlet(name = "PessoaVisualizarServlet", urlPatterns = {"/erp/pessoas/visualizar", "/erp/pessoas/cadastro"})
 public class PessoaVisualizarServlet extends HttpServlet {
 
     /**

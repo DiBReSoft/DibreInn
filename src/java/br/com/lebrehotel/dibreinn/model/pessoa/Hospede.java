@@ -1,4 +1,4 @@
-package br.com.lebrehotel.dibreinn.model;
+package br.com.lebrehotel.dibreinn.model.pessoa;
 /**
  *
  * @author Thiago
