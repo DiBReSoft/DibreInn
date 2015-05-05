@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jSilverize
  */
-@WebServlet(name = "ReservaNovaServlet", urlPatterns = {"/erp/reservas/nova"})
-public class ReservaNovaServlet extends HttpServlet {
+@WebServlet(name = "ReservaListarServlet", urlPatterns = {"/erp/reservas/listar"})
+public class ReservaListarServlet extends HttpServlet {
 
   /**
    * Handles the HTTP <code>GET</code> method.
@@ -29,9 +29,9 @@ public class ReservaNovaServlet extends HttpServlet {
 
     String data = request.getParameter("data");
 
-    request.setAttribute("dataParaReserva", data);
+    request.setAttribute("dataParaListar", data);
 
-    RequestDispatcher rd = request.getRequestDispatcher("/erp/reservas/nova.jsp");
+    RequestDispatcher rd = request.getRequestDispatcher("/erp/reservas/listar.jsp");
     rd.forward(request, response);
 
   }
