@@ -1,30 +1,5 @@
 var Script = function () {
-
-
-  /* initialize the external events
-   -----------------------------------------------------------------*/
-
-  $('#external-events div.external-event').each(function () {
-
-    // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
-    // it doesn't need to have a start or end
-    var eventObject = {
-      title: $.trim($(this).text()) // use the element's text as the event title
-    };
-
-    // store the Event Object in the DOM element so we can get to it later
-    $(this).data('eventObject', eventObject);
-
-    // make the event draggable using jQuery UI
-    $(this).draggable({
-      zIndex: 999,
-      revert: true, // will cause the event to go back to its
-      revertDuration: 0  //  original position after the drag
-    });
-
-  });
-
-
+  
   /* initialize the calendar
    -----------------------------------------------------------------*/
 
@@ -32,6 +7,23 @@ var Script = function () {
   var d = date.getDate();
   var m = date.getMonth();
   var y = date.getFullYear();
+
+  var eventos = [];
+  for (var i = 0; i < 3; i++) {
+    for (var j = 1; j < 32; j++) {
+      eventos.push({
+        title: 'Nova Reserva',
+        start: new Date(y, m, j),
+        url: 'reservas/nova?data=' + new Date(y, m, j)
+      });
+      eventos.push({
+        title: 'Listar Reservas',
+        start: new Date(y, m, j),
+        url: 'reservas/listar?data=' + new Date(y, m, j)
+      });
+    }
+    m++;
+  }
 
   $('#calendar').fullCalendar({
     lang: 'pt-br',
@@ -41,64 +33,7 @@ var Script = function () {
       right: 'month,basicWeek,basicDay'
     },
     businessHours: true,
-    editable: true,
-    droppable: true, // this allows things to be dropped onto the calendar !!!
-    drop: function (date, allDay) { // this function is called when something is dropped
-
-      // retrieve the dropped element's stored Event Object
-      var originalEventObject = $(this).data('eventObject');
-
-      // we need to copy it, so that multiple events don't have a reference to the same object
-      var copiedEventObject = $.extend({}, originalEventObject);
-
-      // assign it the date that was reported
-      copiedEventObject.start = date;
-      copiedEventObject.allDay = allDay;
-
-      // render the event on the calendar
-      // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-      $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
-
-      // is the "remove after drop" checkbox checked?
-      if ($('#drop-remove').is(':checked')) {
-        // if so, remove the element from the "Draggable Events" list
-        $(this).remove();
-      }
-
-    },
-    events: [
-      {
-        id: y+m+1,
-        title: 'Nova Reserva',
-        start: new Date(y, m, 1),
-        url: 'reservas/nova?data=' + y + '-' + (m + 1) + '-' + 1
-      },
-      {
-        id: y+m+2,
-        title: 'Nova Reserva',
-        start: new Date(y, m, 2),
-        url: 'reservas/nova?data=' + y + '-' + (m + 1) + '-' + 2
-      },
-      {
-        id: y+m+3,
-        title: 'Nova Reserva',
-        start: new Date(y, m, 3),
-        url: 'reservas/nova?data=' + y + '-' + (m + 1) + '-' + 3
-      },
-      {
-        id: y+m+4,
-        title: 'Nova Reserva',
-        start: new Date(y, m, 4),
-        url: 'reservas/nova?data=' + y + '-' + (m + 1) + '-' + 4
-      },
-      {
-        id: y+m+5,
-        title: 'Nova Reserva',
-        start: new Date(y, m, 5),
-        url: 'reservas/nova?data=' + y + '-' + (m + 1) + '-' + 5
-      }
-    ]
+    events: eventos
   });
-
 
 }();

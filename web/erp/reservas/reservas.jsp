@@ -16,6 +16,17 @@
 
   <jsp:attribute name="paginaHead">
     <link rel="stylesheet" type="text/css" href="<c:url value="/assets/css/bootstrap-fullcalendar.css" />" />
+    <style type="text/css">
+      .fc-time{
+        visibility: hidden !important;
+        display: none !important;
+      }
+      .fc-event {
+        text-align: center;
+        padding: 5px 2px;
+        margin: 2.5px 0px;
+      }
+    </style>
   </jsp:attribute>
 
   <jsp:attribute name="paginaBottom">

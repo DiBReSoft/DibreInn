@@ -11,7 +11,7 @@
 <t:defaultTemplate>
 
   <jsp:attribute name="paginaTitulo">
-    Reserva: Nova
+    Reserva: Ldistar
   </jsp:attribute>
 
   <jsp:attribute name="paginaHead">
@@ -34,7 +34,7 @@
     <script type="text/javascript" src="<c:url value="/assets/js/calendar-conf-events.js" />"></script>
     <script type="text/javascript">
       // a variável dataParametro está recebendo o valor da URL, passando pelo Servlet
-      var dataParametro = new Date("${dataParaReserva}");
+      var dataParametro = new Date("${dataParaListar}");
       var mes = dataDecimal(dataParametro.getMonth() + 1);
       var dia = dataDecimal(dataParametro.getDate());
 
@@ -83,75 +83,10 @@
   <jsp:body>
 
     <h1 class="page-title">
-      Reserva: Nova
+      Reserva: Listar
     </h1>
-
-    <form role="form" class="form-di"
-          action="reservar" method="post">
-
-      <h4>
-        Detalhes da reserva 
-      </h4>
-      <hr />
-
-      <div class="row">
-
-        <div class="col-sm-3">
-
-          <div class="form-group">        
-            <label for="reservaData">
-              Data:
-            </label>
-            <div class="input-group">
-
-              <span class="input-group-addon" id="basic-addon1"><i class="fa fa-fw fa-lg fa-calendar"></i></span>
-
-              <input type="date" class="form-control" placeholder="dd/mm/aaaa"
-                     tabindex="1" aria-describedby="basic-addon1"
-                     name="reservaData" id="reservaData" />
-
-            </div>
-          </div>
-
-        </div>
-
-        <div class="col-sm-3">
-
-          <div class="form-group">        
-            <label for="reservaQuarto">
-              Quarto:
-            </label>
-            <div class="input-group">
-
-              <span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-lg fa-bed"></i></span>
-
-              <select class="form-control" tabindex="2" aria-describedby="basic-addon2"
-                      name="reservaQuarto" id="reservaQuarto">
-                <option>
-                  1
-                </option>
-                <option disabled="true">
-                  2 (exemplo de quarto ocupado)
-                </option>
-                <option>
-                  3
-                </option>
-                <option>
-                  4
-                </option>
-                <option>
-                  5
-                </option>
-              </select>              
-
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-    </form>
+    
+    
 
   </jsp:body>
 
