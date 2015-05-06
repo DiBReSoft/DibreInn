@@ -20,7 +20,7 @@ public class ConectarBD {
   public Statement stm;
   public ResultSet rs;
   private String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";//Esse é o nome do driver, que na internet você vai encontrar de varias maneiras, mas só esse resolveu meus problemas  
-  private String caminho = "jdbc:sqlserver://localhost:1433;databaseName=DB_PESQUISA_FACIL";//se não for acessar localmente mude localhost pelo nome do servidor  
+  private String caminho = "jdbc:sqlserver://localhost:1433;databaseName=DB_DIBREINN";//se não for acessar localmente mude localhost pelo nome do servidor  
   private String usuario = "sa";//esse usuário é um sysadmin ele tem todos os poderes, é bom que se crie um login e usuário a parte  
   private String senha = "admin@123";
   public Connection conn;
@@ -48,7 +48,7 @@ public class ConectarBD {
   }
 
   public void closeConection() {
-    try {
+   try {
       conn.close();
       // JOptionPane.showMessageDialog(null, "Desconectado com sucesso!");
       System.out.println("Desconectado do banco de dados com sucesso.");
