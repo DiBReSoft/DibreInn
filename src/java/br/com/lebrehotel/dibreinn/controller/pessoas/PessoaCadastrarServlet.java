@@ -5,6 +5,7 @@ import br.com.lebrehotel.dibreinn.model.Email;
 import br.com.lebrehotel.dibreinn.model.pessoa.Funcionario;
 import br.com.lebrehotel.dibreinn.model.pessoa.Hospede;
 import br.com.lebrehotel.dibreinn.model.pessoa.Pessoa;
+import br.com.lebrehotel.dibreinn.model.pessoa.PessoaDAO;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -75,15 +76,15 @@ public class PessoaCadastrarServlet extends HttpServlet {
       p.setLogradouro(request.getParameter("formLogradouro"));
       p.setCidade(request.getParameter("formCidade"));
       p.setComplemento(request.getParameter("formComplemento"));
-      p.setNumero(Integer.parseInt(request.getParameter("formCidade")));
+      p.setNumero(Integer.parseInt(request.getParameter("formNumero")));
       p.setSexo(request.getParameter("formSexo"));
       
-      DateFormat formatadorData = new SimpleDateFormat("dd/MM/yyyy");
+     // DateFormat formatadorData = new SimpleDateFormat("dd/MM/yyyy");
 
-      p.setDataNascimento(formatadorData.parse((request.getParameter("Form"))));
-      p.setTelefone(Integer.parseInt(request.getParameter("formSexo")));
+      //p.setDataNascimento(formatadorData.parse((request.getParameter("formDataNasc"))));
+      p.setTelefone(Integer.parseInt(request.getParameter("formTel")));
       
-      DAO cmd = new DAO();
+      PessoaDAO pessoaDAO = new PessoaDAO();
       
       // verifico se o objeto é do tipo funcionario, se não for é do tipo hospede
       if (p instanceof Funcionario) {	
@@ -91,29 +92,32 @@ public class PessoaCadastrarServlet extends HttpServlet {
 	// acessar os atributos especificos de funcionario
 	Funcionario funcionario = (Funcionario) p;
         
-        if (request.getParameter("checkOpUsuario").equalsIgnoreCase("checked")){
-            funcionario.setLogin(request.getParameter("formUsuario"));
-            funcionario.setSenha(request.getParameter("formSenha"));
-        }
+        //if (request.getParameter("checkOpUsuario").equalsIgnoreCase("checked")){
+          //  funcionario.setLogin(request.getParameter("formUsuario"));
+         //   funcionario.setSenha(request.getParameter("formSenha"));
+       // }
 	funcionario.setSalario(Double.parseDouble(request.getParameter("formSalario")));
 	funcionario.setDependentes(Integer.parseInt(request.getParameter("formDependentes")));
 	funcionario.setDepartamento(request.getParameter("formDepartamento"));
 	funcionario.setCargo(request.getParameter("formCargo"));
-	funcionario.setUnidade(Integer.parseInt(request.getParameter("formUnidade")));
-	//resultado = cmd.ExecutaSQL(null, null);
+	funcionario.setUnidade(request.getParameter("formUnidade"));
+        
+	//resultado = pessoaDAO.montarQuery(funcionario);
+        
       } else {
 	// faço um cast de pessoa para hospede para 
 	// acessar os atributos especificos de hospede
 	Hospede hospede = (Hospede) p;
 
-	hospede.setnPassaporte(Integer.parseInt(request.getParameter("formNpassaporte")));
+	hospede.setnPassaporte(Integer.parseInt(request.getParameter("formPassaporte")));
 	hospede.setFoto(request.getParameter("formFoto"));
 	hospede.setNacionalidade(request.getParameter("formNacionalidade"));
-	hospede.setnCartao(request.getParameter("formNcartao"));
-	//resultado = cmd.ExecutaSQL(null, null);
+	hospede.setnCartao(request.getParameter("formCartao"));
+        
+	//resultado = pessoaDAO.montarQueryInsert(hospede);
 
       }
-    } catch (ParseException ex) {
+    } catch (Exception ex) {
       System.out.println(ex);
     }
 
@@ -131,7 +135,7 @@ public class PessoaCadastrarServlet extends HttpServlet {
     /* 
      * Esse redirecionamento acontecerá após 
      */
-    response.sendRedirect("cadastro?id=" + p.getId());
+    //response.sendRedirect("cadastro?id=" + p.getId());
 
   }
 

@@ -60,12 +60,46 @@ public class PessoaDAO {
 
 
   /*
-   public List<Pessoa> listarPessoas() {
-    
-   DAO dao = new DAO();
-    
-   // dibrar
-    
+
+   public boolean montarQueryInsert(Hospede hospede) {
+    String Query = "INSERT INTO TB_PESSOA (NOME, SOBRENOME, SEXO, RG, CPF, DATANASC, TELEFONE, EMAIL) \n" +
+    "           VALUES \n" +
+    "        (?,?,?,?,?,?,?,?)";
+
+   List<Object> listaHospede= new ArrayList<Object>();
+      listaHospede.add(hospede.getNome());
+      listaHospede.add(hospede.getSobrenome());
+      listaHospede.add(hospede.getSexo());
+      listaHospede.add(hospede.getRg());
+      listaHospede.add(hospede.getCpf());
+      listaHospede.add(hospede.getDataNascimento());
+      listaHospede.add(hospede.getTelefone());
+      listaHospede.add(hospede.getEmail());
+      listaHospede.add(hospede.getCep());
+      listaHospede.add(hospede.getBairro());
+      listaHospede.add(hospede.getLogradouro());
+      listaHospede.add(hospede.getCidade());
+      listaHospede.add(hospede.getComplemento());
+      listaHospede.add(hospede.getNumero());
+      listaHospede.add(hospede.getnPassaporte());
+      listaHospede.add(hospede.getFoto());
+      listaHospede.add(hospede.getNacionalidade());
+      listaHospede.add(hospede.getnCartao());
+      boolean r = false;
+       try{
+      DAO dao = new DAO();
+             
+                r=  dao.ExecutaSQL(Query, listaHospede);
+              }catch(SQLException ex){
+                  System.out.println(ex);
+              }
+       return r;
    }
+   
+   //public montarQueryBuscar(String Pesquisa){
+       
+       
+   //}
+
    */
 }

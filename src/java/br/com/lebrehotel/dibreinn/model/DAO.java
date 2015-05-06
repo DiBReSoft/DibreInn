@@ -34,10 +34,10 @@ public class DAO {
         return conn;
     }
 
-    public boolean ExecutaSQL(String Query, List<String> Pessoa) throws SQLException{
+    public boolean ExecutaSQL(String Query, List<Object> Pessoa) throws SQLException{
         PreparedStatement smt = getConnection().prepareStatement(Query);
         for(int i=1; i < Pessoa.size(); i++ ){
-            smt.setString(i, Pessoa.get(i));            
+            smt.setString(i, Pessoa.get(i).toString());            
         }        
         if(smt.execute()==true){
          desconectar();
