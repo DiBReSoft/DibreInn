@@ -11,7 +11,7 @@ public class Funcionario extends Pessoa{
     private int dependentes;
     private String departamento;
     private String cargo;
-    private int Unidade;
+    private String Unidade;
     private String login;
     private String senha;
 
@@ -51,19 +51,11 @@ public class Funcionario extends Pessoa{
         this.cargo = cargo;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getUnidade() {
+    public String getUnidade() {
         return Unidade;
     }
 
-    public void setUnidade(int Unidade) {
+    public void setUnidade(String Unidade) {
         this.Unidade = Unidade;
     }
 
