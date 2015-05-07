@@ -6,7 +6,7 @@ package br.com.lebrehotel.dibreinn.model.pessoa;
  * essa classe tem como finalidade definir os atributos de pessoa para depois 
  * funcionario e hospede poderem herdar.
  */
-import java.util.Date;
+import java.sql.Date;
 
 public abstract class Pessoa {
    private int id;
@@ -14,18 +14,18 @@ public abstract class Pessoa {
    private String sobrenome;
    private String sexo;
    private String rg;
-   private int cpf;
+   private String cpf;
    private Date dataNascimento;
 
     
    private String estadoCivil;
    private String logradouro;
    private int numero;
-   private int cep;
+   private String cep;
    private String bairro;
    private String cidade;
    private String Complemento;
-   private int telefone;
+   private String telefone;
    private String email;
 
     public Pessoa() {
@@ -72,11 +72,11 @@ public abstract class Pessoa {
         this.rg = rg;
     }
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
@@ -104,11 +104,11 @@ public abstract class Pessoa {
         this.numero = numero;
     }
 
-    public int getCep() {
+    public String getCep() {
         return cep;
     }
 
-    public void setCep(int cep) {
+    public void setCep(String cep) {
         this.cep = cep;
     }
 
@@ -136,11 +136,11 @@ public abstract class Pessoa {
         this.Complemento = Complemento;
     }
 
-    public int getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(int telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 

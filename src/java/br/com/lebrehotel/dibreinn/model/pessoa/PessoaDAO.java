@@ -13,6 +13,29 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 public class PessoaDAO {
+//    
+//    public static void main (String[] args){
+//     Funcionario p =  new Funcionario();
+//     
+//      p.setNome("Thiago");
+//      p.setSobrenome("Silva");
+//      p.setCpf(4333554);
+//      p.setRg("5555555");
+//      p.setDataNascimento(java.sql.Date.valueOf("1988-1-28"));
+//      p.setEmail("Thiago@junior@hotmail.com");
+//      p.setCep(22222222);
+//      p.setBairro("interlagos");
+//      p.setLogradouro("av.socorro");
+//      p.setCidade("sp");
+//      p.setComplemento("na");
+//      p.setNumero(23);
+//      p.setSexo("M");
+//     
+//     cadastrarPessoa(p);
+//      
+//     
+//    
+//    }
     
         public void cadastrarPessoa(Pessoa p) {
       
@@ -24,11 +47,11 @@ public class PessoaDAO {
             stmt = conexao.conn.prepareStatement("INSERT INTO TB_PESSOA (NOME, SOBRENOME, SEXO, RG, CPF, DATANASC, TELEFONE, EMAIL) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             stmt.setString(1, p.getNome());
             stmt.setString(2, p.getSobrenome());
-            stmt.setString(2, p.getSexo());
+            stmt.setString(3, p.getSexo());
             stmt.setString(4, p.getRg());
-            stmt.setInt(5, p.getCpf());
-            stmt.setDate(6, new java.sql.Date(p.getDataNascimento().getTime()));
-            stmt.setInt(7, p.getTelefone());
+            stmt.setString(5, p.getCpf());
+            stmt.setDate(6, p.getDataNascimento());
+            stmt.setString(7, p.getTelefone());
             stmt.setString(8, p.getEmail());
             stmt.executeUpdate();
             conexao.closeConection();
