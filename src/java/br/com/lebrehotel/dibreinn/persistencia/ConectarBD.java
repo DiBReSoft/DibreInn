@@ -28,11 +28,11 @@ public class ConectarBD {
   public void openConection() {
     System.setProperty("jdbc.Drivers", driver);
     try {
-      conn = DriverManager.getConnection(caminho, usuario, senha);
+       conn = DriverManager.getConnection(caminho, usuario, senha);
       // JOptionPane.showMessageDialog(null, "Conectado com sucesso!");
       System.out.println("Conectado ao banco de dados com sucesso!");
     } catch (SQLException ex) {
-      // JOptionPane.showMessageDialog(null, "Erro de Conexão! \nErro: " + ex);
+        // JOptionPane.showMessageDialog(null, "Erro de Conexão! \nErro: " + ex);
       System.out.println("Erro de Conexão com o banco de dados! \nErro: " + ex);
     }
   }

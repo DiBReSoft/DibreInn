@@ -65,7 +65,7 @@ public class PessoaCadastrarServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+       
         Pessoa p = null;
         boolean resultado = false;
 
@@ -88,14 +88,13 @@ public class PessoaCadastrarServlet extends HttpServlet {
             p.setEmail(request.getParameter("formEmail"));
             p.setCep((request.getParameter("formCep")));
             p.setLogradouro(request.getParameter("formLogradouro"));
-            p.setNumero(Integer.parseInt(request.getParameter("formNumero")));
+            p.setNumero(request.getParameter("formNumero"));
             p.setComplemento(request.getParameter("formComplemento"));
             p.setBairro(request.getParameter("formBairro"));
             p.setCidade(request.getParameter("formCidade"));
 
 //      DateFormat formatadorData = new SimpleDateFormat("yyyy-MM-dd");
-            PessoaDAO teste = new PessoaDAO();
-            teste.cadastrarPessoa(p);
+            
 
             // verifico se o objeto é do tipo funcionario, se não for é do tipo hospede
             if (p instanceof Funcionario) {
@@ -119,7 +118,7 @@ public class PessoaCadastrarServlet extends HttpServlet {
                 // acessar os atributos especificos de hospede
                 Hospede hospede = (Hospede) p;
 
-                hospede.setnPassaporte(Integer.parseInt(request.getParameter("formPassaporte")));
+                hospede.setnPassaporte(request.getParameter("formPassaporte"));
                 hospede.setFoto(request.getParameter("formFoto"));
                 hospede.setNacionalidade(request.getParameter("formNacionalidade"));
                 hospede.setnCartao(request.getParameter("formCartao"));
@@ -130,12 +129,17 @@ public class PessoaCadastrarServlet extends HttpServlet {
             System.out.println(ex);
         }
 
+        System.out.println("teste");
+        
+        PessoaDAO teste = new PessoaDAO();
+        teste.cadastrarPessoa(p);
+        
         //Teste se o resultado do cadastro foi positivo. Se for envia o email.
-        if (resultado == true) {
-            enviaEmail(p);
-        } else {
-            System.out.println("Não foi possivel Gravar as informações");
-        }
+//        if (resultado == true) {
+//            enviaEmail(p);
+//        } else {
+//            System.out.println("Não foi possivel Gravar as informações");
+//        }
 
 
         /* 

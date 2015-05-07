@@ -9,7 +9,7 @@ public class Hospede extends Pessoa{
     
  
     private String nacionalidade;
-    private int nPassaporte;
+    private String nPassaporte;
     private String foto;
     private String nCartao;
 
@@ -25,11 +25,11 @@ public class Hospede extends Pessoa{
         this.nacionalidade = nacionalidade;
     }
 
-    public int getnPassaporte() {
+    public String getnPassaporte() {
         return nPassaporte;
     }
 
-    public void setnPassaporte(int nPassaporte) {
+    public void setnPassaporte(String nPassaporte) {
         this.nPassaporte = nPassaporte;
     }
 

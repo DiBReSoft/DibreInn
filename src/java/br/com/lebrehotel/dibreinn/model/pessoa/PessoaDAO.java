@@ -13,17 +13,17 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 public class PessoaDAO {
-//    
+////    
 //    public static void main (String[] args){
 //     Funcionario p =  new Funcionario();
 //     
-//      p.setNome("Thiago");
+//      p.setNome("Teste");
 //      p.setSobrenome("Silva");
-//      p.setCpf(4333554);
+//      p.setCpf("43874154");
 //      p.setRg("5555555");
 //      p.setDataNascimento(java.sql.Date.valueOf("1988-1-28"));
 //      p.setEmail("Thiago@junior@hotmail.com");
-//      p.setCep(22222222);
+//      p.setCep("22222222");
 //      p.setBairro("interlagos");
 //      p.setLogradouro("av.socorro");
 //      p.setCidade("sp");

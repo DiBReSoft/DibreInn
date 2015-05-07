@@ -20,7 +20,7 @@ public abstract class Pessoa {
     
    private String estadoCivil;
    private String logradouro;
-   private int numero;
+   private String numero;
    private String cep;
    private String bairro;
    private String cidade;
@@ -96,11 +96,11 @@ public abstract class Pessoa {
         this.logradouro = logradouro;
     }
 
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
