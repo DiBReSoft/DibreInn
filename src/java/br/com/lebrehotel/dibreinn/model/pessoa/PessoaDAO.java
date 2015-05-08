@@ -9,6 +9,8 @@ import br.com.lebrehotel.dibreinn.persistencia.ConectarBD;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -40,108 +42,131 @@ public class PessoaDAO {
 //    
 //    }
 
-  public int cadastrarPessoa(Pessoa p) {
+    public int cadastrarPessoa(Pessoa p) {
 
-    ConectarBD conexao = new ConectarBD();
-    PreparedStatement stmt = null;
+        ConectarBD conexao = new ConectarBD();
+        PreparedStatement stmt = null;
 
-    String sql = "INSERT INTO TB_PESSOA (NOME, SOBRENOME, SEXO, RG, CPF, DATANASC, TELEFONE, EMAIL) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO TB_PESSOA (NOME, SOBRENOME, SEXO, RG, CPF, DATANASC, TELEFONE, EMAIL) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-    try {
-      conexao.openConection();
+        try {
+            conexao.openConection();
 
-      stmt = conexao.conn.prepareStatement(sql);
+            stmt = conexao.conn.prepareStatement(sql);
 
-      stmt.setString(1, p.getNome());
-      stmt.setString(2, p.getSobrenome());
-      stmt.setString(3, p.getSexo());
-      stmt.setString(4, p.getRg());
-      stmt.setString(5, p.getCpf());
-      stmt.setDate(6, null);
-      //stmt.setDate(6, p.getDataNascimento()); // Não está funcionando ainda
-      stmt.setString(7, p.getTelefone());
-      stmt.setString(8, p.getEmail());
+            stmt.setString(1, p.getNome());
+            stmt.setString(2, p.getSobrenome());
+            stmt.setString(3, p.getSexo());
+            stmt.setString(4, p.getRg());
+            stmt.setString(5, p.getCpf());
+            stmt.setDate(6, null);
+            //stmt.setDate(6, p.getDataNascimento()); // Não está funcionando ainda
+            stmt.setString(7, p.getTelefone());
+            stmt.setString(8, p.getEmail());
 
-      stmt.execute();
+            stmt.execute();
 
-      /* Seria o bloco de código para pegar o ID gerado pelo BD 
-       * e retorna-lo para a pagina, mas não está funcionando
+            /* Seria o bloco de código para pegar o ID gerado pelo BD 
+             * e retorna-lo para a pagina, mas não está funcionando
       
-       ResultSet rsId = stmt.getGeneratedKeys();
-       p.setId(rsId.getInt(1));
+             ResultSet rsId = stmt.getGeneratedKeys();
+             p.setId(rsId.getInt(1));
       
-       */
-      
-      // Fechando conexão
-      conexao.closeConection();
+             */
+            // Fechando conexão
+            conexao.closeConection();
 
       // Faz o retorno do ID, para uso de redirecionamento
-      // return p.getId(); // Depende do bloco de getGeneratedKeys();
-      
-      // TESTE: irá retornar 1 se o cadastro for feito e então a página será
-      // redirecionada com o paramêtro 1. Se houver erro, o parametro será 0
-      return 1;
+            // return p.getId(); // Depende do bloco de getGeneratedKeys();
+            // TESTE: irá retornar 1 se o cadastro for feito e então a página será
+            // redirecionada com o paramêtro 1. Se houver erro, o parametro será 0
+            return 1;
 
-    } catch (SQLException ex) {
-      // Caso haja erro retorna 0 como ID e informa no log
-      Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, "[INFO] Erro ao gravar os dados: ", ex);
-      return 0;
-    } finally {
-      if (stmt != null) {
-	try {
-	  stmt.close();
-	} catch (SQLException ex) {
-	  Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
-	}
-      }
-      if (conexao != null) {
-	conexao.closeConection();
-      }
+        } catch (SQLException ex) {
+            // Caso haja erro retorna 0 como ID e informa no log
+            Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, "[INFO] Erro ao gravar os dados: ", ex);
+            return 0;
+        } finally {
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (conexao != null) {
+                conexao.closeConection();
+            }
+        }
+
     }
 
-  }
+    public List<?> BuscaPessoa(String pesquisa, int tipoBusca) {
+        ResultSet rs = null;
+        ConectarBD conexao = new ConectarBD();
+        PreparedStatement stmt = null;
+        String tipoPessoa = "";
+        List<Pessoa> lista;
+        String Query = "SELECT ID_PESSOA,NOME,CPF,EMAIL,TIPO FROM TB_PESSOA WHERE ";
+        switch (tipoBusca) {
+            case 1:
+                Query += "NOME = ?";
+                break;
+            case 2:
+                Query += "CPF = ?";
+                break;
+            case 3:
+                Query += "EMAIL = ?";
+                break;
+        }
+        try {
+            conexao.openConection();
 
-  /*
+            stmt = conexao.conn.prepareStatement(Query);
+            ResultSet resultados = stmt.executeQuery(Query);
 
-   public boolean montarQueryInsert(Hospede hospede) {
-   String Query = "INSERT INTO TB_PESSOA (NOME, SOBRENOME, SEXO, RG, CPF, DATANASC, TELEFONE, EMAIL) \n" +
-   "           VALUES \n" +
-   "        (?,?,?,?,?,?,?,?)";
+            DateFormat formatadorData = new SimpleDateFormat("dd/MM/yyyy");
 
-   List<Object> listaHospede= new ArrayList<Object>();
-   listaHospede.add(hospede.getNome());
-   listaHospede.add(hospede.getSobrenome());
-   listaHospede.add(hospede.getSexo());
-   listaHospede.add(hospede.getRg());
-   listaHospede.add(hospede.getCpf());
-   listaHospede.add(hospede.getDataNascimento());
-   listaHospede.add(hospede.getTelefone());
-   listaHospede.add(hospede.getEmail());
-   listaHospede.add(hospede.getCep());
-   listaHospede.add(hospede.getBairro());
-   listaHospede.add(hospede.getLogradouro());
-   listaHospede.add(hospede.getCidade());
-   listaHospede.add(hospede.getComplemento());
-   listaHospede.add(hospede.getNumero());
-   listaHospede.add(hospede.getnPassaporte());
-   listaHospede.add(hospede.getFoto());
-   listaHospede.add(hospede.getNacionalidade());
-   listaHospede.add(hospede.getnCartao());
-   boolean r = false;
-   try{
-   DAO dao = new DAO();
-             
-   r=  dao.ExecutaSQL(Query, listaHospede);
-   }catch(SQLException ex){
-   System.out.println(ex);
-   }
-   return r;
-   }
-   
-   //public montarQueryBuscar(String Pesquisa){
-       
-       
-   //}
+            while (resultados.next()) {
+                Pessoa p = null;
+                tipoPessoa = resultados.getString("TIPO_PESSOA");
+                if (tipoPessoa.equalsIgnoreCase("f")) {
+                    p = new Funcionario();
+                    //lista = new  ArrayList<Funcionario>();
+                } else {
 
-   */
+                    //criando pessoa tipo hospede
+                    p = new Hospede();
+                    //lista = new  ArrayList<Hospede>();
+                }
+                p.setId(resultados.getInt("ID_PESSOA"));
+                p.setNome(resultados.getString("NOME_PESSOA"));                
+                p.setEmail(resultados.getString("EMAIL"));                
+                p.setCpf(resultados.getString("CPF"));
+               // lista.add(p);
+            }
+
+            //return lista;
+
+        } catch (SQLException ex) {
+            // Caso haja erro retorna 0 como ID e informa no log
+            Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, "[INFO] Erro ao gravar os dados: ", ex);
+
+        } finally {
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (conexao != null) {
+                conexao.closeConection();
+            }
+        }
+        return null;
+    }
+
 }
+
+

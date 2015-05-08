@@ -5,12 +5,15 @@ $(document).ready(function() {
      $("#formCartao").unmask();
      $("#formPassaporte").unmask();
      $('#formCpf').unmask();
+     $('#formRg').unmask();
      $('#formCep').unmask();
      $('#formTel').unmask();
      $("#formCartao").unmask();
+     
      $("#formPassaporte").numeric();
      $("#formCartao").numeric();
      $('#formCpf').mask('999.999.999-99');
+     $('#formRg').mask('**.999.999-*');
      $('#formCep').mask('99999-999');
      $('#formTel').mask('(99)9999-9999');
     
