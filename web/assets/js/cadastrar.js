@@ -47,11 +47,3 @@ function correiocontrolcep(valor) {
     cidade.value = valor.localidade;
     estado.value = valor.uf;
 }
-
-var opUsuario = document.querySelector("#checkOpUsuario");
-
-opUsuario.addEventListener("click", camposUsuario);
-
-function camposUsuario(opUsuario){
-    console.log(opUsuario.getAttribute("checked"));
-}

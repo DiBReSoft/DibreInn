@@ -481,7 +481,6 @@ a.logo span {
   color: orange;
 }
 
-
 /*notification*/
 #top_menu .nav > li, ul.top-menu > li {
   float: left;
@@ -2333,16 +2332,14 @@ label {
   background-position: 96% 10px;
   background-size: 10px;
   background-repeat: no-repeat;
-}
-
-.form-di .nav > li > a {
-  padding-left: 25px;
+  padding-right: 25px;
 }
 
 .form-di input[name=formTipo] {
   position: absolute;
   top: 8px;
   left: 8px;
+  display: none;
 }
 
 .top-menu a:hover img,
