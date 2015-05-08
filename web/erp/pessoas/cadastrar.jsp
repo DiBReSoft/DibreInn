@@ -21,10 +21,14 @@
 
   <jsp:attribute name="paginaBottom">
     <!-- JavaScript e outros que vão ao final da página -->
+     <script type="text/javascript" src="<c:url value="/assets/js/jquery.maskedinput.min.js" />"></script>
     <script type="text/javascript" src="<c:url value="/assets/js/bootstrap-switch.js" />"></script>
     <script type="text/javascript" src="<c:url value="/assets/js/form-component.js" />"></script>
     <script type="text/javascript" src="<c:url value="/assets/js/cadastrar.js" />"></script>
-
+    <script type="text/javascript" src="<c:url value="/assets/js/jquery.numeric.js" />"></script>
+    <script type="text/javascript" src="<c:url value="/assets/js/jquery.maskedinput.min.js" />"></script>
+ <script type="text/javascript" src="<c:url value="/assets/js/validacoes.js" />"></script>
+ 
   </jsp:attribute>
 
   <jsp:body>

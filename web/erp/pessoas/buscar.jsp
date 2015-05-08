@@ -30,6 +30,9 @@
     <!-- JavaScript e outros que vão ao final da página -->
     <script type="text/javascript" src="<c:url value="/assets/js/bootstrap-switch.js" />"></script>
     <script type="text/javascript" src="<c:url value="/assets/js/form-component.js" />"></script>
+    <script type="text/javascript" src="<c:url value="/assets/js/jquery.numeric.js" />"></script>
+    <script type="text/javascript" src="<c:url value="/assets/js/jquery.maskedinput.min.js" />"></script>
+    <script type="text/javascript" src="<c:url value="/assets/js/validacoes.js" />"></script>
   </jsp:attribute>
 
   <jsp:body>
@@ -58,7 +61,7 @@
 
             <input type="text" class="form-control"
                    tabindex="1"
-                   name="nome" id="nome" 
+                   name="nome" id="formNome" 
                    placeholder="Fulano" />
 
             <span class="input-group-btn">              
@@ -97,7 +100,7 @@
 
             <input type="email" class="form-control" 
                    tabindex="3"
-                   name="email" id="email"
+                   name="email" id="formEmail"
                    placeholder="fulano@dasilva.com.br" />
 
             <span class="input-group-btn">
@@ -137,7 +140,7 @@
 
             <input type="text" class="form-control"
                    tabindex="5"
-                   name="cpf" id="cpf" 
+                   name="cpf" id="formCpf" 
                    placeholder="111.222.333-44" />
 
             <span class="input-group-btn">
