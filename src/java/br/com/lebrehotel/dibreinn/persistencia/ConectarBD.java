@@ -10,6 +10,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -26,7 +28,11 @@ public class ConectarBD {
   public Connection conn;
 
   public void openConection() {
-    System.setProperty("jdbc.Drivers", driver);
+    try {
+      Class.forName(driver);
+    } catch (ClassNotFoundException ex) {
+      Logger.getLogger(ConectarBD.class.getName()).log(Level.SEVERE, null, ex);
+    }
     try {
        conn = DriverManager.getConnection(caminho, usuario, senha);
       // JOptionPane.showMessageDialog(null, "Conectado com sucesso!");

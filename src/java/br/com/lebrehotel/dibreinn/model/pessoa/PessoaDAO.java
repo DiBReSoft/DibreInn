@@ -45,54 +45,61 @@ public class PessoaDAO {
     ConectarBD conexao = new ConectarBD();
     PreparedStatement stmt = null;
 
+    String sql = "INSERT INTO TB_PESSOA (NOME, SOBRENOME, SEXO, RG, CPF, DATANASC, TELEFONE, EMAIL) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
     try {
       conexao.openConection();
-      stmt = conexao.conn.prepareStatement("INSERT INTO TB_PESSOA (NOME, SOBRENOME, SEXO, RG, CPF, DATANASC, TELEFONE, EMAIL) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+
+      stmt = conexao.conn.prepareStatement(sql);
+
       stmt.setString(1, p.getNome());
       stmt.setString(2, p.getSobrenome());
       stmt.setString(3, p.getSexo());
       stmt.setString(4, p.getRg());
       stmt.setString(5, p.getCpf());
-      stmt.setDate(6, p.getDataNascimento());
+      stmt.setDate(6, null);
+      //stmt.setDate(6, p.getDataNascimento()); // Não está funcionando ainda
       stmt.setString(7, p.getTelefone());
       stmt.setString(8, p.getEmail());
-      stmt.executeUpdate();
 
-      // Atribui o ID gerado pelo BD na Pessoa
-      // Deve ser executada antes do fechamento da conexão com o BD
-      try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
-        if (generatedKeys.next()) {
-          p.setId(generatedKeys.getInt(1));
-        }
-      } catch (SQLException ex) {
-        Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
-      }
+      stmt.execute();
+
+      /* Seria o bloco de código para pegar o ID gerado pelo BD 
+       * e retorna-lo para a pagina, mas não está funcionando
+      
+       ResultSet rsId = stmt.getGeneratedKeys();
+       p.setId(rsId.getInt(1));
+      
+       */
       
       // Fechando conexão
       conexao.closeConection();
 
       // Faz o retorno do ID, para uso de redirecionamento
-      return p.getId();
+      // return p.getId(); // Depende do bloco de getGeneratedKeys();
+      
+      // TESTE: irá retornar 1 se o cadastro for feito e então a página será
+      // redirecionada com o paramêtro 1. Se houver erro, o parametro será 0
+      return 1;
 
     } catch (SQLException ex) {
       // Caso haja erro retorna 0 como ID e informa no log
-      Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, "Erro ao gravar os dados ", ex);
+      Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, "[INFO] Erro ao gravar os dados: ", ex);
       return 0;
     } finally {
       if (stmt != null) {
-        try {
-          stmt.close();
-        } catch (SQLException ex) {
-          Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+	try {
+	  stmt.close();
+	} catch (SQLException ex) {
+	  Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
+	}
       }
       if (conexao != null) {
-        conexao.closeConection();
+	conexao.closeConection();
       }
     }
 
   }
-
 
   /*
 

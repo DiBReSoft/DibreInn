@@ -7,39 +7,39 @@ import java.util.ArrayList;
  * @author Thiago
  */
 public class Email {
-    private String assunto;
-    private String mensagem;
-    private ArrayList<String> Listadestinatario;
 
-    public Email() {
-        assunto = "";
-        mensagem="";
-            Listadestinatario = new ArrayList<String>();
-    }
+  private String assunto;
+  private String mensagem;
+  private ArrayList<String> Listadestinatario;
 
-    public String getAssunto() {
-        return assunto;
-    }
+  public Email() {
+    assunto = "";
+    mensagem = "";
+    Listadestinatario = new ArrayList<String>();
+  }
 
-    public void setAssunto(String assunto) {
-        this.assunto = assunto;
-    }
+  public String getAssunto() {
+    return assunto;
+  }
 
-    public String getMensagem() {
-        return mensagem;
-    }
+  public void setAssunto(String assunto) {
+    this.assunto = assunto;
+  }
 
-    public void setMensagem(String mensagem) {
-        this.mensagem = mensagem;
-    }
+  public String getMensagem() {
+    return mensagem;
+  }
 
-    public ArrayList<String> getDestinatario() {
-        return Listadestinatario;
-    }
+  public void setMensagem(String mensagem) {
+    this.mensagem = mensagem;
+  }
 
-    public void setDestinatario(String destinatario) {
-        this.Listadestinatario.add(destinatario);
-    }
-    
+  public ArrayList<String> getDestinatario() {
+    return Listadestinatario;
+  }
+
+  public void setDestinatario(String destinatario) {
+    this.Listadestinatario.add(destinatario);
+  }
 
 }

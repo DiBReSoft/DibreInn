@@ -16,10 +16,10 @@ import javax.mail.internet.MimeMessage;
  *
  * @author thiago.mlima
  */
-public class EnviarEmail {
+public class EnviarEmail2 {
 
-  public EnviarEmail(Email email) {
-
+  public static void main(String[] args) {
+    
     Properties props = new Properties();
     /**
      * Parâmetros de conexão com servidor Gmail
@@ -45,25 +45,28 @@ public class EnviarEmail {
     try {
 
       Message message = new MimeMessage(session);
+      message.setFrom(new InternetAddress("lebrehotel@gmail.com")); //Remetente
+      Email email = new Email();
+      email.setAssunto("Enviando email com DibreSoft");
+      email.setMensagem("Enviei este email utilizando a biblioteca JavaMail com a conta lebrehotel pelo sistema dibreinn!");
+      //email.addDestinatario("thiago@novatela.com.br");
+      //email.addDestinatario("thiago_badboy300@hotmail.com");
+      //email.addDestinatario("fabioernanni@hotmail.com");
+      // email.addDestinatario("elvitous@gmail.com");
 
-      // Remetente
-      message.setFrom(new InternetAddress("lebrehotel@gmail.com"));
-
-      // Destinatário(s)
-      Address[] toUser = InternetAddress.parse(email.getDestinatario().get(0) + ", lebrehotel@gmail.com");
+      Address[] toUser = InternetAddress //Destinatário(s)
+	      .parse("thiago@novatela.com.br, thiago_badboy300@hotmail.com,fabioernanni@hotmail.com,elvitous@gmail.com");
+//Address[] toUser = InternetAddress //Destinatário(s)
+      //.parse(email.getDestinatario().get(index));  
       message.setRecipients(Message.RecipientType.TO, toUser);
-
-      // Assunto
-      message.setSubject(email.getAssunto());
-
-      // Montar corpo da mensagem
-      message.setText(email.getMensagem());
-
-      // Método para enviar a mensagem criada
+      message.setSubject(email.getAssunto());//Assunto
+      message.setText(email.getMensagem());//**Método para enviar a mensagem criada*/
       Transport.send(message);
 
     } catch (MessagingException e) {
       throw new RuntimeException(e);
     }
+    
   }
+
 }
