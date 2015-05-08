@@ -25,137 +25,120 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "PessoaCadastrarServlet", urlPatterns = {"/erp/pessoas/cadastrar"})
 public class PessoaCadastrarServlet extends HttpServlet {
 
-    
-    //Funcão de enviar email.
-    private void enviaEmail(Pessoa p) {
-        
-        System.out.println("[DADOS GRAVADOS COM SUCESSO] Novo cadastro: " + p.getNome() + p.getSobrenome());
-        Email email = new Email();
-        email.setDestinatario(p.getEmail());
-        email.setAssunto("Cadastro Efetuado");
-        email.setMensagem(p.getNome() + ", seja bem-vindo e obrigado por efetuar o cadastro no Lebre Hotel!");
-    }
+  @Override
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+          throws ServletException, IOException {
+    RequestDispatcher rd = request.getRequestDispatcher("/erp/pessoas/cadastrar.jsp");
+    rd.forward(request, response);
+  }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+  @Override
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+          throws ServletException, IOException {
 
-        RequestDispatcher rd = request.getRequestDispatcher("/erp/pessoas/cadastrar.jsp");
-        rd.forward(request, response);
+    Pessoa p = null;
+    boolean resultado = false;
 
-    }
+    try {
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-       
-        Pessoa p = null;
-        boolean resultado = false;
+      //verificando qual tipo de pessoa
+      if (request.getParameter("formTipo").equalsIgnoreCase("funcionario")) {
 
-        try {
-            //verificando qual tipo de pessoa
-            if (request.getParameter("formTipo").equalsIgnoreCase("funcionario")) {
-                //criando pessoa tipo funcionario
-                p = new Funcionario();
-            } else {
-                //criando pessoa tipo hospede
-                p = new Hospede();
-            }
-            p.setNome(request.getParameter("formNome"));
-            p.setSobrenome(request.getParameter("formSobrenome"));
-            p.setSexo(request.getParameter("formSexo"));
-            p.setRg(request.getParameter("formRg"));
-            p.setCpf(request.getParameter("formCpf"));
-            p.setDataNascimento(java.sql.Date.valueOf(request.getParameter("formDataNasc")));
-            p.setTelefone(request.getParameter("formTel"));
-            p.setEmail(request.getParameter("formEmail"));
-            p.setCep((request.getParameter("formCep")));
-            p.setLogradouro(request.getParameter("formLogradouro"));
-            p.setNumero(request.getParameter("formNumero"));
-            p.setComplemento(request.getParameter("formComplemento"));
-            p.setBairro(request.getParameter("formBairro"));
-            p.setCidade(request.getParameter("formCidade"));
+        //criando pessoa tipo funcionario
+        p = new Funcionario();
 
-//      DateFormat formatadorData = new SimpleDateFormat("yyyy-MM-dd");
-            
+      } else {
 
-            // verifico se o objeto é do tipo funcionario, se não for é do tipo hospede
-            if (p instanceof Funcionario) {
-                // faço um cast de pessoa para funcionario para 
-                // acessar os atributos especificos de funcionario
-                Funcionario funcionario = (Funcionario) p;
+        //criando pessoa tipo hospede
+        p = new Hospede();
 
-                //if (request.getParameter("checkOpUsuario").equalsIgnoreCase("checked")){
-                //  funcionario.setLogin(request.getParameter("formUsuario"));
-                //   funcionario.setSenha(request.getParameter("formSenha"));
-                // }
-                funcionario.setSalario(Double.parseDouble(request.getParameter("formSalario")));
-                funcionario.setDependentes(Integer.parseInt(request.getParameter("formDependentes")));
-                funcionario.setDepartamento(request.getParameter("formDepartamento"));
-                funcionario.setCargo(request.getParameter("formCargo"));
-                funcionario.setUnidade(request.getParameter("formUnidade"));
+      }
 
-                //resultado = pessoaDAO.montarQuery(funcionario);
-            } else {
-                // faço um cast de pessoa para hospede para 
-                // acessar os atributos especificos de hospede
-                Hospede hospede = (Hospede) p;
+      p.setNome(request.getParameter("formNome"));
+      p.setSobrenome(request.getParameter("formSobrenome"));
+      p.setSexo(request.getParameter("formSexo"));
+      p.setRg(request.getParameter("formRg"));
+      p.setCpf(request.getParameter("formCpf"));
+      p.setDataNascimento(java.sql.Date.valueOf(request.getParameter("formDataNasc")));
+      p.setTelefone(request.getParameter("formTel"));
+      p.setEmail(request.getParameter("formEmail"));
+      p.setCep((request.getParameter("formCep")));
+      p.setLogradouro(request.getParameter("formLogradouro"));
+      p.setNumero(request.getParameter("formNumero"));
+      p.setComplemento(request.getParameter("formComplemento"));
+      p.setBairro(request.getParameter("formBairro"));
+      p.setCidade(request.getParameter("formCidade"));
 
-                hospede.setnPassaporte(request.getParameter("formPassaporte"));
-                hospede.setFoto(request.getParameter("formFoto"));
-                hospede.setNacionalidade(request.getParameter("formNacionalidade"));
-                hospede.setnCartao(request.getParameter("formCartao"));
+      DateFormat formatadorData = new SimpleDateFormat("dd-MM-yyyy");
 
-                //resultado = pessoaDAO.montarQueryInsert(hospede);
-            }
-        } catch (Exception ex) {
-            System.out.println(ex);
+      // verifico se o objeto é do tipo funcionario, se não for é do tipo hospede
+      if (p instanceof Funcionario) {
+        // faço um cast de pessoa para funcionario para 
+        // acessar os atributos especificos de funcionario
+        Funcionario funcionario = (Funcionario) p;
+        if (request.getParameter("formOpUsuario").equalsIgnoreCase("1")) {
+          funcionario.setLogin(request.getParameter("formUsuario"));
+          funcionario.setSenha(request.getParameter("formSenha"));
         }
+        funcionario.setSalario(Double.parseDouble(request.getParameter("formSalario")));
+        funcionario.setDependentes(Integer.parseInt(request.getParameter("formDependentes")));
+        funcionario.setDepartamento(request.getParameter("formDepartamento"));
+        funcionario.setCargo(request.getParameter("formCargo"));
+        funcionario.setUnidade(request.getParameter("formUnidade"));
 
-        System.out.println("teste");
-        
-        PessoaDAO teste = new PessoaDAO();
-        teste.cadastrarPessoa(p);
-        
-        //Teste se o resultado do cadastro foi positivo. Se for envia o email.
-//        if (resultado == true) {
-//            enviaEmail(p);
-//        } else {
-//            System.out.println("Não foi possivel Gravar as informações");
-//        }
+        //resultado = pessoaDAO.montarQuery(funcionario);
+      } else {
+        // faço um cast de pessoa para hospede para 
+        // acessar os atributos especificos de hospede
+        Hospede hospede = (Hospede) p;
 
+        hospede.setnPassaporte(request.getParameter("formPassaporte"));
+        hospede.setFoto(request.getParameter("formFoto"));
+        hospede.setNacionalidade(request.getParameter("formNacionalidade"));
+        hospede.setnCartao(request.getParameter("formCartao"));
 
-        /* 
-         * Esse redirecionamento acontecerá após 
-         */
-        //response.sendRedirect("cadastro?id=" + p.getId());
+      }
+
+      PessoaDAO teste = new PessoaDAO();
+      p.setId(teste.cadastrarPessoa(p));
+
+      //Teste se o resultado do cadastro foi positivo. Se for envia o email.
+      if (p.getId() != 0) {
+        enviaEmail(p);
+      }
+
+      /* 
+       * Esse redirecionamento acontecerá após o submit dos dados,
+       * levando o usuário para uma página com os dados que acabaram de ser
+       * cadastrados
+       */
+      response.sendRedirect("cadastro?id=" + p.getId());
+
+    } catch (Exception ex) {
+      System.out.println(ex);
+      response.sendRedirect("erro.jsp" + ex);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+  }
+
+  // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+  /**
+   * Returns a short description of the servlet.
+   *
+   * @return a String containing servlet description
+   */
+  @Override
+  public String getServletInfo() {
+    return "Short description";
+  }// </editor-fold>
+
+  //Funcão para enviar e-mail a pessoa cadastrada
+  private void enviaEmail(Pessoa p) {
+    System.out.println("[DADOS GRAVADOS COM SUCESSO] Novo cadastro: " + p.getNome() + p.getSobrenome());
+    Email email = new Email();
+    email.setDestinatario(p.getEmail());
+    email.setAssunto("Cadastro Efetuado");
+    email.setMensagem(p.getNome() + ", seja bem-vindo e obrigado por efetuar o cadastro no Lebre Hotel!");
+  }
 
 }
