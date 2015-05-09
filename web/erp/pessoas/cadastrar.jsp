@@ -146,7 +146,7 @@
                   <label for="formDataNasc">
                     Data de Nascimento:
                   </label>
-                  <input type="text" class="form-control" 
+                  <input type="date" class="form-control" 
                          tabindex="6"
                          name="formDataNasc" id="formDataNasc" 
                          placeholder="DD-MM-AAAA"

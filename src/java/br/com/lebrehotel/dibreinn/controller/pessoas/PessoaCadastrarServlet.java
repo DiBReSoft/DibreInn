@@ -1,17 +1,12 @@
 package br.com.lebrehotel.dibreinn.controller.pessoas;
 
 import br.com.lebrehotel.dibreinn.controller.emails.EnviarEmail;
-import br.com.lebrehotel.dibreinn.model.DAO;
 import br.com.lebrehotel.dibreinn.model.Email;
 import br.com.lebrehotel.dibreinn.model.pessoa.Funcionario;
 import br.com.lebrehotel.dibreinn.model.pessoa.Hospede;
 import br.com.lebrehotel.dibreinn.model.pessoa.Pessoa;
 import br.com.lebrehotel.dibreinn.model.pessoa.PessoaDAO;
 import java.io.IOException;
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -54,14 +49,12 @@ public class PessoaCadastrarServlet extends HttpServlet {
 	p = new Hospede();
 
       }
-
       p.setNome(request.getParameter("formNome"));
       p.setSobrenome(request.getParameter("formSobrenome"));
       p.setSexo(request.getParameter("formSexo"));
       p.setRg(request.getParameter("formRg"));
       p.setCpf(request.getParameter("formCpf"));
-      p.setDataNascimento(null);
-      //p.setDataNascimento(java.sql.Date.valueOf(request.getParameter("formDataNasc")));
+      p.setDataNascimento( java.sql.Date.valueOf(request.getParameter("formDataNasc")));
       p.setTelefone(request.getParameter("formTel"));
       p.setEmail(request.getParameter("formEmail"));
       p.setCep((request.getParameter("formCep")));
@@ -71,7 +64,7 @@ public class PessoaCadastrarServlet extends HttpServlet {
       p.setBairro(request.getParameter("formBairro"));
       p.setCidade(request.getParameter("formCidade"));
 
-      DateFormat formatadorData = new SimpleDateFormat("dd-MM-yyyy");
+//      DateFormat formatadorData = new SimpleDateFormat("dd-MM-yyyy");
 
       // verifico se o objeto é do tipo funcionario, se não for é do tipo hospede
       if (p instanceof Funcionario) {
