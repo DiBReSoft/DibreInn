@@ -1,36 +1,27 @@
 package br.com.lebrehotel.dibreinn.model.pessoa;
+
 /**
  *
- * @author Thiago
- * data: 04/04/2015
- * essa classe tem como finalidade definir os atributos de pessoa para depois 
- * funcionario e hospede poderem herdar.
+ * @author Thiago data: 04/04/2015 essa classe tem como finalidade definir os
+ * atributos de pessoa para depois funcionario e hospede poderem herdar.
  */
 import java.sql.Date;
 
 public abstract class Pessoa {
-   private int id;
-   private String nome;
-   private String sobrenome;
-   private String sexo;
-   private String rg;
-   private String cpf;
-   private Date dataNascimento;
 
-    
-   private String estadoCivil;
-   private String logradouro;
-   private String numero;
-   private String cep;
-   private String bairro;
-   private String cidade;
-   private String Complemento;
-   private String telefone;
-   private String email;
+    private int id;
+    private String nome;
+    private String sobrenome;
+    private String sexo;
+    private String rg;
+    private String cpf;
+    private Date dataNascimento;
+    private String telefone;
+    private String email;
 
     public Pessoa() {
-      
-    }  
+
+    }
 
     public int getId() {
         return id;
@@ -80,62 +71,6 @@ public abstract class Pessoa {
         this.cpf = cpf;
     }
 
-    public String getEstadoCivil() {
-        return estadoCivil;
-    }
-
-    public void setEstadoCivil(String estadoCivil) {
-        this.estadoCivil = estadoCivil;
-    }
-
-    public String getLogradouro() {
-        return logradouro;
-    }
-
-    public void setLogradouro(String logradouro) {
-        this.logradouro = logradouro;
-    }
-
-    public String getNumero() {
-        return numero;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
-
-    public String getCep() {
-        return cep;
-    }
-
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
-
-    public String getBairro() {
-        return bairro;
-    }
-
-    public void setBairro(String bairro) {
-        this.bairro = bairro;
-    }
-
-    public String getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
-
-    public String getComplemento() {
-        return Complemento;
-    }
-
-    public void setComplemento(String Complemento) {
-        this.Complemento = Complemento;
-    }
-
     public String getTelefone() {
         return telefone;
     }
@@ -151,6 +86,7 @@ public abstract class Pessoa {
     public void setEmail(String email) {
         this.email = email;
     }
+
     public Date getDataNascimento() {
         return dataNascimento;
     }
@@ -162,6 +98,5 @@ public abstract class Pessoa {
 //    public abstract boolean alterar(Pessoa pessoa);
 //    public abstract boolean remover(int id);
 //    public abstract Pessoa consultar(int id,int cpf,int rg);
-
 
 }
