@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%-- 
     Document   : index
     Created on : 19/03/2015, 21:18:15
@@ -552,7 +553,7 @@
                                        name="formOpUsuario" id="formOpUsuario"
                                        />
                             </div>
-                            <!-- Radio Button de Criação de id e senha -->
+                            <!-- Check Option de Criação de id e senha -->
                         </div>
                         <div class="collapse" id="collapseExample">
                             <div class="row" id="formUsuario">
@@ -580,8 +581,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- GRID com os campos de id e senha -->
-
+                        <!-- DIV com os campos de id e senha -->
                     </div>
                     <!-- Fim: Adicionais sobre o Funcionário -->
 
@@ -634,5 +634,5 @@
         </div>
 
     </jsp:body>
-
+        
 </t:defaultTemplate>
