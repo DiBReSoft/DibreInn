@@ -13,7 +13,6 @@ $(document).ready(function () {
 
 var cep = document.querySelector("#formCep");
 
-
 function consultacep(cep) {
     if(cep != ""){
         cep = cep.replace(/\D/g, "");
