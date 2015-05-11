@@ -18,6 +18,7 @@ public abstract class Pessoa {
     private Date dataNascimento;
     private String telefone;
     private String email;
+    private String tipo;
 
     public Pessoa() {
 
@@ -94,9 +95,13 @@ public abstract class Pessoa {
     public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
-//    public abstract boolean adicionar(Pessoa pessoa);
-//    public abstract boolean alterar(Pessoa pessoa);
-//    public abstract boolean remover(int id);
-//    public abstract Pessoa consultar(int id,int cpf,int rg);
+    
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 
 }

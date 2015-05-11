@@ -22,8 +22,18 @@ public class PessoaDAO {
         ConectarBD conexao = new ConectarBD();
         PreparedStatement stmt = null;
 
-        String sql = "INSERT INTO TB_PESSOA (NOME, SOBRENOME, SEXO, RG, CPF, DATANASC, TELEFONE, EMAIL) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-
+        String sql = " INSERT INTO TB_PESSOA (NOME, SOBRENOME, SEXO, RG, CPF, DATANASC, TELEFONE, EMAIL) VALUES (?, ?, ?, ?, ?, ?, ?, ?) \n ";
+        
+//        sql += " DECLARE @IdCliente AS INT = @@IDENTITY \n";//pega o id_pessoa da transação
+//        
+//        sql += " INSERT INTO TB_ENDERECO (ID_PESSOA,LOGRADOURO,NUM,CEP,COMPLEMENTO,BAIRRO,CIDADE,ESTADO) VALUES (@IdCliente,?,?,?,?,?,?,?) \n ";
+//       
+//        if (p instanceof Funcionario) {
+//        sql += " INSERT INTO TB_FUNCIONARIO (ID_PESSOA,ID_UNIDADE,DEPARTAMENTO,CARGO,SALARIO,USUARIO,SENHA) VALUES (@IdCliente,?,?,?,?,?,?) \n ";
+//        }else{
+//        sql += " INSERT INTO TB_HOSPEDE (ID_PESSOA,CPF_NOTA,NACIONALIDADE,N_PASSAPORTE,N_CARTAO) VALUES (@IdCliente,?,?,?,?) ";
+//        }
+//        
         try {
             conexao.openConection();
             stmt = conexao.conn.prepareStatement(sql);
@@ -62,52 +72,55 @@ public class PessoaDAO {
         return 1;
     }
 
-    public List<?> BuscaPessoa(String pesquisa, int tipoBusca) {
+    public List<Pessoa> BuscarPessoas(String pesquisa, int tipoBusca) {
         ResultSet rs = null;
+        
         ConectarBD conexao = new ConectarBD();
         PreparedStatement stmt = null;
+        
         String tipoPessoa = "";
-        List<Pessoa> lista;
+        
+        List<Pessoa> lista = new ArrayList<Pessoa>();
+        
         String Query = "SELECT ID_PESSOA,NOME,CPF,EMAIL,TIPO FROM TB_PESSOA WHERE ";
+        
         switch (tipoBusca) {
             case 1:
                 Query += "NOME = ?";
                 break;
             case 2:
-                Query += "CPF = ?";
+                Query += "EMAIL = ?";
                 break;
             case 3:
-                Query += "EMAIL = ?";
+                Query += "CPF = ?";
                 break;
         }
         try {
             conexao.openConection();
 
-            stmt = conexao.conn.prepareStatement(Query);
-            ResultSet resultados = stmt.executeQuery(Query);
-
-            DateFormat formatadorData = new SimpleDateFormat("dd/MM/yyyy");
+            stmt = conexao.conn.prepareStatement(Query);            
+            stmt.setString(1, pesquisa);
+            ResultSet resultados = stmt.executeQuery();
 
             while (resultados.next()) {
                 Pessoa p = null;
-                tipoPessoa = resultados.getString("TIPO_PESSOA");
+                tipoPessoa = resultados.getString("TIPO");
                 if (tipoPessoa.equalsIgnoreCase("f")) {
-                    p = new Funcionario();
-                    //lista = new  ArrayList<Funcionario>();
+                    p = new Funcionario();   
+                    p.setTipo("Funcionario");
                 } else {
-
                     //criando pessoa tipo hospede
-                    p = new Hospede();
-                    //lista = new  ArrayList<Hospede>();
+                    p = new Hospede();   
+                    p.setTipo("Hospede");
                 }
                 p.setId(resultados.getInt("ID_PESSOA"));
-                p.setNome(resultados.getString("NOME_PESSOA"));
+                p.setNome(resultados.getString("NOME"));
                 p.setEmail(resultados.getString("EMAIL"));
                 p.setCpf(resultados.getString("CPF"));
-                // lista.add(p);
+                lista.add(p);
             }
 
-            //return lista;
+            return lista;
         } catch (SQLException ex) {
             // Caso haja erro retorna 0 como ID e informa no log
             Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, "[INFO] Erro ao gravar os dados: ", ex);

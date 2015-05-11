@@ -5,6 +5,7 @@
  */
 package br.com.lebrehotel.dibreinn.controller.pessoas;
 
+import br.com.lebrehotel.dibreinn.model.pessoa.PessoaDAO;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -40,7 +41,7 @@ public class PessoaBuscarServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	  throws ServletException, IOException {
-
+PessoaDAO consulta = new PessoaDAO();
     // Esse atributo irá esconder a DIV com os resultados da busca na página buscar.jsp
     request.setAttribute("visibilidadeResultados", "hidden");
 
@@ -55,17 +56,19 @@ public class PessoaBuscarServlet extends HttpServlet {
       request.setAttribute("visibilidadeResultados", null);
     }
 
-    // Tratativa exclusiva para a busca por nome, retornando uma pessoa
+    //  busca por nome, retornando uma pessoa
     if (nomeParaBuscar != null) {
-      /* PessoaDAO p = new PessoaDAO();
-       * reultadoPesquisa = p.buscar(nomeParaBuscar);
-       * if(resultadoPesquisa) {
-       *   
-       * }
-       */
-      request.setAttribute("buscarNome", nomeParaBuscar);
+      request.setAttribute("lista", consulta.BuscarPessoas(nomeParaBuscar,1));
+      
+    }else if (buscarEmail != null) {//  busca por email, retornando uma pessoa
+      request.setAttribute("lista", consulta.BuscarPessoas(buscarEmail,2));
+     
+    }else if (buscarCpf != null) {//  busca por cpf, retornando uma pessoa
+     
+     request.setAttribute("lista", consulta.BuscarPessoas( buscarCpf.replace(".","").replace("-",""),3));
+      
     }
-
+    
     RequestDispatcher rd = request.getRequestDispatcher("/erp/pessoas/buscar.jsp");
     rd.forward(request, response);
 
