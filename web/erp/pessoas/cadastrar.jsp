@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-<%-- 
-    Document   : index
     Created on : 19/03/2015, 21:18:15
     Author     : udimberto.sjunior
 --%>
