@@ -59,13 +59,15 @@ public class PessoaCadastrarServlet extends HttpServlet {
             p.setTelefone(request.getParameter("formTel"));
             p.setEmail(request.getParameter("formEmail"));
 
-            Endereco endereco = new Endereco();
-            endereco.setCep((request.getParameter("formCep")));
-            endereco.setLogradouro(request.getParameter("formLogradouro"));
-            endereco.setNumero(request.getParameter("formNumero"));
-            endereco.setComplemento(request.getParameter("formComplemento"));
-            endereco.setBairro(request.getParameter("formBairro"));
-            endereco.setCidade(request.getParameter("formCidade"));
+            Endereco end = new Endereco();
+            end.setCep((request.getParameter("formCep")));
+            end.setLogradouro(request.getParameter("formLogradouro"));
+            end.setNumero(request.getParameter("formNumero"));
+            end.setComplemento(request.getParameter("formComplemento"));
+            end.setBairro(request.getParameter("formBairro"));
+            end.setCidade(request.getParameter("formCidade"));
+            end.setEstado(request.getParameter("formEstado"));
+            
 
 //      DateFormat formatadorData = new SimpleDateFormat("dd-MM-yyyy");
             // verifico se o objeto é do tipo funcionario, se não for é do tipo hospede
@@ -97,7 +99,7 @@ public class PessoaCadastrarServlet extends HttpServlet {
             }
 
             PessoaDAO teste = new PessoaDAO();
-            p.setId(teste.cadastrarPessoa(p));
+            p.setId(teste.cadastrarPessoa(p,end));
 
             /* Teste se o resultado do cadastro foi positivo. Se for envia o email.
              if (p.getId() != 0) {
