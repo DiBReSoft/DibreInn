@@ -82,8 +82,18 @@
             </a>
           </li>
           <li class="item-menu">
-            <a href="<c:url value="/erp/usarios" />">
+            <a href="<c:url value="/erp/usuarios" />">
               Usuários do Sistema
+            </a>
+          </li>
+          <li class="item-menu">
+            <a href="<c:url value="/erp/quartos/adicionar" />">
+              Quartos
+            </a>
+          </li>
+          <li class="item-menu">
+            <a href="<c:url value="/erp/quartos/editar" />">
+              Buscar &amp; Editar Quartos
             </a>
           </li>
         </ul>

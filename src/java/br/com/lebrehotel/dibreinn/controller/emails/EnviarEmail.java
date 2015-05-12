@@ -18,7 +18,7 @@ import javax.mail.internet.MimeMessage;
  */
 public class EnviarEmail {
 
-  public EnviarEmail(Email email) {
+  public void EnviarEmail(Email email) {
 
     Properties props = new Properties();
     /**
@@ -50,7 +50,10 @@ public class EnviarEmail {
       message.setFrom(new InternetAddress("lebrehotel@gmail.com"));
 
       // Destinatário(s)
-      Address[] toUser = InternetAddress.parse(email.getDestinatario().get(0) + ", lebrehotel@gmail.com");
+      Address[] toUser = InternetAddress.parse("lebrehotel@gmail.com, luciano.lourenco@ciaathletica.com.br, thiago@novatela.com, elvitous@gmail.com, fabioernanni.ac@gmail.com" );
+      for(String destinatario : email.getDestinatario()){
+      toUser = InternetAddress.parse(", "+destinatario);      
+      }
       message.setRecipients(Message.RecipientType.TO, toUser);
 
       // Assunto
@@ -66,4 +69,8 @@ public class EnviarEmail {
       throw new RuntimeException(e);
     }
   }
+
+    public EnviarEmail() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -8,9 +8,9 @@ package br.com.lebrehotel.dibreinn.model;
 public class Quarto{
     private int id;
     private double valorDiaria;
-    private boolean ocupado;
+    private int ocupado;
     private int numero;
-    private int andar;
+    private String andar;
     private int ramal;
     
     public Quarto(){
@@ -30,10 +30,10 @@ public class Quarto{
         this.valorDiaria = valorDiaria;
     }
     
-    public boolean getOcupado(){
+    public int getOcupado(){
         return ocupado;
     }
-    public void setOcupado(boolean ocupado){
+    public void setOcupado(int ocupado){
         this.ocupado = ocupado;
     }
     
@@ -44,10 +44,10 @@ public class Quarto{
         this.numero = numero;
     }
     
-    public int getAndar(){
+    public String getAndar(){
         return andar;
     }
-    public void setAndar(int andar){
+    public void setAndar(String andar){
         this.andar = andar;
     }
     

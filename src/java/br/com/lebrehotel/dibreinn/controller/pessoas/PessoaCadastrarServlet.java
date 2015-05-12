@@ -133,13 +133,15 @@ public class PessoaCadastrarServlet extends HttpServlet {
     }// </editor-fold>
 
     //Funcão para enviar e-mail a pessoa cadastrada
-    private void enviaEmail(Pessoa p) {
+  private void enviaEmail(Pessoa p) {
         System.out.println("[DADOS GRAVADOS COM SUCESSO] Novo cadastro: " + p.getNome() + " " + p.getSobrenome());
         Email email = new Email();
         email.setDestinatario(p.getEmail());
         email.setAssunto("Cadastro Efetuado");
         email.setMensagem(p.getNome() + ", seja bem-vindo e obrigado por efetuar o cadastro no Lebre Hotel!");
-        new EnviarEmail(email);
+        EnviarEmail envia = new EnviarEmail();
+        envia.EnviarEmail(email);
     }
+
 
 }
