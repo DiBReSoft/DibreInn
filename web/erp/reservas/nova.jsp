@@ -127,21 +127,11 @@
 
               <select class="form-control" tabindex="2" aria-describedby="basic-addon2"
                       name="reservaQuarto" id="reservaQuarto">
+                  <c:forEach items="${lista}" var="quarto" varStatus="stat">
                 <option>
-                  1
+                  <c:out value="${quarto.numero}" />
                 </option>
-                <option disabled="true">
-                  2 (exemplo de quarto ocupado)
-                </option>
-                <option>
-                  3
-                </option>
-                <option>
-                  4
-                </option>
-                <option>
-                  5
-                </option>
+                </c:forEach>
               </select>              
 
             </div>
