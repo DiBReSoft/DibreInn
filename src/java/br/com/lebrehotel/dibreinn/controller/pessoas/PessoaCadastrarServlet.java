@@ -77,10 +77,6 @@ public class PessoaCadastrarServlet extends HttpServlet {
                     funcionario.setLogin(request.getParameter("formUsuario"));
                     funcionario.setSenha(request.getParameter("formSenha"));
                 }
-
-
-
-
                 funcionario.setSalario(Double.parseDouble(request.getParameter("formSalario")));
                 funcionario.setDependentes(Integer.parseInt(request.getParameter("formDependentes")));
                 funcionario.setDepartamento(request.getParameter("formDepartamento"));

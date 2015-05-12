@@ -46,3 +46,12 @@ function correiocontrolcep(valor) {
     cidade.value = valor.localidade;
     estado.value = valor.uf;
 }
+
+//Função de carregar e-mail como Login
+var email = document.getElementById("formEmail");
+email.addEventListener("blur", carregaLogin);
+
+function carregaLogin(){
+    var login = document.getElementById("formLogin");
+    login.value = email.value;
+}

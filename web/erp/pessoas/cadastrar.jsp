@@ -563,7 +563,7 @@ Created on : 19/03/2015, 21:18:15
                                         <input type="text" class="form-control"
                                                name="formLogin" id="formLogin" 
                                                placeholder="Nome de Usuário" 
-                                               required/>
+                                               disabled/>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
