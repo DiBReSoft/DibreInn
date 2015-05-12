@@ -17,23 +17,23 @@ import java.util.logging.Logger;
 
 public class PessoaDAO {
 
-    public int cadastrarPessoa(Pessoa p) {
+    public int cadastrarPessoa(Pessoa p,Endereco e) {
 
         ConectarBD conexao = new ConectarBD();
         PreparedStatement stmt = null;
 
         String sql = " INSERT INTO TB_PESSOA (NOME, SOBRENOME, SEXO, RG, CPF, DATANASC, TELEFONE, EMAIL) VALUES (?, ?, ?, ?, ?, ?, ?, ?) \n ";
         
-//        sql += " DECLARE @IdCliente AS INT = @@IDENTITY \n";//pega o id_pessoa da transação
-//        
-//        sql += " INSERT INTO TB_ENDERECO (ID_PESSOA,LOGRADOURO,NUM,CEP,COMPLEMENTO,BAIRRO,CIDADE,ESTADO) VALUES (@IdCliente,?,?,?,?,?,?,?) \n ";
-//       
+          sql += " DECLARE @IdCliente AS INT = @@IDENTITY \n";//pega o id_pessoa da transação
+        
+          sql += " INSERT INTO TB_ENDERECO (ID_PESSOA,LOGRADOURO,NUM,CEP,COMPLEMENTO,BAIRRO,CIDADE,ESTADO,PAIS) VALUES (@IdCliente,?,?,?,?,?,?,?,?) \n ";
+       
 //        if (p instanceof Funcionario) {
 //        sql += " INSERT INTO TB_FUNCIONARIO (ID_PESSOA,ID_UNIDADE,DEPARTAMENTO,CARGO,SALARIO,USUARIO,SENHA) VALUES (@IdCliente,?,?,?,?,?,?) \n ";
 //        }else{
 //        sql += " INSERT INTO TB_HOSPEDE (ID_PESSOA,CPF_NOTA,NACIONALIDADE,N_PASSAPORTE,N_CARTAO) VALUES (@IdCliente,?,?,?,?) ";
 //        }
-//        
+        
         try {
             conexao.openConection();
             stmt = conexao.conn.prepareStatement(sql);
@@ -46,6 +46,15 @@ public class PessoaDAO {
             stmt.setDate(6, p.getDataNascimento());
             stmt.setString(7, p.getTelefone());
             stmt.setString(8, p.getEmail());
+            stmt.setString(9, e.getLogradouro());
+            stmt.setString(10, e.getNumero());
+            stmt.setString(11, e.getCep());
+            stmt.setString(12, e.getComplemento());
+            stmt.setString(13, e.getBairro());
+            stmt.setString(14, e.getCidade());
+            stmt.setString(15, e.getEstado());
+            stmt.setString(16, e.getPais());
+            
             stmt.executeUpdate();
             System.out.println("Dados Salvos com sucesso!!!");
             

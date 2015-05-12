@@ -145,7 +145,7 @@ Created on : 19/03/2015, 21:18:15
                                     <label for="formDataNasc">
                                         Data de Nascimento:
                                     </label>
-                                    <input type="text" class="form-control" 
+                                    <input type="date" class="form-control" 
                                            tabindex="6"
                                            name="formDataNasc" id="formDataNasc" 
                                            placeholder="DD-MM-AAAA"
@@ -209,7 +209,7 @@ Created on : 19/03/2015, 21:18:15
                     </div>
                     <!-- Fim da primeira coluna: lado esquerdo - DADOS -->
 
-                    <!-- Início da segunda coluna: lado direito - ENDEREÇO
+                    <!-- Início da segunda coluna: lado direito - ENDEREÇO -->
                     <div class="col-sm-6">
           
                       <h4>
