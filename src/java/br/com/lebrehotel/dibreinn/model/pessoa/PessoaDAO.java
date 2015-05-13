@@ -114,7 +114,7 @@ public class PessoaDAO {
             while (resultados.next()) {
                 Pessoa p = null;
                 tipoPessoa = resultados.getString("TIPO");
-                if (tipoPessoa.equalsIgnoreCase("f")) {
+                if (tipoPessoa.equalsIgnoreCase("f") || tipoPessoa.equalsIgnoreCase("funcionario")) {
                     p = new Funcionario();   
                     p.setTipo("Funcionario");
                 } else {

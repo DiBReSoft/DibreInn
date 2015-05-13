@@ -43,11 +43,13 @@ public class PessoaCadastrarServlet extends HttpServlet {
 
                 //criando pessoa tipo funcionario
                 p = new Funcionario();
+		p.setTipo("f");
 
             } else {
 
                 //criando pessoa tipo hospede
                 p = new Hospede();
+		p.setTipo("h");
 
             }
             p.setNome(request.getParameter("formNome"));

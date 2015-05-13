@@ -10,208 +10,213 @@
 
 <t:defaultTemplate>
 
-    <jsp:attribute name="paginaTitulo">
-        Pessoa: Buscar
-    </jsp:attribute>
+  <jsp:attribute name="paginaTitulo">
+    Pessoa: Buscar
+  </jsp:attribute>
 
-    <jsp:attribute name="paginaHead">
-        <!-- CSS e outros que vão no <head> da página -->
-        <style>
-            .form-di label {
-                margin-bottom: 0px;
-            }
-            .table td {
-                font-size: 13px;
-            }
-        </style>
-    </jsp:attribute>
+  <jsp:attribute name="paginaHead">
+    <!-- CSS e outros que vão no <head> da página -->
+    <style>
+      .form-di label {
+        margin-bottom: 0px;
+      }
+      .table td {
+        font-size: 13px;
+      }
+    </style>
+  </jsp:attribute>
 
-    <jsp:attribute name="paginaBottom">
-        <!-- JavaScript e outros que vão ao final da página -->
-        <script type="text/javascript" src="<c:url value="/assets/js/bootstrap-switch.js" />"></script>
-        <script type="text/javascript" src="<c:url value="/assets/js/form-component.js" />"></script>
-        <script type="text/javascript" src="<c:url value="/assets/js/jquery.numeric.js" />"></script>
-        <script type="text/javascript" src="<c:url value="/assets/js/jquery.maskedinput.min.js" />"></script>
-        <script type="text/javascript" src="<c:url value="/assets/js/validacoes.js" />"></script>
-    </jsp:attribute>
+  <jsp:attribute name="paginaBottom">
+    <!-- JavaScript e outros que vão ao final da página -->
+    <script type="text/javascript" src="<c:url value="/assets/js/bootstrap-switch.js" />"></script>
+    <script type="text/javascript" src="<c:url value="/assets/js/form-component.js" />"></script>
+    <script type="text/javascript" src="<c:url value="/assets/js/jquery.numeric.js" />"></script>
+    <script type="text/javascript" src="<c:url value="/assets/js/jquery.maskedinput.min.js" />"></script>
+    <script type="text/javascript" src="<c:url value="/assets/js/validacoes.js" />"></script>
+  </jsp:attribute>
 
-    <jsp:body>
+  <jsp:body>
 
-        <h1 class="page-title">
-            Buscar Pessoa
-        </h1>
+    <h1 class="page-title">
+      Buscar Pessoa
+    </h1>
 
-        <!-- Início da #1 linha de GRID dos formulários -->
-        <div class="row">
+    <!-- Início da #1 linha de GRID dos formulários -->
+    <div class="row">
 
-            <div class="col-md-3 col-sm-4">
+      <div class="col-md-3 col-sm-4">
 
-                <!-- Formulário #1 | Buscar por nome -->
-                <form role="form" method="get" class="form-di"
-                      action="buscar" name="formNome">
+        <!-- Formulário #1 | Buscar por nome -->
+        <form role="form" method="get" class="form-di"
+              action="buscar" name="formNome">
 
-                    <h4>
-                        <label for="nome">
-                            Buscar por nome
-                        </label>
-                    </h4>
-                    <hr />
+          <h4>
+            <label for="nome">
+              Buscar por nome
+            </label>
+          </h4>
+          <hr />
 
-                    <div class="input-group">
+          <div class="input-group">
 
-                        <input type="text" class="form-control"
-                               tabindex="1"
-                               name="nome" id="formNome" 
-                               placeholder="Fulano" />
+            <input type="text" class="form-control"
+                   tabindex="1"
+                   name="nome" id="formNome" 
+                   placeholder="Fulano" />
 
-                        <span class="input-group-btn">              
+            <span class="input-group-btn">              
 
-                            <button type="submit" class="btn btn-default" 
-                                    tabindex="2">
+              <button type="submit" class="btn btn-default" 
+                      tabindex="2">
 
-                                <span class="hidden-sm hidden-xs">
-                                    Buscar
-                                </span>                
+                <span class="hidden-sm hidden-xs">
+                  Buscar
+                </span>                
 
-                                <i class="fa fa-fw fa-lg fa-search"></i>
+                <i class="fa fa-fw fa-lg fa-search"></i>
 
-                            </button>
+              </button>
 
-                        </span>
-                    </div>
+            </span>
+          </div>
 
-                </form>
-                <!-- Formulário #1 | Buscar por nome -->
+        </form>
+        <!-- Formulário #1 | Buscar por nome -->
 
-                <div style="padding: 5px 0px;"></div>
+        <div style="padding: 5px 0px;"></div>
 
-                <!-- Formulário #2 | Buscar por e-mail -->
-                <form role="form" method="get" class="form-di"
-                      action="buscar" name="formBuscarEmail">
+        <!-- Formulário #2 | Buscar por e-mail -->
+        <form role="form" method="get" class="form-di"
+              action="buscar" name="formBuscarEmail">
 
-                    <h4>
-                        <label for="email">
-                            Buscar por e-mail
-                        </label>
-                    </h4>
-                    <hr />
+          <h4>
+            <label for="email">
+              Buscar por e-mail
+            </label>
+          </h4>
+          <hr />
 
-                    <div class="input-group">            
+          <div class="input-group">            
 
-                        <input type="email" class="form-control" 
-                               tabindex="3"
-                               name="email" id="formEmail"
-                               placeholder="fulano@dasilva.com.br" />
+            <input type="email" class="form-control" 
+                   tabindex="3"
+                   name="email" id="formEmail"
+                   placeholder="fulano@dasilva.com.br" />
 
-                        <span class="input-group-btn">
+            <span class="input-group-btn">
 
-                            <button type="submit" class="btn btn-default" 
-                                    tabindex="4">
+              <button type="submit" class="btn btn-default" 
+                      tabindex="4">
 
-                                <span class="hidden-sm hidden-xs">
-                                    Buscar
-                                </span>
+                <span class="hidden-sm hidden-xs">
+                  Buscar
+                </span>
 
-                                <i class="fa fa-fw fa-lg fa-search"></i>
+                <i class="fa fa-fw fa-lg fa-search"></i>
 
-                            </button>
+              </button>
 
-                        </span>
+            </span>
 
-                    </div>
+          </div>
 
-                </form>
-                <!-- Formulário #2 | Buscar por e-mail -->
+        </form>
+        <!-- Formulário #2 | Buscar por e-mail -->
 
-                <div style="padding: 5px 0px;"></div>
+        <div style="padding: 5px 0px;"></div>
 
-                <!-- Formulário #3 | Buscar por CPF -->
-                <form role="form" method="get" class="form-di"
-                      action="buscar" name="formBuscarCPF">
+        <!-- Formulário #3 | Buscar por CPF -->
+        <form role="form" method="get" class="form-di"
+              action="buscar" name="formBuscarCPF">
 
-                    <h4>
-                        <label for="cpf">
-                            Buscar por CPF
-                        </label>
-                    </h4>
-                    <hr />
+          <h4>
+            <label for="cpf">
+              Buscar por CPF
+            </label>
+          </h4>
+          <hr />
 
-                    <div class="input-group">
+          <div class="input-group">
 
-                        <input type="text" class="form-control"
-                               tabindex="5"
-                               name="cpf" id="formCpf" 
-                               placeholder="111.222.333-44" />
+            <input type="text" class="form-control"
+                   tabindex="5"
+                   name="cpf" id="formCpf" 
+                   placeholder="111.222.333-44" />
 
-                        <span class="input-group-btn">
+            <span class="input-group-btn">
 
-                            <button type="submit" class="btn btn-default" 
-                                    tabindex="6">
+              <button type="submit" class="btn btn-default" 
+                      tabindex="6">
 
-                                <span class="hidden-sm hidden-xs">
-                                    Buscar
-                                </span>
+                <span class="hidden-sm hidden-xs">
+                  Buscar
+                </span>
 
-                                <i class="fa fa-fw fa-lg fa-search"></i>
+                <i class="fa fa-fw fa-lg fa-search"></i>
 
-                            </button>
+              </button>
 
-                        </span>
+            </span>
 
-                    </div>
+          </div>
 
-                </form>
-                <!-- Formulário #3 | Buscar por CPF -->
+        </form>
+        <!-- Formulário #3 | Buscar por CPF -->
 
-            </div>
+      </div>
 
-            <div class="col-md-9 col-sm-8 form-di ${visibilidadeResultados}">
+      <div class="col-md-9 col-sm-8 form-di ${visibilidadeResultados}">
 
-                <h4>
-                    Resultado(s) da busca
-                </h4>
-                <hr />
+        <h4>
+          Resultado(s) da busca
+        </h4>
+        <hr />
 
-                <table class="table table-responsive table-hover table-striped table-condensed">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nome</th>
-                            <th>CPF</th>
-                            <th>Email</th>
-                            <th>Tipo</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach items="${lista}" var="pessoa" varStatus="stat">
-                            <tr>
-                                <td scope="row"><c:out value="${pessoa.id}" /></td>
-                                <td class ="nome"><c:out value="${pessoa.nome}" /></td>
-                                <td class ="cpf"><c:out value="${pessoa.cpf}" /></td>
-                                <td class ="email"><c:out value="${pessoa.email}" /></td>
-                                <td class ="tipoPessoa"><c:out value="${pessoa.tipo}" /></td>
-                                <td class="seleciona"><a href="/erp/pessoas/cadastrado" class="selecionado">Selecionar</a></td>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
-                <br />
-                <div class="progress">
-                    <div class="progress-bar progress-bar-success progress-bar-striped active" 
-                         role="progressbar" aria-valuenow="45" aria-valuemin="0" 
-                         aria-valuemax="100" style="width: 45%;">
-                        <span class="sr-only">45% Complete</span>
-                    </div>
-                </div>
-
-            </div>
-
+        <table class="table table-responsive table-hover table-striped table-condensed">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nome</th>
+              <th>CPF</th>
+              <th>Email</th>
+              <th>Tipo</th>
+              <th>Editar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <c:forEach items="${lista}" var="pessoa" varStatus="stat">
+              <tr>
+                <td scope="row"><c:out value="${pessoa.id}" /></td>
+                <td class ="nome"><c:out value="${pessoa.nome}" /></td>
+                <td class ="cpf"><c:out value="${pessoa.cpf}" /></td>
+                <td class ="email"><c:out value="${pessoa.email}" /></td>
+                <td class ="tipoPessoa"><c:out value="${pessoa.tipo}" /></td>
+                <td class="seleciona">
+                  <a href="<c:url value="/erp/pessoas/cadastro?id=${pessoa.id}" />" 
+                     class="selecionado">
+                    Selecionar
+                  </a>
+                </td>
+              </tr>
+            </c:forEach>
+          </tbody>
+        </table>
+        <br />
+        <div class="progress">
+          <div class="progress-bar progress-bar-success progress-bar-striped active" 
+               role="progressbar" aria-valuenow="45" aria-valuemin="0" 
+               aria-valuemax="100" style="width: 45%;">
+            <span class="sr-only">45% Complete</span>
+          </div>
         </div>
-        <!-- Fim da #1 linha de GRID dos formulários -->
 
-        <div style="padding: 15px 0px;"></div>
+      </div>
 
-    </jsp:body>
+    </div>
+    <!-- Fim da #1 linha de GRID dos formulários -->
+
+    <div style="padding: 15px 0px;"></div>
+
+  </jsp:body>
 
 </t:defaultTemplate>
