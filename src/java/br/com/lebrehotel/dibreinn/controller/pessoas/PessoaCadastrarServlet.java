@@ -59,6 +59,7 @@ public class PessoaCadastrarServlet extends HttpServlet {
             p.setCpf(request.getParameter("formCpf"));
             p.setDataNascimento(java.sql.Date.valueOf(request.getParameter("formDataNasc")));
             p.setTelefone(request.getParameter("formTel"));
+	    p.setCelular(request.getParameter("formCel"));
             p.setEmail(request.getParameter("formEmail"));
 
             Endereco end = new Endereco();

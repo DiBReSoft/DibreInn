@@ -22,7 +22,7 @@ public class PessoaDAO {
         ConectarBD conexao = new ConectarBD();
         PreparedStatement stmt = null;
 
-        String sql = " INSERT INTO TB_PESSOA (NOME, SOBRENOME, SEXO, RG, CPF, DATANASC, TELEFONE, EMAIL) VALUES (?, ?, ?, ?, ?, ?, ?, ?) \n ";
+        String sql = " INSERT INTO TB_PESSOA (NOME, SOBRENOME, SEXO, RG, CPF, DATANASC, TELEFONE, CEL, EMAIL, TIPO, NEWSLETTER) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) \n ";
         
           sql += " DECLARE @IdCliente AS INT = @@IDENTITY \n";//pega o id_pessoa da transação
         
@@ -45,15 +45,19 @@ public class PessoaDAO {
             stmt.setString(5, p.getCpf());
             stmt.setDate(6, p.getDataNascimento());
             stmt.setString(7, p.getTelefone());
-            stmt.setString(8, p.getEmail());
-            stmt.setString(9, e.getLogradouro());
-            stmt.setString(10, e.getNumero());
-            stmt.setString(11, e.getCep());
-            stmt.setString(12, e.getComplemento());
-            stmt.setString(13, e.getBairro());
-            stmt.setString(14, e.getCidade());
-            stmt.setString(15, e.getEstado());
-            stmt.setString(16, e.getPais());
+	    stmt.setString(8, p.getCelular());
+            stmt.setString(9, p.getEmail());
+	    stmt.setString(10, p.getTipo());
+	    stmt.setInt(11, p.getNewsletter());
+	    
+            stmt.setString(12, e.getLogradouro());
+            stmt.setString(13, e.getNumero());
+            stmt.setString(14, e.getCep());
+            stmt.setString(15, e.getComplemento());
+            stmt.setString(16, e.getBairro());
+            stmt.setString(17, e.getCidade());
+            stmt.setString(18, e.getEstado());
+            stmt.setString(19, e.getPais());
             
             stmt.executeUpdate();
             System.out.println("Dados Salvos com sucesso!!!");
@@ -114,13 +118,13 @@ public class PessoaDAO {
             while (resultados.next()) {
                 Pessoa p = null;
                 tipoPessoa = resultados.getString("TIPO");
-                if (tipoPessoa.equalsIgnoreCase("f") || tipoPessoa.equalsIgnoreCase("funcionario")) {
-                    p = new Funcionario();   
-                    p.setTipo("Funcionario");
+                if (tipoPessoa.equalsIgnoreCase("f")) {
+                    p = new Funcionario();
+                    p.setTipo("f");
                 } else {
                     //criando pessoa tipo hospede
                     p = new Hospede();   
-                    p.setTipo("Hospede");
+                    p.setTipo("h");
                 }
                 p.setId(resultados.getInt("ID_PESSOA"));
                 p.setNome(resultados.getString("NOME"));

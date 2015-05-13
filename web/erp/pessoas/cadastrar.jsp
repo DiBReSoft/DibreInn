@@ -173,7 +173,7 @@
 
               </div>
 
-              <div class="col-sm-6">
+              <div class="col-sm-4">
 
                 <div class="form-group">
                   <label for="formDataNasc">
@@ -182,14 +182,14 @@
                   <input type="date" class="form-control" 
                          tabindex="6"
                          name="formDataNasc" id="formDataNasc" 
-                         placeholder="DD-MM-AAAA"
+                         placeholder="AAAA-MM-DD"
                          required="true" 
                          maxlength="10" />
                 </div>
 
               </div>
 
-              <div class="col-sm-6">
+              <div class="col-sm-4">
 
                 <div class="form-group">
                   <label for="formTel">
@@ -198,8 +198,23 @@
                   <input type="tel" class="form-control" 
                          tabindex="7"
                          name="formTel" id="formTel"
-                         placeholder="5555-5555" 
-                         maxlength="9" />
+                         placeholder="(11) 5555-5555" 
+                         maxlength="15" />
+                </div>
+
+              </div>
+
+              <div class="col-sm-4">
+
+                <div class="form-group">
+                  <label for="formCel">
+                    Celular:
+                  </label>
+                  <input type="tel" class="form-control" 
+                         tabindex="7"
+                         name="formCel" id="formCel"
+                         placeholder="(11) 9999-9999" 
+                         maxlength="15" />
                 </div>
 
               </div>

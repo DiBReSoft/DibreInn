@@ -17,8 +17,10 @@ public abstract class Pessoa {
     private String cpf;
     private Date dataNascimento;
     private String telefone;
+    private String celular;
     private String email;
     private String tipo;
+    private int newsletter;
 
     public Pessoa() {
 
@@ -103,5 +105,21 @@ public abstract class Pessoa {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+
+  public int getNewsletter() {
+    return newsletter;
+  }
+
+  public void setNewsletter(int newsletter) {
+    this.newsletter = newsletter;
+  }
+
+  public String getCelular() {
+    return celular;
+  }
+
+  public void setCelular(String celular) {
+    this.celular = celular;
+  }
 
 }
