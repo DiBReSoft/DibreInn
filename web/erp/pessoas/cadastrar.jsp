@@ -10,7 +10,15 @@
 <t:defaultTemplate>
 
   <jsp:attribute name="paginaTitulo">
-    Pessoa: Cadastrar
+    <c:choose>
+      <c:when test="${pessoa.get(0).id != null}">
+        Atualizar
+      </c:when>
+      <c:otherwise>
+        Cadastrar
+      </c:otherwise>
+    </c:choose>
+    Pessoa
   </jsp:attribute>
 
   <jsp:attribute name="paginaHead">
@@ -32,7 +40,15 @@
   <jsp:body>
 
     <h1 class="page-title">
-      Cadastrar Pessoa
+      <c:choose>
+        <c:when test="${pessoa.get(0).id != null}">
+          Atualizar
+        </c:when>
+        <c:otherwise>
+          Cadastrar
+        </c:otherwise>
+      </c:choose>
+      Pessoa
     </h1>
 
     <!-- page start-->
@@ -92,7 +108,6 @@
             <div class="row">
 
               <div class="col-xs-6">
-
                 <div class="form-group">
                   <label for="formNome">
                     Nome:
@@ -101,7 +116,8 @@
                          tabindex="1"
                          name="formNome" id="formNome" 
                          placeholder="Fulano"
-                         required="true" />
+                         required="true" 
+                         value="<c:out value="${pessoa.get(0).nome}" />" />
                 </div>
 
               </div>
@@ -116,7 +132,8 @@
                          tabindex="2"
                          name="formSobrenome" id="formSobrenome"
                          placeholder="da Silva"
-                         required="true" />
+                         required="true"
+                         value="<c:out value="${pessoa.get(0).sobrenome}" />" />
                 </div>
 
               </div>
@@ -153,7 +170,8 @@
                          tabindex="4"
                          name="formRg" id="formRg" 
                          placeholder="RG" 
-                         maxlength="50" />
+                         maxlength="50"
+                         value="<c:out value="${pessoa.get(0).rg}" />" />
                 </div>
 
               </div>
@@ -168,7 +186,8 @@
                          tabindex="5"
                          name="formCpf" id="formCpf" 
                          placeholder="CPF" 
-                         maxlength="50" />
+                         maxlength="50"
+                         value="<c:out value="${pessoa.get(0).cpf}" />" />
                 </div>
 
               </div>
@@ -184,7 +203,8 @@
                          name="formDataNasc" id="formDataNasc" 
                          placeholder="AAAA-MM-DD"
                          required="true" 
-                         maxlength="10" />
+                         maxlength="10"
+                         value="<c:out value="${pessoa.get(0).dataNascimento}" />"/>
                 </div>
 
               </div>
@@ -199,7 +219,8 @@
                          tabindex="7"
                          name="formTel" id="formTel"
                          placeholder="(11) 5555-5555" 
-                         maxlength="15" />
+                         maxlength="15"
+                         value="<c:out value="${pessoa.get(0).telefone}" />"/>
                 </div>
 
               </div>
@@ -214,7 +235,8 @@
                          tabindex="7"
                          name="formCel" id="formCel"
                          placeholder="(11) 9999-9999" 
-                         maxlength="15" />
+                         maxlength="15"
+                         value="<c:out value="${pessoa.get(0).celular}" />" />
                 </div>
 
               </div>
@@ -228,7 +250,8 @@
                   <input type="email" class="form-control" 
                          tabindex="8"
                          name="formEmail" id="formEmail"
-                         placeholder="fulano@dasilva.com.br" />
+                         placeholder="fulano@dasilva.com.br"
+                         value="<c:out value="${pessoa.get(0).email}" />" />
                 </div>
 
               </div>
@@ -243,11 +266,22 @@
                   <div class="switch switch-square"
                        data-on-label="<i class=' fa fa-check'></i>"
                        data-off-label="<i class='fa fa-times'></i>">
-                    <input type="checkbox"
-                           tabindex="9"
-                           name="formNewsletter" id="formNewsletter"
-                           checked value="1" required
-                           />
+                    <c:choose>
+                      <c:when test="${pessoa.get(0).newsletter == 1}">
+                        <input type="checkbox"
+                               tabindex="9"
+                               name="formNewsletter" id="formNewsletter"
+                               checked value="1" required
+                               />
+                      </c:when>
+                      <c:otherwise>                      
+                        <input type="checkbox"
+                               tabindex="9"
+                               name="formNewsletter" id="formNewsletter"
+                               value="1" required
+                               />
+                      </c:otherwise>
+                    </c:choose>
                   </div>
                 </div>
 
