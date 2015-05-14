@@ -29,11 +29,11 @@ public class PessoaCadastrarServlet extends HttpServlet {
     String pessoaID = request.getParameter("id");
 
     if (pessoaID != null) {
-      
+
       PessoaDAO consulta = new PessoaDAO();
-      
+
       request.setAttribute("pessoa", consulta.BuscarPessoas(pessoaID, 4));
-      
+
     }
 
     RequestDispatcher rd = request.getRequestDispatcher("/erp/pessoas/cadastrar.jsp");
@@ -53,17 +53,17 @@ public class PessoaCadastrarServlet extends HttpServlet {
     try {
 
       //verificando qual tipo de pessoa
-      if (request.getParameter("formTipo").equalsIgnoreCase("funcionario")) {
-
-	//criando pessoa tipo funcionario
-	p = new Funcionario();
-	p.setTipo("f");
-
-      } else {
+      if (request.getParameter("formTipo").equalsIgnoreCase("h")) {
 
 	//criando pessoa tipo hospede
 	p = new Hospede();
 	p.setTipo("h");
+
+      } else {
+
+	//criando pessoa tipo funcionario
+	p = new Funcionario();
+	p.setTipo("f");
 
       }
       p.setNome(request.getParameter("formNome"));
@@ -75,6 +75,7 @@ public class PessoaCadastrarServlet extends HttpServlet {
       p.setTelefone(request.getParameter("formTel"));
       p.setCelular(request.getParameter("formCel"));
       p.setEmail(request.getParameter("formEmail"));
+      p.setNewsletter(Integer.parseInt(request.getParameter("formNewsletter")));
 
       Endereco end = new Endereco();
       end.setCep((request.getParameter("formCep")));
@@ -96,7 +97,6 @@ public class PessoaCadastrarServlet extends HttpServlet {
 	  funcionario.setSenha(request.getParameter("formSenha"));
 	}
 	funcionario.setSalario(Double.parseDouble(request.getParameter("formSalario")));
-	funcionario.setDependentes(Integer.parseInt(request.getParameter("formDependentes")));
 	funcionario.setDepartamento(request.getParameter("formDepartamento"));
 	funcionario.setCargo(request.getParameter("formCargo"));
 	funcionario.setUnidade(request.getParameter("formUnidade"));

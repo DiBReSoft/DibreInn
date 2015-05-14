@@ -35,6 +35,11 @@
     <script type="text/javascript" src="<c:url value="/assets/js/jquery.numeric.js" />"></script>
     <script type="text/javascript" src="<c:url value="/assets/js/jquery.maskedinput.min.js" />"></script>
     <script type="text/javascript" src="<c:url value="/assets/js/validacoes.js" />"></script>
+    <c:if test="${pessoa.get(0).tipo eq 'Funcionário'}">
+      <script type="text/javascript">
+        $("a[href=#abaFuncionario]").click();
+      </script>
+    </c:if>
   </jsp:attribute>
 
   <jsp:body>
@@ -267,18 +272,27 @@
                        data-on-label="<i class=' fa fa-check'></i>"
                        data-off-label="<i class='fa fa-times'></i>">
                     <c:choose>
+                      <c:when test="${pessoa.get(0).id eq null}">
+                        <input type="checkbox"
+                               tabindex="9"
+                               name="formNewsletter" id="formNewsletter"
+                               value="1"
+                               checked
+                               />
+                      </c:when>
                       <c:when test="${pessoa.get(0).newsletter == 1}">
                         <input type="checkbox"
                                tabindex="9"
                                name="formNewsletter" id="formNewsletter"
-                               checked value="1" required
+                               value="1"
+                               checked
                                />
                       </c:when>
-                      <c:otherwise>                      
+                      <c:otherwise>
                         <input type="checkbox"
                                tabindex="9"
                                name="formNewsletter" id="formNewsletter"
-                               value="1" required
+                               value="1"
                                />
                       </c:otherwise>
                     </c:choose>
@@ -557,6 +571,7 @@
 
             </div>
             <!-- Fim da linha de GRID do formulário -->
+
             <div class="form-group">
               <label for="formUsuario">
                 Cadastrar como usuário do sistema?
@@ -619,33 +634,95 @@
         <!-- Linha de botões do formulário -->
         <div class="row">
 
-          <div class="col-sm-3 hidden-xs"></div>
+          <c:choose>
+            <c:when test="${pessoa.get(0).id != null}">
+              <div class="col-sm-4 hidden-xs"></div>              
 
-          <div class="col-xs-6 col-sm-3">
+              <div class="col-xs-12 col-sm-4">
 
-            <button type="reset" class="btn btn-block btn-lg btn-primary" 
-                    tabindex="24">
-              <i class="fa fa-eraser"></i>
-              LIMPAR
-            </button>
+                <button type="submit" class="btn btn-block btn-lg btn-default" 
+                        tabindex="23">
+                  ATUALIZAR
+                  <i class="fa fa-check-square"></i>
+                </button>
 
-          </div>
+              </div>
+            </c:when>
+            <c:otherwise>
+              <div class="col-sm-3 hidden-xs"></div>
 
-          <div class="col-xs-6 col-sm-3">
+              <div class="col-xs-6 col-sm-3">
 
-            <button type="submit" class="btn btn-block btn-lg btn-default" 
-                    tabindex="23">
-              CADASTRAR
-              <i class="fa fa-check-square"></i>
-            </button>
+                <button type="reset" class="btn btn-block btn-lg btn-primary" 
+                        tabindex="24">
+                  <i class="fa fa-eraser"></i>
+                  LIMPAR
+                </button>
 
-          </div>
+              </div>
+
+              <div class="col-xs-6 col-sm-3">
+
+                <button type="submit" class="btn btn-block btn-lg btn-default" 
+                        tabindex="23">
+                  CADASTRAR
+                  <i class="fa fa-check-square"></i>
+                </button>
+
+              </div>
+            </c:otherwise>
+          </c:choose>
 
         </div>   
         <!-- Linha de botões do formulário -->
 
       </form>
       <!-- Fim do Formulário -->
+
+
+      <c:if test="${pessoa.get(0).tipo eq 'Hospede'}">
+
+        <div class="form-di">
+
+          <h4>
+            Histórico de reservas
+          </h4>
+
+          <hr />
+
+          <table class="table table-condensed table-hover table-responsive">
+            <thead>
+              <tr>
+                <th>
+                  <i class="fa fa-fw fa-calendar"></i>
+                  Checkin
+                </th>
+                <th>
+                  <i class="fa fa-fw fa-calendar"></i>
+                  Checkout
+                </th>
+                <th>
+                  <i class="fa fa-fw fa-building"></i>
+                  Unidade
+                </th>
+                <th>
+                  <i class="fa fa-fw fa-bed"></i>
+                  Quarto
+                </th>
+                <th>
+                  <i class="fa fa-fw fa-money"></i>
+                  Valor
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Rodar o loop -->
+            </tbody>
+          </table>
+
+        </div>
+
+      </c:if>
 
       <div style="padding: 15px 0px;"></div>
 
