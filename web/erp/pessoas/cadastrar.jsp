@@ -61,7 +61,9 @@
 
       <!-- Início do Formulário -->
       <form role="form" method="post" class="form-di"
-            action="cadastrar" name="formCadastrar">
+            action="cadastrar" name="formCadastrar"
+            accept-charset="UTF-8"
+            enctype="application/x-www-form-urlencoded">
 
         <div style="padding: 5px;"></div>
 

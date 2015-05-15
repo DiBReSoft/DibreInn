@@ -22,152 +22,166 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "PessoaCadastrarServlet", urlPatterns = {"/erp/pessoas/cadastrar", "/erp/pessoas/cadastro"})
 public class PessoaCadastrarServlet extends HttpServlet {
 
-  @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-	  throws ServletException, IOException {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-    String pessoaID = request.getParameter("id");
+        String pessoaID = request.getParameter("id");
 
-    if (pessoaID != null) {
+        if (pessoaID != null) {
 
-      PessoaDAO consulta = new PessoaDAO();
+            PessoaDAO consulta = new PessoaDAO();
 
-      request.setAttribute("pessoa", consulta.BuscarPessoas(pessoaID, 4));
+            request.setAttribute("pessoa", consulta.BuscarPessoas(pessoaID, 4));
+
+        }
+
+        RequestDispatcher rd = request.getRequestDispatcher("/erp/pessoas/cadastrar.jsp");
+        rd.forward(request, response);
 
     }
 
-    RequestDispatcher rd = request.getRequestDispatcher("/erp/pessoas/cadastrar.jsp");
-    rd.forward(request, response);
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-  }
+        String idNaURL = request.getParameter("id");
 
-  @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
-	  throws ServletException, IOException {
+        Funcionario f = null;
+        Hospede h = null;
+        boolean resultado = false;
 
-    String idNaURL = request.getParameter("id");
+        try {
+            //verificando qual tipo
+            if (request.getParameter("formTipo").equalsIgnoreCase("h")) {
 
-    Pessoa p = null;
-    boolean resultado = false;
+                h = new Hospede();
+                h.setTipo("h");
+                h.setNome(request.getParameter("formNome"));
+                h.setSobrenome(request.getParameter("formSobrenome"));
+                h.setSexo(request.getParameter("formSexo"));
+                h.setRg(request.getParameter("formRg"));
+                h.setCpf(request.getParameter("formCpf"));
+                h.setDataNascimento(java.sql.Date.valueOf(request.getParameter("formDataNasc")));
+                h.setTelefone(request.getParameter("formTel"));
+                h.setCelular(request.getParameter("formCel"));
+                h.setEmail(request.getParameter("formEmail"));
+                h.setNewsletter(Integer.parseInt(request.getParameter("formNewsletter")));
+                h.setnCartao(request.getParameter("formCartao"));
+                Endereco end = new Endereco();
+                end.setCep((request.getParameter("formCep")));
+                end.setLogradouro(request.getParameter("formLogradouro"));
+                end.setNumero(request.getParameter("formNumero"));
+                end.setComplemento(request.getParameter("formComplemento"));
+                end.setBairro(request.getParameter("formBairro"));
+                end.setCidade(request.getParameter("formCidade"));
+                end.setEstado(request.getParameter("formEstado"));
 
-    try {
+                PessoaDAO teste = new PessoaDAO();
 
-      //verificando qual tipo de pessoa
-      if (request.getParameter("formTipo").equalsIgnoreCase("h")) {
+        // Através do parâmetro ID na URL, iremos verificar se trata-se de um
+                // novo cadastrou ou se é uma atualização de um cadastro já existente
+                if (idNaURL == null) {
+                    System.out.println("Realizando novo cadastro.");
+                    h.setId(
+                            teste.cadastrarPessoa(h, end)
+                    );
+                } else {
+                    System.out.println("Atualizando cadastro.");
+                    // teste.atualizarPessoa(p, end);
+                }
+                response.sendRedirect("visualizar?id=" + h.getId());
+            } else {
 
-	//criando pessoa tipo hospede
-	p = new Hospede();
-	p.setTipo("h");
+                f = new Funcionario();
+                f.setTipo("f");
+                f.setNome(request.getParameter("formNome"));
+                f.setSobrenome(request.getParameter("formSobrenome"));
+                f.setSexo(request.getParameter("formSexo"));
+                f.setRg(request.getParameter("formRg"));
+                f.setCpf(request.getParameter("formCpf"));
+                f.setDataNascimento(java.sql.Date.valueOf(request.getParameter("formDataNasc")));
+                f.setTelefone(request.getParameter("formTel"));
+                f.setCelular(request.getParameter("formCel"));
+                f.setEmail(request.getParameter("formEmail"));
+                f.setNewsletter(Integer.parseInt(request.getParameter("formNewsletter")));
+                if (request.getParameter("formOpUsuario").equalsIgnoreCase("1")) {
+                    f.setLogin(request.getParameter("formEmail"));
+                    f.setSenha(request.getParameter("formSenha"));
+                }
+                //verificar se o salario foi informado
+                if (!request.getParameter("formSalario").isEmpty()) {
+                    f.setSalario(Double.parseDouble(request.getParameter("formSalario")));
+                } else {
+                    f.setSalario(0.00);
+                }
+                f.setDepartamento(request.getParameter("formDepartamento"));
+                f.setCargo(request.getParameter("formCargo"));
+                f.setUnidade(request.getParameter("formUnidade"));
+                //Object p rece um Funcioário
+                Endereco end = new Endereco();
+                end.setCep((request.getParameter("formCep")));
+                end.setLogradouro(request.getParameter("formLogradouro"));
+                end.setNumero(request.getParameter("formNumero"));
+                end.setComplemento(request.getParameter("formComplemento"));
+                end.setBairro(request.getParameter("formBairro"));
+                end.setCidade(request.getParameter("formCidade"));
+                end.setEstado(request.getParameter("formEstado"));
 
-      } else {
+                PessoaDAO teste = new PessoaDAO();
 
-	//criando pessoa tipo funcionario
-	p = new Funcionario();
-	p.setTipo("f");
+        // Através do parâmetro ID na URL, iremos verificar se trata-se de um
+                // novo cadastrou ou se é uma atualização de um cadastro já existente
+                if (idNaURL == null) {
+                    System.out.println("Realizando novo cadastro.");
+                    f.setId(
+                            teste.cadastrarPessoa(f, end)
+                    );
+                } else {
+                    System.out.println("Atualizando cadastro.");
+                    // teste.atualizarPessoa(p, end);
+                }
+                response.sendRedirect("visualizar?id=" + f.getId());
+            }
 
-      }
-      p.setNome(request.getParameter("formNome"));
-      p.setSobrenome(request.getParameter("formSobrenome"));
-      p.setSexo(request.getParameter("formSexo"));
-      p.setRg(request.getParameter("formRg"));
-      p.setCpf(request.getParameter("formCpf"));
-      p.setDataNascimento(java.sql.Date.valueOf(request.getParameter("formDataNasc")));
-      p.setTelefone(request.getParameter("formTel"));
-      p.setCelular(request.getParameter("formCel"));
-      p.setEmail(request.getParameter("formEmail"));
-      p.setNewsletter(Integer.parseInt(request.getParameter("formNewsletter")));
+            /* Teste se o resultado do cadastro foi positivo. Se for envia o email.
+             if (h.getId() != 0) {
+             enviaEmail(p);
+             }
+             */
 
-      Endereco end = new Endereco();
-      end.setCep((request.getParameter("formCep")));
-      end.setLogradouro(request.getParameter("formLogradouro"));
-      end.setNumero(request.getParameter("formNumero"));
-      end.setComplemento(request.getParameter("formComplemento"));
-      end.setBairro(request.getParameter("formBairro"));
-      end.setCidade(request.getParameter("formCidade"));
-      end.setEstado(request.getParameter("formEstado"));
+            /* 
+             * Esse redirecionamento acontecerá após o submit dos dados,
+             * levando o usuário para uma página com os dados que acabaram de ser
+             * cadastrados
+             */
+        } catch (Exception ex) {
+            System.out.println(ex);
+            response.sendRedirect("erro.jsp");
+        }
 
-//      DateFormat formatadorData = new SimpleDateFormat("dd-MM-yyyy");
-      // verifico se o objeto é do tipo funcionario, se não for é do tipo hospede
-      if (p instanceof Funcionario) {
-	// faço um cast de pessoa para funcionario para 
-	// acessar os atributos especificos de funcionario
-	Funcionario funcionario = (Funcionario) p;
-	if (request.getParameter("formOpUsuario").equalsIgnoreCase("1")) {
-	  funcionario.setLogin(request.getParameter("formUsuario"));
-	  funcionario.setSenha(request.getParameter("formSenha"));
-	}
-	funcionario.setSalario(Double.parseDouble(request.getParameter("formSalario")));
-	funcionario.setDepartamento(request.getParameter("formDepartamento"));
-	funcionario.setCargo(request.getParameter("formCargo"));
-	funcionario.setUnidade(request.getParameter("formUnidade"));
-
-	//resultado = pessoaDAO.montarQuery(funcionario);
-      } else {
-	// faço um cast de pessoa para hospede para 
-	// acessar os atributos especificos de hospede
-	Hospede hospede = (Hospede) p;
-
-	hospede.setnPassaporte(request.getParameter("formPassaporte"));
-	hospede.setFoto(request.getParameter("formFoto"));
-	hospede.setNacionalidade(request.getParameter("formNacionalidade"));
-	hospede.setnCartao(request.getParameter("formCartao"));
-
-      }
-
-      PessoaDAO teste = new PessoaDAO();
-
-      // Através do parâmetro ID na URL, iremos verificar se trata-se de um
-      // novo cadastrou ou se é uma atualização de um cadastro já existente
-      if (idNaURL == null) {
-	System.out.println("Realizando novo cadastro.");
-	p.setId(
-		teste.cadastrarPessoa(p, end)
-	);
-      } else {
-	System.out.println("Atualizando cadastro.");
-	// teste.atualizarPessoa(p, end);
-      }
-
-      /* Teste se o resultado do cadastro foi positivo. Se for envia o email.
-       if (p.getId() != 0) {
-       enviaEmail(p);
-       }
-       */
-
-      /* 
-       * Esse redirecionamento acontecerá após o submit dos dados,
-       * levando o usuário para uma página com os dados que acabaram de ser
-       * cadastrados
-       */
-      response.sendRedirect("visualizar?id=" + p.getId());
-
-    } catch (Exception ex) {
-      System.out.println(ex);
-      response.sendRedirect("erro.jsp");
     }
 
-  }
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
 
-  // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-  /**
-   * Returns a short description of the servlet.
-   *
-   * @return a String containing servlet description
-   */
-  @Override
-  public String getServletInfo() {
-    return "Short description";
-  }// </editor-fold>
-
-  //Funcão para enviar e-mail a pessoa cadastrada
-  private void enviaEmail(Pessoa p) {
-    System.out.println("[DADOS GRAVADOS COM SUCESSO] Novo cadastro: " + p.getNome() + " " + p.getSobrenome());
-    Email email = new Email();
-    email.setDestinatario(p.getEmail());
-    email.setAssunto("Cadastro Efetuado");
-    email.setMensagem(p.getNome() + ", seja bem-vindo e obrigado por efetuar o cadastro no Lebre Hotel!");
-    EnviarEmail envia = new EnviarEmail();
-    envia.EnviarEmail(email);
-  }
+    //Funcão para enviar e-mail a pessoa cadastrada
+    private void enviaEmail(Hospede h) {
+        System.out.println("[DADOS GRAVADOS COM SUCESSO] Novo cadastro: " + h.getNome() + " " + h.getSobrenome());
+        Email email = new Email();
+        email.setDestinatario(h.getEmail());
+        email.setAssunto("Cadastro Efetuado");
+        email.setMensagem(h.getNome() + ", seja bem-vindo e obrigado por efetuar o cadastro no Lebre Hotel!");
+        EnviarEmail envia = new EnviarEmail();
+        envia.EnviarEmail(email);
+    }
 
 }
