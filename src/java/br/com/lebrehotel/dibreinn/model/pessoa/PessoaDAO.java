@@ -68,14 +68,14 @@ public class PessoaDAO {
             stmt.executeUpdate();
 
             System.out.println("Dados Salvos com sucesso!!!");
-            
+
             System.out.println("Bucando o id da pessoa cadastrada...");
             conexao.executaSQL(sqlConsulta);
             conexao.rs.next();
             codPessoa = conexao.rs.getInt("ID_PESSOA");
             System.out.println("Id encontrado!!");
-            System.out.println("Id: "+codPessoa+"\n");
-            
+            System.out.println("Id: " + codPessoa + "\n");
+
         } catch (SQLException ex) {
             Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
@@ -101,12 +101,12 @@ public class PessoaDAO {
     public int cadastrarPessoa(Hospede h, Endereco e) {
 
         int codPessoa;
-        
+
         ConectarBD conexao = new ConectarBD();
         PreparedStatement stmt = null;
-        
+
         String sqlConsulta = "SELECT max(ID_PESSOA) as ID_PESSOA FROM TB_PESSOA";
-       
+
         String sqlInsert = " INSERT INTO TB_PESSOA (NOME, SOBRENOME, SEXO, RG, CPF, DATANASC, TELEFONE, CEL, EMAIL, TIPO, NEWSLETTER) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) \n ";
 
         sqlInsert += " DECLARE @IdCliente AS INT = @@IDENTITY \n";//pega o id_pessoa da transação
@@ -144,14 +144,14 @@ public class PessoaDAO {
 
             stmt.executeUpdate();
             System.out.println("Dados Salvos com sucesso!!!");
-                      
+
             System.out.println("Bucando o id da pessoa cadastrada...");
-            
+
             conexao.executaSQL(sqlConsulta);
             conexao.rs.next();
             codPessoa = conexao.rs.getInt("ID_PESSOA");
             System.out.println("Id encontrado!!");
-            System.out.println("Id: "+codPessoa+"\n");
+            System.out.println("Id: " + codPessoa + "\n");
 
         } catch (SQLException ex) {
             Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -257,7 +257,7 @@ public class PessoaDAO {
         return null;
     }
 
-    public int AlterarPessoaFuncinario(int id, Funcionario p, Endereco e) {
+    public int AlterarPessoaFuncionario(int id, Funcionario p, Endereco e) {
 
         ConectarBD conexao = new ConectarBD();
         PreparedStatement stmt = null;
@@ -321,6 +321,115 @@ public class PessoaDAO {
             }
         }
         return 1;
+    }
+
+    public Pessoa getPessoa(int id) {
+        String tipoPessoa;
+        ConectarBD conexao = new ConectarBD();
+        PreparedStatement stmt = null;
+        String query;
+        Funcionario func;
+        
+        
+        
+        if (isFuncionario(id)){
+        
+            query = "SELECT pe.NOME, pe.SOBRENOME, pe.SEXO, pe.RG, CPF, pe.DATANASC, pe.TELEFONE, pe.CEL, pe.EMAIL, pe.TIPO,pe.NEWSLETTER,"
+                    + "func.ID_UNIDADE, func.DEPARTAMENTO, func.CARGO, func.SALARIO "
+                    + "FROM TB_FUNCIONARIO as func "
+                    + "INNER JOIN TB_PESSOA as pe on pe.ID_PESSOA = func.id_pessoa Where func.ID_PESSOA ="+id;
+        
+            func = new Funcionario();
+            
+        try {
+            conexao.openConection();
+            stmt = conexao.conn.prepareStatement(query);
+            ResultSet result = stmt.executeQuery();
+            result.next();
+
+                func.setTipo("Funcionário");
+                func.setId(result.getInt("ID_PESSOA"));
+                func.setNome(result.getString("NOME"));
+                func.setSobrenome(result.getString("SOBRENOME"));
+                func.setSexo(result.getString("SEXO"));
+                func.setRg(result.getString("RG"));
+                func.setCpf(result.getString("CPF"));
+                func.setDataNascimento(result.getDate("DATANASC"));
+                func.setTelefone(result.getString("TELEFONE"));
+                func.setCelular(result.getString("CEL"));
+                func.setEmail(result.getString("EMAIL"));
+                func.setNewsletter(result.getInt("NEWSLETTER"));
+                func.setUnidade(result.getString("ID_UNIDADE"));
+                func.setDepartamento(result.getString("DEPARTAMENTO"));
+                func.setCargo(result.getString("CARGO"));
+                func.setSalario(result.getDouble("SALARIO"));
+                
+                System.out.println("Dados de funcionario populados com sucesso");
+                conexao.closeConection();
+                
+                
+        } catch (SQLException ex) {
+            // Caso haja erro 
+            Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, "[INFO] Erro ao popular os dados de funcionario gravar os dados: ", ex);
+            conexao.closeConection();
+        } 
+        
+        
+        
+        return func;
+    }else{
+            func = new Funcionario();
+               return func; 
+              }
+        
+    }
+
+    public int consultarIdPessoa(String cpf) {
+        int idPessoa;
+        ConectarBD conexao = new ConectarBD();
+        PreparedStatement stmt = null;
+        String consultaCpf = "SELECT ID_PESSOA FROM TB_PESSOA WHERE CPF="+cpf;
+
+        try {
+            conexao.openConection();
+            stmt = conexao.conn.prepareStatement(consultaCpf);
+            ResultSet result = stmt.executeQuery();
+            result.next();
+            idPessoa = result.getInt("ID_PESSOA");
+            System.out.println("ID encontrado com sucesso!");
+            return idPessoa;
+
+        } catch (SQLException ex) {
+            System.out.println("Erro ao retornar o id: " + ex);
+            return 0;
+        }
+
+    }
+   
+    public boolean isFuncionario(int id) {
+        String tipoPessoa;
+        ConectarBD conexao = new ConectarBD();
+        PreparedStatement stmt = null;
+        String consultaCpf = "SELECT TIPO FROM TB_PESSOA WHERE ID_PESSOA="+id;
+        
+        try {
+            conexao.openConection();
+            stmt = conexao.conn.prepareStatement(consultaCpf);
+            ResultSet result = stmt.executeQuery();
+            result.next();
+            
+            tipoPessoa = result.getString("TIPO");
+            if (tipoPessoa.equalsIgnoreCase("f")) {
+                System.out.println("É Funcionario!");
+                
+            }
+            return true;           
+
+        } catch (SQLException ex) {
+            System.out.println("Erro ao procurar o tipo de pessoa: " + ex);
+            return false;
+        }
+
     }
 
 }

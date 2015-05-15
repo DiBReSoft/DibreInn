@@ -25,15 +25,7 @@ public class Hospede extends Pessoa{
         this.nacionalidade = nacionalidade;
     }
 
-    public String getnPassaporte() {
-        return nPassaporte;
-    }
-
-    public void setnPassaporte(String nPassaporte) {
-        this.nPassaporte = nPassaporte;
-    }
-
-    public String getFoto() {
+     public String getFoto() {
         return foto;
     }
 
