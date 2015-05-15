@@ -5,6 +5,7 @@ package br.com.lebrehotel.dibreinn.model.pessoa;
  * @author jSilverize data: 02/05/2015
  */
 import br.com.lebrehotel.dibreinn.persistencia.ConectarBD;
+import java.awt.BorderLayout;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,222 +18,309 @@ import java.util.logging.Logger;
 
 public class PessoaDAO {
 
-  public int cadastrarPessoa(Funcionario f, Endereco e) {
+    public int cadastrarPessoa(Funcionario f, Endereco e) {
 
-    ConectarBD conexao = new ConectarBD();
-    PreparedStatement stmt = null;
+        ConectarBD conexao = new ConectarBD();
+        PreparedStatement stmt = null;
 
-    String sql = " INSERT INTO TB_PESSOA (NOME, SOBRENOME, SEXO, RG, CPF, DATANASC, TELEFONE, CEL, EMAIL, TIPO, NEWSLETTER) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) \n ";
+        int codPessoa;
 
-    sql += " DECLARE @IdCliente AS INT = @@IDENTITY \n";//pega o id_pessoa da transação
+        String sqlConsulta = "SELECT max(ID_PESSOA) as ID_PESSOA FROM TB_PESSOA";
 
-    sql += " INSERT INTO TB_ENDERECO (ID_PESSOA,LOGRADOURO,NUM,CEP,COMPLEMENTO,BAIRRO,CIDADE,ESTADO,PAIS) VALUES (@IdCliente,?,?,?,?,?,?,?,?) \n ";
+        String sqlInsert = " INSERT INTO TB_PESSOA (NOME, SOBRENOME, SEXO, RG, CPF, DATANASC, TELEFONE, CEL, EMAIL, TIPO, NEWSLETTER) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) \n ";
 
-    sql += " INSERT INTO TB_FUNCIONARIO (ID_PESSOA,ID_UNIDADE,DEPARTAMENTO,CARGO,SALARIO,SENHA) VALUES (@IdCliente,?,?,?,?,?) \n ";
-    
-    try {
-      conexao.openConection();
-      stmt = conexao.conn.prepareStatement(sql);
+        sqlInsert += " DECLARE @IdCliente AS INT = @@IDENTITY \n";//pega o id_pessoa da transação
 
-      stmt.setString(1, f.getNome());
-      stmt.setString(2, f.getSobrenome());
-      stmt.setString(3, f.getSexo());
-      stmt.setString(4, f.getRg());
-      stmt.setString(5, f.getCpf());
-      stmt.setDate(6, f.getDataNascimento());
-      stmt.setString(7, f.getTelefone());
-      stmt.setString(8, f.getCelular());
-      stmt.setString(9, f.getEmail());
-      stmt.setString(10, f.getTipo());
-      stmt.setInt(11, f.getNewsletter());
+        sqlInsert += " INSERT INTO TB_ENDERECO (ID_PESSOA,LOGRADOURO,NUM,CEP,COMPLEMENTO,BAIRRO,CIDADE,ESTADO,PAIS) VALUES (@IdCliente,?,?,?,?,?,?,?,?) \n ";
 
-      stmt.setString(12, e.getLogradouro());
-      stmt.setString(13, e.getNumero());
-      stmt.setString(14, e.getCep());
-      stmt.setString(15, e.getComplemento());
-      stmt.setString(16, e.getBairro());
-      stmt.setString(17, e.getCidade());
-      stmt.setString(18, e.getEstado());
-      stmt.setString(19, e.getPais());
-      
-      stmt.setString(20, f.getUnidade());
-      stmt.setString(21, f.getDepartamento());
-      stmt.setString(22, f.getCargo());
-      stmt.setDouble(23, f.getSalario());
-      stmt.setString(24, f.getSenha());
-      
-      stmt.executeUpdate();
-      System.out.println("Dados Salvos com sucesso!!!");
+        sqlInsert += " INSERT INTO TB_FUNCIONARIO (ID_PESSOA,ID_UNIDADE,DEPARTAMENTO,CARGO,SALARIO,SENHA) VALUES (@IdCliente,?,?,?,?,?) \n ";
 
-    } catch (SQLException ex) {
-      Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
-      return 0;
-    } finally {
-      if (stmt != null) {
-	try {
-	  stmt.close();
-	} catch (SQLException ex) {
-	  Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
-	}
-      }
-      if (conexao.conn != null) {
-	try {
-	  conexao.conn.close();
-	} catch (SQLException ex) {
-	  Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
-	}
-      }
+        try {
+            conexao.openConection();
+            stmt = conexao.conn.prepareStatement(sqlInsert);
+
+            stmt.setString(1, f.getNome());
+            stmt.setString(2, f.getSobrenome());
+            stmt.setString(3, f.getSexo());
+            stmt.setString(4, f.getRg());
+            stmt.setString(5, f.getCpf());
+            stmt.setDate(6, f.getDataNascimento());
+            stmt.setString(7, f.getTelefone());
+            stmt.setString(8, f.getCelular());
+            stmt.setString(9, f.getEmail());
+            stmt.setString(10, f.getTipo());
+            stmt.setInt(11, f.getNewsletter());
+
+            stmt.setString(12, e.getLogradouro());
+            stmt.setString(13, e.getNumero());
+            stmt.setString(14, e.getCep());
+            stmt.setString(15, e.getComplemento());
+            stmt.setString(16, e.getBairro());
+            stmt.setString(17, e.getCidade());
+            stmt.setString(18, e.getEstado());
+            stmt.setString(19, e.getPais());
+
+            stmt.setString(20, f.getUnidade());
+            stmt.setString(21, f.getDepartamento());
+            stmt.setString(22, f.getCargo());
+            stmt.setDouble(23, f.getSalario());
+            stmt.setString(24, f.getSenha());
+            stmt.executeUpdate();
+
+            System.out.println("Dados Salvos com sucesso!!!");
+            
+            System.out.println("Bucando o id da pessoa cadastrada...");
+            conexao.executaSQL(sqlConsulta);
+            conexao.rs.next();
+            codPessoa = conexao.rs.getInt("ID_PESSOA");
+            System.out.println("Id encontrado!!");
+            System.out.println("Id: "+codPessoa+"\n");
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        } finally {
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (conexao.conn != null) {
+                try {
+                    conexao.conn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return codPessoa;
     }
-    return 1;
-  }
 
-  
-  public int cadastrarPessoa(Hospede h, Endereco e) {
+    public int cadastrarPessoa(Hospede h, Endereco e) {
 
-    ConectarBD conexao = new ConectarBD();
-    PreparedStatement stmt = null;
+        int codPessoa;
+        
+        ConectarBD conexao = new ConectarBD();
+        PreparedStatement stmt = null;
+        
+        String sqlConsulta = "SELECT max(ID_PESSOA) as ID_PESSOA FROM TB_PESSOA";
+       
+        String sqlInsert = " INSERT INTO TB_PESSOA (NOME, SOBRENOME, SEXO, RG, CPF, DATANASC, TELEFONE, CEL, EMAIL, TIPO, NEWSLETTER) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) \n ";
 
-    String sql = " INSERT INTO TB_PESSOA (NOME, SOBRENOME, SEXO, RG, CPF, DATANASC, TELEFONE, CEL, EMAIL, TIPO, NEWSLETTER) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) \n ";
+        sqlInsert += " DECLARE @IdCliente AS INT = @@IDENTITY \n";//pega o id_pessoa da transação
 
-    sql += " DECLARE @IdCliente AS INT = @@IDENTITY \n";//pega o id_pessoa da transação
+        sqlInsert += " INSERT INTO TB_ENDERECO (ID_PESSOA,LOGRADOURO,NUM,CEP,COMPLEMENTO,BAIRRO,CIDADE,ESTADO,PAIS) VALUES (@IdCliente,?,?,?,?,?,?,?,?) \n ";
 
-    sql += " INSERT INTO TB_ENDERECO (ID_PESSOA,LOGRADOURO,NUM,CEP,COMPLEMENTO,BAIRRO,CIDADE,ESTADO,PAIS) VALUES (@IdCliente,?,?,?,?,?,?,?,?) \n ";
-    
-    sql += " INSERT INTO TB_HOSPEDE (ID_PESSOA,N_CARTAO) VALUES (@IdCliente,?) ";
+        sqlInsert += " INSERT INTO TB_HOSPEDE (ID_PESSOA,N_CARTAO) VALUES (@IdCliente,?) ";
 
-    try {
-      conexao.openConection();
-      stmt = conexao.conn.prepareStatement(sql);
+        try {
+            conexao.openConection();
+            stmt = conexao.conn.prepareStatement(sqlInsert);
 
-      stmt.setString(1, h.getNome());
-      stmt.setString(2, h.getSobrenome());
-      stmt.setString(3, h.getSexo());
-      stmt.setString(4, h.getRg());
-      stmt.setString(5, h.getCpf());
-      stmt.setDate(6, h.getDataNascimento());
-      stmt.setString(7, h.getTelefone());
-      stmt.setString(8, h.getCelular());
-      stmt.setString(9, h.getEmail());
-      stmt.setString(10, h.getTipo());
-      stmt.setInt(11, h.getNewsletter());
+            stmt.setString(1, h.getNome());
+            stmt.setString(2, h.getSobrenome());
+            stmt.setString(3, h.getSexo());
+            stmt.setString(4, h.getRg());
+            stmt.setString(5, h.getCpf());
+            stmt.setDate(6, h.getDataNascimento());
+            stmt.setString(7, h.getTelefone());
+            stmt.setString(8, h.getCelular());
+            stmt.setString(9, h.getEmail());
+            stmt.setString(10, h.getTipo());
+            stmt.setInt(11, h.getNewsletter());
 
-      stmt.setString(12, e.getLogradouro());
-      stmt.setString(13, e.getNumero());
-      stmt.setString(14, e.getCep());
-      stmt.setString(15, e.getComplemento());
-      stmt.setString(16, e.getBairro());
-      stmt.setString(17, e.getCidade());
-      stmt.setString(18, e.getEstado());
-      stmt.setString(19, e.getPais());
-      
-      stmt.setString(20, h.getnCartao());
-      
-      stmt.executeUpdate();
-      System.out.println("Dados Salvos com sucesso!!!");
+            stmt.setString(12, e.getLogradouro());
+            stmt.setString(13, e.getNumero());
+            stmt.setString(14, e.getCep());
+            stmt.setString(15, e.getComplemento());
+            stmt.setString(16, e.getBairro());
+            stmt.setString(17, e.getCidade());
+            stmt.setString(18, e.getEstado());
+            stmt.setString(19, e.getPais());
 
-    } catch (SQLException ex) {
-      Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
-      return 0;
-    } finally {
-      if (stmt != null) {
-	try {
-	  stmt.close();
-	} catch (SQLException ex) {
-	  Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
-	}
-      }
-      if (conexao.conn != null) {
-	try {
-	  conexao.conn.close();
-	} catch (SQLException ex) {
-	  Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
-	}
-      }
+            stmt.setString(20, h.getnCartao());
+
+            stmt.executeUpdate();
+            System.out.println("Dados Salvos com sucesso!!!");
+                      
+            System.out.println("Bucando o id da pessoa cadastrada...");
+            
+            conexao.executaSQL(sqlConsulta);
+            conexao.rs.next();
+            codPessoa = conexao.rs.getInt("ID_PESSOA");
+            System.out.println("Id encontrado!!");
+            System.out.println("Id: "+codPessoa+"\n");
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        } finally {
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (conexao.conn != null) {
+                try {
+                    conexao.conn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return codPessoa;
     }
-    return 1;
-  }
-  
-  public List<Pessoa> BuscarPessoas(String pesquisa, int tipoBusca) {
-    ResultSet rs = null;
 
-    ConectarBD conexao = new ConectarBD();
-    PreparedStatement stmt = null;
+    public List<Pessoa> BuscarPessoas(String pesquisa, int tipoBusca) {
+        ResultSet rs = null;
 
-    String tipoPessoa = "";
+        ConectarBD conexao = new ConectarBD();
+        PreparedStatement stmt = null;
 
-    List<Pessoa> lista = new ArrayList<Pessoa>();
+        String tipoPessoa = "";
 
-    String Query = "SELECT ID_PESSOA,NOME, SOBRENOME, SEXO, RG, CPF, DATANASC, TELEFONE, CEL, EMAIL, TIPO, NEWSLETTER FROM TB_PESSOA WHERE ";
+        List<Pessoa> lista = new ArrayList<Pessoa>();
 
-    switch (tipoBusca) {
-      case 1:
-	Query += "NOME = ?";
-	break;
-      case 2:
-	Query += "EMAIL = ?";
-	break;
-      case 3:
-	Query += "CPF = ?";
-	break;
-      case 4:
-	Query += "ID_PESSOA = ?";
-	break;
+        String Query = "SELECT ID_PESSOA,NOME, SOBRENOME, SEXO, RG, CPF, DATANASC, TELEFONE, CEL, EMAIL, TIPO, NEWSLETTER FROM TB_PESSOA WHERE ";
+
+        switch (tipoBusca) {
+            case 1:
+                Query += "NOME = ?";
+                break;
+            case 2:
+                Query += "EMAIL = ?";
+                break;
+            case 3:
+                Query += "CPF = ?";
+                break;
+            case 4:
+                Query += "ID_PESSOA = ?";
+                break;
+        }
+        try {
+            conexao.openConection();
+
+            stmt = conexao.conn.prepareStatement(Query);
+            stmt.setString(1, pesquisa);
+            ResultSet resultados = stmt.executeQuery();
+
+            while (resultados.next()) {
+                Pessoa p = null;
+
+                tipoPessoa = resultados.getString("TIPO");
+                if (tipoPessoa.equalsIgnoreCase("f")) {
+                    p = new Funcionario();
+                    p.setTipo("Funcionário");
+                } else {
+                    // criando pessoa tipo hospede
+                    p = new Hospede();
+                    p.setTipo("Hospede");
+                }
+
+                p.setId(resultados.getInt("ID_PESSOA"));
+                p.setNome(resultados.getString("NOME"));
+                p.setSobrenome(resultados.getString("SOBRENOME"));
+                p.setSexo(resultados.getString("SEXO"));
+                p.setRg(resultados.getString("RG"));
+                p.setCpf(resultados.getString("CPF"));
+                p.setDataNascimento(resultados.getDate("DATANASC"));
+                p.setTelefone(resultados.getString("TELEFONE"));
+                p.setCelular(resultados.getString("CEL"));
+                p.setEmail(resultados.getString("EMAIL"));
+                p.setNewsletter(resultados.getInt("NEWSLETTER"));
+
+                lista.add(p);
+
+            }
+
+            return lista;
+        } catch (SQLException ex) {
+            // Caso haja erro retorna 0 como ID e informa no log
+            Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, "[INFO] Erro ao gravar os dados: ", ex);
+
+        } finally {
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (conexao != null) {
+                conexao.closeConection();
+            }
+        }
+        return null;
     }
-    try {
-      conexao.openConection();
 
-      stmt = conexao.conn.prepareStatement(Query);
-      stmt.setString(1, pesquisa);
-      ResultSet resultados = stmt.executeQuery();
+    public int AlterarPessoaFuncinario(int id, Funcionario p, Endereco e) {
 
-      while (resultados.next()) {
-	Pessoa p = null;
-	
-	tipoPessoa = resultados.getString("TIPO");
-	if (tipoPessoa.equalsIgnoreCase("f")) {
-	  p = new Funcionario();
-	  p.setTipo("Funcionário");
-	} else {
-	  // criando pessoa tipo hospede
-	  p = new Hospede();
-	  p.setTipo("Hospede");
-	}	
-	
-	p.setId(resultados.getInt("ID_PESSOA"));
-	p.setNome(resultados.getString("NOME"));
-	p.setSobrenome(resultados.getString("SOBRENOME"));
-	p.setSexo(resultados.getString("SEXO"));
-	p.setRg(resultados.getString("RG"));
-	p.setCpf(resultados.getString("CPF"));
-	p.setDataNascimento(resultados.getDate("DATANASC"));
-	p.setTelefone(resultados.getString("TELEFONE"));	
-	p.setCelular(resultados.getString("CEL"));
-	p.setEmail(resultados.getString("EMAIL"));	
-	p.setNewsletter(resultados.getInt("NEWSLETTER"));
-	
-	
-	lista.add(p);
-	
-      }
+        ConectarBD conexao = new ConectarBD();
+        PreparedStatement stmt = null;
 
-      return lista;
-    } catch (SQLException ex) {
-      // Caso haja erro retorna 0 como ID e informa no log
-      Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, "[INFO] Erro ao gravar os dados: ", ex);
+        String sql = "BEGIN TRANSACTION \n";
+        sql += "DECLARE @idCliente INT = 1\n";
+        sql += "UPDATE TB_PESSOA SET SOBRENOME='?', DATANASC='?', TELEFONE='?',CEL='?', EMAIL='?',NEWSLETTER=?";
+        sql += "WHERE ID_PESSOA =" + id + "\n";
+        sql += "UPDATE TB_FUNCIONARIO SET ID_UNIDADE='?',DEPARTAMENTO='?',CARGO='?',SALARIO=?,SENHA='?'";
+        sql += "WHERE ID_PESSOA =" + id + "\n";
+        sql += "UPDATE TB_ENDERECO SET LOGRADOURO='?',NUM=?,CEP='?',COMPLEMENTO='?',BAIRRO='?',CIDADE='?',ESTADO='?',PAIS='?'";
+        sql += "WHERE ID_PESSOA =" + id + "\n";
+        sql += "IF @@ERROR <> 0\n BEGIN\n ROLLBACK\n END\n ELSE\n COMMIT\n GO";
 
-    } finally {
-      if (stmt != null) {
-	try {
-	  stmt.close();
-	} catch (SQLException ex) {
-	  Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
-	}
-      }
-      if (conexao != null) {
-	conexao.closeConection();
-      }
+        try {
+            conexao.openConection();
+            stmt = conexao.conn.prepareStatement(sql);
+
+            stmt.setString(1, p.getSobrenome());
+            stmt.setDate(2, p.getDataNascimento());
+            stmt.setString(3, p.getTelefone());
+            stmt.setString(4, p.getCelular());
+            stmt.setString(5, p.getEmail());
+            stmt.setInt(6, p.getNewsletter());
+
+            stmt.setString(7, p.getUnidade());
+            stmt.setString(8, p.getDepartamento());
+            stmt.setString(9, p.getCargo());
+            stmt.setDouble(10, p.getSalario());
+
+            stmt.setString(11, e.getLogradouro());
+            stmt.setString(12, e.getNumero());
+            stmt.setString(13, e.getCep());
+            stmt.setString(14, e.getComplemento());
+            stmt.setString(15, e.getBairro());
+            stmt.setString(16, e.getCidade());
+            stmt.setString(17, e.getEstado());
+            stmt.setString(18, e.getPais());
+
+            stmt.executeUpdate();
+            System.out.println("Dados Alterados com sucesso!!!");
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Erro ao alterar os dados");
+            return 0;
+        } finally {
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (conexao.conn != null) {
+                try {
+                    conexao.conn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return 1;
     }
-    return null;
-  }
 
 }
