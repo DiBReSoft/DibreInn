@@ -399,136 +399,42 @@
 
             </div>
 
+            <br />
+
+            <h3>
+              Histórico de Operações no Sistema
+            </h3>
+
+            <table class="table table-condensed table-hover table-responsive">
+              <thead>
+                <tr>
+                  <th>
+                    <i class="fa fa-fw fa-calendar"></i>
+                    Data
+                  </th>
+                  <th>
+                    <i class="fa fa-fw fa-file-o"></i>
+                    Descrição da Operação
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Rodar o loop -->
+              </tbody>
+            </table>
+
           </c:if>
-
-          <!-- Início: ABAS de Hospede e Funcionário -->
-          <div class="tab-content">
-
-            <!-- Início: Adicionais sobre o Funcionário -->
-            <div id="abaFuncionario" class="tab-pane fade">
-
-              <h4>
-                Adicionais sobre o Funcionário
-              </h4>
-              <hr />
-
-              <div class="row" id="formFuncionario">
-
-                <div class="col-md-2 col-sm-6">
-
-                  <div class="form-group">
-                    <label for="formUnidade">
-                      Unidade:
-                    </label>
-                    <input type="text" class="form-control"
-                           tabindex="18"
-                           name="formUnidade" id="formUnidade" 
-                           placeholder="Hotel 2" />
-                  </div>
-
-                </div>
-
-                <div class="col-md-3 col-sm-6">
-
-                  <div class="form-group">
-                    <label for="formDepartamento">
-                      Departamento:
-                    </label>
-                    <input type="text" class="form-control" 
-                           tabindex="19"
-                           name="formDepartamento" id="formDepartamento"
-                           placeholder="Recepção"/>
-                  </div>
-
-                </div>
-
-                <div class="col-md-3">
-
-                  <div class="form-group">
-                    <label for="formCargo">
-
-                    </label>                  
-                    <input type="text" class="form-control"
-                           tabindex="20"
-                           name="formCargo" id="formCargo" 
-                           placeholder="Recepcionista" />
-                  </div>
-
-                </div>
-
-                <div class="col-md-2 col-xs-6">
-
-                  <div class="form-group">                    
-                    <label for="formSalario">
-                      Sálario:
-                    </label>
-                    <input type="number" class="form-control" 
-                           tabindex="22"
-                           name="formSalario" id="formSalario"
-                           placeholder="1400" />
-                  </div>
-
-                </div>
-
-              </div>
-              <!-- Fim da linha de GRID do formulário -->
-
-              <div class="form-group">
-                <label for="formUsuario">
-                  Cadastrar como usuário do sistema?
-                </label>
-                <br style="clear: both;" />
-                <div class="switch switch-square"
-                     data-toggle="collapse" data-target="#collapseExample"
-                     data-on-label="<i class='fa fa-check'></i>"
-                     data-off-label="<i class='fa fa-times'></i>"
-                     id="checkOpUsuario">
-                  <input type="checkbox" value="1"
-                         name="formOpUsuario" id="formOpUsuario"
-                         checked
-                         />
-                </div>
-                <!-- Check Option de Criação de id e senha -->
-              </div>
-              <div class="collapsed in" id="collapseExample">
-                <div class="row" id="formUsuario">
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <label for="formLogin">
-                        Login:
-                      </label>                  
-                      <input type="text" class="form-control"
-                             name="formLogin" id="formLogin" 
-                             placeholder="Nome de Usuário" 
-                             disabled/>
-                    </div>
-                  </div>
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <label for="formSenha">
-                        Senha:
-                      </label>                  
-                      <input type="password" class="form-control"
-                             name="formSenha" id="formSenha" 
-                             placeholder="********" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- DIV com os campos de id e senha -->
-            </div>
-            <!-- Fim: Adicionais sobre o Funcionário -->
-
-          </div>
-          <!-- Fim: ABAS de Hospede e Funcionário -->         
 
         </div>
 
       </c:when>
 
+
       <c:otherwise>
+        <!-- AQUI É QUANDO FOR O USUÁRIO DA SESSÃO -->
         Nome:
         ${sessionScope.usuario.nome}
+        <!-- AQUI É QUANDO FOR O USUÁRIO DA SESSÃO -->
       </c:otherwise>
 
     </c:choose>
