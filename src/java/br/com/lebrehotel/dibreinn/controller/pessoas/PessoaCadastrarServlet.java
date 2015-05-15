@@ -66,7 +66,11 @@ public class PessoaCadastrarServlet extends HttpServlet {
                 h.setTelefone(request.getParameter("formTel"));
                 h.setCelular(request.getParameter("formCel"));
                 h.setEmail(request.getParameter("formEmail"));
-                h.setNewsletter(Integer.parseInt(request.getParameter("formNewsletter")));
+		if (request.getParameter("formNewsletter") != null) {
+		  h.setNewsletter(Integer.parseInt(request.getParameter("formNewsletter")));
+		} else {
+		  h.setNewsletter(0);
+		}
                 h.setnCartao(request.getParameter("formCartao"));
                 Endereco end = new Endereco();
                 end.setCep((request.getParameter("formCep")));
@@ -104,7 +108,11 @@ public class PessoaCadastrarServlet extends HttpServlet {
                 f.setTelefone(request.getParameter("formTel"));
                 f.setCelular(request.getParameter("formCel"));
                 f.setEmail(request.getParameter("formEmail"));
-                f.setNewsletter(Integer.parseInt(request.getParameter("formNewsletter")));
+		if (request.getParameter("formNewsletter") != null) {
+		  f.setNewsletter(Integer.parseInt(request.getParameter("formNewsletter")));
+		} else {
+		  f.setNewsletter(0);
+		}                
                 if (request.getParameter("formOpUsuario").equalsIgnoreCase("1")) {
                     f.setLogin(request.getParameter("formEmail"));
                     f.setSenha(request.getParameter("formSenha"));
