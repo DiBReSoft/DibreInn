@@ -23,8 +23,8 @@
       }
       .fc-event {
         text-align: center;
-        padding: 5px 2px;
-        margin: 2.5px 0px;
+        padding: 3px 0px;
+        margin: 2.5px;
       }
     </style>
   </jsp:attribute>

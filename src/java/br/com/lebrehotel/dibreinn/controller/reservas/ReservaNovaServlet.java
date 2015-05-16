@@ -28,6 +28,8 @@ public class ReservaNovaServlet extends HttpServlet {
           throws ServletException, IOException {
 
     String data = request.getParameter("data");
+    data = data.replaceAll("-", "/");
+    System.out.println(data);
 
     request.setAttribute("dataParaReserva", data);
 
