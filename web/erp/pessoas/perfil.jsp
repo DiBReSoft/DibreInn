@@ -74,7 +74,7 @@
 
                 <div class="col-sm-4">
 
-                  <h3>
+                  <h4>
                     Sexo
                     <br />
                     <small>                      
@@ -87,85 +87,85 @@
                         </c:otherwise>
                       </c:choose>
                     </small>
-                  </h3>
+                  </h4>
 
                 </div>
 
                 <div class="col-sm-4">
 
-                  <h3>
+                  <h4>
                     RG
                     <br />
                     <small>
                       <c:out value="${pessoa.get(0).rg}" />
                     </small>
-                  </h3>
+                  </h4>
 
                 </div>
 
                 <div class="col-sm-4">
 
-                  <h3>
+                  <h4>
                     CPF
                     <br />
                     <small>
                       <c:out value="${pessoa.get(0).cpf}" />
                     </small>
-                  </h3>
+                  </h4>
 
                 </div>
 
                 <div class="col-sm-4">
 
-                  <h3>
+                  <h4>
                     Nascimento
                     <br />
                     <small>
                       <c:out value="${pessoa.get(0).dataNascimento}" />
                     </small>
-                  </h3>
+                  </h4>
 
                 </div>
 
                 <div class="col-sm-4">
 
-                  <h3>
+                  <h4>
                     Telefone
                     <br />
                     <small>
                       <c:out value="${pessoa.get(0).telefone}" />
                     </small>
-                  </h3>
+                  </h4>
 
                 </div>
 
                 <div class="col-sm-4">
 
-                  <h3>
+                  <h4>
                     Celular
                     <br />
                     <small>
                       <c:out value="${pessoa.get(0).celular}" />
                     </small>
-                  </h3>
+                  </h4>
 
                 </div>
 
                 <div class="col-xs-8">
 
-                  <h3>
+                  <h4>
                     E-mail
                     <br />
                     <small>
                       <c:out value="${pessoa.get(0).email}" />
                     </small>
-                  </h3>
+                  </h4>
 
                 </div>
 
                 <div class="col-xs-4">
 
-                  <h3>
+                  <h4>
                     Newsletter
                     <br />
                     <small>
@@ -180,7 +180,7 @@
                         </c:otherwise>
                       </c:choose>
                     </small>
-                  </h3>
+                  </h4>
 
                 </div>
 
@@ -194,85 +194,85 @@
 
                 <div class="col-xs-8">
 
-                  <h3>
+                  <h4>
                     Logradouro
                     <br />
                     <small>
                       <%--<c:out value="${pessoa.get(0).end.logradouro}" />--%>
                     </small>
-                  </h3>
+                  </h4>
 
                 </div>
 
                 <div class="col-xs-4">
 
-                  <h3>
+                  <h4>
                     Número
                     <br />
                     <small>
                       <%--<c:out value="${pessoa.get(0).end.numero}" />--%>
                     </small>
-                  </h3>
+                  </h4>
 
                 </div>
 
                 <div class="col-xs-6 col-sm-4">
 
-                  <h3>
+                  <h4>
                     Complemento
                     <br />
                     <small>
                       <%--<c:out value="${pessoa.get(0).end.Complemento}" />--%>
                     </small>
-                  </h3>
+                  </h4>
 
                 </div>
 
                 <div class="col-xs-6 col-sm-4">
 
-                  <h3>
+                  <h4>
                     Bairro
                     <br />
                     <small>
                       <%--<c:out value="${pessoa.get(0).end.bairro}" />--%>
                     </small>
-                  </h3>
+                  </h4>
 
                 </div>
 
                 <div class="col-xs-5 col-sm-4">
 
-                  <h3>
+                  <h4>
                     Cidade
                     <br />
                     <small>
                       <%--<c:out value="${pessoa.get(0).end.cidade:}" />--%>
                     </small>
-                  </h3>
+                  </h4>
 
                 </div>
 
                 <div class="col-xs-3">
 
-                  <h3>
+                  <h4>
                     Cidade
                     <br />
                     <small>
                       <%--<c:out value="${pessoa.get(0).end.estado}" />--%>
                     </small>
-                  </h3>
+                  </h4>
 
                 </div>
 
                 <div class="col-sm-4">
 
-                  <h3>
+                  <h4>
                     País
                     <br />
                     <small>
                       <%--<c:out value="${pessoa.get(0).end.pais}" />--%>
                     </small>
-                  </h3>
+                  </h4>
 
                 </div>
 
@@ -290,19 +290,19 @@
               Adicionais sobre o Hospede
             </h2>
 
-            <h3>
+            <h4>
               Número do Cartão
               <br />
               <small>
                 <%--<c:out value="${pessoa.get(0).nCartao}" />--%>
               </small>
-            </h3>
+            </h4>
 
             <br />
 
-            <h3>
+            <h4>
               Histórico de Reservas
-            </h3>
+            </h4>
 
             <table class="table table-condensed table-hover table-responsive">
               <thead>
@@ -351,49 +351,49 @@
 
               <div class="col-sm-3">
 
-                <h3>
+                <h4>
                   Unidade
                   <br />
                   <small>
                     <%--<c:out value="${pessoa.get(0).unidade}" />--%>
                   </small>
-                </h3>
+                </h4>
 
               </div>
 
               <div class="col-sm-3">
 
-                <h3>
+                <h4>
                   Departamento
                   <br />
                   <small>
                     <%--<c:out value="${pessoa.get(0).departamento}" />--%>
                   </small>
-                </h3>
+                </h4>
 
               </div>
 
               <div class="col-sm-3">
 
-                <h3>
+                <h4>
                   Cargo
                   <br />
                   <small>
                     <%--<c:out value="${pessoa.get(0).cargo}" />--%>
                   </small>
-                </h3>
+                </h4>
 
               </div>
 
               <div class="col-sm-3">
 
-                <h3>
+                <h4>
                   Salário
                   <br />
                   <small>
                     <%--<c:out value="${pessoa.get(0).salario}" />--%>
                   </small>
-                </h3>
+                </h4>
 
               </div>
 
@@ -401,9 +401,9 @@
 
             <br />
 
-            <h3>
+            <h4>
               Histórico de Operações no Sistema
-            </h3>
+            </h4>
 
             <table class="table table-condensed table-hover table-responsive">
               <thead>
