@@ -521,10 +521,15 @@
                   <label for="formUnidade">
                     Unidade:
                   </label>
-                  <input type="text" class="form-control"
-                         tabindex="18"
-                         name="formUnidade" id="formUnidade" 
-                         placeholder="Hotel 2" />
+                    <select class="form-control" tabindex="18" aria-describedby="basic-addon2"
+                          name="formUnidade" id="formUnidade">
+                    <c:forEach items="${lista}" var="unidade" varStatus="stat">
+                      <option>
+                        <c:out value="${unidade.nome}" />
+                      </option>
+                    </c:forEach>
+                  </select>              
+
                 </div>
 
               </div>

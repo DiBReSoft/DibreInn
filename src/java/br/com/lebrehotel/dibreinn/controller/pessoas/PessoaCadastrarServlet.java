@@ -7,6 +7,7 @@ import br.com.lebrehotel.dibreinn.model.pessoa.Funcionario;
 import br.com.lebrehotel.dibreinn.model.pessoa.Hospede;
 import br.com.lebrehotel.dibreinn.model.pessoa.Pessoa;
 import br.com.lebrehotel.dibreinn.model.pessoa.PessoaDAO;
+import br.com.lebrehotel.dibreinn.model.unidade.UnidadeDAO;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -35,6 +36,11 @@ public class PessoaCadastrarServlet extends HttpServlet {
             request.setAttribute("pessoa", consulta.BuscarPessoas(pessoaID, 4));
 
         }
+        
+        
+    //buscando apenas os quartos disponiveis
+    UnidadeDAO consulta = new UnidadeDAO();
+    request.setAttribute("lista", consulta.BuscarUnidades("buscartodasunidades",0));
 
         RequestDispatcher rd = request.getRequestDispatcher("/erp/pessoas/cadastrar.jsp");
         rd.forward(request, response);

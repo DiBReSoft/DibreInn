@@ -1,12 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.lebrehotel.dibreinn.controller.unidade;
 
-import br.com.lebrehotel.dibreinn.model.quarto.Quarto;
-import br.com.lebrehotel.dibreinn.model.quarto.QuartoDAO;
+import br.com.lebrehotel.dibreinn.model.pessoa.Endereco;
+
+import br.com.lebrehotel.dibreinn.model.unidade.Unidade;
+import br.com.lebrehotel.dibreinn.model.unidade.UnidadeDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -20,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Thiago
  */
-@WebServlet(name = "UnidadeCadastrarServlet", urlPatterns = {"/UnidadeCadastrarServlet"})
+@WebServlet(name = "UnidadeCadastrarServlet", urlPatterns = {"/erp/unidades/adicionar"})
 public class UnidadeCadastrarServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -36,7 +33,7 @@ public class UnidadeCadastrarServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-       RequestDispatcher rd = request.getRequestDispatcher("/erp/quartos/adicionar.jsp");
+       RequestDispatcher rd = request.getRequestDispatcher("/erp/unidades/adicionar.jsp");
         rd.forward(request, response);
     }
 
@@ -54,13 +51,28 @@ public class UnidadeCadastrarServlet extends HttpServlet {
        try {
             Unidade u = new Unidade();
 
-            q.setNumero(Integer.parseInt(request.getParameter("formNumero")));
-            q.setAndar(request.getParameter("formAndar"));
-            q.setRamal(Integer.parseInt(request.getParameter("formRamal")));
-            q.setValorDiaria(Double.parseDouble(request.getParameter("formValor")));
+            u.setNome(request.getParameter("formNome"));
+                u.setCnpj(request.getParameter("formCnpj"));
+                u.setTipo(Integer.parseInt(request.getParameter("formCategoria")));
+                
+                u.setCep((request.getParameter("formCep")));
+                u.setLogradouro(request.getParameter("formLogradouro"));
+                u.setNumero(request.getParameter("formNumero"));
+                u.setComplemento(request.getParameter("formComplemento"));
+                u.setBairro(request.getParameter("formBairro"));
+                u.setCidade(request.getParameter("formCidade"));
+                u.setEstado(request.getParameter("formEstado"));
+//                Endereco end = new Endereco();
+//                end.setCep((request.getParameter("formCep")));
+//                end.setLogradouro(request.getParameter("formLogradouro"));
+//                end.setNumero(request.getParameter("formNumero"));
+//                end.setComplemento(request.getParameter("formComplemento"));
+//                end.setBairro(request.getParameter("formBairro"));
+//                end.setCidade(request.getParameter("formCidade"));
+//                end.setEstado(request.getParameter("formEstado"));
 
-            QuartoDAO cmd = new QuartoDAO();
-            q.setId(cmd.cadastrarQuarto(q));
+            UnidadeDAO cmd = new UnidadeDAO();
+            u.setId_unidade(cmd.cadastrarUnidade(u));
 
             //  Teste se o resultado do cadastro foi positivo. 
 //            if (q.getId() != 0) {

@@ -5,7 +5,6 @@
  */
 package br.com.lebrehotel.dibreinn.controller.unidade;
 
-
 import br.com.lebrehotel.dibreinn.model.unidade.UnidadeDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,18 +19,17 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Thiago
  */
-@WebServlet(name = "UnidadeBuscarServlet", urlPatterns = {"/erp/unidades/visualizar","/erp/unidades/editar"})
+@WebServlet(name = "UnidadeBuscarServlet", urlPatterns = {"/erp/unidades/visualizar", "/erp/unidades/editar"})
 public class UnidadeBuscarServlet extends HttpServlet {
-
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-          UnidadeDAO consulta = new UnidadeDAO();
-               String pesquisar="";
-               int tipoBusca=0;
-              request.setAttribute("lista", consulta.BuscarUnidades(pesquisar,tipoBusca));
-        
+        UnidadeDAO consulta = new UnidadeDAO();
+        String pesquisar = "";
+        int tipoBusca = 0;
+        request.setAttribute("lista", consulta.BuscarUnidades(pesquisar, tipoBusca));
+
         RequestDispatcher rd = request.getRequestDispatcher("/erp/unidades/editar.jsp");
         rd.forward(request, response);
     }
@@ -47,7 +45,7 @@ public class UnidadeBuscarServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     /**

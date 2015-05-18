@@ -251,22 +251,26 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
+                                <th>Nome</th>
+                                <th>Cnpj</th>
+                                <th>Categoria</th>
+                                <th>Cep</th>
                                 <th>Número</th>
-                                <th>Andar</th>
-                                <th>Ramal</th>
-                                <th>Valor da Diaria</th>
-                                <th>Ocupado</th>
-                                <th>Editar</th>
+                                <th>Complemento</th>
                             </tr>
                         </thead>
                         <tbody>
                             <c:forEach items="${lista}" var="unidade" varStatus="stat">
                                 <tr>
-                                    <td scope="row"><c:out value="${unidade.id}" /></td>
+                                    <td scope="row"><c:out value="${unidade.id_unidade}" /></td>
                                     <td class ="numero"><c:out value="${unidade.nome}" /></td>
-                                    <td class ="andar"><c:out value="${unidade.tipo}" /></td>
+                                    <td class ="Cnpj"><c:out value="${unidade.cnpj}" /></td>
+                                    <td class ="Categoria"><c:out value="${unidade.tipo}" /></td>
+                                    <td class ="Cep"><c:out value="${unidade.cep}" /></td>
+                                    <td class ="Número"><c:out value="${unidade.numero}" /></td>
+                                    <td class ="Complemento"><c:out value="${unidade.complemento}" /></td>
                                     <td class="seleciona">
-                                        <a href="<c:url value="/erp/unidade/editar?id=${unidade.id}" />" class="selecionado">
+                                        <a href="<c:url value="/erp/unidades/editar?id=${unidade.id}" />" class="selecionado">
                                             Selecionar
                                         </a>
                                     </td>
