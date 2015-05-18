@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.lebrehotel.dibreinn.controller.quarto;
+package br.com.lebrehotel.dibreinn.controller.unidade;
 
 import br.com.lebrehotel.dibreinn.model.quarto.Quarto;
 import br.com.lebrehotel.dibreinn.model.quarto.QuartoDAO;
@@ -20,21 +20,39 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Thiago
  */
-@WebServlet(name = "QuartoCadastrarServlet", urlPatterns = {"/erp/quartos/adicionar"})
-public class QuartoCadastrarServlet extends HttpServlet {
+@WebServlet(name = "UnidadeCadastrarServlet", urlPatterns = {"/UnidadeCadastrarServlet"})
+public class UnidadeCadastrarServlet extends HttpServlet {
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher rd = request.getRequestDispatcher("/erp/quartos/adicionar.jsp");
+        
+       RequestDispatcher rd = request.getRequestDispatcher("/erp/quartos/adicionar.jsp");
         rd.forward(request, response);
     }
 
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            Quarto q = new Quarto();
+       try {
+            Unidade u = new Unidade();
 
             q.setNumero(Integer.parseInt(request.getParameter("formNumero")));
             q.setAndar(request.getParameter("formAndar"));
@@ -56,7 +74,6 @@ public class QuartoCadastrarServlet extends HttpServlet {
 
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Returns a short description of the servlet.
      *
