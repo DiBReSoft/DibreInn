@@ -12,10 +12,10 @@
 
   <jsp:attribute name="paginaTitulo">
     <c:choose>
-      <c:when test="${pessoa.get(0).id != null}">
+      <c:when test="${pessoa.id != null}">
         Perfil de
-        <c:out value="${pessoa.get(0).nome}" />
-        <c:out value="${pessoa.get(0).sobrenome}" />
+        <c:out value="${pessoa.nome}" />
+        <c:out value="${pessoa.sobrenome}" />
       </c:when>
       <c:otherwise>
         Meu Perfil
@@ -40,12 +40,12 @@
 
     <h1 class="page-title">
       <c:choose>
-        <c:when test="${pessoa.get(0).id != null}">
+        <c:when test="${pessoa.id != null}">
           Perfil do
-          <c:if test="${pessoa.get(0).tipo eq 'Hospede'}">
+          <c:if test="${pessoa.tipo eq 'h'}">
             Hospede
           </c:if>
-          <c:if test="${pessoa.get(0).tipo eq 'Funcionário'}">
+          <c:if test="${pessoa.tipo eq 'f'}">
             Funcionário
           </c:if>
         </c:when>
@@ -57,13 +57,13 @@
 
 
     <c:choose>
-      <c:when test="${pessoa.get(0).id != null}">
+      <c:when test="${pessoa.id != null}">
 
         <div class="form-di">
 
           <h2>                
-            <c:out value="${pessoa.get(0).nome}" />
-            <c:out value="${pessoa.get(0).sobrenome}" />
+            <c:out value="${pessoa.nome}" />
+            <c:out value="${pessoa.sobrenome}" />
           </h2>
 
           <div class="row">
@@ -79,7 +79,7 @@
                     <br />
                     <small>                      
                       <c:choose>
-                        <c:when test="${pessoa.get(0).sexo eq 'm'}">
+                        <c:when test="${pessoa.sexo eq 'm' or pessoa.sexo eq 'M'}">
                           Masculino
                         </c:when>
                         <c:otherwise>
@@ -97,7 +97,7 @@
                     RG
                     <br />
                     <small>
-                      <c:out value="${pessoa.get(0).rg}" />
+                      <c:out value="${pessoa.rg}" />
                     </small>
                   </h4>
 
@@ -109,7 +109,7 @@
                     CPF
                     <br />
                     <small>
-                      <c:out value="${pessoa.get(0).cpf}" />
+                      <c:out value="${pessoa.cpf}" />
                     </small>
                   </h4>
 
@@ -121,7 +121,7 @@
                     Nascimento
                     <br />
                     <small>
-                      <c:out value="${pessoa.get(0).dataNascimento}" />
+                      <c:out value="${pessoa.dataNascimento}" />
                     </small>
                   </h4>
 
@@ -133,7 +133,7 @@
                     Telefone
                     <br />
                     <small>
-                      <c:out value="${pessoa.get(0).telefone}" />
+                      <c:out value="${pessoa.telefone}" />
                     </small>
                   </h4>
 
@@ -145,7 +145,7 @@
                     Celular
                     <br />
                     <small>
-                      <c:out value="${pessoa.get(0).celular}" />
+                      <c:out value="${pessoa.celular}" />
                     </small>
                   </h4>
 
@@ -157,7 +157,7 @@
                     E-mail
                     <br />
                     <small>
-                      <c:out value="${pessoa.get(0).email}" />
+                      <c:out value="${pessoa.email}" />
                     </small>
                   </h4>
 
@@ -170,7 +170,7 @@
                     <br />
                     <small>
                       <c:choose>
-                        <c:when test="${pessoa.get(0).newsletter == 1}">
+                        <c:when test="${pessoa.newsletter == 1}">
                           <i class="fa fa-fw fa-lg fa-check-square"></i>
                           Recebe
                         </c:when>
@@ -198,7 +198,7 @@
                     Logradouro
                     <br />
                     <small>
-                      <%--<c:out value="${pessoa.get(0).end.logradouro}" />--%>
+                      <%--<c:out value="${pessoa.end.logradouro}" />--%>
                     </small>
                   </h4>
 
@@ -210,7 +210,7 @@
                     Número
                     <br />
                     <small>
-                      <%--<c:out value="${pessoa.get(0).end.numero}" />--%>
+                      <%--<c:out value="${pessoa.end.numero}" />--%>
                     </small>
                   </h4>
 
@@ -222,7 +222,7 @@
                     Complemento
                     <br />
                     <small>
-                      <%--<c:out value="${pessoa.get(0).end.Complemento}" />--%>
+                      <%--<c:out value="${pessoa.end.Complemento}" />--%>
                     </small>
                   </h4>
 
@@ -234,7 +234,7 @@
                     Bairro
                     <br />
                     <small>
-                      <%--<c:out value="${pessoa.get(0).end.bairro}" />--%>
+                      <%--<c:out value="${pessoa.end.bairro}" />--%>
                     </small>
                   </h4>
 
@@ -246,7 +246,7 @@
                     Cidade
                     <br />
                     <small>
-                      <%--<c:out value="${pessoa.get(0).end.cidade:}" />--%>
+                      <%--<c:out value="${pessoa.end.cidade:}" />--%>
                     </small>
                   </h4>
 
@@ -258,7 +258,7 @@
                     Cidade
                     <br />
                     <small>
-                      <%--<c:out value="${pessoa.get(0).end.estado}" />--%>
+                      <%--<c:out value="${pessoa.end.estado}" />--%>
                     </small>
                   </h4>
 
@@ -270,7 +270,7 @@
                     País
                     <br />
                     <small>
-                      <%--<c:out value="${pessoa.get(0).end.pais}" />--%>
+                      <%--<c:out value="${pessoa.end.pais}" />--%>
                     </small>
                   </h4>
 
@@ -284,17 +284,19 @@
 
           <hr />
 
-          <c:if test="${pessoa.get(0).tipo eq 'Hospede'}">
+          <c:if test="${pessoa.tipo eq 'h'}">
 
             <h2>
               Adicionais sobre o Hospede
             </h2>
+              
+            <div style="padding: 5px 0px;"></div>
 
             <h4>
               Número do Cartão
               <br />
               <small>
-                <%--<c:out value="${pessoa.get(0).nCartao}" />--%>
+                <c:out value="${pessoa.nCartao}" />
               </small>
             </h4>
 
@@ -336,16 +338,16 @@
 
           </c:if>
 
-          <c:if test="${pessoa.get(0).tipo eq 'Funcionário'}">
+          <c:if test="${pessoa.tipo eq 'f'}">
 
             <h2>
               Adicionais do funcionário
-              <%--
-              <c:if test="${pessoa.get(0).isUsuario}">
+              <c:if test="${pessoa.senha}">
                 (usuário do sistema)
               </c:if>
-              --%>
             </h2>
+              
+            <div style="padding: 5px 0px;"></div>
 
             <div class="row">
 
@@ -355,7 +357,7 @@
                   Unidade
                   <br />
                   <small>
-                    <%--<c:out value="${pessoa.get(0).unidade}" />--%>
+                    <c:out value="${pessoa.unidade}" />
                   </small>
                 </h4>
 
@@ -367,7 +369,7 @@
                   Departamento
                   <br />
                   <small>
-                    <%--<c:out value="${pessoa.get(0).departamento}" />--%>
+                    <c:out value="${pessoa.departamento}" />
                   </small>
                 </h4>
 
@@ -379,7 +381,7 @@
                   Cargo
                   <br />
                   <small>
-                    <%--<c:out value="${pessoa.get(0).cargo}" />--%>
+                    <c:out value="${pessoa.cargo}" />
                   </small>
                 </h4>
 
@@ -391,7 +393,7 @@
                   Salário
                   <br />
                   <small>
-                    <%--<c:out value="${pessoa.get(0).salario}" />--%>
+                    R$ <c:out value="${pessoa.salario}" />
                   </small>
                 </h4>
 

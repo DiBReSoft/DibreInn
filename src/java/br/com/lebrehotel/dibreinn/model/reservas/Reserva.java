@@ -6,7 +6,7 @@ package br.com.lebrehotel.dibreinn.model.reservas;
  * os atributos de Reserva
  */
 import br.com.lebrehotel.dibreinn.model.Pedido;
-import br.com.lebrehotel.dibreinn.model.Quarto;
+import br.com.lebrehotel.dibreinn.model.quarto.Quarto;
 import br.com.lebrehotel.dibreinn.model.pessoa.Hospede;
 import br.com.lebrehotel.dibreinn.model.pessoa.Funcionario;
 import java.util.Date;

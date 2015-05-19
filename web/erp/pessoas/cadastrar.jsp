@@ -11,7 +11,7 @@
 
   <jsp:attribute name="paginaTitulo">
     <c:choose>
-      <c:when test="${pessoa.get(0).id != null}">
+      <c:when test="${pessoa.id != null}">
         Atualizar
       </c:when>
       <c:otherwise>
@@ -35,7 +35,7 @@
     <script type="text/javascript" src="<c:url value="/assets/js/jquery.numeric.js" />"></script>
     <script type="text/javascript" src="<c:url value="/assets/js/jquery.maskedinput.min.js" />"></script>
     <script type="text/javascript" src="<c:url value="/assets/js/validacoes.js" />"></script>
-    <c:if test="${pessoa.get(0).tipo eq 'Funcionário'}">
+    <c:if test="${pessoa.tipo eq 'f'}">
       <script type="text/javascript">
         $("a[href=#abaFuncionario]").click();
       </script>
@@ -46,7 +46,7 @@
 
     <h1 class="page-title">
       <c:choose>
-        <c:when test="${pessoa.get(0).id != null}">
+        <c:when test="${pessoa.id != null}">
           Atualizar
         </c:when>
         <c:otherwise>
@@ -70,35 +70,75 @@
         <h4 style="margin-top: 8px; margin-right: 10px; float: left;">
           Tipo de Pessoa
         </h4>
-        <ul class="nav nav-pills">
-          <li role="presentation" class="active">
-            <a role="tab" data-toggle="tab" 
-               aria-controls="abaHospede"
-               href="#abaHospede">
-              Hospede
-            </a>
-            <input type="radio"
-                   tabindex="0"
-                   name="formTipo" id="formTipo1"
-                   value="h" 
-                   required="true"
-                   href="#abaHospede"
-                   checked />
-          </li>
-          <li role="presentation">
-            <a role="tab" data-toggle="tab" 
-               aria-controls="abaFuncionario"
-               href="#abaFuncionario">
-              Funcionário
-            </a>
-            <input type="radio"
-                   tabindex="0"
-                   name="formTipo" id="formTipo2"
-                   value="f" 
-                   required="true"
-                   href="#abaFuncionario"/>
-          </li>
-        </ul>
+        
+        <c:choose>
+          <c:when test="${pessoa.id != null}">
+            <ul class="nav nav-pills">
+                <c:if test="${pessoa.tipo eq 'h' or pessoa.tipo eq 'H'}">
+                    <li role="presentation" class="active">
+                        <a role="tab" data-toggle="tab" 
+                           aria-controls="abaHospede">
+                          Hospede
+                        </a>
+                        <input type="radio"
+                               tabindex="0"
+                               name="formTipo" id="formTipo1"
+                               value="h" 
+                               required="true"
+                               href="#abaHospede"
+                               checked />
+                      </li>
+                </c:if>
+                <c:if test="${pessoa.tipo eq 'f' or pessoa.tipo eq 'F'}">
+                    <li role="presentation"  class="active">
+                        <a role="tab" data-toggle="tab" 
+                           aria-controls="abaFuncionario">
+                          Funcionário
+                        </a>
+                        <input type="radio"
+                               tabindex="0"
+                               name="formTipo" id="formTipo2"
+                               value="f" 
+                               required="true"
+                               href="#abaFuncionario"/>
+                      </li>
+                </c:if>                
+            </ul>
+          </c:when>
+          <c:otherwise>
+            <ul class="nav nav-pills">
+                <li role="presentation" class="active">
+                  <a role="tab" data-toggle="tab" 
+                     aria-controls="abaHospede"
+                     href="#abaHospede">
+                    Hospede
+                  </a>
+                  <input type="radio"
+                         tabindex="0"
+                         name="formTipo" id="formTipo1"
+                         value="h" 
+                         required="true"
+                         href="#abaHospede"
+                         checked />
+                </li>
+                <li role="presentation">
+                  <a role="tab" data-toggle="tab" 
+                     aria-controls="abaFuncionario"
+                     href="#abaFuncionario">
+                    Funcionário
+                  </a>
+                  <input type="radio"
+                         tabindex="0"
+                         name="formTipo" id="formTipo2"
+                         value="f" 
+                         required="true"
+                         href="#abaFuncionario"/>
+                </li>
+            </ul>
+          </c:otherwise>
+        </c:choose>
+        
+        
 
         <!-- Início da #1 linha de GRID do formulário -->
         <div class="row">
@@ -124,7 +164,7 @@
                          name="formNome" id="formNome" 
                          placeholder="Fulano"
                          required="true" 
-                         value="<c:out value="${pessoa.get(0).nome}" />" />
+                         value="<c:out value="${pessoa.nome}" />" />
                 </div>
 
               </div>
@@ -140,7 +180,7 @@
                          name="formSobrenome" id="formSobrenome"
                          placeholder="da Silva"
                          required="true"
-                         value="<c:out value="${pessoa.get(0).sobrenome}" />" />
+                         value="<c:out value="${pessoa.sobrenome}" />" />
                 </div>
 
               </div>
@@ -178,7 +218,7 @@
                          name="formRg" id="formRg" 
                          placeholder="RG" 
                          maxlength="50"
-                         value="<c:out value="${pessoa.get(0).rg}" />" />
+                         value="<c:out value="${pessoa.rg}" />" />
                 </div>
 
               </div>
@@ -194,7 +234,7 @@
                          name="formCpf" id="formCpf" 
                          placeholder="CPF" 
                          maxlength="50"
-                         value="<c:out value="${pessoa.get(0).cpf}" />" />
+                         value="<c:out value="${pessoa.cpf}" />" />
                 </div>
 
               </div>
@@ -211,7 +251,7 @@
                          placeholder="AAAA-MM-DD"
                          required="true" 
                          maxlength="10"
-                         value="<c:out value="${pessoa.get(0).dataNascimento}" />"/>
+                         value="<c:out value="${pessoa.dataNascimento}" />"/>
                 </div>
 
               </div>
@@ -227,7 +267,7 @@
                          name="formTel" id="formTel"
                          placeholder="(11) 5555-5555" 
                          maxlength="15"
-                         value="<c:out value="${pessoa.get(0).telefone}" />"/>
+                         value="<c:out value="${pessoa.telefone}" />"/>
                 </div>
 
               </div>
@@ -243,7 +283,7 @@
                          name="formCel" id="formCel"
                          placeholder="(11) 9999-9999" 
                          maxlength="15"
-                         value="<c:out value="${pessoa.get(0).celular}" />" />
+                         value="<c:out value="${pessoa.celular}" />" />
                 </div>
 
               </div>
@@ -258,7 +298,7 @@
                          tabindex="8"
                          name="formEmail" id="formEmail"
                          placeholder="fulano@dasilva.com.br"
-                         value="<c:out value="${pessoa.get(0).email}" />" />
+                         value="<c:out value="${pessoa.email}" />" />
                 </div>
 
               </div>
@@ -274,7 +314,7 @@
                        data-on-label="<i class=' fa fa-check'></i>"
                        data-off-label="<i class='fa fa-times'></i>">
                     <c:choose>
-                      <c:when test="${pessoa.get(0).id eq null}">
+                      <c:when test="${pessoa.id eq null}">
                         <input type="checkbox"
                                tabindex="9"
                                name="formNewsletter" id="formNewsletter"
@@ -282,7 +322,7 @@
                                checked
                                />
                       </c:when>
-                      <c:when test="${pessoa.get(0).newsletter == 1}">
+                      <c:when test="${pessoa.newsletter == 1}">
                         <input type="checkbox"
                                tabindex="9"
                                name="formNewsletter" id="formNewsletter"
@@ -294,7 +334,7 @@
                         <input type="checkbox"
                                tabindex="9"
                                name="formNewsletter" id="formNewsletter"
-                               value="1"
+                               value="0"
                                />
                       </c:otherwise>
                     </c:choose>
@@ -459,171 +499,366 @@
 
         <!-- Início: ABAS de Hospede e Funcionário -->
         <div class="tab-content">
+            <c:if test="${pessoa.tipo eq null}">
+                
+                <!-- Início: Adicionais sobre o Hospede -->
+                <div id="abaHospede" class="tab-pane fade in active">
 
-          <!-- Início: Adicionais sobre o Hospede -->
-          <div id="abaHospede" class="tab-pane fade in active">
+                  <h4>
+                    Adicionais sobre o Hospede
+                  </h4>
 
-            <h4>
-              Adicionais sobre o Hospede
-            </h4>
+                  <hr />
 
-            <hr />
+                  <div class="row" id="formHospede">
 
-            <div class="row" id="formHospede">
+                    <div class="col-sm-4">
 
-              <div class="col-sm-4">
+                      <div class="form-group">
+                        <label for="formCartao">
+                          Número do Cartão:
+                        </label>
+                        <input type="text" class="form-control" 
+                               tabindex="18"
+                               name="formCartao" id="formCartao"
+                               placeholder="9999 9999 9999 9999"
+                               required
+                               />
+                      </div>
 
-                <div class="form-group">
-                  <label for="formCartao">
-                    Número do Cartão:
-                  </label>
-                  <input type="text" class="form-control" 
-                         tabindex="18"
-                         name="formCartao" id="formCartao"
-                         placeholder="9999 9999 9999 9999"
-                         required
-                         />
-                </div>
+                    </div>
 
-              </div>
+                    <div class="col-sm-6 hidden-xs">
+                      <label>
+                        <i class="fa fa-lg fa-question-circle"></i>
+                      </label>
+                      <div>
+                        <small class="text-muted">
+                          <i>
+                            Informação necessária para fins de no-show.
+                          </i>
+                        </small>
+                      </div>
+                    </div>
 
-              <div class="col-sm-6 hidden-xs">
-                <label>
-                  <i class="fa fa-lg fa-question-circle"></i>
-                </label>
-                <div>
-                  <small class="text-muted">
-                    <i>
-                      Informação necessária para fins de no-show.
-                    </i>
-                  </small>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-          <!-- Fim: Adicionais sobre o Hospede -->
-
-          <!-- Início: Adicionais sobre o Funcionário -->
-          <div id="abaFuncionario" class="tab-pane fade">
-
-            <h4>
-              Adicionais sobre o Funcionário
-            </h4>
-            <hr />
-
-            <div class="row" id="formFuncionario">
-
-              <div class="col-md-2 col-sm-6">
-
-                <div class="form-group">
-                  <label for="formUnidade">
-                    Unidade:
-                  </label>
-                    <select class="form-control" tabindex="18" aria-describedby="basic-addon2"
-                          name="formUnidade" id="formUnidade">
-                    <c:forEach items="${lista}" var="unidade" varStatus="stat">
-                      <option>
-                        <c:out value="${unidade.nome}" />
-                      </option>
-                    </c:forEach>
-                  </select>              
+                  </div>
 
                 </div>
+                <!-- Fim: Adicionais sobre o Hospede -->
+                
+                <!-- Início: Adicionais sobre o Funcionário -->
+                <div id="abaFuncionario" class="tab-pane fade">
 
-              </div>
+                  <h4>
+                    Adicionais sobre o Funcionário
+                  </h4>
+                  <hr />
 
-              <div class="col-md-3 col-sm-6">
+                  <div class="row" id="formFuncionario">
 
-                <div class="form-group">
-                  <label for="formDepartamento">
-                    Departamento:
-                  </label>
-                  <input type="text" class="form-control" 
-                         tabindex="19"
-                         name="formDepartamento" id="formDepartamento"
-                         placeholder="Recepção"/>
-                </div>
+                    <div class="col-md-3 col-sm-6">
 
-              </div>
+                      <div class="form-group">
+                        <label for="formUnidade">
+                          Unidade:
+                        </label>
+                          <select class="form-control" tabindex="18" aria-describedby="basic-addon2"
+                                name="formUnidade" id="formUnidade">
+                          <c:forEach items="${lista}" var="unidade" varStatus="stat">
+                            <option value="${unidade.id}">
+                              <c:out value="${unidade.nome}" />
+                            </option>
+                          </c:forEach>
+                        </select>              
 
-              <div class="col-md-3">
+                      </div>
 
-                <div class="form-group">
-                  <label for="formCargo">
-                    Cargo:
-                  </label>                  
-                  <input type="text" class="form-control"
-                         tabindex="20"
-                         name="formCargo" id="formCargo" 
-                         placeholder="Recepcionista" />
-                </div>
+                    </div>
 
-              </div>
+                    <div class="col-md-3 col-sm-6">
 
-              <div class="col-md-2 col-xs-6">
+                      <div class="form-group">
+                        <label for="formDepartamento">
+                          Departamento:
+                        </label>
+                        <input type="text" class="form-control" 
+                               tabindex="19"
+                               name="formDepartamento" id="formDepartamento"
+                               placeholder="Recepção" />
+                      </div>
 
-                <div class="form-group">                    
-                  <label for="formSalario">
-                    Sálario:
-                  </label>
-                  <input type="number" class="form-control" 
-                         tabindex="22"
-                         name="formSalario" id="formSalario"
-                         placeholder="1400" />
-                </div>
+                    </div>
 
-              </div>
+                    <div class="col-md-3">
 
-            </div>
-            <!-- Fim da linha de GRID do formulário -->
+                      <div class="form-group">
+                        <label for="formCargo">
+                          Cargo:
+                        </label>                  
+                        <input type="text" class="form-control"
+                               tabindex="20"
+                               name="formCargo" id="formCargo" 
+                               placeholder="Recepcionista" />
+                      </div>
 
-            <div class="form-group">
-              <label for="formUsuario">
-                Cadastrar como usuário do sistema?
-              </label>
-              <br style="clear: both;" />
-              <div class="switch switch-square"
-                   data-toggle="collapse" data-target="#collapseExample"
-                   data-on-label="<i class='fa fa-check'></i>"
-                   data-off-label="<i class='fa fa-times'></i>"
-                   id="checkOpUsuario">
-                <input type="checkbox" value="1"
-                       name="formOpUsuario" id="formOpUsuario"
-                       checked
-                       />
-              </div>
-              <!-- Check Option de Criação de id e senha -->
-            </div>
-            <div class="collapsed in" id="collapseExample">
-              <div class="row" id="formUsuario">
-                <div class="col-md-3">
+                    </div>
+
+                    <div class="col-md-2 col-xs-6">
+
+                      <div class="form-group">                    
+                        <label for="formSalario">
+                          Sálario:
+                        </label>
+                        <input type="number" class="form-control" 
+                               tabindex="22"
+                               name="formSalario" id="formSalario"
+                               placeholder="1400" />
+                      </div>
+
+                    </div>
+
+                  </div>
+                  <!-- Fim da linha de GRID do formulário -->
+
                   <div class="form-group">
-                    <label for="formLogin">
-                      Login:
-                    </label>                  
-                    <input type="text" class="form-control"
-                           name="formLogin" id="formLogin" 
-                           placeholder="Nome de Usuário" 
-                           disabled/>
+                    <label for="formUsuario">
+                      Cadastrar como usuário do sistema?
+                    </label>
+                    <br style="clear: both;" />
+                    <div class="switch switch-square"
+                         data-toggle="collapse" data-target="#collapseExample"
+                         data-on-label="<i class='fa fa-check'></i>"
+                         data-off-label="<i class='fa fa-times'></i>"
+                         id="checkOpUsuario">
+                      <input type="checkbox" value="1"
+                             name="formOpUsuario" id="formOpUsuario"
+                             checked
+                             />
+                    </div>
+                    <!-- Check Option de Criação de id e senha -->
+                  </div>
+                  <div class="collapsed in" id="collapseExample">
+                    <div class="row" id="formUsuario">
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="formLogin">
+                            Login:
+                          </label>                  
+                          <input type="text" class="form-control"
+                                 name="formLogin" id="formLogin" 
+                                 placeholder="Nome de Usuário" 
+                                 disabled />
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="formSenha">
+                            Senha:
+                          </label>                  
+                          <input type="password" class="form-control"
+                                 name="formSenha" id="formSenha" 
+                                 placeholder="********" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- DIV com os campos de id e senha -->
+                </div>
+                <!-- Fim: Adicionais sobre o Funcionário -->
+                
+            </c:if>
+            
+            <c:if test="${pessoa.tipo eq 'h' or pessoa.tipo eq 'H'}">
+                
+                <!-- Início: Adicionais sobre o Hospede -->
+                <div id="abaHospede" class="tab-pane fade in active">
+
+                  <h4>
+                    Adicionais sobre o Hospede
+                  </h4>
+
+                  <hr />
+
+                  <div class="row" id="formHospede">
+
+                    <div class="col-sm-4">
+
+                      <div class="form-group">
+                        <label for="formCartao">
+                          Número do Cartão:
+                        </label>
+                        <input type="text" class="form-control" 
+                               tabindex="18"
+                               name="formCartao" id="formCartao"
+                               placeholder="9999 9999 9999 9999"
+                               required
+                               value="${pessoa.nCartao}"
+                               />
+                      </div>
+
+                    </div>
+
+                    <div class="col-sm-6 hidden-xs">
+                      <label>
+                        <i class="fa fa-lg fa-question-circle"></i>
+                      </label>
+                      <div>
+                        <small class="text-muted">
+                          <i>
+                            Informação necessária para fins de no-show.
+                          </i>
+                        </small>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+                <!-- Fim: Adicionais sobre o Hospede -->
+                
+            </c:if>
+          
+            <c:if test="${pessoa.tipo eq 'f' or pessoa.tipo eq 'F'}">
+                
+              <!-- Início: Adicionais sobre o Funcionário -->
+              <div id="abaFuncionario" class="tab-pane fade in active">
+
+                <h4>
+                  Adicionais sobre o Funcionário
+                </h4>
+                <hr />
+
+                <div class="row" id="formFuncionario">
+
+                  <div class="col-md-3 col-sm-6">
+
+                    <div class="form-group">
+                      <label for="formUnidade">
+                        Unidade:
+                      </label>
+                        <select class="form-control" tabindex="18" aria-describedby="basic-addon2"
+                              name="formUnidade" id="formUnidade">
+                        <c:forEach items="${lista}" var="unidade" varStatus="stat">
+                          <option value="${unidade.id}">
+                            <c:out value="${unidade.nome}" />
+                          </option>
+                        </c:forEach>
+                      </select>              
+
+                    </div>
+
+                  </div>
+
+                  <div class="col-md-3 col-sm-6">
+
+                    <div class="form-group">
+                      <label for="formDepartamento">
+                        Departamento:
+                      </label>
+                      <input type="text" class="form-control" 
+                             tabindex="19"
+                             name="formDepartamento" id="formDepartamento"
+                             placeholder="Recepção"
+                             value="${pessoa.departamento}" />
+                    </div>
+
+                  </div>
+
+                  <div class="col-md-3">
+
+                    <div class="form-group">
+                      <label for="formCargo">
+                        Cargo:
+                      </label>                  
+                      <input type="text" class="form-control"
+                             tabindex="20"
+                             name="formCargo" id="formCargo" 
+                             placeholder="Recepcionista"
+                             value="${pessoa.cargo}" />
+                    </div>
+
+                  </div>
+
+                  <div class="col-md-2 col-xs-6">
+
+                    <div class="form-group">                    
+                      <label for="formSalario">
+                        Sálario:
+                      </label>
+                      <input type="number" class="form-control" 
+                             tabindex="22"
+                             name="formSalario" id="formSalario"
+                             placeholder="1400"
+                             value="${pessoa.salario}" />
+                    </div>
+
+                  </div>
+
+                </div>
+                <!-- Fim da linha de GRID do formulário -->
+
+                <div class="form-group">
+                  <label for="formUsuario">
+                    Cadastrar como usuário do sistema?
+                  </label>
+                  <br style="clear: both;" />
+                  <div class="switch switch-square"
+                       data-toggle="collapse" data-target="#collapseExample"
+                       data-on-label="<i class='fa fa-check'></i>"
+                       data-off-label="<i class='fa fa-times'></i>"
+                       id="checkOpUsuario">
+                      <c:choose>
+                      <c:when test="${pessoa.senha != null}">
+                        <input type="checkbox"
+                               tabindex="9"
+                               name="formNewsletter" id="formNewsletter"
+                               value="1"
+                               checked
+                               />
+                      </c:when>
+                      <c:otherwise>
+                        <input type="checkbox"
+                               tabindex="9"
+                               name="formNewsletter" id="formNewsletter"
+                               value="0"
+                               />
+                      </c:otherwise>
+                    </c:choose>
+                  </div>
+                  <!-- Check Option de Criação de id e senha -->
+                </div>
+                <div class="collapsed in" id="collapseExample">
+                  <div class="row" id="formUsuario">
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="formLogin">
+                          Login:
+                        </label>                  
+                        <input type="text" class="form-control"
+                               name="formLogin" id="formLogin" 
+                               placeholder="Nome de Usuário" 
+                               disabled 
+                               value="${pessoa.email}" />
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="formSenha">
+                          Senha:
+                        </label>                  
+                        <input type="password" class="form-control"
+                               name="formSenha" id="formSenha" 
+                               placeholder="********"
+                               value="${pessoa.senha}" />
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label for="formSenha">
-                      Senha:
-                    </label>                  
-                    <input type="password" class="form-control"
-                           name="formSenha" id="formSenha" 
-                           placeholder="********" />
-                  </div>
-                </div>
+                <!-- DIV com os campos de id e senha -->
               </div>
-            </div>
-            <!-- DIV com os campos de id e senha -->
-          </div>
-          <!-- Fim: Adicionais sobre o Funcionário -->
+              <!-- Fim: Adicionais sobre o Funcionário -->
+
+            </c:if>
 
         </div>
         <!-- Fim: ABAS de Hospede e Funcionário -->
@@ -642,7 +877,7 @@
         <div class="row">
 
           <c:choose>
-            <c:when test="${pessoa.get(0).id != null}">
+            <c:when test="${pessoa.id != null}">
               <div class="col-sm-4 hidden-xs"></div>              
 
               <div class="col-xs-12 col-sm-4">
@@ -687,7 +922,7 @@
       <!-- Fim do Formulário -->
 
 
-      <c:if test="${pessoa.get(0).tipo eq 'Hospede'}">
+      <c:if test="${pessoa.tipo eq 'h' or pessoa.tipo eq 'H'}">
 
         <div class="form-di">
 

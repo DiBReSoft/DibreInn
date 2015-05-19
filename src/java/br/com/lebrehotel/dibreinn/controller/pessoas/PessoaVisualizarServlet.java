@@ -1,5 +1,7 @@
 package br.com.lebrehotel.dibreinn.controller.pessoas;
 
+import br.com.lebrehotel.dibreinn.model.pessoa.Funcionario;
+import br.com.lebrehotel.dibreinn.model.pessoa.Hospede;
 import br.com.lebrehotel.dibreinn.model.pessoa.PessoaDAO;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
@@ -26,7 +28,23 @@ public class PessoaVisualizarServlet extends HttpServlet {
 
             PessoaDAO consulta = new PessoaDAO();
 
-            request.setAttribute("pessoa", consulta.BuscarPessoas(pessoaID, 4));
+            if (consulta.isFuncionario(Integer.parseInt(pessoaID))) {
+
+                Funcionario func = new Funcionario();
+
+                func = consulta.getFuncionario(Integer.parseInt(pessoaID));
+
+                request.setAttribute("pessoa", func);
+
+            } else {
+                
+                Hospede hosp = new Hospede();
+                
+                hosp = consulta.getHospede(Integer.parseInt(pessoaID));
+                
+                request.setAttribute("pessoa", hosp);
+                
+            }
 
         }
 
