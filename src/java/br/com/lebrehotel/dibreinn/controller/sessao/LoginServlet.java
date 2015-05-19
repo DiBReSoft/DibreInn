@@ -8,14 +8,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import br.com.lebrehotel.dibreinn.model.pessoa.Usuario;
 
 /**
  *
  * @author jSilverize
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/login","/bloquear","/logout"})
+@WebServlet(name = "LoginServlet", urlPatterns = {"/login","/logout"})
 public class LoginServlet extends HttpServlet {
-
+Usuario usuario = new Usuario();
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
   /**
    * Handles the HTTP <code>GET</code> method.
@@ -27,7 +29,7 @@ public class LoginServlet extends HttpServlet {
    */
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
-          throws ServletException, IOException {
+    throws ServletException, IOException {
     
     // EXEMPLIFICAÇÃO
     // Essa é uma instância de data que será chamada na tela login.jsp
@@ -51,7 +53,24 @@ public class LoginServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-
+    String nome = request.getParameter("loginEmail");
+    String senha = request.getParameter("loginSenha");
+    /*
+    usuario = validar(nome, senha);
+    if (usuario != null) {
+      HttpSession sessao = request.getSession(false);
+      if (sessao != null) {
+        // Força invalidação da sessão anterior.
+        sessao.invalidate();
+      }
+      sessao = request.getSession(true);
+      sessao.setAttribute("usuario", usuario);
+      response.sendRedirect("ListaServlet");
+      return;
+      // FIM CASO SUCESSO
+    }
+    response.sendRedirect("erroLogin.jsp");
+    */
   }
 
   /**
@@ -63,5 +82,13 @@ public class LoginServlet extends HttpServlet {
   public String getServletInfo() {
     return "Short description";
   }// </editor-fold>
+  
+  private Usuario validar(String nome, String senha){
+      usuario.autenticar(nome, senha);
+      if (usuario != null && usuario.autenticar(nome, senha)) {
+      return usuario;
+    }
+    return null;
+  }
 
 }
