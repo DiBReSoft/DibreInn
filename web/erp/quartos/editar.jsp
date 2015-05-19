@@ -22,7 +22,7 @@
     <!-- JavaScript e outros que vão ao final da página -->
     <script type="text/javascript" src="<c:url value="/assets/js/bootstrap-switch.js" />"></script>
     <script type="text/javascript" src="<c:url value="/assets/js/form-component.js" />"></script>
-    <script type="text/javascript" src="<c:url value="/assets/js/cadastrar.js" />"></script>
+    <script type="text/javascript" src="<c:url value="/assets/js/quartos.js" />"></script>
   </jsp:attribute>
 
   <jsp:body>
@@ -58,7 +58,7 @@
                     <label for="formNumero">
                       Número do quarto:
                     </label>
-                    <input readonly="true" type="number" class="form-control"
+                    <input readonly="true" type="text" class="form-control"
                            tabindex="1"
                            name="formNumero" id="formNumero" 
                            placeholder="1"
@@ -73,9 +73,9 @@
                     <label for="formAndar">
                       Andar
                     </label>
-                    <input readonly="true" type="number" class="form-control" 
+                    <input readonly="true" type="text" class="form-control" 
                            tabindex="2"
-                           name="formAndar" id="formSformAndarobrenome"
+                           name="formAndar" id="formAndar"
                            placeholder="11"
                            required="true" />
                   </div>
@@ -89,7 +89,7 @@
                     <label for="formRamal">
                       Ramal:
                     </label>                  
-                    <input readonly="true" type="number" class="form-control"
+                    <input readonly="true" type="text" class="form-control"
                            tabindex="3"
                            name="formRamal" id="formRamal" 
                            placeholder="55" 
@@ -146,14 +146,14 @@
       <tbody>
         <c:forEach items="${lista}" var="quarto" varStatus="stat">
           <tr>
-            <td scope="row"><c:out value="${quarto.id}" /></td>
-            <td class ="numero"><c:out value="${quarto.numero}" /></td>
-            <td class ="andar"><c:out value="${quarto.andar}" /></td>
-            <td class ="ramal"><c:out value="${quarto.ramal}" /></td>
-            <td class ="valor"><c:out value="${quarto.valorDiaria}" /></td>
-            <td class ="ocupado"><c:out value="${quarto.ocupado}" /></td>
-            <td class="seleciona">
-              <a href="<c:url value="/erp/quarto/editar?id=${quarto.id}" />" class="selecionado">
+              <td class ="id" id="tableId" scope="row"><c:out value="${quarto.id}" /></td>
+            <td class ="numero" id="tableNumero"><c:out value="${quarto.numero}" /></td>
+            <td class ="andar" id="tableAndar"><c:out value="${quarto.andar}" /></td>
+            <td class ="ramal" id="tableRamal"><c:out value="${quarto.ramal}" /></td>
+            <td class ="valor" id="tableValor"><c:out value="${quarto.valorDiaria}" /></td>
+            <td class ="ocupado" id="tableOcupado"><c:out value="${quarto.ocupado}" /></td>
+            <td class="seleciona" id="tableSeleciona">
+              <a href="" class="selecionado" id="tableSelecionado">
                 Selecionar
               </a>
             </td>

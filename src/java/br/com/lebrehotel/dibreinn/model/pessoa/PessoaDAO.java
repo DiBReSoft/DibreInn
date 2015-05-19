@@ -385,7 +385,6 @@ public class PessoaDAO {
         "INNER JOIN TB_HOSPEDE as hosp on hosp.ID_PESSOA = pe.ID_PESSOA\n" +
         "WHERE pe.ID_PESSOA = ?";      
        
-
         try {
             conexao.openConection();
             stmt = conexao.conn.prepareStatement(query);
@@ -471,9 +470,34 @@ public class PessoaDAO {
 
         } catch (SQLException ex) {
             System.out.println("Erro ao procurar o tipo de pessoa: " + ex);
-
         }
         return result;
     }
+    
+    
+    public int deletarPessoa(int id,String tipo){
+     
+        ConectarBD conexao = new ConectarBD();
+        PreparedStatement stmt = null;
+        String query = "DELETE FROM TB_PESSOA WHERE ID_PESSOA = ? \n";
+        if(tipo.equalsIgnoreCase("f"))
+        query+= " DELETE FROM TB_FUNCIONARIO WHERE ID_PESSOA = ?";
+        else
+        query+= " DELETE FROM TB_HOSPEDE WHERE ID_PESSOA = ?";    
+
+        try {
+            conexao.openConection();
+            stmt = conexao.conn.prepareStatement(query);
+            stmt.setInt(1, id);
+            stmt.executeQuery();
+            System.out.println("deletado com sucesso!");
+            return 1;
+
+        } catch (SQLException ex) {
+            System.out.println("Erro ao retornar o id: " + ex);
+            return 0;
+        }
+    }
+   
 
 }

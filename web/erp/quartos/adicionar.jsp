@@ -78,9 +78,9 @@
                                     <label for="formAndar">
                                         Andar
                                     </label>
-                                    <input type="number" class="form-control" 
+                                    <input type="text" class="form-control" 
                                            tabindex="2"
-                                           name="formAndar" id="formSformAndarobrenome"
+                                           name="formAndar" id="formAndar"
                                            placeholder="11"
                                            required="true" />
                                 </div>
@@ -94,7 +94,7 @@
                                     <label for="formRamal">
                                         Ramal:
                                     </label>                  
-                                    <input type="number" class="form-control"
+                                    <input type="text" class="form-control"
                                            tabindex="3"
                                            name="formRamal" id="formRamal" 
                                            placeholder="55" 
