@@ -323,72 +323,108 @@ public class PessoaDAO {
         return 1;
     }
 
-    public Pessoa getPessoa(int id) {
-        String tipoPessoa;
+    public Funcionario getFuncionario(int id) {
+
         ConectarBD conexao = new ConectarBD();
         PreparedStatement stmt = null;
         String query;
-        Funcionario func;
+        Funcionario func = new Funcionario();
         
-        
-        
-        if (isFuncionario(id)){
-        
-            query = "SELECT pe.NOME, pe.SOBRENOME, pe.SEXO, pe.RG, CPF, pe.DATANASC, pe.TELEFONE, pe.CEL, pe.EMAIL, pe.TIPO,pe.NEWSLETTER,"
-                    + "func.ID_UNIDADE, func.DEPARTAMENTO, func.CARGO, func.SALARIO "
-                    + "FROM TB_FUNCIONARIO as func "
-                    + "INNER JOIN TB_PESSOA as pe on pe.ID_PESSOA = func.id_pessoa Where func.ID_PESSOA ="+id;
-        
-            func = new Funcionario();
-            
+        query = "SELECT pe.ID_PESSOA, pe.NOME, pe.SOBRENOME, pe.SEXO, pe.RG, CPF, pe.DATANASC, pe.TELEFONE, pe.CEL, pe.EMAIL, pe.TIPO,pe.NEWSLETTER,"
+                + "func.ID_UNIDADE, func.DEPARTAMENTO, func.CARGO, func.SALARIO "
+                + "FROM TB_FUNCIONARIO as func "
+                + "INNER JOIN TB_PESSOA as pe on pe.ID_PESSOA = func.id_pessoa Where func.ID_PESSOA =?";
+
         try {
             conexao.openConection();
             stmt = conexao.conn.prepareStatement(query);
+            stmt.setInt(1, id);
             ResultSet result = stmt.executeQuery();
             result.next();
 
-                func.setTipo("Funcionário");
-                func.setId(result.getInt("ID_PESSOA"));
-                func.setNome(result.getString("NOME"));
-                func.setSobrenome(result.getString("SOBRENOME"));
-                func.setSexo(result.getString("SEXO"));
-                func.setRg(result.getString("RG"));
-                func.setCpf(result.getString("CPF"));
-                func.setDataNascimento(result.getDate("DATANASC"));
-                func.setTelefone(result.getString("TELEFONE"));
-                func.setCelular(result.getString("CEL"));
-                func.setEmail(result.getString("EMAIL"));
-                func.setNewsletter(result.getInt("NEWSLETTER"));
-                func.setUnidade(result.getString("ID_UNIDADE"));
-                func.setDepartamento(result.getString("DEPARTAMENTO"));
-                func.setCargo(result.getString("CARGO"));
-                func.setSalario(result.getDouble("SALARIO"));
-                
-                System.out.println("Dados de funcionario populados com sucesso");
-                conexao.closeConection();
-                
-                
+            func.setTipo("f");
+            func.setId(result.getInt("ID_PESSOA"));
+            func.setNome(result.getString("NOME"));
+            func.setSobrenome(result.getString("SOBRENOME"));
+            func.setSexo(result.getString("SEXO"));
+            func.setRg(result.getString("RG"));
+            func.setCpf(result.getString("CPF"));
+            func.setDataNascimento(result.getDate("DATANASC"));
+            func.setTelefone(result.getString("TELEFONE"));
+            func.setCelular(result.getString("CEL"));
+            func.setEmail(result.getString("EMAIL"));
+            func.setNewsletter(result.getInt("NEWSLETTER"));
+            func.setUnidade(result.getString("ID_UNIDADE"));
+            func.setDepartamento(result.getString("DEPARTAMENTO"));
+            func.setCargo(result.getString("CARGO"));
+            func.setSalario(result.getDouble("SALARIO"));
+
+            System.out.println("Dados de funcionario populados com sucesso");
+            conexao.closeConection();
+
         } catch (SQLException ex) {
             // Caso haja erro 
             Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, "[INFO] Erro ao popular os dados de funcionario gravar os dados: ", ex);
             conexao.closeConection();
-        } 
-        
-        
-        
+        }
+
         return func;
-    }else{
-            func = new Funcionario();
-               return func; 
-              }
+
+    }
+    
+    public Hospede getHospede(int id) {
+   
+        ConectarBD conexao = new ConectarBD();
+        PreparedStatement stmt = null;
+        String query;
+        Hospede hosp = new Hospede();
         
+        query = "SELECT pe.ID_PESSOA,pe.NOME, pe.SOBRENOME, pe.SEXO, pe.RG, CPF, pe.DATANASC, pe.TELEFONE, pe.CEL, pe.EMAIL, pe.TIPO,pe.NEWSLETTER,\n" +
+        "hosp.N_CARTAO\n" +
+        "FROM TB_PESSOA as pe\n" +
+        "INNER JOIN TB_HOSPEDE as hosp on hosp.ID_PESSOA = pe.ID_PESSOA\n" +
+        "WHERE pe.ID_PESSOA = ?";      
+       
+
+        try {
+            conexao.openConection();
+            stmt = conexao.conn.prepareStatement(query);
+            stmt.setInt(1, id);
+            ResultSet result = stmt.executeQuery();
+            result.next();
+
+            hosp.setTipo("h");
+            hosp.setId(result.getInt("ID_PESSOA"));
+            hosp.setNome(result.getString("NOME"));
+            hosp.setSobrenome(result.getString("SOBRENOME"));
+            hosp.setSexo(result.getString("SEXO"));
+            hosp.setRg(result.getString("RG"));
+            hosp.setCpf(result.getString("CPF"));
+            hosp.setDataNascimento(result.getDate("DATANASC"));
+            hosp.setTelefone(result.getString("TELEFONE"));
+            hosp.setCelular(result.getString("CEL"));
+            hosp.setEmail(result.getString("EMAIL"));
+            hosp.setNewsletter(result.getInt("NEWSLETTER"));
+            hosp.setnCartao(result.getString("N_CARTAO"));
+          
+            System.out.println("Dados de funcionario populados com sucesso");
+            conexao.closeConection();
+
+        } catch (SQLException ex) {
+            // Caso haja erro 
+            Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, "[INFO] Erro ao popular os dados de hospede gravar os dados: ", ex);
+            conexao.closeConection();
+        }
+
+        return hosp;
+
     }
 
     public int consultarIdPessoa(String cpf) {
         int idPessoa;
         ConectarBD conexao = new ConectarBD();
         PreparedStatement stmt = null;
-        String consultaCpf = "SELECT ID_PESSOA FROM TB_PESSOA WHERE CPF="+cpf;
+        String consultaCpf = "SELECT ID_PESSOA FROM TB_PESSOA WHERE CPF=" + cpf;
 
         try {
             conexao.openConection();
@@ -405,31 +441,39 @@ public class PessoaDAO {
         }
 
     }
-   
+
     public boolean isFuncionario(int id) {
         String tipoPessoa;
+        boolean result = false;
         ConectarBD conexao = new ConectarBD();
         PreparedStatement stmt = null;
-        String consultaCpf = "SELECT TIPO FROM TB_PESSOA WHERE ID_PESSOA="+id;
-        
+        String consultaCpf = "SELECT TIPO FROM TB_PESSOA WHERE ID_PESSOA=?";
+
         try {
             conexao.openConection();
             stmt = conexao.conn.prepareStatement(consultaCpf);
-            ResultSet result = stmt.executeQuery();
-            result.next();
-            
-            tipoPessoa = result.getString("TIPO");
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+
+            tipoPessoa = rs.getString("TIPO");
             if (tipoPessoa.equalsIgnoreCase("f")) {
-                System.out.println("É Funcionario!");
-                
+                conexao.closeConection();
+                System.out.println("É funcionario");
+                result = true;
+
+            } else {
+                conexao.closeConection();
+                System.out.println("É Hospede");
+                result = false;
+                return result;
             }
-            return true;           
 
         } catch (SQLException ex) {
             System.out.println("Erro ao procurar o tipo de pessoa: " + ex);
-            return false;
-        }
 
+        }
+        return result;
     }
 
 }

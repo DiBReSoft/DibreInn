@@ -1,5 +1,6 @@
 package br.com.lebrehotel.dibreinn.controller.reservas;
 
+import br.com.lebrehotel.dibreinn.model.quarto.QuartoDAO;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -32,6 +33,14 @@ public class ReservaNovaServlet extends HttpServlet {
     System.out.println(data);
 
     request.setAttribute("dataParaReserva", data);
+    
+    
+    
+    //buscando apenas os quartos disponiveis
+    QuartoDAO consulta = new QuartoDAO();
+    request.setAttribute("lista", consulta.BuscarQuartos(0,1));
+    
+    
 
     RequestDispatcher rd = request.getRequestDispatcher("/erp/reservas/nova.jsp");
     rd.forward(request, response);

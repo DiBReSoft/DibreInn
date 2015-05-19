@@ -5,7 +5,7 @@
  */
 package br.com.lebrehotel.dibreinn.controller.quarto;
 
-import br.com.lebrehotel.dibreinn.model.Quarto;
+import br.com.lebrehotel.dibreinn.model.quarto.Quarto;
 import br.com.lebrehotel.dibreinn.model.quarto.QuartoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;

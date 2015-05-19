@@ -96,6 +96,16 @@
               Buscar &amp; Editar Quartos
             </a>
           </li>
+          <li class="item-menu">
+            <a href="<c:url value="/erp/unidades/adicionar" />">
+              Unidades
+            </a>
+          </li>
+          <li class="item-menu">
+            <a href="<c:url value="/erp/unidades/editar" />">
+              Buscar &amp; Editar Unidades
+            </a>
+          </li>
         </ul>
       </li>
 

@@ -1,6 +1,5 @@
 package br.com.lebrehotel.dibreinn.model.quarto;
 
-import br.com.lebrehotel.dibreinn.model.Quarto;
 import br.com.lebrehotel.dibreinn.persistencia.ConectarBD;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

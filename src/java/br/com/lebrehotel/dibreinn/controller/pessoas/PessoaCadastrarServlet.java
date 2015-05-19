@@ -7,6 +7,7 @@ import br.com.lebrehotel.dibreinn.model.pessoa.Funcionario;
 import br.com.lebrehotel.dibreinn.model.pessoa.Hospede;
 import br.com.lebrehotel.dibreinn.model.pessoa.Pessoa;
 import br.com.lebrehotel.dibreinn.model.pessoa.PessoaDAO;
+import br.com.lebrehotel.dibreinn.model.unidade.UnidadeDAO;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -32,9 +33,29 @@ public class PessoaCadastrarServlet extends HttpServlet {
 
             PessoaDAO consulta = new PessoaDAO();
 
-            request.setAttribute("pessoa", consulta.BuscarPessoas(pessoaID, 4));
+            if (consulta.isFuncionario(Integer.parseInt(pessoaID))) {
+
+                Funcionario func = new Funcionario();
+
+                func = consulta.getFuncionario(Integer.parseInt(pessoaID));
+
+                request.setAttribute("pessoa", func);
+
+            } else {
+
+                Hospede hosp = new Hospede();
+
+                hosp = consulta.getHospede(Integer.parseInt(pessoaID));
+
+                request.setAttribute("pessoa", hosp);
+
+            }
 
         }
+
+        //buscando apenas os quartos disponiveis
+        UnidadeDAO consulta = new UnidadeDAO();
+        request.setAttribute("lista", consulta.BuscarUnidades("buscartodasunidades", 0));
 
         RequestDispatcher rd = request.getRequestDispatcher("/erp/pessoas/cadastrar.jsp");
         rd.forward(request, response);
@@ -66,11 +87,11 @@ public class PessoaCadastrarServlet extends HttpServlet {
                 h.setTelefone(request.getParameter("formTel"));
                 h.setCelular(request.getParameter("formCel"));
                 h.setEmail(request.getParameter("formEmail"));
-		if (request.getParameter("formNewsletter") != null) {
-		  h.setNewsletter(Integer.parseInt(request.getParameter("formNewsletter")));
-		} else {
-		  h.setNewsletter(0);
-		}
+                if (request.getParameter("formNewsletter") != null) {
+                    h.setNewsletter(Integer.parseInt(request.getParameter("formNewsletter")));
+                } else {
+                    h.setNewsletter(0);
+                }
                 h.setnCartao(request.getParameter("formCartao"));
                 Endereco end = new Endereco();
                 end.setCep((request.getParameter("formCep")));
@@ -80,10 +101,11 @@ public class PessoaCadastrarServlet extends HttpServlet {
                 end.setBairro(request.getParameter("formBairro"));
                 end.setCidade(request.getParameter("formCidade"));
                 end.setEstado(request.getParameter("formEstado"));
+                end.setEstado(request.getParameter("formPais"));
 
                 PessoaDAO teste = new PessoaDAO();
 
-        // Através do parâmetro ID na URL, iremos verificar se trata-se de um
+                // Através do parâmetro ID na URL, iremos verificar se trata-se de um
                 // novo cadastrou ou se é uma atualização de um cadastro já existente
                 if (idNaURL == null) {
                     System.out.println("Realizando novo cadastro.");
@@ -108,11 +130,11 @@ public class PessoaCadastrarServlet extends HttpServlet {
                 f.setTelefone(request.getParameter("formTel"));
                 f.setCelular(request.getParameter("formCel"));
                 f.setEmail(request.getParameter("formEmail"));
-		if (request.getParameter("formNewsletter") != null) {
-		  f.setNewsletter(Integer.parseInt(request.getParameter("formNewsletter")));
-		} else {
-		  f.setNewsletter(0);
-		}                
+                if (request.getParameter("formNewsletter") != null) {
+                    f.setNewsletter(Integer.parseInt(request.getParameter("formNewsletter")));
+                } else {
+                    f.setNewsletter(0);
+                }
                 if (request.getParameter("formOpUsuario").equalsIgnoreCase("1")) {
                     f.setLogin(request.getParameter("formEmail"));
                     f.setSenha(request.getParameter("formSenha"));
@@ -138,7 +160,7 @@ public class PessoaCadastrarServlet extends HttpServlet {
 
                 PessoaDAO teste = new PessoaDAO();
 
-        // Através do parâmetro ID na URL, iremos verificar se trata-se de um
+                // Através do parâmetro ID na URL, iremos verificar se trata-se de um
                 // novo cadastrou ou se é uma atualização de um cadastro já existente
                 if (idNaURL == null) {
                     System.out.println("Realizando novo cadastro.");
