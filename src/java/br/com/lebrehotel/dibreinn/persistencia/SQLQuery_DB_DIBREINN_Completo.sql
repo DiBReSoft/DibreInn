@@ -1,6 +1,6 @@
 -- Script Banco de Dados Completo -- 
 
--- Acessando o usuário master --
+-- Acessando o usuï¿½rio master --
 USE master
 GO
 
@@ -15,7 +15,8 @@ GO
 -- Criando a TB_UNIDADE --
 CREATE TABLE TB_UNIDADE
 (
-ID_UNIDADE VARCHAR(25) NOT NULL,
+ID_UNIDADE INT IDENTITY(1,1) NOT NULL,
+NOME VARCHAR (25) NOT NULL,
 CNPJ VARCHAR (20)NOT NUll,
 TIPO BIT NOT NULL,
 LOGRADOURO VARCHAR (50),
