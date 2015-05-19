@@ -93,7 +93,7 @@ public class UnidadeDAO {
             while (resultados.next()) {
                 Unidade u = new Unidade();
 
-                u.setId_unidade(Integer.parseInt(resultados.getString("ID_UNIDADE")));
+                u.setId(Integer.parseInt(resultados.getString("ID_UNIDADE")));
                 u.setNome(resultados.getString("NOME"));
                 u.setCnpj(resultados.getString("CNPJ"));
                 u.setTipo(resultados.getInt("TIPO"));

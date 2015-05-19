@@ -23,6 +23,7 @@
         <script type="text/javascript" src="<c:url value="/assets/js/bootstrap-switch.js" />"></script>
         <script type="text/javascript" src="<c:url value="/assets/js/form-component.js" />"></script>
         <script type="text/javascript" src="<c:url value="/assets/js/cadastrar.js" />"></script>
+        <script type="text/javascript" src="<c:url value="/assets/js/unidades.js" />"></script>
     </jsp:attribute>
 
     <jsp:body>
@@ -74,7 +75,7 @@
                                         </label>
                                         <input readonly="true" type="number" class="form-control"
                                                tabindex="2"
-                                               name="formCnpj" id="formNome" 
+                                               name="formCnpj" id="formCnpj" 
                                                placeholder="LebreHotel 1"
                                                required="true" 
                                                value="<c:out value="${unidade.get(0).cnpj}" />" />
@@ -262,15 +263,15 @@
                         <tbody>
                             <c:forEach items="${lista}" var="unidade" varStatus="stat">
                                 <tr>
-                                    <td scope="row"><c:out value="${unidade.id_unidade}" /></td>
-                                    <td class ="numero"><c:out value="${unidade.nome}" /></td>
-                                    <td class ="Cnpj"><c:out value="${unidade.cnpj}" /></td>
-                                    <td class ="Categoria"><c:out value="${unidade.tipo}" /></td>
-                                    <td class ="Cep"><c:out value="${unidade.cep}" /></td>
-                                    <td class ="Número"><c:out value="${unidade.numero}" /></td>
-                                    <td class ="Complemento"><c:out value="${unidade.complemento}" /></td>
+                                    <td scope="row" id="tableId"><c:out value="${unidade.id_unidade}" /></td>
+                                    <td class ="nome" id="tableNome" ><c:out value="${unidade.nome}" /></td>
+                                    <td class ="Cnpj" id="tableCnpj"><c:out value="${unidade.cnpj}" /></td>
+                                    <td class ="Categoria" id="tableCategoria"><c:out value="${unidade.tipo}" /></td>
+                                    <td class ="Cep" id="tableCep"><c:out value="${unidade.cep}" /></td>
+                                    <td class ="Numero" id="tableNumero"><c:out value="${unidade.numero}" /></td>
+                                    <td class ="Complemento" id="tableComplemento"><c:out value="${unidade.complemento}" /></td>
                                     <td class="seleciona">
-                                        <a href="<c:url value="/erp/unidades/editar?id=${unidade.id}" />" class="selecionado">
+                                        <a href="" class="selecionado">
                                             Selecionar
                                         </a>
                                     </td>

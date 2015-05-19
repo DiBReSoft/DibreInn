@@ -72,7 +72,7 @@ public class UnidadeCadastrarServlet extends HttpServlet {
 //                end.setEstado(request.getParameter("formEstado"));
 
             UnidadeDAO cmd = new UnidadeDAO();
-            u.setId_unidade(cmd.cadastrarUnidade(u));
+            u.setId(cmd.cadastrarUnidade(u));
 
             //  Teste se o resultado do cadastro foi positivo. 
 //            if (q.getId() != 0) {

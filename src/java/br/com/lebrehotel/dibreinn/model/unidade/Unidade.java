@@ -13,7 +13,7 @@ import br.com.lebrehotel.dibreinn.model.pessoa.Endereco;
  */
 public class Unidade extends Endereco {
     
-    private int id_unidade;
+    private int id;
     private String nome;
     private String cnpj;
     private int tipo;
@@ -29,12 +29,12 @@ public class Unidade extends Endereco {
         this.nome = nome;
     }
 
-    public int getId_unidade() {
-        return id_unidade;
+    public int getId() {
+        return id;
     }
 
-    public void setId_unidade(int id_unidade) {
-        this.id_unidade = id_unidade;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getCnpj() {
