@@ -562,7 +562,7 @@
                         <label for="formUnidade">
                           Unidade:
                         </label>
-                          <select class="form-control" tabindex="18" aria-describedby="basic-addon2"
+                        <select class="form-control" tabindex="18" aria-describedby="basic-addon2"
                                 name="formUnidade" id="formUnidade">
                           <c:forEach items="${lista}" var="unidade" varStatus="stat">
                             <option value="${unidade.id}">
@@ -581,10 +581,18 @@
                         <label for="formDepartamento">
                           Departamento:
                         </label>
-                        <input type="text" class="form-control" 
-                               tabindex="19"
-                               name="formDepartamento" id="formDepartamento"
-                               placeholder="Recepção" />
+                        <select class="form-control" tabindex="18" aria-describedby="basic-addon2"
+                                name="formUnidade" id="formUnidade">
+                            <option value="recepcao">
+                              <c:out value="Recepção" />
+                            </option>
+                            <option value="vendas">
+                              <c:out value="Vendas" />
+                            </option>
+                            <option value="gerencia">
+                              <c:out value="Gerencia" />
+                            </option>
+                        </select>
                       </div>
 
                     </div>
