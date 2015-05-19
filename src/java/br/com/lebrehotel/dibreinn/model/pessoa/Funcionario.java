@@ -1,5 +1,10 @@
 package br.com.lebrehotel.dibreinn.model.pessoa;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Thiago data: 04/04/2015
@@ -14,6 +19,7 @@ public class Funcionario extends Pessoa {
   private String Unidade;
   private String login;
   private String senha;
+  private Usuario usuario;
 
   public Funcionario() {
   }
@@ -63,6 +69,15 @@ public class Funcionario extends Pessoa {
   }
 
   public void setSenha(String senha) {
-    this.senha = senha;
+    char s[] = null;
+    try{
+        s = usuario.gerarHashSenhaPBKDF2(senha);
+    } catch(NoSuchAlgorithmException | InvalidKeySpecException e){
+        Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, e);
+    } finally{
+        for(int i=0; i < s.length; i++){
+            this.senha += s[i];
+        }
+    }
   }
 }
