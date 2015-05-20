@@ -5,7 +5,6 @@ package br.com.lebrehotel.dibreinn.model.reservas;
  * @author Fabio Ernanni data: 05/04/15 essa classe tem como finalidade definir
  * os atributos de Reserva
  */
-import br.com.lebrehotel.dibreinn.model.Pedido;
 import br.com.lebrehotel.dibreinn.model.quarto.Quarto;
 import br.com.lebrehotel.dibreinn.model.pessoa.Hospede;
 import br.com.lebrehotel.dibreinn.model.pessoa.Funcionario;
@@ -35,13 +34,9 @@ public class Reserva {
     return true;
   }
 
-  public boolean fecharReserva(Reserva reserva, Pedido pedido) {
-    if (!pedido.isPago()) {
-      return false;
-    } else {
-      this.checkOut = reserva.checkOut;
-      return true;
-    }
+  public boolean fecharReserva(Reserva reserva) {
+    this.checkOut = reserva.checkOut;
+    return true;
   }
 
   public int getId() {
