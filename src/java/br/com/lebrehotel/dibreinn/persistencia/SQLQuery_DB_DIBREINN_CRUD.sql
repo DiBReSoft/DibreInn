@@ -193,3 +193,4 @@ FROM TB_FUNCIONARIO as func
 INNER JOIN TB_PESSOA as pe on pe.ID_PESSOA = func.id_pessoa Where func.ID_PESSOA =43
 
 GO
+
