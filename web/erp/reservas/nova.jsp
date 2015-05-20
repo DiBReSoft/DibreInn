@@ -109,12 +109,30 @@
       });
 
       var reservaData = document.getElementById("reservaData");
-      reservaData.addEventListener("blur", carregarInfos(reservaData, "reservaData"));
+      reservaData.addEventListener("blur", carregarInfos(reservaData, "ReservaData"));
+
+      var reservaQuarto = document.getElementById("reservaQuarto");
+      reservaQuarto.addEventListener("blur", carregarInfos(reservaQuarto, "ReservaQuarto"));
+
+      var reservaHospede = document.getElementById("reservaHospede");
+      reservaHospede.addEventListener("blur", carregarInfos(reservaHospede, "ReservaHospede"));
 
       function carregarInfos(input, string) {
         var selecionarRecipiente = document.getElementById("exibir" + string);
         console.log("exibir" + string);
-        selecionarRecipiente.textContent = input.value;
+        selecionarRecipiente.textContent = "" + input.value;
+      }
+
+      function recarregarPagina() {
+        console.log("Data na URL: " + dataParametro);
+        console.log("Data no calendário: " + reservaData.value);
+        /*
+         var dataReserva = "" +  reservaData.value;
+         dataReserva = dataReserva.replace("%2F", "-");
+         $.get('/DibreInn/erp/reservas/nova', {data: dataReserva}, function (responseText) {
+         $('#welcometext').text(responseText);
+         });
+         */
       }
 
     </script>
@@ -178,7 +196,8 @@
 
                           <input type="text" class="form-control" placeholder="dd/mm/aaaa"
                                  tabindex="1" aria-describedby="basic-addon1"
-                                 name="reservaData" id="reservaData" />
+                                 name="reservaData" id="reservaData" 
+                                 onchange="recarregarPagina()"/>
 
                         </div>
                       </h4>
@@ -231,11 +250,10 @@
 
                   <div class="col-md-4">
 
-                    <a class="btn btn-lg center-block btn-default"
+                    <a class="btn btn-lg btn-block btn-default"
                        data-toggle="tab" 
                        data-target="#stepTwo"
                        href="#stepTwo">
-                      <i class="fa fa-fw"></i>
                       AVANÇAR
                       <i class="fa fa-fw fa-lg fa-arrow-right"></i>
                     </a>
@@ -272,7 +290,10 @@
 
                           <input type="text" class="form-control" placeholder="Ex.: Fulano"
                                  tabindex="3" aria-describedby="basic-addon3"
-                                 name="buscarHospedeNome" id="buscarHospedeNome" />
+                                 name="reservaHospede" id="reservaHospede" />
+
+                          <input type="hidden"
+                                 name="reservaHospedeId" id="reservaHospedeId" />
 
                         </div>
                       </h4>
@@ -303,9 +324,6 @@
                                  tabindex="4" aria-describedby="basic-addon4"
                                  name="buscarHospedeCpf" id="buscarHospedeCpf" />
 
-                          <input type="hidden"
-                                 name="clienteEncontradoId" id="clienteEncontradoId" />
-
                         </div>
                       </h4>
                     </div>
@@ -322,24 +340,22 @@
 
                   <div class="col-md-4 col-xs-6">                  
 
-                    <a class="btn btn-lg center-block btn-primary"
+                    <a class="btn btn-lg btn-block btn-primary"
                        data-toggle="tab" 
                        data-target="#stepOne"
                        href="#stepOne">
                       <i class="fa fa-fw fa-lg fa-arrow-left"></i>
                       VOLTAR
-                      <i class="fa"></i>
                     </a>
 
                   </div>
 
                   <div class="col-md-4 col-xs-6">
 
-                    <a class="btn btn-lg center-block btn-default"
+                    <a class="btn btn-lg btn-block btn-default"
                        data-toggle="tab" 
                        data-target="#stepTree"
                        href="#stepTree">
-                      <i class="fa fa-fw"></i>
                       AVANÇAR
                       <i class="fa fa-fw fa-lg fa-arrow-right"></i>
                     </a>
@@ -360,22 +376,22 @@
 
                   <div class="col-sm-3"></div>
 
-                  <div class="col-sm-6">
+                  <div class="col-sm-6 text-center">
 
                     <h4>
                       <label for="exibirReservaData">
-                        Data a reservar
+                        Data da Reserva
                       </label>
                       <br />
-                      <span id="exibirReservaData"></span>
+                      <small id="exibirReservaData"></small>
                     </h4>
 
                     <h4>
                       <label for="exibirReservaQuarto">
-                        Quarto selecionado
+                        Quarto
                       </label>
                       <br />
-                      <span id="exibirReservaQuarto"></span>
+                      <small id="exibirReservaQuarto"></small>
                     </h4>
 
                     <h4>
@@ -383,7 +399,7 @@
                         Hospede
                       </label>
                       <br />
-                      <span id="exibirReservaHospede"></span>
+                      <small id="exibirReservaHospede"></small>
                     </h4>
 
                   </div>
@@ -398,22 +414,20 @@
 
                   <div class="col-md-4 col-xs-6">                  
 
-                    <a class="btn btn-lg center-block btn-primary"
+                    <a class="btn btn-lg btn-block btn-primary"
                        data-toggle="tab" 
                        data-target="#stepTwo"
                        href="#stepTwo">
                       <i class="fa fa-fw fa-lg fa-arrow-left"></i>
                       VOLTAR
-                      <i class="fa"></i>
                     </a>
 
                   </div>
 
                   <div class="col-md-4 col-xs-6">
 
-                    <button class="btn btn-lg center-block btn-default"
+                    <button class="btn btn-lg btn-block btn-default"
                             type="submit">
-                      <i class="fa fa-fw"></i>
                       RESERVAR
                       <i class="fa fa-fw fa-lg fa-check"></i>
                     </button>

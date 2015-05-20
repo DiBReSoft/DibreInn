@@ -30,6 +30,7 @@ public class ReservaNovaServlet extends HttpServlet {
 
     String data = request.getParameter("data");
     data = data.replaceAll("-", "/");
+    data = data.replaceAll("%2F", "/");
     System.out.println(data);
 
     request.setAttribute("dataParaReserva", data);
