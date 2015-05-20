@@ -16,12 +16,12 @@ function selecionaItem(event){
  
     
     var id = parseInt($("#tableId").text());
-    var nome = parseInt($("#tableNome").text());
+    var nome = $("#tableNome").text();
     var cnpj = $("#tableCnpj").text();
     var categoria = parseInt($("#tableCategoria").text());
     var cep = $("#tableCep").text();
     var complemento = $("#tableComplemento").text();
-    var numero = $("#tableNumero").text();
+    var numero = ParseInt($("#tableNumero").text());
     //var logradouro = parseInt($("#tableOcupado").text());
     
       

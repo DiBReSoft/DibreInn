@@ -1,6 +1,6 @@
 package br.com.lebrehotel.dibreinn.controller.emails;
 
-import br.com.lebrehotel.dibreinn.model.Email;
+import br.com.lebrehotel.dibreinn.model.email.Email;
 
 import java.util.Properties;
 import javax.mail.Address;

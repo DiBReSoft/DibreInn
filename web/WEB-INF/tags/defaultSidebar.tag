@@ -39,13 +39,6 @@
         </a>
       </li>
 
-      <li class="item-menu">
-        <a href="<c:url value="/erp/servicos" />" >
-          <i class="fa fa-fw fa-lg fa-book"></i>
-          <span>Serviços de Quarto</span>
-        </a>
-      </li>
-
       <li class="sub-menu">
         <a href="javascript:;" >
           <i class="fa fa-fw fa-lg fa-bar-chart-o"></i>
@@ -72,23 +65,13 @@
         </a>
         <ul class="sub">
           <li class="item-menu">
-            <a href="<c:url value="/erp/produtos" />">
-              Produtos
-            </a>
-          </li>
-          <li class="item-menu">
-            <a href="<c:url value="/erp/serviços" />">
-              Serviços
-            </a>
-          </li>
-          <li class="item-menu">
             <a href="<c:url value="/erp/usuarios" />">
               Usuários do Sistema
             </a>
           </li>
           <li class="item-menu">
             <a href="<c:url value="/erp/quartos/adicionar" />">
-              Quartos
+              Cadastrar Quartos
             </a>
           </li>
           <li class="item-menu">
@@ -98,7 +81,7 @@
           </li>
           <li class="item-menu">
             <a href="<c:url value="/erp/unidades/adicionar" />">
-              Unidades
+              Cadastrar Unidades
             </a>
           </li>
           <li class="item-menu">
@@ -107,13 +90,6 @@
             </a>
           </li>
         </ul>
-      </li>
-
-      <li class="item-menu">
-        <a href="<c:url value="/erp/configuracoes" />" >
-          <i class="fa fa-fw fa-lg fa-cogs"></i>
-          <span>Configurações</span>
-        </a>
       </li>
 
     </ul>

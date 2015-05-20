@@ -1,7 +1,7 @@
 package br.com.lebrehotel.dibreinn.controller.pessoas;
 
 import br.com.lebrehotel.dibreinn.controller.emails.EnviarEmail;
-import br.com.lebrehotel.dibreinn.model.Email;
+import br.com.lebrehotel.dibreinn.model.email.Email;
 import br.com.lebrehotel.dibreinn.model.pessoa.Endereco;
 import br.com.lebrehotel.dibreinn.model.pessoa.Funcionario;
 import br.com.lebrehotel.dibreinn.model.pessoa.Hospede;

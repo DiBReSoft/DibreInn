@@ -1,4 +1,4 @@
-package br.com.lebrehotel.dibreinn.model;
+package br.com.lebrehotel.dibreinn.model.email;
 
 import java.util.ArrayList;
 

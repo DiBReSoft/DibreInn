@@ -78,7 +78,7 @@
                                                name="formCnpj" id="formCnpj" 
                                                placeholder="LebreHotel 1"
                                                required="true" 
-                                               value="<c:out value="${unidade.get(0).cnpj}" />" />
+                                               value="" />
                                     </div>
 
                                 </div>
@@ -263,7 +263,7 @@
                         <tbody>
                             <c:forEach items="${lista}" var="unidade" varStatus="stat">
                                 <tr>
-                                    <td scope="row" id="tableId"><c:out value="${unidade.id_unidade}" /></td>
+                                    <td scope="row" id="tableId"><c:out value="${unidade.id}" /></td>
                                     <td class ="nome" id="tableNome" ><c:out value="${unidade.nome}" /></td>
                                     <td class ="Cnpj" id="tableCnpj"><c:out value="${unidade.cnpj}" /></td>
                                     <td class ="Categoria" id="tableCategoria"><c:out value="${unidade.tipo}" /></td>
