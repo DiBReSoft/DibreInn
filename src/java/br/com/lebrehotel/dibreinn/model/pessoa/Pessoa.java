@@ -23,7 +23,7 @@ public abstract class Pessoa {
     private int newsletter;
 
     public Pessoa() {
-
+       id=0;
     }
 
     public int getId() {

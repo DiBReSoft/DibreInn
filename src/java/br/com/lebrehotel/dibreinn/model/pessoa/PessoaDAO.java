@@ -60,7 +60,7 @@ public class PessoaDAO {
             stmt.setString(18, e.getEstado());
             stmt.setString(19, e.getPais());
 
-            stmt.setString(20, f.getUnidade());
+            stmt.setInt(20, f.getUnidade());
             stmt.setString(21, f.getDepartamento());
             stmt.setString(22, f.getCargo());
             stmt.setDouble(23, f.getSalario());
@@ -283,7 +283,7 @@ public class PessoaDAO {
             stmt.setString(5, p.getEmail());
             stmt.setInt(6, p.getNewsletter());
 
-            stmt.setString(7, p.getUnidade());
+            stmt.setInt(7, p.getUnidade());
             stmt.setString(8, p.getDepartamento());
             stmt.setString(9, p.getCargo());
             stmt.setDouble(10, p.getSalario());
@@ -354,7 +354,7 @@ public class PessoaDAO {
             func.setCelular(result.getString("CEL"));
             func.setEmail(result.getString("EMAIL"));
             func.setNewsletter(result.getInt("NEWSLETTER"));
-            func.setUnidade(result.getString("ID_UNIDADE"));
+            func.setUnidade(Integer.parseInt(result.getString("ID_UNIDADE")));
             func.setDepartamento(result.getString("DEPARTAMENTO"));
             func.setCargo(result.getString("CARGO"));
             func.setSalario(result.getDouble("SALARIO"));

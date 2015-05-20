@@ -9,6 +9,7 @@ import br.com.lebrehotel.dibreinn.model.pessoa.Pessoa;
 import br.com.lebrehotel.dibreinn.model.pessoa.PessoaDAO;
 import br.com.lebrehotel.dibreinn.model.unidade.UnidadeDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -59,6 +60,8 @@ public class PessoaCadastrarServlet extends HttpServlet {
 
         RequestDispatcher rd = request.getRequestDispatcher("/erp/pessoas/cadastrar.jsp");
         rd.forward(request, response);
+        
+        
 
     }
 
@@ -66,6 +69,14 @@ public class PessoaCadastrarServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+            response.setContentType("text/html");  
+            PrintWriter out = response.getWriter(); 
+
+            out.println("<script>");  
+            out.println("alert('teste');");  
+            out.println("</script>");     
+                
+        
         String idNaURL = request.getParameter("id");
 
         Funcionario f = null;
@@ -112,6 +123,8 @@ public class PessoaCadastrarServlet extends HttpServlet {
                     h.setId(
                             teste.cadastrarPessoa(h, end)
                     );
+                    if(h.getId()>0)
+                        enviaEmail(h);
                 } else {
                     System.out.println("Atualizando cadastro.");
                     // teste.atualizarPessoa(p, end);
@@ -147,7 +160,7 @@ public class PessoaCadastrarServlet extends HttpServlet {
                 }
                 f.setDepartamento(request.getParameter("formDepartamento"));
                 f.setCargo(request.getParameter("formCargo"));
-                f.setUnidade(request.getParameter("formUnidade"));
+                f.setUnidade(Integer.parseInt(request.getParameter("formUnidade")));
                 //Object p rece um Funcioário
                 Endereco end = new Endereco();
                 end.setCep((request.getParameter("formCep")));
@@ -164,14 +177,23 @@ public class PessoaCadastrarServlet extends HttpServlet {
                 // novo cadastrou ou se é uma atualização de um cadastro já existente
                 if (idNaURL == null) {
                     System.out.println("Realizando novo cadastro.");
-                    f.setId(
+                   
+                     f.setId(
                             teste.cadastrarPessoa(f, end)
                     );
+                     if(h.getId()>0)
+                        enviaEmail(h);
+                  
+                   
                 } else {
                     System.out.println("Atualizando cadastro.");
                     // teste.atualizarPessoa(p, end);
                 }
-                response.sendRedirect("visualizar?id=" + f.getId());
+                
+               
+                
+                
+                //response.sendRedirect("visualizar?id=" + f.getId());
             }
 
             /* Teste se o resultado do cadastro foi positivo. Se for envia o email.
@@ -204,12 +226,12 @@ public class PessoaCadastrarServlet extends HttpServlet {
     }// </editor-fold>
 
     //Funcão para enviar e-mail a pessoa cadastrada
-    private void enviaEmail(Hospede h) {
-        System.out.println("[DADOS GRAVADOS COM SUCESSO] Novo cadastro: " + h.getNome() + " " + h.getSobrenome());
+    private void enviaEmail(Pessoa p) {
+        System.out.println("[DADOS GRAVADOS COM SUCESSO] Novo cadastro: " + p.getNome() + " " + p.getSobrenome());
         Email email = new Email();
-        email.setDestinatario(h.getEmail());
+        email.setDestinatario(p.getEmail());
         email.setAssunto("Cadastro Efetuado");
-        email.setMensagem(h.getNome() + ", seja bem-vindo e obrigado por efetuar o cadastro no Lebre Hotel!");
+        email.setMensagem(p.getNome() + ", seja bem-vindo e obrigado por efetuar o cadastro no Lebre Hotel!");
         EnviarEmail envia = new EnviarEmail();
         envia.EnviarEmail(email);
     }

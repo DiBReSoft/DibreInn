@@ -12,11 +12,11 @@ import java.util.logging.Logger;
  */
 public class Funcionario extends Pessoa {
 
-  private int id;
+  //private int id;
   private double salario;
   private String departamento;
   private String cargo;
-  private String Unidade;
+  private int Unidade;
   private String login;
   private String senha;
   private Usuario usuario;
@@ -48,11 +48,11 @@ public class Funcionario extends Pessoa {
     this.cargo = cargo;
   }
 
-  public String getUnidade() {
+  public int getUnidade() {
     return Unidade;
   }
 
-  public void setUnidade(String Unidade) {
+  public void setUnidade(int Unidade) {
     this.Unidade = Unidade;
   }
 

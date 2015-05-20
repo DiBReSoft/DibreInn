@@ -14,6 +14,7 @@ public class Hospede extends Pessoa{
     private String nCartao;
 
     public Hospede() {
+        
     }
  
 
