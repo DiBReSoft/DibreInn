@@ -15,9 +15,6 @@ $(function () {
 
 var Script = function () {
 
-  jQuery('.sidebar-menu .item-menu > a').click(function () {
-    $("#paginaConteudo").load("/DiBRe-Inn/assets/loading.html");
-  });
 //    sidebar dropdown menu auto scrolling
   jQuery('#sidebar .sub-menu > a').click(function () {
 

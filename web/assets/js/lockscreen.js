@@ -15,15 +15,15 @@ $(window).resize(function () {
 /******************************************************************************/
 
 /* Todos os codigos dentro desta declaracao, 
- * serao executados assim que a página for ACESSADA */
+ * serao executados assim que a pÃ¡gina for ACESSADA */
 $(document).ready(function () {
 
   function posicionarBoxCredenciais() {
     if (telaAltura > 450) {
-      $("footer").css("top", (telaAltura / 2 - 188) + "px");
+      $("footer").css("top", (telaAltura / 2 - 198) + "px");
     }
     if (telaAltura > 300) {
-      $("section").css("margin-top", ((telaAltura / 2) - 170) + "px");
+      $("section").css("margin-top", ((telaAltura / 2) - 180) + "px");
     }
   }
   posicionarBoxCredenciais();
@@ -37,7 +37,7 @@ $(document).ready(function () {
 /******************************************************************************/
 
 /* Todos os codigos dentro desta declaracao, 
- * serao executados assim que a página for CARREGADA POR COMPLETO */
+ * serao executados assim que a pÃ¡gina for CARREGADA POR COMPLETO */
 $(window).load(function () {
 
 });

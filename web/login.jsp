@@ -26,7 +26,8 @@
     <div class="lock-panel">
 
       <div class="lock-panel-header">
-        Login
+        <strong>DiBRe Inn</strong>
+        <small>Acesso</small>
       </div>
 
       <div class="lock-panel-body">
