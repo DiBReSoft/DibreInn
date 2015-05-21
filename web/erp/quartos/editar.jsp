@@ -26,13 +26,61 @@
   </jsp:attribute>
 
   <jsp:body>
-    <div class="col-md-9 col-sm-8 form-di ${visibilidadeResultados}">
+    
       <h1 class="page-title">
         Visualizar Quarto
       </h1>
 
       <!-- page start-->
-      <div>
+       
+  <form role="form" method="get" class="form-di"
+        action="visualizar" name="formSelecionaQuarto">
+    <h4>
+      Informações dos quartos Cadastrados
+    </h4>
+    <hr />
+<div class="row">
+  <div class="col-md-9 col-sm-8 form-di">
+    <table class="table table-responsive table-hover table-striped table-condensed">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Número</th>
+          <th>Andar</th>
+          <th>Ramal</th>
+          <th>Valor da Diaria</th>
+          <th>Ocupado</th>
+          <th>Editar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <c:forEach items="${lista}" var="quarto" varStatus="stat">
+          <tr>
+              <td class ="id" id="tableId" scope="row"><c:out value="${quarto.id}" /></td>
+            <td class ="numero" id="tableNumero"><c:out value="${quarto.numero}" /></td>
+            <td class ="andar" id="tableAndar"><c:out value="${quarto.andar}" /></td>
+            <td class ="ramal" id="tableRamal"><c:out value="${quarto.ramal}" /></td>
+            <td class ="valor" id="tableValor"><c:out value="${quarto.valorDiaria}" /></td>
+            <td class ="ocupado" id="tableOcupado"><c:out value="${quarto.ocupado}" /></td>
+            <td class="seleciona" id="tableSeleciona">
+              <a href="" class="selecionado" id="tableSelecionado">
+                Selecionar
+              </a>
+            </td>
+          </tr>
+        </c:forEach>
+      </tbody>
+    </table>
+    </div>
+    </div>
+      
+  </form>
+
+  <!-- Fim da #1 linha de GRID dos formulários -->
+
+      
+      
+      
 
         <!-- Início do Formulário -->
         <form role="form" method="post" class="form-di"
@@ -42,18 +90,15 @@
           <div class="row">
 
             <!-- Início da primeira coluna: lado esquerdo - DADOS -->
-            <div class="col-sm-6">
+            <div class="col-md-9 col-sm-8 form-di">
 
               <h4>
-                Dados
+                Resultado da busca
               </h4>
 
               <hr />
 
-              <div class="row">
-
-                <div class="col-xs-6">
-
+              
                   <div class="form-group">
                     <label for="formNumero">
                       Número do quarto:
@@ -115,59 +160,12 @@
 
                 </div>
               </div>
-            </div>
-          </div>
-      </div>
-    </div>
-
-
+            
+          
+      
   </form>
   <!-- Fim do Formulário -->
-
-  <form role="form" method="get" class="form-di"
-        action="visualizar" name="formSelecionaQuarto">
-    <h4>
-      Informações dos quartos Cadastrados
-    </h4>
-    <hr />
-
-    <table class="table table-responsive table-hover table-striped table-condensed">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Número</th>
-          <th>Andar</th>
-          <th>Ramal</th>
-          <th>Valor da Diaria</th>
-          <th>Ocupado</th>
-          <th>Editar</th>
-        </tr>
-      </thead>
-      <tbody>
-        <c:forEach items="${lista}" var="quarto" varStatus="stat">
-          <tr>
-              <td class ="id" id="tableId" scope="row"><c:out value="${quarto.id}" /></td>
-            <td class ="numero" id="tableNumero"><c:out value="${quarto.numero}" /></td>
-            <td class ="andar" id="tableAndar"><c:out value="${quarto.andar}" /></td>
-            <td class ="ramal" id="tableRamal"><c:out value="${quarto.ramal}" /></td>
-            <td class ="valor" id="tableValor"><c:out value="${quarto.valorDiaria}" /></td>
-            <td class ="ocupado" id="tableOcupado"><c:out value="${quarto.ocupado}" /></td>
-            <td class="seleciona" id="tableSeleciona">
-              <a href="" class="selecionado" id="tableSelecionado">
-                Selecionar
-              </a>
-            </td>
-          </tr>
-        </c:forEach>
-      </tbody>
-    </table>
-  </form>
-
-  <!-- Fim da #1 linha de GRID dos formulários -->
-
-
-
-
+ 
   <div style="padding: 15px 0px;"></div>
 
   <!-- Linha de botões do formulário -->
