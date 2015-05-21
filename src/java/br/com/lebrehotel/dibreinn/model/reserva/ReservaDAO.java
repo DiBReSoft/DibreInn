@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -69,25 +71,26 @@ public class ReservaDAO {
 
   }
 
-  public List<Reserva> buscarReservas(int pesquisa, int tipoBusca) {
+  public List<Reserva> buscarReservas(String data) {
 
     ResultSet rs = null;
 
     ConectarBD conexao = new ConectarBD();
     PreparedStatement stmt = null;
 
+    java.util.Date checkin = new java.util.Date();
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+    try {
+      checkin = sdf.parse(data);
+    } catch (ParseException ex) {
+      Logger.getLogger(ReservaDAO.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    java.sql.Date sqlDataCheckin = new java.sql.Date(checkin.getTime());
+
     List<Reserva> listaReservas = new ArrayList<>();
 
-    String Query = "SELECT ID_RESERVA, ID_HOSPEDE, FROM TB_RESERVA ";
-
-    switch (tipoBusca) {
-      case 1:
-	Query += "WHERE DT_INICIO = ?";
-	break;
-      case 2:
-	Query += "WHERE DT_FIM = ?";
-	break;
-    }
+    String Query = "SELECT ID_RESERVA, ID_HOSPEDE, ID_FUNCIONARIO, ID_QUARTO FROM TB_RESERVA WHERE DT_INICIO = ?";
 
     try {
 
@@ -95,9 +98,7 @@ public class ReservaDAO {
 
       stmt = conexao.conn.prepareStatement(Query);
 
-      if (tipoBusca == 1 || tipoBusca == 2) {
-	stmt.setInt(1, pesquisa);
-      }
+      stmt.setDate(1, sqlDataCheckin);
 
       ResultSet resultados = stmt.executeQuery();
 
@@ -109,6 +110,7 @@ public class ReservaDAO {
 	res.setIdFuncionario(resultados.getInt("ID_FUNCIONARIO"));
 	res.setIdHospede(resultados.getInt("ID_HOSPEDE"));
 	res.setIdQuarto(resultados.getInt("ID_QUARTO"));
+	res.setCheckIn(checkin);
 
 	listaReservas.add(res);
 
@@ -201,16 +203,16 @@ public class ReservaDAO {
 
     ConectarBD conexao = new ConectarBD();
     PreparedStatement stmt = null;
-    
+
     String query = "DELETE FROM TB_RESERVA WHERE ID_RESERVA = ? \n";
 
     try {
       conexao.openConection();
       stmt = conexao.conn.prepareStatement(query);
-      
+
       stmt.setInt(1, id);
       stmt.executeQuery();
-      
+
       System.out.println("[INFO] Reserva #" + id + " deletada com sucesso.");
       return true;
 

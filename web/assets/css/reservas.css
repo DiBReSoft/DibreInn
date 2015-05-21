@@ -1,0 +1,38 @@
+.input-group-addon .fa-lg {
+  padding-bottom: 1px;
+}
+label[for] {
+  cursor: pointer;
+}
+.nav-steps {
+  display: block;
+  padding-left: 0;
+  list-style-type: none;
+  margin: 15px -2.5px 0px -2.5px;
+
+}
+.nav-steps li {
+  display: inline-block;
+  border: 1px solid #eee;
+  border-bottom: none;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  padding: 10px 15px;
+  margin: 0px 2.5px;
+  font-size: 18px;
+  width: 32%;
+}
+.nav-steps li.active {
+  font-weight: bold;
+  border-bottom: 1px solid #fff;
+  margin-bottom: -1px;
+  color: #009688;
+}
+.steps-container {
+  padding: 30px 15px;
+  border: 1px solid #eee;
+}
+.steps-container h4 {
+  margin-top: 15px !important;
+  margin-bottom: 5px;
+}

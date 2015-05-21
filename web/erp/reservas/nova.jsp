@@ -16,95 +16,16 @@
 
   <jsp:attribute name="paginaHead">
     <link rel="stylesheet" type="text/css" href="<c:url value="/assets/css/jquery-ui.min.css" />" />
-    <style type="text/css">
-      .input-group-addon .fa-lg {
-        padding-bottom: 1px;
-      }
-      label[for] {
-        cursor: pointer;
-      }
-      .nav-steps {
-        display: block;
-        padding-left: 0;
-        list-style-type: none;
-        margin: 15px -2.5px 0px -2.5px;
-
-      }
-      .nav-steps li {
-        display: inline-block;
-        border: 1px solid #eee;
-        border-bottom: none;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-        padding: 10px 15px;
-        margin: 0px 2.5px;
-        font-size: 18px;
-        width: 32%;
-      }
-      .nav-steps li.active {
-        font-weight: bold;
-        border-bottom: 1px solid #fff;
-        margin-bottom: -1px;
-        color: #009688;
-      }
-      .steps-container {
-        padding: 30px 15px;
-        border: 1px solid #eee;
-      }
-      .steps-container h4 {
-        margin-top: 15px !important;
-        margin-bottom: 5px;
-      }
-    </style>
+    <link rel="stylesheet" type="text/css" href="<c:url value="/assets/css/reservas.css" />" />
   </jsp:attribute>
 
   <jsp:attribute name="paginaBottom">
     <script type="text/javascript" src="<c:url value="/assets/js/jquery-ui.min.js" />"></script>
+    <script type="text/javascript" src="<c:url value="/assets/js/jquery-calendar-configs.js" />"></script>
     <script type="text/javascript">
-      // a variável dataParametro está recebendo o valor da URL, passando pelo Servlet      
-      var dataParametro = "<c:out value="${dataParaReserva}" />";
-      document.getElementById("reservaData").value = dataParametro;
-      $(function () {
-        $("#reservaData").datepicker({
-          dateFormat: 'dd/mm/yy',
-          dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
-          dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
-          dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
-          monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-          monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
-        });
-
-        $("[data-target=#stepOne]").click(function () {
-          $("#stepOneTab").removeClass("disabled");
-          $("#stepOneTab").addClass("active");
-
-          $("#stepTwoTab").removeClass("active");
-          $("#stepTwoTab").addClass("disabled");
-
-          $("#stepTreeTab").removeClass("active");
-          $("#stepTreeTab").addClass("disabled");
-        });
-
-        $("[data-target=#stepTwo]").click(function () {
-
-          $("#stepOne").removeClass("in");
-          $("#stepOne").removeClass("active");
-
-          $("#stepOneTab").removeClass("active");
-          $("#stepOneTab").addClass("disabled");
-
-          $("#stepTwo").addClass("active");
-          $("#stepTwo").addClass("in");
-
-          $("#stepTwoTab").removeClass("disabled");
-          $("#stepTwoTab").addClass("active");
-        });
-
-      });
-
       $(window).load(function () {
         var stepTwo = $("[data-target=#stepTwo]");
-      <c:out value="${selecionouHospede}" />
+        ${selecionouHospede}
       });
     </script>
   </jsp:attribute>
@@ -433,7 +354,7 @@
                 <c:if test="${!lista.isEmpty()}">
 
                   <c:forEach items="${lista}" var="pessoa" varStatus="stat">
-                    
+
                     <input type="hidden"
                            name="reservaHospedeID"
                            value="<c:out value="${pessoa.id}" />" />

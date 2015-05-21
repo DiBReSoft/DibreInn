@@ -1,5 +1,6 @@
 package br.com.lebrehotel.dibreinn.controller.reservas;
 
+import br.com.lebrehotel.dibreinn.model.reserva.ReservaDAO;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,24 +13,31 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jSilverize
  */
-@WebServlet(name = "ReservaListarServlet", urlPatterns = {"/erp/reservas/","/erp/reservas/listar"})
+@WebServlet(name = "ReservaListarServlet", urlPatterns = {"/erp/reservas/", "/erp/reservas/listar"})
 public class ReservaListarServlet extends HttpServlet {
 
-  /**
-   * Handles the HTTP <code>GET</code> method.
-   *
-   * @param request servlet request
-   * @param response servlet response
-   * @throws ServletException if a servlet-specific error occurs
-   * @throws IOException if an I/O error occurs
-   */
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
-          throws ServletException, IOException {
+	  throws ServletException, IOException {
+    
+    // Esse atributo irá esconder a DIV com os resultados da busca na página buscar.jsp
+    request.setAttribute("visibilidadeResultados", "hidden");
 
     String data = request.getParameter("data");
-
     request.setAttribute("dataParaListar", data);
+
+    // Se um destes campos de busca estiverem preenchidos, 
+    // deixe a DIV com os resultados da busca visível
+    if (data != null) {
+      
+      data = data.replaceAll("%2F", "/");
+      
+      ReservaDAO reservaBD = new ReservaDAO();
+      request.setAttribute("lista", reservaBD.buscarReservas(data));
+      
+      request.setAttribute("visibilidadeResultados", null);
+      
+    }
 
     RequestDispatcher rd = request.getRequestDispatcher("/erp/reservas/listar.jsp");
     rd.forward(request, response);
@@ -47,7 +55,7 @@ public class ReservaListarServlet extends HttpServlet {
    */
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
-          throws ServletException, IOException {
+	  throws ServletException, IOException {
 
   }
 
