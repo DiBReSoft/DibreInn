@@ -69,15 +69,6 @@ public class Funcionario extends Pessoa {
   }
 
   public void setSenha(String senha) {
-    char s[] = null;
-    try{
-        s = usuario.gerarHashSenhaPBKDF2(senha);
-    } catch(NoSuchAlgorithmException | InvalidKeySpecException e){
-        Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, e);
-    } finally{
-        for(int i=0; i < s.length; i++){
-            this.senha += s[i];
-        }
-    }
+    this.senha = senha;
   }
 }

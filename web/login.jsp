@@ -32,7 +32,11 @@
 
       <div class="lock-panel-body">
 
-        <form class="form-horizontal">
+        <form class="form-horizontal"
+              role="form" method="post"
+              action="login"
+              accept-charset="UTF-8"
+              enctype="application/x-www-form-urlencoded">
           <div class="form-group">
             <label class="col-sm-2 control-label"
                    for="loginEmail">
@@ -44,7 +48,8 @@
               <input class="form-control input-sm" 
                      type="email" id="loginEmail"
                      placeholder="exemplo@lebrehotel.com.br"
-                     required="true" />
+                     required="true" 
+                     name="loginEmail" />
             </div>
           </div>
           <div class="form-group">
@@ -57,28 +62,29 @@
             <div class="col-sm-10">
               <input class="form-control input-sm" 
                      type="password" id="loginSenha"
-                     required="true" />
+                     required="true"
+                     name="loginSenha" />
             </div>
           </div>
           <div class="form-group">
             <div class="col-sm-6 pull-right">
-              <!-- 
-              Precisa criar o controle de acesso para habilitar esse botão
               <button class="btn btn-block btn-sm btn-default" 
-                     type="submit" id="loginSubmit">
+                      type="submit" id="loginSubmit">
                 Entrar
                 <i class="fa fa-sign-in"></i>
               </button>
-              -->
+              <!-- 
+              Precisa criar o controle de acesso para habilitar esse botão
               <button class="btn btn-block btn-sm btn-default" 
                       type="button" id="loginSubmit" onclick="location.href='erp/inicio'">
                 Entrar
                 <i class="fa fa-sign-in"></i>
               </button>
+              -->
             </div>
             <div class="col-sm-6">
               <button class="btn btn-block btn-sm btn-primary" 
-                     type="button" id="loginForgot">
+                      type="button" id="loginForgot">
                 Esqueci a senha
               </button>
             </div>

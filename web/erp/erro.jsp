@@ -1,6 +1,6 @@
 <%-- 
-    Document   : index
-    Created on : 19/03/2015, 21:18:15
+    Document   : nova
+    Created on : 03/05/2015, 10:30:15
     Author     : udimberto.sjunior
 --%>
 
@@ -11,7 +11,7 @@
 <t:defaultTemplate>
 
   <jsp:attribute name="paginaTitulo">
-    Serviços
+    Erro na operação
   </jsp:attribute>
 
   <jsp:attribute name="paginaHead">
@@ -24,19 +24,14 @@
 
   <jsp:body>
 
-    <h1>
-      <i class="fa fa-angle-right"></i> 
-      Serviços
+    <h1 class="page-title">
+      Erro na operação
     </h1>
-    <!-- page start-->
-    <div class="row mt">
-      
-      <p class="lead">
-        Conteúdo vai aqui
-      </p>
-      
-    </div>
-      
+    
+    <h2>
+      <c:out value="${mensagem}" />
+    </h2>
+
   </jsp:body>
 
 </t:defaultTemplate>
