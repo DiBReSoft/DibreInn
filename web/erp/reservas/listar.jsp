@@ -48,12 +48,12 @@
         </h1>
         
         <h3>
-          Dicas de uso
+          Saiba como usar
         </h3>
-        <p>
-          Clique na data desejada para consultar reservas já realizadas ou 
-          realizar uma nova reserva.
-        </p>
+        <h4>
+          Clique na data desejada para consultar as reservas já realizadas
+          para o dia.
+        </h4>
       </div>
 
       <div class="col-sm-8">

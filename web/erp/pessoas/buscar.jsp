@@ -213,7 +213,7 @@
                 <th>CPF</th>
                 <th>E-mail</th>
                 <th>Tipo</th>
-                <th>Editar</th>
+                <th>Visualizar</th>
               </tr>
             </thead>
             <tbody>
@@ -236,7 +236,7 @@
                     <c:out value="${pessoa.tipo}" />
                   </td>
                   <td class="seleciona">
-                    <a href="<c:url value="/erp/pessoas/cadastro?id=${pessoa.id}" />" 
+                    <a href="<c:url value="/erp/pessoas/visualizar?id=${pessoa.id}" />" 
                        class="selecionado">
                       <i class="fa fa-fw fa-lg fa-edit"></i>
                       Selecionar

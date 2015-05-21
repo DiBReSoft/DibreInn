@@ -289,7 +289,7 @@
             <h2>
               Adicionais sobre o Hospede
             </h2>
-              
+
             <div style="padding: 5px 0px;"></div>
 
             <h4>
@@ -346,7 +346,7 @@
                 (usuário do sistema)
               </c:if>
             </h2>
-              
+
             <div style="padding: 5px 0px;"></div>
 
             <div class="row">
@@ -426,6 +426,25 @@
             </table>
 
           </c:if>
+
+          <div style="padding: 15px 0px;"></div>
+
+          <div class="row">
+
+            <div class="col-sm-4 col-xs-3"></div>
+
+            <div class="col-sm-4 col-xs-6">
+
+              <a class="btn btn-block btn-lg btn-default" 
+                 tabindex="23"
+                 href="editar?id=${pessoa.id}">
+                EDITAR
+                <i class="fa fa-lg fa-edit"></i>
+              </a>
+
+            </div>
+
+          </div>
 
         </div>
 

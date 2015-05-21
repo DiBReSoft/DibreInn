@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @authors jSilverize, Thiago, Ernanni, Luciano
  */
-@WebServlet(name = "PessoaCadastrarServlet", urlPatterns = {"/erp/pessoas/cadastrar", "/erp/pessoas/cadastro"})
+@WebServlet(name = "PessoaCadastrarServlet", urlPatterns = {"/erp/pessoas/cadastrar", "/erp/pessoas/cadastro", "/erp/pessoas/editar"})
 public class PessoaCadastrarServlet extends HttpServlet {
 
   @Override
@@ -83,7 +83,7 @@ public class PessoaCadastrarServlet extends HttpServlet {
 
     String idNaURL = request.getParameter("formID");
     System.out.println("Mostre o ID na URL: " + idNaURL);
-    
+
     Funcionario f = null;
     Hospede h = null;
     boolean resultado = false;
@@ -124,24 +124,35 @@ public class PessoaCadastrarServlet extends HttpServlet {
 	// Através do parâmetro ID na URL, iremos verificar se trata-se de um
 	// novo cadastrou ou se é uma atualização de um cadastro já existente
 	if (idNaURL.equals("")) {
-	  
+
 	  System.out.println("Realizando novo cadastro.");
-	  
+
 	  h.setId(pessoaBD.cadastrarPessoa(h, end));
-	  
-	  if (h.getId() > 0) {
-	     montaEmail(h);
-	  }
-	  
+
 	} else {
-	  
+
 	  System.out.println("Atualizando cadastro.");
 	  // pessoaBD.atualizarPessoa(p, end);
-	  
+
 	}
-	
-	response.sendRedirect("visualizar?id=" + h.getId());
-	
+
+	/* 
+	 * Esse redirecionamento acontecerá após o submit dos dados
+	 */
+	if (h.getId() != 0) {
+
+	  response.sendRedirect("../sucesso");
+
+	  if (idNaURL.equals("")) {
+	    montaEmail(h);
+	  }
+
+	} else {
+
+	  response.sendRedirect("../erro");
+
+	}
+
       } else {
 
 	f = new Funcionario();
@@ -155,13 +166,13 @@ public class PessoaCadastrarServlet extends HttpServlet {
 	f.setTelefone(request.getParameter("formTel"));
 	f.setCelular(request.getParameter("formCel"));
 	f.setEmail(request.getParameter("formEmail"));
-	
+
 	if (request.getParameter("formNewsletter") != null) {
 	  f.setNewsletter(Integer.parseInt(request.getParameter("formNewsletter")));
 	} else {
 	  f.setNewsletter(0);
 	}
-	
+
 	if (request.getParameter("formOpUsuario").equals("1")) {
 	  f.setLogin(request.getParameter("formEmail"));
 	  f.setSenha(request.getParameter("formSenha"));
@@ -169,7 +180,7 @@ public class PessoaCadastrarServlet extends HttpServlet {
 	  f.setLogin(null);
 	  f.setSenha(null);
 	}
-	
+
 	//verificar se o salario foi informado
 	if (!request.getParameter("formSalario").isEmpty()) {
 	  f.setSalario(Double.parseDouble(request.getParameter("formSalario")));
@@ -179,7 +190,7 @@ public class PessoaCadastrarServlet extends HttpServlet {
 	f.setDepartamento(request.getParameter("formDepartamento"));
 	f.setCargo(request.getParameter("formCargo"));
 	f.setUnidade(Integer.parseInt(request.getParameter("formUnidade")));
-	
+
 	Endereco end = new Endereco();
 	end.setCep((request.getParameter("formCep")));
 	end.setLogradouro(request.getParameter("formLogradouro"));
@@ -198,10 +209,6 @@ public class PessoaCadastrarServlet extends HttpServlet {
 	  System.out.println("Realizando novo cadastro.");
 
 	  f.setId(pessoaBD.cadastrarPessoa(f, end));
-	  
-	  if (f.getId() > 0) {
-	     montaEmail(f);
-	  }
 
 	} else {
 
@@ -211,18 +218,30 @@ public class PessoaCadastrarServlet extends HttpServlet {
 	}
 
 	/* 
-	 * Esse redirecionamento acontecerá após o submit dos dados,
-	 * levando o usuário para uma página com os dados que acabaram de ser
-	 * cadastrados
+	 * Esse redirecionamento acontecerá após o submit dos dados
 	 */
-	
-	response.sendRedirect("visualizar?id=" + f.getId());
-	
+	if (f.getId() != 0) {
+
+	  response.sendRedirect("../sucesso");
+
+	  if (idNaURL.equals("")) {
+	    montaEmail(f);
+	  }
+
+	} else {
+
+	  response.sendRedirect("../erro");
+
+	}
+
       }
 
     } catch (Exception ex) {
+      
       System.out.println(ex);
-      response.sendRedirect("../erro.jsp");
+      
+      response.sendRedirect("../erro");
+      
     }
 
   }
@@ -238,17 +257,17 @@ public class PessoaCadastrarServlet extends HttpServlet {
     return "Short description";
   }// </editor-fold>
 
-      private void montaEmail(Pessoa p) {
-        System.out.println("[DADOS GRAVADOS COM SUCESSO] Novo cadastro: " + p.getNome() + " " + p.getSobrenome());
-        Email email = new Email();
-        email.setDestinatario(p.getEmail());
-        email.setAssunto("Cadastro Efetuado");
-        email.setMensagem(p.getNome() + ", seja bem-vindo e obrigado por efetuar o cadastro no Lebre Hotel!");
-        //EnviarEmail envia = new EnviarEmail();
-        EnviarEmail(email);
-    }
-    
-    public void EnviarEmail(Email email) {
+  private void montaEmail(Pessoa p) {
+    System.out.println("[DADOS GRAVADOS COM SUCESSO] Novo cadastro: " + p.getNome() + " " + p.getSobrenome());
+    Email email = new Email();
+    email.setDestinatario(p.getEmail());
+    email.setAssunto("Cadastro Efetuado");
+    email.setMensagem(p.getNome() + ", seja bem-vindo e obrigado por efetuar o cadastro no Lebre Hotel!");
+    //EnviarEmail envia = new EnviarEmail();
+    EnviarEmail(email);
+  }
+
+  public void EnviarEmail(Email email) {
 
     Properties props = new Properties();
     /**
@@ -262,7 +281,7 @@ public class PessoaCadastrarServlet extends HttpServlet {
 
     Session session = Session.getInstance(props,
 	    new javax.mail.Authenticator() {
-              
+
 	      protected PasswordAuthentication getPasswordAuthentication() {
 		return new PasswordAuthentication("lebrehotel@gmail.com", "senac123");
 	      }
@@ -281,12 +300,11 @@ public class PessoaCadastrarServlet extends HttpServlet {
       message.setFrom(new InternetAddress("lebrehotel@gmail.com"));
 
       // Destinatário(s)
-      
-      String destinos="";
-      for(String destinatario : email.getDestinatario()){
-      destinos += ", "+destinatario;      
+      String destinos = "";
+      for (String destinatario : email.getDestinatario()) {
+	destinos += ", " + destinatario;
       }
-      Address[] toUser = InternetAddress.parse("lebrehotel@gmail.com,fabioernanni@hotmail.com,elvitous@gmail.com,lucianolourencoti@gmail.com"+destinos);
+      Address[] toUser = InternetAddress.parse("lebrehotel@gmail.com,fabioernanni@hotmail.com,elvitous@gmail.com,lucianolourencoti@gmail.com" + destinos);
       message.setRecipients(Message.RecipientType.TO, toUser);
 
       // Assunto

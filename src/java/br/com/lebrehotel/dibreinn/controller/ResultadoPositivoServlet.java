@@ -1,4 +1,4 @@
-package br.com.lebrehotel.dibreinn.controller.reservas;
+package br.com.lebrehotel.dibreinn.controller;
 
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
@@ -12,26 +12,18 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jSilverize
  */
-@WebServlet(name = "ReservaListarServlet", urlPatterns = {"/erp/reservas/","/erp/reservas/listar"})
-public class ReservaListarServlet extends HttpServlet {
-
-  /**
-   * Handles the HTTP <code>GET</code> method.
-   *
-   * @param request servlet request
-   * @param response servlet response
-   * @throws ServletException if a servlet-specific error occurs
-   * @throws IOException if an I/O error occurs
-   */
+@WebServlet(name = "ResultadoPositivoServlet", urlPatterns = {"/erp/sucesso"})
+public class ResultadoPositivoServlet extends HttpServlet {
+  
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
-          throws ServletException, IOException {
-
-    String data = request.getParameter("data");
-
-    request.setAttribute("dataParaListar", data);
-
-    RequestDispatcher rd = request.getRequestDispatcher("/erp/reservas/listar.jsp");
+	  throws ServletException, IOException {
+    
+    String msgOk = "Tudo traquilo!\nA operação foi realizada com sucesso.";
+    
+    request.setAttribute("mensagem", msgOk);
+    
+    RequestDispatcher rd = request.getRequestDispatcher("/erp/mensagem-sucesso.jsp");
     rd.forward(request, response);
 
   }
@@ -47,7 +39,7 @@ public class ReservaListarServlet extends HttpServlet {
    */
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
-          throws ServletException, IOException {
+	  throws ServletException, IOException {
 
   }
 
