@@ -1,7 +1,14 @@
 package br.com.lebrehotel.dibreinn.controller.reservas;
 
+import br.com.lebrehotel.dibreinn.model.pessoa.PessoaDAO;
 import br.com.lebrehotel.dibreinn.model.quarto.QuartoDAO;
+import br.com.lebrehotel.dibreinn.model.reservas.Reserva;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,29 +33,56 @@ public class ReservaNovaServlet extends HttpServlet {
    */
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
-          throws ServletException, IOException {
+	  throws ServletException, IOException {
 
-    String data = request.getParameter("data");
-    data = data.replaceAll("-", "/");
-    data = data.replaceAll("%2F", "/");
-    System.out.println(data);
-
-    request.setAttribute("dataParaReserva", data);
-    
-    
-    
     //buscando apenas os quartos disponiveis
     QuartoDAO consulta = new QuartoDAO();
-    request.setAttribute("lista", consulta.BuscarQuartos(0,1));
-    
-    
+    request.setAttribute("listaQuartos", consulta.BuscarQuartos(0, 1));
+
+    PessoaDAO consultarPessoa = new PessoaDAO();
+
+    // Esse atributo irá esconder a DIV com os resultados da busca na página nova.jsp
+    request.setAttribute("visibilidadeResultados", "hidden");
+
+    // Armazenando os dados que possivelmente serão digitados
+    String nomeParaBuscar = request.getParameter("nome");
+    String buscarEmail = request.getParameter("email");
+    String buscarCpf = request.getParameter("cpf");
+
+    request.setAttribute("nomeBuscado", nomeParaBuscar);
+    request.setAttribute("emailBuscado", buscarEmail);
+    request.setAttribute("cpfBuscado", buscarCpf);
+
+    // Se um destes campos de busca estiverem preenchidos, deixe a DIV com os resultados da busca visível
+    if (nomeParaBuscar != null || buscarEmail != null || buscarCpf != null) {
+      request.setAttribute("visibilidadeResultados", null);
+    }
+
+    if (nomeParaBuscar != null) {
+      // busca por nome, retornando uma pessoa
+      request.setAttribute("lista", consultarPessoa.BuscarPessoas(nomeParaBuscar, 1));
+    } else if (buscarEmail != null) {
+      // busca por email, retornando uma pessoa
+      request.setAttribute("lista", consultarPessoa.BuscarPessoas(buscarEmail, 2));
+    } else if (buscarCpf != null) {
+      // busca por cpf, retornando uma pessoa
+      request.setAttribute("lista", consultarPessoa.BuscarPessoas(buscarCpf, 3));
+    }
+
+    String idHospedeReserva = request.getParameter("id");
+
+    if (idHospedeReserva != null) {
+      request.setAttribute("lista", consultarPessoa.BuscarPessoas(idHospedeReserva, 4));
+      request.setAttribute("idHospede", idHospedeReserva);
+      String js = "stepTwo.click();";
+      request.setAttribute("selecionouHospede", js);
+    }
 
     RequestDispatcher rd = request.getRequestDispatcher("/erp/reservas/nova.jsp");
     rd.forward(request, response);
 
   }
 
-  // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
   /**
    * Handles the HTTP <code>POST</code> method.
    *
@@ -59,10 +93,52 @@ public class ReservaNovaServlet extends HttpServlet {
    */
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
-          throws ServletException, IOException {
+	  throws ServletException, IOException {
+
+    String reservaFormHospedeID = request.getParameter("reservaHospedeID");
+    String reservaFormQuarto = request.getParameter("reservaQuarto");
+    String reservaFormData = request.getParameter("reservaData");
+    
+    System.out.println("\nDados coletados de nova reserva:".toUpperCase());    
+    System.out.println("ID do Hospede: " + reservaFormHospedeID);
+    System.out.println("ID do Quarto: " + reservaFormQuarto);
+    System.out.println("Data para reserva: " + reservaFormData);
+
+    Reserva novaReserva = new Reserva();
+
+    novaReserva.setIdHospede(Integer.parseInt(reservaFormHospedeID));
+    novaReserva.setIdQuarto(Integer.parseInt(reservaFormQuarto));
+    
+    String status = null;
+
+    Date checkin = new Date();
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+    
+    try {
+      
+      checkin = sdf.parse(reservaFormData);
+      novaReserva.setCheckIn(checkin);
+      
+      // ReservaDAO reservaBD = new ReservaDAO();
+      // reservaBD.registrar(novaReserva);
+      
+      status = "ok";
+      
+    } catch (ParseException ex) {
+      
+      Logger.getLogger(ReservaNovaServlet.class.getName()).log(Level.SEVERE, null, ex);
+      System.err.print("!!! [ERRO] !!!\n" + ex);
+      status = "falhou";
+      
+    } finally {
+      
+      response.sendRedirect("resultado?status=" + status);
+      
+    }
 
   }
 
+  // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
   /**
    * Returns a short description of the servlet.
    *

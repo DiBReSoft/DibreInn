@@ -2347,3 +2347,11 @@ label {
 .top-menu a:focus img {
   border-color: #bbb !important;
 }
+
+.lock-panel .btn-sm {
+    height: 50px;
+}
+
+.form-di .input-group-lg input[required] {    
+    background-position: 96% 16px;            
+}

@@ -52,7 +52,8 @@
         border: 1px solid #eee;
       }
       .steps-container h4 {
-        margin-top: 10px !important;
+        margin-top: 15px !important;
+        margin-bottom: 5px;
       }
     </style>
   </jsp:attribute>
@@ -85,56 +86,26 @@
         });
 
         $("[data-target=#stepTwo]").click(function () {
+
+          $("#stepOne").removeClass("in");
+          $("#stepOne").removeClass("active");
+
           $("#stepOneTab").removeClass("active");
           $("#stepOneTab").addClass("disabled");
+
+          $("#stepTwo").addClass("active");
+          $("#stepTwo").addClass("in");
 
           $("#stepTwoTab").removeClass("disabled");
           $("#stepTwoTab").addClass("active");
-
-          $("#stepTreeTab").removeClass("active");
-          $("#stepTreeTab").addClass("disabled");
-        });
-
-        $("[data-target=#stepTree]").click(function () {
-          $("#stepOneTab").removeClass("active");
-          $("#stepOneTab").addClass("disabled");
-
-          $("#stepTwoTab").removeClass("active");
-          $("#stepTwoTab").addClass("disabled");
-
-          $("#stepTreeTab").removeClass("disabled");
-          $("#stepTreeTab").addClass("active");
         });
 
       });
 
-      var reservaData = document.getElementById("reservaData");
-      reservaData.addEventListener("blur", carregarInfos(reservaData, "ReservaData"));
-
-      var reservaQuarto = document.getElementById("reservaQuarto");
-      reservaQuarto.addEventListener("blur", carregarInfos(reservaQuarto, "ReservaQuarto"));
-
-      var reservaHospede = document.getElementById("reservaHospede");
-      reservaHospede.addEventListener("blur", carregarInfos(reservaHospede, "ReservaHospede"));
-
-      function carregarInfos(input, string) {
-        var selecionarRecipiente = document.getElementById("exibir" + string);
-        console.log("exibir" + string);
-        selecionarRecipiente.textContent = "" + input.value;
-      }
-
-      function recarregarPagina() {
-        console.log("Data na URL: " + dataParametro);
-        console.log("Data no calendário: " + reservaData.value);
-        /*
-         var dataReserva = "" +  reservaData.value;
-         dataReserva = dataReserva.replace("%2F", "-");
-         $.get('/DibreInn/erp/reservas/nova', {data: dataReserva}, function (responseText) {
-         $('#welcometext').text(responseText);
-         });
-         */
-      }
-
+      $(window).load(function () {
+        var stepTwo = $("[data-target=#stepTwo]");
+      <c:out value="${selecionouHospede}" />
+      });
     </script>
   </jsp:attribute>
 
@@ -144,305 +115,443 @@
       Nova Reserva
     </h1>
 
-    <div class="row">
+    <ul class="nav-steps">
+      <li role="presentation" 
+          class="active"
+          id="stepOneTab">
+        #1 HOSPEDE
+      </li>
+      <li role="presentation"
+          class="disabled"
+          id="stepTwoTab">
+        #2 RESERVA
+      </li>
+    </ul>
 
-      <div class="col-sm-2 hidden-xs"></div>
+    <div class="tab-content">
 
-      <div class="col-sm-8">
 
-        <ul class="nav-steps">
-          <li role="presentation" 
-              class="active"
-              id="stepOneTab">
-            #1 DETALHES
-          </li>
-          <li role="presentation"
-              class="disabled"
-              id="stepTwoTab">
-            #2 HOSPEDE
-          </li>
-          <li role="presentation"
-              class="disabled"
-              id="stepTreeTab">
-            #3 CONFIRMAÇÃO
-          </li>
-        </ul>
+      <div role="tabpanel" class="tab-pane fade in active" id="stepOne">
 
-        <form role="form" class="form-di"
-              action="reservar" method="post">
+        <div class="steps-container">
 
-          <div class="tab-content">          
+          <!-- Início da #1 linha de GRID dos formulários -->
+          <div class="row">
 
-            <div role="tabpanel" class="tab-pane fade in active" id="stepOne">
+            <div class="col-md-4 col-sm-5">
 
-              <div class="steps-container">
+              <!-- Formulário #1 | Buscar por nome -->
+              <form role="form" method="get" class="form-di"
+                    accept-charset="UTF-8"
+                    enctype="application/x-www-form-urlencoded"
+                    action="nova">
 
-                <div class="row">
+                <h4>
+                  <label for="formNome">
+                    Buscar por nome
+                  </label>
+                </h4>
 
-                  <div class="col-sm-3"></div>
+                <div class="input-group">
 
-                  <div class="col-sm-6">
+                  <input type="text" class="form-control"
+                         tabindex="1"
+                         name="nome" id="formNome" 
+                         placeholder="Fulano" 
+                         value="<c:out value="${nomeBuscado}" />" />
 
-                    <div class="form-group">
-                      <h4>
-                        <label for="reservaData">
-                          Data:
-                        </label>
-                        <div class="input-group input-group-lg">
+                  <span class="input-group-btn">              
 
-                          <span class="input-group-addon" id="basic-addon1">
-                            <i class="fa fa-fw fa-lg fa-calendar"></i>
-                          </span>
+                    <button type="submit" class="btn btn-default" 
+                            tabindex="2">
 
-                          <input type="text" class="form-control" placeholder="dd/mm/aaaa"
-                                 tabindex="1" aria-describedby="basic-addon1"
-                                 name="reservaData" id="reservaData" 
-                                 onchange="recarregarPagina()"/>
+                      <span class="hidden-sm hidden-xs">
+                        Buscar
+                      </span>                
 
-                        </div>
-                      </h4>
-                    </div>
+                      <i class="fa fa-fw fa-lg fa-search"></i>
 
-                  </div>
-
-                </div>
-
-                <div class="row">
-
-                  <div class="col-sm-3"></div>
-
-                  <div class="col-sm-6">
-
-                    <div class="form-group">  
-                      <h4>
-                        <label for="reservaQuarto">
-                          Quarto:
-                        </label>
-                        <div class="input-group input-group-lg">
-
-                          <span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-lg fa-bed"></i></span>
-
-                          <select class="form-control" tabindex="2" aria-describedby="basic-addon2"
-                                  name="reservaQuarto" id="reservaQuarto">
-                            <option disabled="true">
-                              selecione um quarto
-                            </option>
-                            <c:forEach items="${lista}" var="quarto" varStatus="stat">
-                              <option>
-                                Quarto <c:out value="${quarto.numero}" />
-                              </option>
-                            </c:forEach>
-                          </select>              
-
-                        </div>
-                      </h4>
-                    </div>
-
-                  </div>
-
-                </div>
-
-                <br style="clear: both;" />
-
-                <div class="row">
-
-                  <div class="col-md-4"></div>
-
-                  <div class="col-md-4">
-
-                    <a class="btn btn-lg btn-block btn-default"
-                       data-toggle="tab" 
-                       data-target="#stepTwo"
-                       href="#stepTwo">
-                      AVANÇAR
-                      <i class="fa fa-fw fa-lg fa-arrow-right"></i>
-                    </a>
-
-                  </div>
-
-                </div>
-
-              </div>
-
-
-            </div>
-
-            <div role="tabpanel" class="tab-pane fade" id="stepTwo">
-
-              <div class="steps-container">
-
-                <div class="row">
-
-                  <div class="col-sm-3"></div>
-
-                  <div class="col-sm-6">
-
-                    <div class="form-group">
-                      <h4>
-                        <label for="buscarHospedeNome">
-                          Buscar por nome:
-                        </label>
-                        <div class="input-group input-group-lg">
-
-                          <span class="input-group-addon" id="basic-addon3">
-                            <i class="fa fa-fw fa-lg fa-user"></i>
-                          </span>
-
-                          <input type="text" class="form-control" placeholder="Ex.: Fulano"
-                                 tabindex="3" aria-describedby="basic-addon3"
-                                 name="reservaHospede" id="reservaHospede" />
-
-                          <input type="hidden"
-                                 name="reservaHospedeId" id="reservaHospedeId" />
-
-                        </div>
-                      </h4>
-                    </div>
-
-                  </div>
-
-                </div>
-
-                <div class="row">
-
-                  <div class="col-sm-3"></div>
-
-                  <div class="col-sm-6">
-
-                    <div class="form-group">  
-                      <h4>
-                        <label for="buscarHospedeCpf">
-                          Buscar por CPF:
-                        </label>
-                        <div class="input-group input-group-lg">
-
-                          <span class="input-group-addon" id="basic-addon4">
-                            <i class="fa fa-fw fa-lg fa-barcode"></i>
-                          </span>
-
-                          <input type="text" class="form-control" placeholder="Ex.: 100.200.300-40"
-                                 tabindex="4" aria-describedby="basic-addon4"
-                                 name="buscarHospedeCpf" id="buscarHospedeCpf" />
-
-                        </div>
-                      </h4>
-                    </div>
-
-                  </div>
-
-                </div>
-
-                <br style="clear: both;" />
-
-                <div class="row">
-
-                  <div class="col-md-2"></div>
-
-                  <div class="col-md-4 col-xs-6">                  
-
-                    <a class="btn btn-lg btn-block btn-primary"
-                       data-toggle="tab" 
-                       data-target="#stepOne"
-                       href="#stepOne">
-                      <i class="fa fa-fw fa-lg fa-arrow-left"></i>
-                      VOLTAR
-                    </a>
-
-                  </div>
-
-                  <div class="col-md-4 col-xs-6">
-
-                    <a class="btn btn-lg btn-block btn-default"
-                       data-toggle="tab" 
-                       data-target="#stepTree"
-                       href="#stepTree">
-                      AVANÇAR
-                      <i class="fa fa-fw fa-lg fa-arrow-right"></i>
-                    </a>
-
-                  </div>
-
-                </div>
-
-              </div>
-
-            </div>
-
-            <div role="tabpanel" class="tab-pane fade" id="stepTree">
-
-              <div class="steps-container">
-
-                <div class="row">
-
-                  <div class="col-sm-3"></div>
-
-                  <div class="col-sm-6 text-center">
-
-                    <h4>
-                      <label for="exibirReservaData">
-                        Data da Reserva
-                      </label>
-                      <br />
-                      <small id="exibirReservaData"></small>
-                    </h4>
-
-                    <h4>
-                      <label for="exibirReservaQuarto">
-                        Quarto
-                      </label>
-                      <br />
-                      <small id="exibirReservaQuarto"></small>
-                    </h4>
-
-                    <h4>
-                      <label for="exibirReservaHospede">
-                        Hospede
-                      </label>
-                      <br />
-                      <small id="exibirReservaHospede"></small>
-                    </h4>
-
-                  </div>
-
-                </div>
-
-                <br style="clear: both;" />
-
-                <div class="row">
-
-                  <div class="col-md-2"></div>
-
-                  <div class="col-md-4 col-xs-6">                  
-
-                    <a class="btn btn-lg btn-block btn-primary"
-                       data-toggle="tab" 
-                       data-target="#stepTwo"
-                       href="#stepTwo">
-                      <i class="fa fa-fw fa-lg fa-arrow-left"></i>
-                      VOLTAR
-                    </a>
-
-                  </div>
-
-                  <div class="col-md-4 col-xs-6">
-
-                    <button class="btn btn-lg btn-block btn-default"
-                            type="submit">
-                      RESERVAR
-                      <i class="fa fa-fw fa-lg fa-check"></i>
                     </button>
 
+                  </span>
+                </div>
+
+              </form>
+              <!-- Formulário #1 | Buscar por nome -->
+
+              <div style="padding: 5px 0px;"></div>
+
+              <!-- Formulário #2 | Buscar por e-mail -->
+              <form role="form" method="get" class="form-di"
+                    accept-charset="UTF-8"
+                    enctype="application/x-www-form-urlencoded"
+                    action="nova">
+
+                <h4>
+                  <label for="formEmail">
+                    Buscar por e-mail
+                  </label>
+                </h4>
+
+                <div class="input-group">            
+
+                  <input type="email" class="form-control" 
+                         tabindex="3"
+                         name="email" id="formEmail"
+                         placeholder="fulano@dasilva.com.br"
+                         value="<c:out value="${emailBuscado}" />" />
+
+                  <span class="input-group-btn">
+
+                    <button type="submit" class="btn btn-default" 
+                            tabindex="4">
+
+                      <span class="hidden-sm hidden-xs">
+                        Buscar
+                      </span>
+
+                      <i class="fa fa-fw fa-lg fa-search"></i>
+
+                    </button>
+
+                  </span>
+
+                </div>
+
+              </form>
+              <!-- Formulário #2 | Buscar por e-mail -->
+
+              <div style="padding: 5px 0px;"></div>
+
+              <!-- Formulário #3 | Buscar por CPF -->
+              <form role="form" method="get" class="form-di"
+                    accept-charset="UTF-8"
+                    enctype="application/x-www-form-urlencoded"
+                    action="nova">
+
+                <h4>
+                  <label for="formCpf">
+                    Buscar por CPF
+                  </label>
+                </h4>
+
+                <div class="input-group">
+
+                  <input type="text" class="form-control"
+                         tabindex="5"
+                         name="cpf" id="formCpf" 
+                         placeholder="111.222.333-44"
+                         value="<c:out value="${cpfBuscado}" />" />
+
+                  <span class="input-group-btn">
+
+                    <button type="submit" class="btn btn-default" 
+                            tabindex="6">
+
+                      <span class="hidden-sm hidden-xs">
+                        Buscar
+                      </span>
+
+                      <i class="fa fa-fw fa-lg fa-search"></i>
+
+                    </button>
+
+                  </span>
+
+                </div>
+
+              </form>
+              <!-- Formulário #3 | Buscar por CPF -->
+
+            </div>
+
+            <div class="col-md-8 col-sm-7 form-di ${visibilidadeResultados}">
+
+              <h4 class="text-center">
+                Resultado(s) da busca
+              </h4>
+
+              <c:if test="${!lista.isEmpty()}">
+
+                <table class="table table-responsive table-hover table-striped table-condensed">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Nome</th>
+                      <th>CPF</th>
+                      <th>E-mail</th>
+                      <th>Selecionar</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <c:forEach items="${lista}" var="pessoa" varStatus="stat">
+                      <tr>
+                        <td scope="row">
+                          <c:out value="${pessoa.id}" />
+                        </td>
+                        <td class="nome">
+                          <c:out value="${pessoa.nome}" />
+                          <c:out value="${pessoa.sobrenome}" />
+                        </td>
+                        <td class="cpf">
+                          <c:out value="${pessoa.cpf}" />
+                        </td>
+                        <td class="email">
+                          <c:out value="${pessoa.email}" />
+                        </td>
+                        <td class="seleciona">
+                          <a href="<c:url value="/erp/reservas/nova?id=${pessoa.id}" />" 
+                             class="selecionado">
+                            <i class="fa fa-fw fa-lg fa-edit"></i>
+                            Selecionar
+                          </a>
+                        </td>
+                      </tr>
+                    </c:forEach>
+                  </tbody>
+                </table>
+
+              </c:if>
+
+              <c:if test="${lista.isEmpty()}">
+
+                <div class="col-sm-3"></div>
+
+                <div class="col-sm-6">
+
+                  <div class="text-center">
+                    <h1>
+                      <span class="fa-stack fa-lg">
+                        <i class="fa fa-user fa-stack-1x text-success"></i>
+                        <i class="fa fa-search fa-stack-2x text-muted"></i>
+                      </span>
+                    </h1>
+                    <h2>
+                      Desculpe.
+                    </h2>
+                    <h3>
+                      Não pudemos encontrar pessoas com 
+                      <c:choose>
+                        <c:when test="${nomeBuscado != null}">
+                          o nome <div>"<c:out value="${nomeBuscado}" />"</div>
+                        </c:when>
+                        <c:when test="${emailBuscado != null}">
+                          o e-mail <div>"<c:out value="${emailBuscado}" />"</div>
+                        </c:when>
+                        <c:when test="${cpfBuscado != null}">
+                          o CPF <div>"<c:out value="${cpfBuscado}" />"</div>
+                        </c:when>
+                      </c:choose>
+                    </h3>
                   </div>
 
                 </div>
 
+              </c:if>
+
+            </div>
+
+          </div>
+          <!-- Fim da #1 linha de GRID dos formulários -->
+
+          <br style="clear: both;" />
+          <br style="clear: both;" />
+
+          <a class="btn btn-lg btn-block btn-primary hidden"
+             data-toggle="tab" 
+             data-target="#stepTwo"
+             href="#stepTwo">
+            <i class="fa fa-fw fa-lg fa-arrow-right"></i>
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <div role="tabpanel" class="tab-pane fade" id="stepTwo">
+
+        <form role="form" class="form-di" method="post"
+              accept-charset="UTF-8"
+              enctype="application/x-www-form-urlencoded"
+              action="nova">
+
+          <div class="steps-container">
+
+            <div class="row">
+
+              <div class="col-md-3"></div>
+
+              <div class="col-md-4">
+
+                <div class="form-group">
+                  <h4>
+                    <label for="reservaData">
+                      Data:
+                    </label>
+                    <div class="input-group input-group-lg">
+
+                      <span class="input-group-addon" id="basic-addon1">
+                        <i class="fa fa-fw fa-lg fa-calendar"></i>
+                      </span>
+
+                      <input type="text" class="form-control" placeholder="dd/mm/aaaa"
+                             tabindex="7" aria-describedby="basic-addon1"
+                             name="reservaData" id="reservaData" 
+                             required="true" />
+
+                    </div>
+                  </h4>
+                </div>
+
+                <div class="form-group">  
+                  <h4>
+                    <label for="reservaQuarto">
+                      Quarto:
+                    </label>
+                    <div class="input-group input-group-lg">
+
+                      <span class="input-group-addon" id="basic-addon2"><i class="fa fa-fw fa-lg fa-bed"></i></span>
+
+                      <select class="form-control" tabindex="8" aria-describedby="basic-addon2"
+                              name="reservaQuarto" id="reservaQuarto" required="true">
+                        <c:forEach items="${listaQuartos}" var="quarto" varStatus="stat">
+                          <option value="<c:out value="${quarto.id}" />">
+                            Quarto <c:out value="${quarto.numero}" />
+                          </option>
+                        </c:forEach>
+                      </select>              
+
+                    </div>
+                  </h4>
+                </div>
+
               </div>
+
+              <div class="col-md-5">
+
+                <c:if test="${!lista.isEmpty()}">
+
+                  <c:forEach items="${lista}" var="pessoa" varStatus="stat">
+                    
+                    <input type="hidden"
+                           name="reservaHospedeID"
+                           value="<c:out value="${pessoa.id}" />" />
+
+                    <h4>
+                      Hospede:
+                    </h4>
+
+                    <h4>
+                      <small>
+                        ID <c:out value="${pessoa.id}" />
+                      </small>
+                    </h4>
+
+                    <h4>
+                      <small>
+                        <c:out value="${pessoa.nome}" />
+                        <c:out value="${pessoa.sobrenome}" />                        
+                      </small>
+                    </h4>
+
+                    <h4>
+                      <small>
+                        <c:out value="${pessoa.cpf}" />                    
+                      </small>
+                    </h4>
+
+                    <h4>
+                      <small>
+                        <c:out value="${pessoa.email}" />                    
+                      </small>
+                    </h4>
+
+                  </c:forEach>
+
+                </c:if>
+
+              </div>
+
+            </div>
+
+            <br style="clear: both;" />
+
+            <div class="row">
+
+              <div class="col-md-3"></div>
+
+              <div class="col-md-3 col-xs-6">
+
+                <a class="btn btn-lg btn-block btn-primary"
+                   href="<c:url value="/erp/reservas/nova" />"
+                   >
+                  <i class="fa fa-fw fa-lg fa-arrow-left"></i>
+                  VOLTAR
+                </a>
+
+              </div>
+
+              <div class="col-md-3 col-xs-6">
+
+                <button class="btn btn-lg btn-block btn-default"
+                        type="submit" tabindex="9">
+                  RESERVAR
+                  <i class="fa fa-fw fa-lg fa-check"></i>
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>          
+
+        </form>
+
+      </div>
+
+
+      <div role="tabpanel" class="tab-pane fade" id="stepTree">
+
+        <div class="steps-container">
+
+          <div class="row">
+
+            <div class="col-sm-3"></div>
+
+            <div class="col-sm-6 text-center">
+
+              <h4>
+                <label for="exibirReservaHospede">
+                  Hospede
+                </label>
+                <br />
+                <small id="exibirReservaHospede"></small>
+              </h4>
+
+              <h4>
+                <label for="exibirReservaData">
+                  Data da Reserva
+                </label>
+                <br />
+                <small id="exibirReservaData"></small>
+              </h4>
+
+              <h4>
+                <label for="exibirReservaQuarto">
+                  Quarto
+                </label>
+                <br />
+                <small id="exibirReservaQuarto"></small>
+              </h4>
 
             </div>
 
           </div>
 
-        </form>
+          <br style="clear: both;" />
+
+        </div>
 
       </div>
 

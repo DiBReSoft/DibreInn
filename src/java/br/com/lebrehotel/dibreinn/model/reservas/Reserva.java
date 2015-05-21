@@ -5,9 +5,6 @@ package br.com.lebrehotel.dibreinn.model.reservas;
  * @author Fabio Ernanni data: 05/04/15 essa classe tem como finalidade definir
  * os atributos de Reserva
  */
-import br.com.lebrehotel.dibreinn.model.quarto.Quarto;
-import br.com.lebrehotel.dibreinn.model.pessoa.Hospede;
-import br.com.lebrehotel.dibreinn.model.pessoa.Funcionario;
 import java.util.Date;
 
 public class Reserva {
@@ -17,27 +14,9 @@ public class Reserva {
   private int idFuncionario;
   private int idHospede;
   private int idQuarto;
-  private int idPedido;
   private Date checkIn;
   private Date checkOut;
   private double valorEstadia;
-
-  public Reserva() {
-
-  }
-
-  public boolean abrirReserva(Reserva reserva, Quarto quarto, Hospede hospede, Funcionario funcionario) {
-    this.idFuncionario = funcionario.getId();
-    this.idHospede = hospede.getId();
-    this.idQuarto = quarto.getId();
-    this.checkIn = reserva.checkIn;
-    return true;
-  }
-
-  public boolean fecharReserva(Reserva reserva) {
-    this.checkOut = reserva.checkOut;
-    return true;
-  }
 
   public int getId() {
     return id;
@@ -77,14 +56,6 @@ public class Reserva {
 
   public void setIdQuarto(int idQuarto) {
     this.idQuarto = idQuarto;
-  }
-
-  public int getIdPedido() {
-    return idPedido;
-  }
-
-  public void setIdPedido(int idPedido) {
-    this.idPedido = idPedido;
   }
 
   public Date getCheckIn() {

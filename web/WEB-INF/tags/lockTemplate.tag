@@ -9,6 +9,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     <meta name="author" content="Luciano Lourenço, Thiago Medeiros, Fabio Ernani, Udimberto Junior" />
+    
+    <link rel="shortcut icon" href="<c:url value="/assets/img/favicon.ico" />" type="image/x-icon" />
 
     <title>
       D.I. | Lebre Hotel:
