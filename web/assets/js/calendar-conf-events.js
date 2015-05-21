@@ -14,15 +14,17 @@ var Script = function () {
   var eventos = [];
   for (var i = 0; i < 3; i++) {
     for (var j = 1; j < 32; j++) {
+      /*
       eventos.push({
         title: 'Nova Reserva',
         start: new Date(y, m, j),
-        url: 'reservas/nova?data=' + moment(j + "-" + (m + 1) + "-" + y, "DD-MM-YYYY").format("DD-MM-YYYY")
+        url: 'nova?data=' + moment(j + "-" + (m + 1) + "-" + y, "DD-MM-YYYY").format("DD-MM-YYYY")
       });
+      */
       eventos.push({
         title: 'Listar Reservas',
         start: new Date(y, m, j),
-        url: 'reservas/listar?data=' + moment(j + "-" + (m + 1) + "-" + y, "DD-MM-YYYY").format("DD-MM-YYYY")
+        url: 'listar?data=' + moment(j + "-" + (m + 1) + "-" + y, "DD-MM-YYYY").format("DD-MM-YYYY")
       });
     }
     m++;

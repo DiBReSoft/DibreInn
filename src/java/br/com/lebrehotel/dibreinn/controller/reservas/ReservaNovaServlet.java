@@ -2,7 +2,8 @@ package br.com.lebrehotel.dibreinn.controller.reservas;
 
 import br.com.lebrehotel.dibreinn.model.pessoa.PessoaDAO;
 import br.com.lebrehotel.dibreinn.model.quarto.QuartoDAO;
-import br.com.lebrehotel.dibreinn.model.reservas.Reserva;
+import br.com.lebrehotel.dibreinn.model.reserva.Reserva;
+import br.com.lebrehotel.dibreinn.model.reserva.ReservaDAO;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -95,45 +96,52 @@ public class ReservaNovaServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	  throws ServletException, IOException {
 
+    boolean resultadoOperacao = false;
+    
+    String reservaFormFuncionarioID = request.getParameter("reservaFuncionarioID");
     String reservaFormHospedeID = request.getParameter("reservaHospedeID");
     String reservaFormQuarto = request.getParameter("reservaQuarto");
     String reservaFormData = request.getParameter("reservaData");
-    
-    System.out.println("\nDados coletados de nova reserva:".toUpperCase());    
+
+    System.out.println("\nDados coletados de nova reserva:".toUpperCase());
     System.out.println("ID do Hospede: " + reservaFormHospedeID);
     System.out.println("ID do Quarto: " + reservaFormQuarto);
     System.out.println("Data para reserva: " + reservaFormData);
 
     Reserva novaReserva = new Reserva();
 
+    novaReserva.setIdFuncionario(Integer.parseInt(reservaFormFuncionarioID));
     novaReserva.setIdHospede(Integer.parseInt(reservaFormHospedeID));
     novaReserva.setIdQuarto(Integer.parseInt(reservaFormQuarto));
-    
+
     String status = null;
 
     Date checkin = new Date();
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-    
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
     try {
-      
+
       checkin = sdf.parse(reservaFormData);
       novaReserva.setCheckIn(checkin);
-      
-      // ReservaDAO reservaBD = new ReservaDAO();
-      // reservaBD.registrar(novaReserva);
-      
-      status = "ok";
-      
+
+      ReservaDAO reservaBD = new ReservaDAO();
+      resultadoOperacao = reservaBD.cadastrarReserva(novaReserva);
+
     } catch (ParseException ex) {
-      
+
       Logger.getLogger(ReservaNovaServlet.class.getName()).log(Level.SEVERE, null, ex);
-      System.err.print("!!! [ERRO] !!!\n" + ex);
-      status = "falhou";
-      
+      System.err.print("[ERRO]\n" + ex);
+
     } finally {
-      
+
+      if (resultadoOperacao) {
+	status = "ok";
+      } else {
+	status = "falhou";
+      }
+
       response.sendRedirect("resultado?status=" + status);
-      
+
     }
 
   }

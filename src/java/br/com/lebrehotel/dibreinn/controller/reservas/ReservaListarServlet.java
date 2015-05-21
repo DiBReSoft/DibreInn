@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jSilverize
  */
-@WebServlet(name = "ReservaListarServlet", urlPatterns = {"/erp/reservas/listar"})
+@WebServlet(name = "ReservaListarServlet", urlPatterns = {"/erp/reservas/","/erp/reservas/listar"})
 public class ReservaListarServlet extends HttpServlet {
 
   /**
@@ -31,7 +31,7 @@ public class ReservaListarServlet extends HttpServlet {
 
     request.setAttribute("dataParaListar", data);
 
-    RequestDispatcher rd = request.getRequestDispatcher("/erp/reservas/listar.jsp");
+    RequestDispatcher rd = request.getRequestDispatcher("/erp/reservas/reservas.jsp");
     rd.forward(request, response);
 
   }

@@ -29,14 +29,31 @@
           </li>
         </ul>
       </li>
-
-      <li class="item-menu">
-        <a href="<c:url value="/erp/reservas" />" >
+      
+      <li class="sub-menu">
+        <a href="javascript:;" >
           <i class="fa fa-fw fa-lg fa-th"></i>
           <span>
             Reservas
           </span>
         </a>
+        <ul class="sub">
+          <li class="item-menu">
+            <a  href="<c:url value="/erp/reservas/nova" />">
+              Nova
+            </a>
+          </li>
+          <li class="item-menu">
+            <a  href="<c:url value="/erp/reservas/listar" />">
+              Listar
+            </a>
+          </li>
+          <li class="item-menu">
+            <a  href="<c:url value="/erp/reservas/buscar" />">
+              Buscar &amp; Editar
+            </a>
+          </li>
+        </ul>
       </li>
 
       <li class="sub-menu">
