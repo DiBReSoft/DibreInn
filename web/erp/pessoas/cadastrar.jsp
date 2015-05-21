@@ -236,6 +236,7 @@
                          name="formCpf" id="formCpf" 
                          placeholder="CPF" 
                          maxlength="50"
+                         required
                          value="<c:out value="${pessoa.cpf}" />" />
                 </div>
 
@@ -642,7 +643,8 @@
                      data-off-label="<i class='fa fa-times'></i>"
                      id="checkOpUsuario">
                   <input type="checkbox" value="1"
-                         name="formOpUsuario" id="formOpUsuario"
+                         name="formOpUsuario" 
+                         id="formOpUsuario"
                          checked
                          />
                 </div>

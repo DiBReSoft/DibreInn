@@ -37,6 +37,7 @@ public class PessoaCadastrarServlet extends HttpServlet {
 	  throws ServletException, IOException {
 
     String pessoaID = request.getParameter("id");
+    System.out.println("Mostre o ID na URL: " + pessoaID);
 
     if (pessoaID != null) {
 
@@ -81,8 +82,8 @@ public class PessoaCadastrarServlet extends HttpServlet {
 	  throws ServletException, IOException {
 
     String idNaURL = request.getParameter("formID");
-    System.out.println(idNaURL);
-
+    System.out.println("Mostre o ID na URL: " + idNaURL);
+    
     Funcionario f = null;
     Hospede h = null;
     boolean resultado = false;
@@ -122,7 +123,7 @@ public class PessoaCadastrarServlet extends HttpServlet {
 
 	// Através do parâmetro ID na URL, iremos verificar se trata-se de um
 	// novo cadastrou ou se é uma atualização de um cadastro já existente
-	if (idNaURL == null) {
+	if (idNaURL.equals("")) {
 	  
 	  System.out.println("Realizando novo cadastro.");
 	  
@@ -154,15 +155,21 @@ public class PessoaCadastrarServlet extends HttpServlet {
 	f.setTelefone(request.getParameter("formTel"));
 	f.setCelular(request.getParameter("formCel"));
 	f.setEmail(request.getParameter("formEmail"));
+	
 	if (request.getParameter("formNewsletter") != null) {
 	  f.setNewsletter(Integer.parseInt(request.getParameter("formNewsletter")));
 	} else {
 	  f.setNewsletter(0);
 	}
-	if (request.getParameter("formOpUsuario").equalsIgnoreCase("1")) {
+	
+	if (request.getParameter("formOpUsuario").equals("1")) {
 	  f.setLogin(request.getParameter("formEmail"));
 	  f.setSenha(request.getParameter("formSenha"));
+	} else {
+	  f.setLogin(null);
+	  f.setSenha(null);
 	}
+	
 	//verificar se o salario foi informado
 	if (!request.getParameter("formSalario").isEmpty()) {
 	  f.setSalario(Double.parseDouble(request.getParameter("formSalario")));
@@ -186,7 +193,7 @@ public class PessoaCadastrarServlet extends HttpServlet {
 
 	// Através do parâmetro ID na URL, iremos verificar se trata-se de um
 	// novo cadastrou ou se é uma atualização de um cadastro já existente
-	if (idNaURL == null) {
+	if (idNaURL.equals("")) {
 
 	  System.out.println("Realizando novo cadastro.");
 
