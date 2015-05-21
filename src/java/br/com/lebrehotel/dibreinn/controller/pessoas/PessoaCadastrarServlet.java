@@ -72,7 +72,8 @@ public class PessoaCadastrarServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	  throws ServletException, IOException {
 
-    String idNaURL = request.getParameter("id");
+    String idNaURL = request.getParameter("formID");
+    System.out.println(idNaURL);
 
     Funcionario f = null;
     Hospede h = null;

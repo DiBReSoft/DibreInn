@@ -31,6 +31,10 @@
     <h2>
       <c:out value="${mensagem}" />
     </h2>
+    
+    <h1 class="text-center">
+      <i class="fa fa-fw fa-5x fa-crash"></i>
+    </h1>
 
   </jsp:body>
 

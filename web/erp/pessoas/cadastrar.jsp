@@ -64,6 +64,9 @@
             action="cadastrar"
             accept-charset="UTF-8"
             enctype="application/x-www-form-urlencoded">
+        
+        <input type="hidden" name="formID" id="formID"
+               value="${pessoa.id}" />
 
         <div style="padding: 5px;"></div>
 
@@ -645,7 +648,7 @@
                 </div>
                 <!-- Check Option de Criação de id e senha -->
               </div>
-              
+
               <div class="collapsed in" id="collapseExample">
                 <div class="row" id="formUsuario">
                   <div class="col-md-3">
@@ -672,7 +675,7 @@
                 </div>
               </div>
               <!-- DIV com os campos de id e senha -->
-              
+
             </div>
             <!-- Fim: Adicionais sobre o Funcionário -->
 
