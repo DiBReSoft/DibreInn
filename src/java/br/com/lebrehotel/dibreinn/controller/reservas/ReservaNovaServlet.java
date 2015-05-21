@@ -97,7 +97,7 @@ public class ReservaNovaServlet extends HttpServlet {
 	  throws ServletException, IOException {
 
     boolean resultadoOperacao = false;
-    
+
     String reservaFormFuncionarioID = request.getParameter("reservaFuncionarioID");
     String reservaFormHospedeID = request.getParameter("reservaHospedeID");
     String reservaFormQuarto = request.getParameter("reservaQuarto");
@@ -111,7 +111,7 @@ public class ReservaNovaServlet extends HttpServlet {
     Reserva novaReserva = new Reserva();
 
     //novaReserva.setIdFuncionario(Integer.parseInt(reservaFormFuncionarioID));
-    novaReserva.setIdFuncionario(1);
+    novaReserva.setIdFuncionario(3);
     novaReserva.setIdHospede(Integer.parseInt(reservaFormHospedeID));
     novaReserva.setIdQuarto(Integer.parseInt(reservaFormQuarto));
 
@@ -128,20 +128,16 @@ public class ReservaNovaServlet extends HttpServlet {
       ReservaDAO reservaBD = new ReservaDAO();
       resultadoOperacao = reservaBD.cadastrarReserva(novaReserva);
 
+      response.sendRedirect("../sucesso");
+
     } catch (ParseException ex) {
 
       Logger.getLogger(ReservaNovaServlet.class.getName()).log(Level.SEVERE, null, ex);
       System.err.print("[ERRO]\n" + ex);
 
+      response.sendRedirect("../erro");
+
     } finally {
-
-      if (resultadoOperacao) {
-	status = "ok";
-      } else {
-	status = "falhou";
-      }
-
-      response.sendRedirect("resultado?status=" + status);
 
     }
 
