@@ -1,4 +1,4 @@
-package br.com.lebrehotel.dibreinn.model.reservas;
+package br.com.lebrehotel.dibreinn.model.reserva;
 
 /**
  *
