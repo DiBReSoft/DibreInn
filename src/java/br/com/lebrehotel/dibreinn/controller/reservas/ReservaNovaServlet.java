@@ -110,7 +110,8 @@ public class ReservaNovaServlet extends HttpServlet {
 
     Reserva novaReserva = new Reserva();
 
-    novaReserva.setIdFuncionario(Integer.parseInt(reservaFormFuncionarioID));
+    //novaReserva.setIdFuncionario(Integer.parseInt(reservaFormFuncionarioID));
+    novaReserva.setIdFuncionario(1);
     novaReserva.setIdHospede(Integer.parseInt(reservaFormHospedeID));
     novaReserva.setIdQuarto(Integer.parseInt(reservaFormQuarto));
 
