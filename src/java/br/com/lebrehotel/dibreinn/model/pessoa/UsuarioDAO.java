@@ -20,18 +20,19 @@ public class UsuarioDAO {
     PreparedStatement stmt = null;
     Usuario u = null;
 
-    String query = "SELECT P.EMAIL, F.SENHA FROM TB_PESSOA AS P "
+    String query = "SELECT P.EMAIL as EMAIL, F.SENHA as SENHA FROM TB_PESSOA AS P "
 	    + "JOIN TB_FUNCIONARIO AS F "
 	    + "ON P.ID_PESSOA = F.ID_PESSOA "
-	    + "WHERE P.EMAIL = '" + usuario + "' AND F.SENHA = '" + senha + "'";
+	    + "WHERE P.EMAIL = ? AND F.SENHA = ?";
 
     try {
       
       conexao.openConection();
       stmt = conexao.conn.prepareStatement(query);
-
+      stmt.setString(1, usuario);
+      stmt.setString(2, senha);
       ResultSet rs = stmt.executeQuery();
-      
+      rs.next();
       //Condição que verifica se o usuário tem login no sistema
       if (rs.getString("SENHA").equalsIgnoreCase("")) {
 	

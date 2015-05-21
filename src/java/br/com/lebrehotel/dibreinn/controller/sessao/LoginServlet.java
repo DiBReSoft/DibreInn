@@ -58,7 +58,7 @@ public class LoginServlet extends HttpServlet {
 
       sessao.setAttribute("usuario", usuario);
 
-      response.sendRedirect("inicio");
+      response.sendRedirect("./erp/inicio");
 
       return;
 
