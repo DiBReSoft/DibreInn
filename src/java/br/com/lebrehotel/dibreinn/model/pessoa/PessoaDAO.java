@@ -257,45 +257,47 @@ public class PessoaDAO {
         return null;
     }
 
-    public int AlterarPessoaFuncionario(int id, Funcionario p, Endereco e) {
+    public int atualizaPessoaFuncionario(int id, Funcionario p, Endereco e) {
 
         ConectarBD conexao = new ConectarBD();
         PreparedStatement stmt = null;
 
-        String sql = "BEGIN TRANSACTION \n";
-        sql += "DECLARE @idCliente INT = 1\n";
-        sql += "UPDATE TB_PESSOA SET SOBRENOME='?', DATANASC='?', TELEFONE='?',CEL='?', EMAIL='?',NEWSLETTER=?";
-        sql += "WHERE ID_PESSOA =" + id + "\n";
-        sql += "UPDATE TB_FUNCIONARIO SET ID_UNIDADE='?',DEPARTAMENTO='?',CARGO='?',SALARIO=?,SENHA='?'";
-        sql += "WHERE ID_PESSOA =" + id + "\n";
-        sql += "UPDATE TB_ENDERECO SET LOGRADOURO='?',NUM=?,CEP='?',COMPLEMENTO='?',BAIRRO='?',CIDADE='?',ESTADO='?',PAIS='?'";
-        sql += "WHERE ID_PESSOA =" + id + "\n";
-        sql += "IF @@ERROR <> 0\n BEGIN\n ROLLBACK\n END\n ELSE\n COMMIT\n GO";
+        String sql = "BEGIN TRANSACTION "
+                + "DECLARE @idCliente INT = ? "
+                + "UPDATE TB_PESSOA SET SOBRENOME='?', DATANASC='?', TELEFONE='?',CEL='?', EMAIL='?',NEWSLETTER=?"
+                + "WHERE ID_PESSOA = @idCliente"
+                + "UPDATE TB_FUNCIONARIO SET ID_UNIDADE='?',DEPARTAMENTO='?',CARGO='?',SALARIO=?,SENHA='?'"
+                + "WHERE ID_PESSOA =@idCliente"
+                + "UPDATE TB_ENDERECO SET LOGRADOURO='?',NUM=?,CEP='?',COMPLEMENTO='?',BAIRRO='?',CIDADE='?',ESTADO='?',PAIS='?'"
+                + "WHERE ID_PESSOA = @idCliente"
+                + "IF @@ERROR <> 0\n BEGIN\n ROLLBACK\n END\n ELSE\n COMMIT\n GO";
 
         try {
             conexao.openConection();
             stmt = conexao.conn.prepareStatement(sql);
-
-            stmt.setString(1, p.getSobrenome());
-            stmt.setDate(2, p.getDataNascimento());
-            stmt.setString(3, p.getTelefone());
-            stmt.setString(4, p.getCelular());
+            
+            stmt.setInt(1,id);
+            stmt.setString(2, p.getSobrenome());
+            stmt.setDate(3, p.getDataNascimento());
+            stmt.setString(4, p.getTelefone());
+            stmt.setString(5, p.getCelular());
             stmt.setString(5, p.getEmail());
-            stmt.setInt(6, p.getNewsletter());
+            stmt.setInt(7, p.getNewsletter());
 
-            stmt.setInt(7, p.getUnidade());
-            stmt.setString(8, p.getDepartamento());
-            stmt.setString(9, p.getCargo());
-            stmt.setDouble(10, p.getSalario());
+            stmt.setInt(8, p.getUnidade());
+            stmt.setString(9, p.getDepartamento());
+            stmt.setString(10, p.getCargo());
+            stmt.setDouble(11, p.getSalario());
+            stmt.setString(12, p.getSenha());
 
-            stmt.setString(11, e.getLogradouro());
-            stmt.setString(12, e.getNumero());
-            stmt.setString(13, e.getCep());
-            stmt.setString(14, e.getComplemento());
-            stmt.setString(15, e.getBairro());
-            stmt.setString(16, e.getCidade());
-            stmt.setString(17, e.getEstado());
-            stmt.setString(18, e.getPais());
+            stmt.setString(13, e.getLogradouro());
+            stmt.setString(14, e.getNumero());
+            stmt.setString(15, e.getCep());
+            stmt.setString(16, e.getComplemento());
+            stmt.setString(17, e.getBairro());
+            stmt.setString(18, e.getCidade());
+            stmt.setString(19, e.getEstado());
+            stmt.setString(20, e.getPais());
 
             stmt.executeUpdate();
             System.out.println("Dados Alterados com sucesso!!!");
@@ -329,7 +331,7 @@ public class PessoaDAO {
         PreparedStatement stmt = null;
         String query;
         Funcionario func = new Funcionario();
-        
+
         query = "SELECT pe.ID_PESSOA, pe.NOME, pe.SOBRENOME, pe.SEXO, pe.RG, CPF, pe.DATANASC, pe.TELEFONE, pe.CEL, pe.EMAIL, pe.TIPO,pe.NEWSLETTER,"
                 + "func.ID_UNIDADE, func.DEPARTAMENTO, func.CARGO, func.SALARIO "
                 + "FROM TB_FUNCIONARIO as func "
@@ -371,20 +373,20 @@ public class PessoaDAO {
         return func;
 
     }
-    
+
     public Hospede getHospede(int id) {
-   
+
         ConectarBD conexao = new ConectarBD();
         PreparedStatement stmt = null;
         String query;
         Hospede hosp = new Hospede();
-        
-        query = "SELECT pe.ID_PESSOA,pe.NOME, pe.SOBRENOME, pe.SEXO, pe.RG, CPF, pe.DATANASC, pe.TELEFONE, pe.CEL, pe.EMAIL, pe.TIPO,pe.NEWSLETTER,\n" +
-        "hosp.N_CARTAO\n" +
-        "FROM TB_PESSOA as pe\n" +
-        "INNER JOIN TB_HOSPEDE as hosp on hosp.ID_PESSOA = pe.ID_PESSOA\n" +
-        "WHERE pe.ID_PESSOA = ?";      
-       
+
+        query = "SELECT pe.ID_PESSOA,pe.NOME, pe.SOBRENOME, pe.SEXO, pe.RG, CPF, pe.DATANASC, pe.TELEFONE, pe.CEL, pe.EMAIL, pe.TIPO,pe.NEWSLETTER,\n"
+                + "hosp.N_CARTAO\n"
+                + "FROM TB_PESSOA as pe\n"
+                + "INNER JOIN TB_HOSPEDE as hosp on hosp.ID_PESSOA = pe.ID_PESSOA\n"
+                + "WHERE pe.ID_PESSOA = ?";
+
         try {
             conexao.openConection();
             stmt = conexao.conn.prepareStatement(query);
@@ -405,7 +407,7 @@ public class PessoaDAO {
             hosp.setEmail(result.getString("EMAIL"));
             hosp.setNewsletter(result.getInt("NEWSLETTER"));
             hosp.setnCartao(result.getString("N_CARTAO"));
-          
+
             System.out.println("Dados de funcionario populados com sucesso");
             conexao.closeConection();
 
@@ -432,9 +434,11 @@ public class PessoaDAO {
             result.next();
             idPessoa = result.getInt("ID_PESSOA");
             System.out.println("ID encontrado com sucesso!");
+            conexao.closeConection();
             return idPessoa;
 
         } catch (SQLException ex) {
+            conexao.closeConection();
             System.out.println("Erro ao retornar o id: " + ex);
             return 0;
         }
@@ -473,17 +477,17 @@ public class PessoaDAO {
         }
         return result;
     }
-    
-    
-    public int deletarPessoa(int id,String tipo){
-     
+
+    public int deletarPessoa(int id, String tipo) {
+
         ConectarBD conexao = new ConectarBD();
         PreparedStatement stmt = null;
         String query = "DELETE FROM TB_PESSOA WHERE ID_PESSOA = ? \n";
-        if(tipo.equalsIgnoreCase("f"))
-        query+= " DELETE FROM TB_FUNCIONARIO WHERE ID_PESSOA = ?";
-        else
-        query+= " DELETE FROM TB_HOSPEDE WHERE ID_PESSOA = ?";    
+        if (tipo.equalsIgnoreCase("f")) {
+            query += " DELETE FROM TB_FUNCIONARIO WHERE ID_PESSOA = ?";
+        } else {
+            query += " DELETE FROM TB_HOSPEDE WHERE ID_PESSOA = ?";
+        }
 
         try {
             conexao.openConection();
@@ -491,13 +495,50 @@ public class PessoaDAO {
             stmt.setInt(1, id);
             stmt.executeQuery();
             System.out.println("deletado com sucesso!");
+            conexao.closeConection();
             return 1;
 
         } catch (SQLException ex) {
+            conexao.closeConection();
             System.out.println("Erro ao retornar o id: " + ex);
             return 0;
         }
     }
-   
 
+    public Endereco getEndereco(int id) {
+
+        Endereco end = new Endereco();
+        ConectarBD conexao = new ConectarBD();
+        PreparedStatement stmt = null;
+        String query;
+
+        query = "SELECT LOGRADOURO, NUM, CEP, COMPLEMENTO, BAIRRO,CIDADE, ESTADO, PAIS FROM TB_ENDERECO WHERE ID_PESSOA = ?";
+
+        try {
+            conexao.openConection();
+            stmt = conexao.conn.prepareStatement(query);
+            stmt.setInt(1, id);
+            ResultSet result = stmt.executeQuery();
+            result.next();
+
+            end.setLogradouro(result.getString("LOGRADOURO"));
+            end.setNumero(result.getString("NUM"));
+            end.setCep(result.getString("CEP"));
+            end.setComplemento(result.getString("COMPLEMENTO"));
+            end.setBairro(result.getString("BAIRRO"));
+            end.setCidade(result.getString("CIDADE"));
+            end.setEstado(result.getString("ESTADO"));
+            end.setPais(result.getString("Pais"));
+
+            System.out.println("Dados de endereço populados com sucesso");
+            conexao.closeConection();
+
+        } catch (SQLException ex) {
+            // Caso haja erro 
+            Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, "[INFO] Erro ao popular os dados de hospede gravar os dados: ", ex);
+            conexao.closeConection();
+        }
+
+        return end;
+    }
 }

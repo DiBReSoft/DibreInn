@@ -37,20 +37,25 @@ public class PessoaCadastrarServlet extends HttpServlet {
             if (consulta.isFuncionario(Integer.parseInt(pessoaID))) {
 
                 Funcionario func = new Funcionario();
+                Endereco end =  new Endereco();
 
                 func = consulta.getFuncionario(Integer.parseInt(pessoaID));
 
                 request.setAttribute("pessoa", func);
+                request.setAttribute("end", end);
 
             } else {
 
                 Hospede hosp = new Hospede();
+                Endereco end = new Endereco();
 
                 hosp = consulta.getHospede(Integer.parseInt(pessoaID));
 
                 request.setAttribute("pessoa", hosp);
+                request.setAttribute("end", end);
 
             }
+                
 
         }
 
