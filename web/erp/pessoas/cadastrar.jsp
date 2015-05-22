@@ -411,7 +411,7 @@
                   <input type="number" class="form-control" 
                          tabindex="12"
                          name="formNumero" id="formNumero"
-                         placeholder="823"
+                         placeholder="823" min="0"
                          value="<c:out value="${end.numero}" />" />
                 </div>
 
@@ -843,7 +843,7 @@
                     <input type="number" class="form-control" 
                            tabindex="22"
                            name="formSalario" id="formSalario"
-                           placeholder="1400"
+                           placeholder="1400" min="0"
                            value="<c:out value="${pessoa.salario}" />" />
                   </div>
 

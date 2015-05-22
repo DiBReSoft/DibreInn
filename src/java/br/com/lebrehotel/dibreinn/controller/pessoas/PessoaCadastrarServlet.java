@@ -262,7 +262,7 @@ public class PessoaCadastrarServlet extends HttpServlet {
     Email email = new Email();
     email.setDestinatario(p.getEmail());
     email.setAssunto("Cadastro Efetuado");
-    email.setMensagem(p.getNome() + ", seja bem-vindo e obrigado por efetuar o cadastro no Lebre Hotel!");
+    email.setMensagem(p.getNome() + ", seja bem-vindo(a) e obrigado por efetuar o cadastro no Lebre Hotel!");
     //EnviarEmail envia = new EnviarEmail();
     EnviarEmail(email);
   }

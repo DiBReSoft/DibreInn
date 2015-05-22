@@ -77,6 +77,15 @@ public class ReservaNovaServlet extends HttpServlet {
       request.setAttribute("idHospede", idHospedeReserva);
       String js = "stepTwo.click();";
       request.setAttribute("selecionouHospede", js);
+      String ativarTab1 = "disabled";
+      request.setAttribute("ativarTab1", ativarTab1);
+      String ativarTab2 = "active";
+      request.setAttribute("ativarTab2", ativarTab2);
+    } else {
+      String ativarTab1 = "active";
+      request.setAttribute("ativarTab1", ativarTab1);
+      String ativarTab2 = "disabled";
+      request.setAttribute("ativarTab2", ativarTab2);
     }
 
     RequestDispatcher rd = request.getRequestDispatcher("/erp/reservas/nova.jsp");
