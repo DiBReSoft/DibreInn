@@ -51,11 +51,12 @@
           <hr />
           <div class="input-group">
 
-            <input type="text" class="form-control"
+            <input type="text" class="form-control calendar"
                    tabindex="1"
                    name="data" id="reservaData" 
                    placeholder="dd/mm/aaaa" 
-                   value="<c:out value="${dataBuscada}" />" />
+                   value="<c:out value="${dataBuscada}" />" 
+                   required />
 
             <span class="input-group-btn">
 

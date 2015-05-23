@@ -1,13 +1,17 @@
 package br.com.lebrehotel.dibreinn.controller.reservas;
 
+import br.com.lebrehotel.dibreinn.model.pessoa.Pessoa;
 import br.com.lebrehotel.dibreinn.model.pessoa.PessoaDAO;
+import br.com.lebrehotel.dibreinn.model.quarto.Quarto;
 import br.com.lebrehotel.dibreinn.model.quarto.QuartoDAO;
 import br.com.lebrehotel.dibreinn.model.reserva.Reserva;
 import br.com.lebrehotel.dibreinn.model.reserva.ReservaDAO;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -34,62 +38,74 @@ public class ReservaNovaServlet extends HttpServlet {
    */
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
-	  throws ServletException, IOException {
+          throws ServletException, IOException {
 
-    //buscando apenas os quartos disponiveis
-    QuartoDAO consulta = new QuartoDAO();
-    request.setAttribute("listaQuartos", consulta.BuscarQuartos(0, 1));
+    try {
 
-    PessoaDAO consultarPessoa = new PessoaDAO();
+      QuartoDAO quartosBD = new QuartoDAO();
+      List listaQuartos = new ArrayList<Quarto>();
 
-    // Esse atributo irá esconder a DIV com os resultados da busca na página nova.jsp
-    request.setAttribute("visibilidadeResultados", "hidden");
+      // buscando apenas os quartos disponiveis
+      listaQuartos = quartosBD.BuscarQuartos(0, 1);
+      request.setAttribute("listaQuartos", listaQuartos);
 
-    // Armazenando os dados que possivelmente serão digitados
-    String nomeParaBuscar = request.getParameter("nome");
-    String buscarEmail = request.getParameter("email");
-    String buscarCpf = request.getParameter("cpf");
+      PessoaDAO pessoasBD = new PessoaDAO();
+      List listaPessoas = new ArrayList<Pessoa>();
 
-    request.setAttribute("nomeBuscado", nomeParaBuscar);
-    request.setAttribute("emailBuscado", buscarEmail);
-    request.setAttribute("cpfBuscado", buscarCpf);
+      // Esse atributo irá esconder a DIV com os resultados da busca na página nova.jsp
+      request.setAttribute("visibilidadeResultados", "hidden");
 
-    // Se um destes campos de busca estiverem preenchidos, deixe a DIV com os resultados da busca visível
-    if (nomeParaBuscar != null || buscarEmail != null || buscarCpf != null) {
-      request.setAttribute("visibilidadeResultados", null);
+      // Armazenando os dados que possivelmente serão digitados
+      String nomeParaBuscar = request.getParameter("nome");
+      String buscarEmail = request.getParameter("email");
+      String buscarCpf = request.getParameter("cpf");
+
+      request.setAttribute("nomeBuscado", nomeParaBuscar);
+      request.setAttribute("emailBuscado", buscarEmail);
+      request.setAttribute("cpfBuscado", buscarCpf);
+
+      // Se um destes campos de busca estiverem preenchidos, deixe a DIV com os resultados da busca visível
+      if (nomeParaBuscar != null || buscarEmail != null || buscarCpf != null) {
+        request.setAttribute("visibilidadeResultados", null);
+      }
+
+      if (nomeParaBuscar != null) {
+        // busca por nome, retornando uma pessoa
+        request.setAttribute("lista", pessoasBD.BuscarPessoas(nomeParaBuscar, 1));
+      } else if (buscarEmail != null) {
+        // busca por email, retornando uma pessoa
+        request.setAttribute("lista", pessoasBD.BuscarPessoas(buscarEmail, 2));
+      } else if (buscarCpf != null) {
+        // busca por cpf, retornando uma pessoa
+        request.setAttribute("lista", pessoasBD.BuscarPessoas(buscarCpf, 3));
+      }
+
+      String idHospedeReserva = request.getParameter("id");
+
+      if (idHospedeReserva != null) {
+        request.setAttribute("lista", pessoasBD.BuscarPessoas(idHospedeReserva, 4));
+        request.setAttribute("idHospede", idHospedeReserva);
+        String js = "stepTwo.click();";
+        request.setAttribute("selecionouHospede", js);
+        String ativarTab1 = "disabled";
+        request.setAttribute("ativarTab1", ativarTab1);
+        String ativarTab2 = "active";
+        request.setAttribute("ativarTab2", ativarTab2);
+      } else {
+        String ativarTab1 = "active";
+        request.setAttribute("ativarTab1", ativarTab1);
+        String ativarTab2 = "disabled";
+        request.setAttribute("ativarTab2", ativarTab2);
+      }
+
+      RequestDispatcher rd = request.getRequestDispatcher("/erp/reservas/nova.jsp");
+      rd.forward(request, response);
+
+    } catch (Exception ex) {
+
+      response.sendRedirect("../erro");
+
     }
-
-    if (nomeParaBuscar != null) {
-      // busca por nome, retornando uma pessoa
-      request.setAttribute("lista", consultarPessoa.BuscarPessoas(nomeParaBuscar, 1));
-    } else if (buscarEmail != null) {
-      // busca por email, retornando uma pessoa
-      request.setAttribute("lista", consultarPessoa.BuscarPessoas(buscarEmail, 2));
-    } else if (buscarCpf != null) {
-      // busca por cpf, retornando uma pessoa
-      request.setAttribute("lista", consultarPessoa.BuscarPessoas(buscarCpf, 3));
-    }
-
-    String idHospedeReserva = request.getParameter("id");
-
-    if (idHospedeReserva != null) {
-      request.setAttribute("lista", consultarPessoa.BuscarPessoas(idHospedeReserva, 4));
-      request.setAttribute("idHospede", idHospedeReserva);
-      String js = "stepTwo.click();";
-      request.setAttribute("selecionouHospede", js);
-      String ativarTab1 = "disabled";
-      request.setAttribute("ativarTab1", ativarTab1);
-      String ativarTab2 = "active";
-      request.setAttribute("ativarTab2", ativarTab2);
-    } else {
-      String ativarTab1 = "active";
-      request.setAttribute("ativarTab1", ativarTab1);
-      String ativarTab2 = "disabled";
-      request.setAttribute("ativarTab2", ativarTab2);
-    }
-
-    RequestDispatcher rd = request.getRequestDispatcher("/erp/reservas/nova.jsp");
-    rd.forward(request, response);
 
   }
 
@@ -103,9 +119,7 @@ public class ReservaNovaServlet extends HttpServlet {
    */
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
-	  throws ServletException, IOException {
-
-    boolean resultadoOperacao = false;
+          throws ServletException, IOException {
 
     String reservaFormFuncionarioID = request.getParameter("reservaFuncionarioID");
     String reservaFormHospedeID = request.getParameter("reservaHospedeID");
@@ -135,7 +149,7 @@ public class ReservaNovaServlet extends HttpServlet {
       novaReserva.setCheckIn(checkin);
 
       ReservaDAO reservaBD = new ReservaDAO();
-      resultadoOperacao = reservaBD.cadastrarReserva(novaReserva);
+      reservaBD.cadastrarReserva(novaReserva);
 
       response.sendRedirect("../sucesso");
 

@@ -19,7 +19,7 @@ public class ResultadoNegativoServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	  throws ServletException, IOException {
     
-    String msg = "Puxa vida :(\nHouve um erro na operação. Tente novamente mais tarde.";
+    String msg = "Desculpe. Houve um erro na operação. Tente novamente mais tarde.";
     
     request.setAttribute("mensagem", msg);
     

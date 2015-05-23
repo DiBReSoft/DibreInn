@@ -19,6 +19,40 @@
 
   <jsp:attribute name="paginaBottom">
     <!-- JavaScript e outros que vão ao final -->
+    <script type="text/javascript">
+      $(document).ready(function() {
+        ${exibirMsgErro}
+      });
+    </script>
+
+    <!-- Modal -->
+    <div class="modal fade" id="informarErroModal" tabindex="-1" role="dialog" aria-labelledby="informarErroModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="informarErroModalLabel">
+              ERRO AO TENTAR FAZER LOGIN
+            </h4>
+          </div>
+          <div class="modal-body">
+            <h3>              
+              <c:out value="${erroTitulo}" />
+            </h3>
+            <h4>
+              <c:out value="${erroMsg}" />
+            </h4>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+              Fechar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </jsp:attribute>
 
   <jsp:body>
@@ -63,11 +97,12 @@
               <input class="form-control input-sm" 
                      type="password" id="loginSenha"
                      required="true"
-                     name="loginSenha" />
+                     name="loginSenha"
+                     placeholder="****************************" />
             </div>
           </div>
           <div class="form-group">
-            <div class="col-sm-6 pull-right">
+            <div class="col-xs-6 col-xs-push-6">
               <button class="btn btn-block btn-sm btn-default" 
                       type="submit" id="loginSubmit">
                 Entrar
@@ -82,9 +117,10 @@
               </button>
               -->
             </div>
-            <div class="col-sm-6">
-              <button class="btn btn-block btn-sm btn-primary" 
-                      type="button" id="loginForgot">
+            <div class="col-xs-6 col-xs-pull-6">
+              <button class="btn btn-block btn-sm" 
+                      type="button" id="loginForgot"
+                      onclick="window.location.href = 'recuperar-senha'">
                 Esqueci a senha
               </button>
             </div>

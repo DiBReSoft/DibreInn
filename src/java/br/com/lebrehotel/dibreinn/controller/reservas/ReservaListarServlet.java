@@ -18,29 +18,37 @@ public class ReservaListarServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
-	  throws ServletException, IOException {
-    
-    // Esse atributo irá esconder a DIV com os resultados da busca na página buscar.jsp
-    request.setAttribute("visibilidadeResultados", "hidden");
+          throws ServletException, IOException {
 
-    String data = request.getParameter("data");
-    request.setAttribute("dataParaListar", data);
+    try {
+
+      // Esse atributo irá esconder a DIV com os resultados da busca na página buscar.jsp
+      request.setAttribute("visibilidadeResultados", "hidden");
+
+      String data = request.getParameter("data");
+      request.setAttribute("dataParaListar", data);
 
     // Se um destes campos de busca estiverem preenchidos, 
-    // deixe a DIV com os resultados da busca visível
-    if (data != null) {
-      
-      data = data.replaceAll("%2F", "/");
-      
-      ReservaDAO reservaBD = new ReservaDAO();
-      request.setAttribute("lista", reservaBD.buscarReservas(data));
-      
-      request.setAttribute("visibilidadeResultados", null);
-      
-    }
+      // deixe a DIV com os resultados da busca visível
+      if (data != null) {
 
-    RequestDispatcher rd = request.getRequestDispatcher("/erp/reservas/listar.jsp");
-    rd.forward(request, response);
+        data = data.replaceAll("%2F", "/");
+
+        ReservaDAO reservaBD = new ReservaDAO();
+        request.setAttribute("lista", reservaBD.buscarReservas(data));
+
+        request.setAttribute("visibilidadeResultados", null);
+
+      }
+
+      RequestDispatcher rd = request.getRequestDispatcher("/erp/reservas/listar.jsp");
+      rd.forward(request, response);
+
+    } catch (Exception ex) {
+
+      response.sendRedirect("../erro");
+
+    }
 
   }
 
@@ -55,7 +63,7 @@ public class ReservaListarServlet extends HttpServlet {
    */
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
-	  throws ServletException, IOException {
+          throws ServletException, IOException {
 
   }
 

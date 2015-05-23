@@ -21,13 +21,36 @@ public class LoginServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
-	  throws ServletException, IOException {
+          throws ServletException, IOException {
 
-    // EXEMPLIFICAÇÃO
-    // Essa é uma instância de data que será chamada na tela login.jsp
-    // a partir da expressão regualar ${valorData}
-    Date data = new Date();
-    request.setAttribute("valorData", data.toString());
+    String paramErro = request.getParameter("erro");
+    
+    System.out.println("Parâmetro de Erro: " + paramErro);
+    
+    String exibirMsgErro = "$('#informarErroModal').modal('show')";
+    
+    if(paramErro.equals("acesso")) {
+      
+      String erroTitulo = "Acesso Negado";
+      String erroMsg = "Desculpe. Não foi possível liberar o acesso para este usuário e senha. Para recuperar sua senha, utilize o botão 'ESQUECI A SENHA'.";
+      request.setAttribute("erroTitulo", erroTitulo);
+      request.setAttribute("erroMsg", erroMsg);
+      
+      request.setAttribute("exibirMsgErro", exibirMsgErro);
+      
+    }
+    
+    if(paramErro.equals("conexao")) {
+      
+      String erroTitulo = "Conexão Falhou";
+      String erroMsg = "Desculpe. Não foi possível estabelecer conexão com o serviço para liberar seu acesso. Tente novamente mais tarde.";
+      request.setAttribute("erroTitulo", erroTitulo);
+      request.setAttribute("erroMsg", erroMsg);
+      
+      request.setAttribute("exibirMsgErro", exibirMsgErro);
+      
+    }
+    
 
     RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
     rd.forward(request, response);
@@ -36,40 +59,50 @@ public class LoginServlet extends HttpServlet {
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
-	  throws ServletException, IOException {
+          throws ServletException, IOException {
 
     String nome = request.getParameter("loginEmail");
     String senha = request.getParameter("loginSenha");
 
     Usuario usuario = new Usuario();
 
-    usuario = validar(nome, senha);
+    try {
 
-    if (usuario != null) {
+      usuario = validar(nome, senha);
 
-      HttpSession sessao = request.getSession(false);
+      if (usuario != null) {
 
-      if (sessao != null) {
-	// Força invalidação da sessão anterior.
-	sessao.invalidate();
+        HttpSession sessao = request.getSession(false);
+
+        if (sessao != null) {
+          // Força invalidação da sessão anterior.
+          sessao.invalidate();
+        }
+
+        sessao = request.getSession(true);
+
+        sessao.setAttribute("usuario", usuario);
+
+        response.sendRedirect("./erp/inicio");
+
+        return;
+
+      } else {
+
+        response.sendRedirect("login?erro=acesso");
+
       }
 
-      sessao = request.getSession(true);
+    } catch (Exception ex) {
 
-      sessao.setAttribute("usuario", usuario);
-
-      response.sendRedirect("./erp/inicio");
-
-      return;
+      response.sendRedirect("login?erro=conexao");
 
     }
-
-    response.sendRedirect("login?erro=1");
 
   }
 
   private Usuario validar(String nome, String senha) {
-    
+
     Usuario verificado = new Usuario();
 
     UsuarioDAO usuarioBD = new UsuarioDAO();

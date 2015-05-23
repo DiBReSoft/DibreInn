@@ -19,7 +19,7 @@ public class ResultadoPositivoServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	  throws ServletException, IOException {
     
-    String msgOk = "Tudo traquilo!\nA operação foi realizada com sucesso.";
+    String msgOk = "A operação foi realizada com sucesso.";
     
     request.setAttribute("mensagem", msgOk);
     
