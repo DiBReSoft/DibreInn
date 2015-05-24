@@ -22,14 +22,14 @@ public class LoginServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-
+    
     String paramErro = request.getParameter("erro");
     
     System.out.println("Parâmetro de Erro: " + paramErro);
     
     String exibirMsgErro = "$('#informarErroModal').modal('show')";
     
-    if(paramErro.equals("acesso")) {
+    if(request.getParameter("erro") != null && paramErro.equals("acesso")) {
       
       String erroTitulo = "Acesso Negado";
       String erroMsg = "Desculpe. Não foi possível liberar o acesso para este usuário e senha. Para recuperar sua senha, utilize o botão 'ESQUECI A SENHA'.";
@@ -40,7 +40,7 @@ public class LoginServlet extends HttpServlet {
       
     }
     
-    if(paramErro.equals("conexao")) {
+    if(request.getParameter("erro") != null && paramErro.equals("conexao")) {
       
       String erroTitulo = "Conexão Falhou";
       String erroMsg = "Desculpe. Não foi possível estabelecer conexão com o serviço para liberar seu acesso. Tente novamente mais tarde.";
