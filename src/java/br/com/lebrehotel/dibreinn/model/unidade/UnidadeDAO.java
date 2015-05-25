@@ -11,122 +11,230 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Thiago
+ * @author Thiago, udimberto.sjunior
  */
 public class UnidadeDAO {
 
-    public int cadastrarUnidade(Unidade u) {
+  public void cadastrarUnidade(Unidade u) {
 
-        ConectarBD conexao = new ConectarBD();
-        PreparedStatement stmt = null;
+    ConectarBD conexao = new ConectarBD();
+    PreparedStatement stmt = null;
 
-        String sql = "INSERT INTO TB_UNIDADE (NOME,CNPJ,TIPO,LOGRADOURO,NUM,CEP,COMPLEMENTO,BAIRRO,CIDADE,ESTADO) VALUES  (?,?,?,?,?,?,?,?,?,?)";
+    String sql = "INSERT INTO TB_UNIDADE (NOME,CNPJ,TIPO,LOGRADOURO,NUM,CEP,COMPLEMENTO,BAIRRO,CIDADE,ESTADO) VALUES  (?,?,?,?,?,?,?,?,?,?)";
 
-        try {
-            conexao.openConection();
-            stmt = conexao.conn.prepareStatement(sql);
+    try {
+      conexao.openConection();
+      stmt = conexao.conn.prepareStatement(sql);
 
-            stmt.setString(1, u.getNome());
-            stmt.setString(2, u.getCnpj());
-            stmt.setInt(3, u.getTipo());
-            stmt.setString(4, u.getLogradouro());
-            stmt.setString(5, u.getNumero());
-            stmt.setString(6, u.getCep());
-            stmt.setString(7, u.getComplemento());
-            stmt.setString(8, u.getBairro());
-            stmt.setString(9, u.getCidade());
-            stmt.setString(10, u.getEstado());
+      stmt.setString(1, u.getNome());
+      stmt.setString(2, u.getCnpj());
+      stmt.setInt(3, u.getTipo());
+      stmt.setString(4, u.getLogradouro());
+      stmt.setString(5, u.getNumero());
+      stmt.setString(6, u.getCep());
+      stmt.setString(7, u.getComplemento());
+      stmt.setString(8, u.getBairro());
+      stmt.setString(9, u.getCidade());
+      stmt.setString(10, u.getEstado());
 
-            stmt.executeUpdate();
-            System.out.println("Dados Salvos com sucesso!!!");
+      stmt.executeUpdate();
+      System.out.println("Dados Salvos com sucesso!!!");
 
-        } catch (SQLException ex) {
-            Logger.getLogger(UnidadeDAO.class.getName()).log(Level.SEVERE, null, ex);
-            return 0;
-        } finally {
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(UnidadeDAO.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (conexao.conn != null) {
-                try {
-                    conexao.conn.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(UnidadeDAO.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return 1;
+    } catch (SQLException ex) {
+      Logger.getLogger(UnidadeDAO.class.getName()).log(Level.SEVERE, null, ex);
+    } finally {
+      if (stmt != null) {
+	try {
+	  stmt.close();
+	} catch (SQLException ex) {
+	  Logger.getLogger(UnidadeDAO.class.getName()).log(Level.SEVERE, null, ex);
+	}
+      }
+      if (conexao.conn != null) {
+	try {
+	  conexao.conn.close();
+	} catch (SQLException ex) {
+	  Logger.getLogger(UnidadeDAO.class.getName()).log(Level.SEVERE, null, ex);
+	}
+      }
+    }
+  }
+  
+  public void editarUnidade(Unidade u) {
+
+    ConectarBD conexao = new ConectarBD();
+    PreparedStatement stmt = null;
+
+    String sql = "UPDATE TB_UNIDADE SET NOME = ?, CNPJ = ?, TIPO = ?, "
+	    + "LOGRADOURO = ?, NUM = ?, CEP = ?, COMPLEMENTO = ?, "
+	    + "BAIRRO = ?, CIDADE = ?, ESTADO = ? "
+	    + "WHERE ID_UNIDADE = ?";
+
+    try {
+      
+      conexao.openConection();
+      stmt = conexao.conn.prepareStatement(sql);
+
+      stmt.setString(1, u.getNome());
+      stmt.setString(2, u.getCnpj());
+      stmt.setInt(3, u.getTipo());
+      stmt.setString(4, u.getLogradouro());
+      stmt.setString(5, u.getNumero());
+      stmt.setString(6, u.getCep());
+      stmt.setString(7, u.getComplemento());
+      stmt.setString(8, u.getBairro());
+      stmt.setString(9, u.getCidade());
+      stmt.setString(10, u.getEstado());
+      
+      stmt.setString(11, Integer.toString(u.getId()));
+
+      stmt.executeUpdate();
+      
+      System.out.println("[INFO] Unidade " + u.getNome() + " atualizada com sucesso.");
+
+    } catch (SQLException ex) {
+      Logger.getLogger(UnidadeDAO.class.getName()).log(Level.SEVERE, null, ex);
+    } finally {
+      if (stmt != null) {
+	try {
+	  stmt.close();
+	} catch (SQLException ex) {
+	  Logger.getLogger(UnidadeDAO.class.getName()).log(Level.SEVERE, null, ex);
+	}
+      }
+      if (conexao.conn != null) {
+	try {
+	  conexao.conn.close();
+	} catch (SQLException ex) {
+	  Logger.getLogger(UnidadeDAO.class.getName()).log(Level.SEVERE, null, ex);
+	}
+      }
+    }
+  }
+
+  public List<Unidade> listarUnidades(String pesquisa, int tipoBusca) {
+    ResultSet rs = null;
+
+    ConectarBD conexao = new ConectarBD();
+    PreparedStatement stmt = null;
+
+    List<Unidade> lista = new ArrayList<>();
+
+    String Query = "SELECT ID_UNIDADE,NOME,CNPJ,TIPO,LOGRADOURO,NUM,CEP,COMPLEMENTO,BAIRRO,CIDADE,ESTADO \n"
+	    + "FROM TB_UNIDADE \n";
+
+    switch (tipoBusca) {
+      case 1:
+	Query += "WHERE ID_UNIDADE=?";
+	break;
     }
 
-    public List<Unidade> BuscarUnidades(String pesquisa, int tipoBusca) {
-        ResultSet rs = null;
+    try {
+      conexao.openConection();
 
-        ConectarBD conexao = new ConectarBD();
-        PreparedStatement stmt = null;
+      stmt = conexao.conn.prepareStatement(Query);
 
-        List<Unidade> lista = new ArrayList<Unidade>();
+      if (tipoBusca == 1) {
+	stmt.setString(1, pesquisa);
+      }
 
-        String Query = "SELECT ID_UNIDADE,NOME,CNPJ,TIPO,LOGRADOURO,NUM,CEP,COMPLEMENTO,BAIRRO,CIDADE,ESTADO \n"
-                + "FROM TB_UNIDADE \n";
+      ResultSet resultados = stmt.executeQuery();
 
-        switch (tipoBusca) {
-            case 1:
-                Query += "WHERE ID_UNIDADE=?";
-                break;
-        }
+      while (resultados.next()) {
+	Unidade u = new Unidade();
 
-        try {
-            conexao.openConection();
+	u.setId(Integer.parseInt(resultados.getString("ID_UNIDADE")));
+	u.setNome(resultados.getString("NOME"));
+	u.setCnpj(resultados.getString("CNPJ"));
+	u.setTipo(resultados.getInt("TIPO"));
+	u.setNumero(resultados.getString("NUM"));
+	u.setCep(resultados.getString("CEP"));
+	u.setLogradouro(resultados.getString("LOGRADOURO"));
 
-            stmt = conexao.conn.prepareStatement(Query);
+	u.setComplemento(resultados.getString("COMPLEMENTO"));
+	u.setBairro(resultados.getString("BAIRRO"));
+	u.setCidade(resultados.getString("CIDADE"));
+	u.setEstado(resultados.getString("ESTADO"));
 
-            if (tipoBusca == 1) {
-                stmt.setString(1, pesquisa);
-            }
+	lista.add(u);
+      }
 
-            ResultSet resultados = stmt.executeQuery();
+      return lista;
+    } catch (SQLException ex) {
+      // Caso haja erro retorna 0 como ID e informa no log
+      Logger.getLogger(UnidadeDAO.class.getName()).log(Level.SEVERE, "[INFO] Erro ao gravar os dados: ", ex);
 
-            while (resultados.next()) {
-                Unidade u = new Unidade();
-
-                u.setId(Integer.parseInt(resultados.getString("ID_UNIDADE")));
-                u.setNome(resultados.getString("NOME"));
-                u.setCnpj(resultados.getString("CNPJ"));
-                u.setTipo(resultados.getInt("TIPO"));
-                u.setNumero(resultados.getString("NUM"));
-                u.setCep(resultados.getString("CEP"));
-                u.setLogradouro(resultados.getString("LOGRADOURO"));
-
-                u.setComplemento(resultados.getString("COMPLEMENTO"));
-                u.setBairro(resultados.getString("BAIRRO"));
-                u.setCidade(resultados.getString("CIDADE"));
-                u.setEstado(resultados.getString("ESTADO"));
-
-                lista.add(u);
-            }
-
-            return lista;
-        } catch (SQLException ex) {
-            // Caso haja erro retorna 0 como ID e informa no log
-            Logger.getLogger(UnidadeDAO.class.getName()).log(Level.SEVERE, "[INFO] Erro ao gravar os dados: ", ex);
-
-        } finally {
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(UnidadeDAO.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (conexao != null) {
-                conexao.closeConection();
-            }
-        }
-        return null;
+    } finally {
+      if (stmt != null) {
+	try {
+	  stmt.close();
+	} catch (SQLException ex) {
+	  Logger.getLogger(UnidadeDAO.class.getName()).log(Level.SEVERE, null, ex);
+	}
+      }
+      if (conexao != null) {
+	conexao.closeConection();
+      }
     }
+    return null;
+  }
+
+  public Unidade buscarUnidadeId(String unidadeId) {
+
+    ResultSet rs = null;
+
+    ConectarBD conexao = new ConectarBD();
+    PreparedStatement stmt = null;
+
+    String Query = "SELECT ID_UNIDADE,NOME,CNPJ,TIPO,LOGRADOURO,NUM,CEP,COMPLEMENTO,BAIRRO,CIDADE,ESTADO \n"
+	    + "FROM TB_UNIDADE WHERE ID_UNIDADE = ? \n";
+
+    try {
+      conexao.openConection();
+
+      stmt = conexao.conn.prepareStatement(Query);
+
+      stmt.setString(1, unidadeId);
+
+      ResultSet resultados = stmt.executeQuery();
+
+      Unidade u = new Unidade();
+
+      while (resultados.next()) {
+
+	u.setId(Integer.parseInt(resultados.getString("ID_UNIDADE")));
+	u.setNome(resultados.getString("NOME"));
+	u.setCnpj(resultados.getString("CNPJ"));
+	u.setTipo(resultados.getInt("TIPO"));
+	u.setNumero(resultados.getString("NUM"));
+	u.setCep(resultados.getString("CEP"));
+	u.setLogradouro(resultados.getString("LOGRADOURO"));
+
+	u.setComplemento(resultados.getString("COMPLEMENTO"));
+	u.setBairro(resultados.getString("BAIRRO"));
+	u.setCidade(resultados.getString("CIDADE"));
+	u.setEstado(resultados.getString("ESTADO"));
+      }
+
+      return u;
+
+    } catch (SQLException ex) {
+      // Caso haja erro retorna 0 como ID e informa no log
+      Logger.getLogger(UnidadeDAO.class.getName()).log(Level.SEVERE, "[INFO] Erro ao buscar dados: ", ex);
+
+    } finally {
+      if (stmt != null) {
+	try {
+	  stmt.close();
+	} catch (SQLException ex) {
+	  Logger.getLogger(UnidadeDAO.class.getName()).log(Level.SEVERE, null, ex);
+	}
+      }
+      if (conexao != null) {
+	conexao.closeConection();
+      }
+    }
+    return null;
+  }
 
 }

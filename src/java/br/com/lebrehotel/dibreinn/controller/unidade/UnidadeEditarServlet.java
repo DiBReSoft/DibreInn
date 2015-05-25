@@ -14,25 +14,41 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Thiago, udimberto.sjunior
  */
-@WebServlet(name = "UnidadeCadastrarServlet", urlPatterns = {"/erp/unidades/adicionar"})
-public class UnidadeCadastrarServlet extends HttpServlet {
+@WebServlet(name = "UnidadeEditarServlet", urlPatterns = {"/erp/unidades/editar"})
+public class UnidadeEditarServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	  throws ServletException, IOException {
 
-    RequestDispatcher rd = request.getRequestDispatcher("/erp/unidades/adicionar.jsp");
-    rd.forward(request, response);
-    
+    try {
+
+      UnidadeDAO unidadeBD = new UnidadeDAO();
+
+      String unidadeParametro = request.getParameter("id");
+
+      request.setAttribute("unidade", unidadeBD.buscarUnidadeId(unidadeParametro));
+
+      RequestDispatcher rd = request.getRequestDispatcher("/erp/unidades/editar.jsp");
+      rd.forward(request, response);
+
+    } catch (Exception ex) {
+      
+      response.sendRedirect("../erro");
+
+    }
   }
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	  throws ServletException, IOException {
+    
+    
     try {
       
       Unidade u = new Unidade();
-
+      
+      u.setId(Integer.parseInt(request.getParameter("unidadeId")));
       u.setNome(request.getParameter("unidadeNome"));
       u.setCnpj(request.getParameter("unidadeCnpj"));
       u.setTipo(Integer.parseInt(request.getParameter("unidadeTipo")));
@@ -55,7 +71,7 @@ public class UnidadeCadastrarServlet extends HttpServlet {
       //end.setEstado(request.getParameter("unidadeEstado"));
 
       UnidadeDAO unidadeBD = new UnidadeDAO();
-      unidadeBD.cadastrarUnidade(u);
+      unidadeBD.editarUnidade(u);
       
       response.sendRedirect("listar");
       
@@ -63,7 +79,8 @@ public class UnidadeCadastrarServlet extends HttpServlet {
       System.out.println(ex);
       response.sendRedirect("../erro");
     }
-
+    
+    
   }
 
   /**

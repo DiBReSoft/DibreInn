@@ -1,7 +1,6 @@
-<%-- 
-    Document   : index
-    Created on : 14/05/2015, 12:18:15
-    Author     : Thi
+<%--
+  Created on : 25/05/2015, 01:05
+  Authors    : udimberto, fabio, thiago, luciano
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -10,318 +9,299 @@
 
 <t:defaultTemplate>
 
-    <jsp:attribute name="paginaTitulo">
-        Quartos: Cadastrados
-    </jsp:attribute>
+  <jsp:attribute name="paginaTitulo">
+    Editar Unidade
+  </jsp:attribute>
 
-    <jsp:attribute name="paginaHead">
-        <!-- CSS e outros que vão no <head> da página -->
-    </jsp:attribute>
+  <jsp:attribute name="paginaHead">
+    <!-- CSS e outros que vão no <head> da página -->
+  </jsp:attribute>
 
-    <jsp:attribute name="paginaBottom">
-        <!-- JavaScript e outros que vão ao final da página -->
-        <script type="text/javascript" src="<c:url value="/assets/js/bootstrap-switch.js" />"></script>
-        <script type="text/javascript" src="<c:url value="/assets/js/form-component.js" />"></script>
-        <script type="text/javascript" src="<c:url value="/assets/js/cadastrar.js" />"></script>
-        <script type="text/javascript" src="<c:url value="/assets/js/unidades.js" />"></script>
-    </jsp:attribute>
+  <jsp:attribute name="paginaBottom">
+    <!-- JavaScript e outros que vão ao final da página -->
+    <script type="text/javascript" src="<c:url value="/assets/js/cadastrar.js" />"></script>
+  </jsp:attribute>
 
-    <jsp:body>
+  <jsp:body>
 
-        <h1 class="page-title">
-            Visualizar Unidades
-        </h1>
+    <h1 class="page-title">
+      Editar Unidade
+    </h1>
 
-        <!-- page start-->
-        
-         <form role="form" method="get" class="form-di"
-              action="visualizar" name="formSelecionaQuarto">
-            <h4>
-                Informações das Unidades Cadastradas
-            </h4>
-            <hr />
-            <div class="row">
-                <div class= "form-di">
-                    <table class="table table-responsive table-hover table-striped table-condensed">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nome</th>
-                                <th>Cnpj</th>
-                                <th>Categoria</th>
-                                <th>Cep</th>
-                                <th>Número</th>
-                                <th>Complemento</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${lista}" var="unidade" varStatus="stat">
-                                <tr>
-                                    <td scope="row" id="tableId"><c:out value="${unidade.id}" /></td>
-                                    <td class ="nome" id="tableNome" ><c:out value="${unidade.nome}" /></td>
-                                    <td class ="Cnpj" id="tableCnpj"><c:out value="${unidade.cnpj}" /></td>
-                                    <td class ="Categoria" id="tableCategoria"><c:out value="${unidade.tipo}" /></td>
-                                    <td class ="Cep" id="tableCep"><c:out value="${unidade.cep}" /></td>
-                                    <td class ="Numero" id="tableNumero"><c:out value="${unidade.numero}" /></td>
-                                    <td class ="Complemento" id="tableComplemento"><c:out value="${unidade.complemento}" /></td>
-                                    <td class="seleciona">
-                                        <a href="" class="selecionado">
-                                            Selecionar
-                                        </a>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </form>
+    <!-- Início do Formulário -->
+    <form role="form" method="post" class="form-di"
+          action="editar" name="unidadeEditar"
+          accept-charset="UTF-8"
+          enctype="application/x-www-form-urlencoded">
 
-        <!-- Fim da #1 linha de GRID dos formulários -->
-        
-        <!-- Início do Formulário -->
-        <form role="form" method="post" class="form-di"
-              action="editar" name="formEditar">
+      <input type="hidden" name="unidadeId"
+             value="<c:out value="${unidade.id}" />"/>
 
-            <!-- Início da #1 linha de GRID do formulário -->
-            <div class="row">
+      <div style="padding: 5px;"></div>
 
-                <!-- Início da primeira coluna: lado esquerdo - DADOS -->
-                <div class="col-sm-6">
+      <div class="row">
 
-                    <h4>
-                        Dados
-                    </h4>
+        <div class="col-md-2"></div>
 
-                    <hr />
+        <div class="col-md-8">
 
-                    <div class="row">
+          <h4>
+            Dados
+          </h4>
 
-                        <div class="col-xs-6">
+          <hr />
 
-                            <div class="form-group">
-                                <label for="formNome">
-                                    Nome da Unidade:
-                                </label>
-                                <input readonly="true" type="text" class="form-control"
-                                       tabindex="1"
-                                       name="formNome" id="formNome" 
-                                       placeholder="1"
-                                       required="true" />
-                            </div>
+          <div class="row">
 
-                        </div>
+            <div class="col-sm-4">
 
-                        <div class="col-xs-6">
-                            <div class="form-group">
-                                <label for="formCnpj">
-                                    Cnpj:
-                                </label>
-                                <input readonly="true" type="number" class="form-control"
-                                       tabindex="2"
-                                       name="formCnpj" id="formCnpj" 
-                                       placeholder="LebreHotel 1"
-                                       required="true" 
-                                       value="" />
-                            </div>
-
-                        </div>
-
-                        <div class="col-xs-6">
-
-                            <div class="form-group">
-                                <label for="formCategoria">
-                                    Categoria:
-                                </label>
-                                <select readonly="true" class="form-control"
-                                        tabindex="2"
-                                        name="formCategoria" id="formCategoria"                         
-                                        placeholder="Filial"
-                                        required="true">
-                                    <option value="1">
-                                        Matriz
-                                    </option>
-                                    <option value="0">
-                                        Filial
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Início da segunda coluna: lado direito - ENDEREÇO -->
-                <div class="col-sm-6">
-
-                    <h4>
-                        Endereço
-                    </h4>
-
-                    <hr />
-
-                    <div class="row">
-
-                        <div class="col-sm-6">
-
-                            <div class="form-group">
-                                <label for="formCep">
-                                    CEP: 
-                                    <span class="badge badge-event">
-                                        autocompleta
-                                    </span>
-                                </label>
-                                <input readonly="true" type="text" class="form-control"
-                                       tabindex="10"
-                                       name="formCep" id="formCep"                                                     
-                                       placeholder="04696-000"/>
-                            </div>
-
-                        </div>
-
-                        <div class="col-sm-6 hidden-xs">
-                            <label>
-                                <i class="fa fa-lg fa-question-circle"></i>
-                            </label>
-                            <div style="padding: 5px;"></div>
-                            <small class="text-muted">
-                                <i>
-                                    Digite o CEP que o endereço será preenchido
-                                    automaticamente com os dados geográficos
-                                </i>
-                            </small>
-                        </div>
-
-                        <div class="col-xs-8">
-
-                            <div class="form-group">
-                                <label for="formLogradouro">
-                                    Logradouro:
-                                </label>
-                                <input readonly="true" type="text" class="form-control"
-                                       tabindex="11"
-                                       name="formLogradouro" id="formLogradouro" 
-                                       placeholder="Av. Engenheiro Eusébio Stevaux" />
-                            </div>
-
-                        </div>
-
-                        <div class="col-xs-4">
-
-                            <div class="form-group">
-                                <label for="formNumero">
-                                    Número:
-                                </label>
-                                <input readonly="true" type="number" class="form-control" 
-                                       tabindex="12"
-                                       name="formNumero" id="formNumero"
-                                       placeholder="823" />
-                            </div>
-
-                        </div>
-
-                        <div class="col-xs-6">
-
-                            <div class="form-group">
-                                <label for="formComplemento">
-                                    Complemento:
-                                </label>                  
-                                <input readonly="true" type="text" class="form-control"
-                                       tabindex="13"
-                                       name="formComplemento" id="formComplemento" 
-                                       placeholder="Sala C143" />
-                            </div>
-
-                        </div>
-
-                        <div class="col-xs-6">
-
-                            <div class="form-group">                    
-                                <label for="formBairro">
-                                    Bairro:
-                                </label>
-                                <input readonly="true" type="text" class="form-control"
-                                       tabindex="14"
-                                       name="formBairro" id="formBairro" 
-                                       placeholder="Campo Grande" />
-                            </div>
-
-                        </div>
-
-                        <div class="col-sm-5">
-
-                            <div class="form-group">
-                                <label for="formCidade">
-                                    Cidade:
-                                </label>
-                                <input readonly="true" type="text" class="form-control" 
-                                       tabindex="15"
-                                       name="formCidade" id="formCidade" 
-                                       placeholder="São Paulo" />
-                            </div>
-
-                        </div>
-
-                        <div class="col-sm-3">
-
-                            <div class="form-group">
-                                <label for="formEstado" title="Estado">
-                                    UF:
-                                </label>
-                                <input readonly="true" type="text" class="form-control" 
-                                       tabindex="16"
-                                       name="formEstado" id="formEstado" 
-                                       placeholder="SP" />
-                            </div>
-
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
-
-        </form>
-        <!-- Fim do Formulário -->
-
-       
-
-
-
-        <div style="padding: 15px 0px;"></div>
-
-        <!-- Linha de botões do formulário -->
-        <div class="row">
-
-            <div class="col-sm-3 hidden-xs"></div>
-
-            <div class="col-xs-6 col-sm-3">
-
-                <button type="reset" class="btn btn-block btn-lg btn-primary" 
-                        tabindex="5">
-                    <i class="fa fa-lg fa-times"></i>
-                    EXCLUIR
-                </button>
+              <div class="form-group">
+                <label for="formNome">
+                  Nome da Unidade:
+                </label>
+                <input type="text" class="form-control"
+                       tabindex="1"
+                       name="unidadeNome" id="formNome" 
+                       placeholder="SAO PAULO III"
+                       required="true" 
+                       value="<c:out value="${unidade.nome}" />" />
+              </div>
 
             </div>
 
-            <div class="col-xs-6 col-sm-3">
+            <div class="col-sm-5">
 
-                <button type="submit" class="btn btn-block btn-lg btn-default" 
-                        tabindex="6">
-                    EDITAR
-                    <i class="fa fa-lg fa-edit"></i>
-                </button>
+              <div class="form-group">
+                <label for="formCnpj">
+                  CNPJ:
+                </label>
+                <input type="text" class="form-control"
+                       tabindex="2"
+                       name="unidadeCnpj" id="formCnpj" 
+                       placeholder=""
+                       required="true" 
+                       value="<c:out value="${unidade.cnpj}" />" />
+              </div>
 
             </div>
 
-        </div>   
-        <!-- Linha de botões do formulário -->
+            <div class="col-sm-3">
 
+              <div class="form-group">
+                <label for="formTipo">
+                  Tipo:
+                </label>
+                <select class="form-control"
+                        tabindex="3"
+                        name="unidadeTipo" id="formTipo"                         
+                        placeholder="Filial"
+                        required="true">
+                  <c:if test="${unidade.tipo eq '0'}">
+                    <option value="0">
+                      Filial
+                    </option>
+                    <option value="1">
+                      Matriz
+                    </option>
+                  </c:if>            
+                  <c:if test="${unidade.tipo eq '1'}">
+                    <option value="1">
+                      Matriz
+                    </option>
+                    <option value="0">
+                      Filial
+                    </option>
+                  </c:if>
+                </select>
+              </div>
 
-        <div style="padding: 15px 0px;"></div>
+            </div>
 
+          </div>
+          <!-- Fim da #1 linha de GRID do formulário -->
 
+          <h4>
+            Endereço
+          </h4>
 
-    </jsp:body>
+          <hr />
+
+          <div class="row">
+
+            <div class="col-sm-6">
+
+              <div class="form-group">
+                <label for="formCep">
+                  CEP: 
+                  <span class="badge badge-event">
+                    autocompleta
+                  </span>
+                </label>
+                <input type="text" class="form-control"
+                       tabindex="4"
+                       name="unidadeCep" id="formCep"                                                     
+                       placeholder="04696-000"
+                       onblur="consultacep(this.value)"
+                       required="true"
+                       value="<c:out value="${unidade.cep}" />" />
+              </div>
+
+            </div>
+
+            <div class="col-sm-6 hidden-xs">
+              <label>
+                <i class="fa fa-lg fa-question-circle"></i>
+              </label>
+              <div>
+                <small class="text-muted">
+                  <i>
+                    Digite o CEP que o endereço será preenchido
+                    automaticamente com os dados geográficos
+                  </i>
+                </small>
+              </div>
+            </div>
+
+            <div class="col-xs-8">
+
+              <div class="form-group">
+                <label for="formLogradouro">
+                  Logradouro:
+                </label>
+                <input type="text" class="form-control"
+                       name="unidadeLogradouro" id="formLogradouro" 
+                       placeholder="Av. Engenheiro Eusébio Stevaux"
+                       readonly
+                       value="<c:out value="${unidade.logradouro}" />" />
+              </div>
+
+            </div>
+
+            <div class="col-xs-4">
+
+              <div class="form-group">
+                <label for="formNumero">
+                  Número:
+                </label>
+                <input type="number" class="form-control" 
+                       tabindex="5"
+                       name="unidadeNumero" id="formNumero"
+                       placeholder="823"
+                       required="true"
+                       value="<c:out value="${unidade.numero}" />" />
+              </div>
+
+            </div>
+
+            <div class="col-xs-6">
+
+              <div class="form-group">
+                <label for="formComplemento">
+                  Complemento:
+                </label>                  
+                <input type="text" class="form-control"
+                       tabindex="6"
+                       name="unidadeComplemento" id="formComplemento" 
+                       placeholder="Sala C143"
+                       value="<c:out value="${unidade.complemento}" />" />
+              </div>
+
+            </div>
+
+            <div class="col-xs-6">
+
+              <div class="form-group">                    
+                <label for="formBairro">
+                  Bairro:
+                </label>
+                <input type="text" class="form-control"
+                       name="unidadeBairro" id="formBairro" 
+                       placeholder="Campo Grande" 
+                       readonly
+                       value="<c:out value="${unidade.bairro}" />" />
+              </div>
+
+            </div>
+
+            <div class="col-sm-5">
+
+              <div class="form-group">
+                <label for="formCidade">
+                  Cidade:
+                </label>
+                <input type="text" class="form-control" 
+                       name="unidadeCidade" id="formCidade" 
+                       placeholder="São Paulo" 
+                       readonly
+                       value="<c:out value="${unidade.cidade}" />" />
+              </div>
+
+            </div>
+
+            <div class="col-sm-3">
+
+              <div class="form-group">
+                <label for="formEstado" title="Estado">
+                  UF:
+                </label>
+                <input type="text" class="form-control" 
+                       name="unidadeEstado" id="formEstado" 
+                       placeholder="SP" 
+                       readonly
+                       value="<c:out value="${unidade.estado}" />" />
+              </div>
+
+            </div>
+
+          </div>
+
+          <div style="padding: 10px 0px;"></div>
+
+          <p>
+            Os campos marcados com
+            <i class="fa fa-fw fa-lg fa-asterisk text-success"></i>
+            são obrigatórios.
+          </p>
+
+        </div>
+
+      </div>
+
+      <div style="padding: 10px 0px;"></div>
+
+      <!-- Linha de botões do formulário -->
+      <div class="row">
+
+        <div class="col-sm-3 hidden-xs"></div>
+
+        <div class="col-xs-6 col-sm-3">
+
+          <button type="reset" class="btn btn-block btn-lg btn-primary" 
+                  tabindex="8">
+            <i class="fa fa-eraser"></i>
+            LIMPAR
+          </button>
+
+        </div>
+
+        <div class="col-xs-6 col-sm-3">
+
+          <button type="submit" class="btn btn-block btn-lg btn-default" 
+                  tabindex="7">
+            ATUALIZAR
+            <i class="fa fa-check-square"></i>
+          </button>
+
+        </div>
+
+      </div>   
+      <!-- Linha de botões do formulário -->
+
+    </form>
+    <!-- Fim do Formulário -->
+
+    <div style="padding: 15px 0px;"></div>
+
+  </jsp:body>
 
 </t:defaultTemplate>

@@ -77,6 +77,44 @@
 
       <li class="sub-menu">
         <a href="javascript:;" >
+          <i class="fa fa-fw fa-lg fa-building"></i>
+          <span>Unidades</span>
+        </a>
+        <ul class="sub">
+          <li class="item-menu">
+            <a href="<c:url value="/erp/unidades/adicionar" />">
+              Adicionar
+            </a>
+          </li>
+          <li class="item-menu">
+            <a href="<c:url value="/erp/unidades/listar" />">
+              Listar &amp; Editar
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="sub-menu">
+        <a href="javascript:;" >
+          <i class="fa fa-fw fa-lg fa-bed"></i>
+          <span>Quartos</span>
+        </a>
+        <ul class="sub">
+          <li class="item-menu">
+            <a href="<c:url value="/erp/quartos/adicionar" />">
+              Adicionar
+            </a>
+          </li>
+          <li class="item-menu">
+            <a href="<c:url value="/erp/quartos/editar" />">
+              Listar &amp; Editar
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="sub-menu">
+        <a href="javascript:;" >
           <i class="fa fa-fw fa-lg fa-briefcase"></i>
           <span>Administração</span>
         </a>
@@ -84,26 +122,6 @@
           <li class="item-menu">
             <a href="<c:url value="/erp/usuarios" />">
               Usuários do Sistema
-            </a>
-          </li>
-          <li class="item-menu">
-            <a href="<c:url value="/erp/quartos/adicionar" />">
-              Cadastrar Quartos
-            </a>
-          </li>
-          <li class="item-menu">
-            <a href="<c:url value="/erp/quartos/editar" />">
-              Buscar &amp; Editar Quartos
-            </a>
-          </li>
-          <li class="item-menu">
-            <a href="<c:url value="/erp/unidades/adicionar" />">
-              Cadastrar Unidades
-            </a>
-          </li>
-          <li class="item-menu">
-            <a href="<c:url value="/erp/unidades/editar" />">
-              Buscar &amp; Editar Unidades
             </a>
           </li>
         </ul>

@@ -30,11 +30,15 @@
 
     <!-- Início do Formulário -->
     <form role="form" method="post" class="form-di"
-          action="adicionar" name="formAdicionar">
+          action="adicionar" name="unidadeAdicionar"
+            accept-charset="UTF-8"
+            enctype="application/x-www-form-urlencoded">
 
       <div style="padding: 5px;"></div>
 
       <div class="row">
+
+        <div class="col-md-2"></div>
 
         <div class="col-md-8">
 
@@ -47,13 +51,14 @@
           <div class="row">
 
             <div class="col-sm-4">
+              
               <div class="form-group">
                 <label for="formNome">
                   Nome da Unidade:
                 </label>
                 <input type="text" class="form-control"
                        tabindex="1"
-                       name="formNome" id="formNome" 
+                       name="unidadeNome" id="formNome" 
                        placeholder="SAO PAULO III"
                        required="true" 
                        value="" />
@@ -62,13 +67,14 @@
             </div>
 
             <div class="col-sm-5">
+              
               <div class="form-group">
                 <label for="formCnpj">
                   CNPJ:
                 </label>
-                <input type="number" class="form-control"
+                <input type="text" class="form-control"
                        tabindex="2"
-                       name="formCnpj" id="formCnpj" 
+                       name="unidadeCnpj" id="formCnpj" 
                        placeholder=""
                        required="true" 
                        value="" />
@@ -79,19 +85,19 @@
             <div class="col-sm-3">
 
               <div class="form-group">
-                <label for="formCategoria">
-                  Categoria:
+                <label for="formTipo">
+                  Tipo:
                 </label>
                 <select class="form-control"
                         tabindex="3"
-                        name="formCategoria" id="formCategoria"                         
+                        name="unidadeTipo" id="formTipo"                         
                         placeholder="Filial"
                         required="true">
-                  <option value="1">
-                    Matriz
-                  </option>
                   <option value="0">
                     Filial
+                  </option>
+                  <option value="1">
+                    Matriz
                   </option>
                 </select>
               </div>
@@ -120,9 +126,10 @@
                 </label>
                 <input type="text" class="form-control"
                        tabindex="4"
-                       name="formCep" id="formCep"                                                     
+                       name="unidadeCep" id="formCep"                                                     
                        placeholder="04696-000"
-                       onblur="consultacep(this.value)"/>
+                       onblur="consultacep(this.value)"
+                       required="true" />
               </div>
 
             </div>
@@ -148,7 +155,7 @@
                   Logradouro:
                 </label>
                 <input type="text" class="form-control"
-                       name="formLogradouro" id="formLogradouro" 
+                       name="unidadeLogradouro" id="formLogradouro" 
                        placeholder="Av. Engenheiro Eusébio Stevaux"
                        readonly />
               </div>
@@ -163,8 +170,9 @@
                 </label>
                 <input type="number" class="form-control" 
                        tabindex="5"
-                       name="formNumero" id="formNumero"
-                       placeholder="823" />
+                       name="unidadeNumero" id="formNumero"
+                       placeholder="823"
+                       required="true" />
               </div>
 
             </div>
@@ -177,7 +185,7 @@
                 </label>                  
                 <input type="text" class="form-control"
                        tabindex="6"
-                       name="formComplemento" id="formComplemento" 
+                       name="unidadeComplemento" id="formComplemento" 
                        placeholder="Sala C143" />
               </div>
 
@@ -190,7 +198,7 @@
                   Bairro:
                 </label>
                 <input type="text" class="form-control"
-                       name="formBairro" id="formBairro" 
+                       name="unidadeBairro" id="formBairro" 
                        placeholder="Campo Grande" 
                        readonly />
               </div>
@@ -204,7 +212,7 @@
                   Cidade:
                 </label>
                 <input type="text" class="form-control" 
-                       name="formCidade" id="formCidade" 
+                       name="unidadeCidade" id="formCidade" 
                        placeholder="São Paulo" 
                        readonly />
               </div>
@@ -218,7 +226,7 @@
                   UF:
                 </label>
                 <input type="text" class="form-control" 
-                       name="formEstado" id="formEstado" 
+                       name="unidadeEstado" id="formEstado" 
                        placeholder="SP" 
                        readonly />
               </div>
@@ -227,17 +235,17 @@
 
           </div>
 
+          <div style="padding: 10px 0px;"></div>
+
+          <p>
+            Os campos marcados com
+            <i class="fa fa-fw fa-lg fa-asterisk text-success"></i>
+            são obrigatórios.
+          </p>
+
         </div>
 
       </div>
-
-      <div style="padding: 10px 0px;"></div>
-
-      <p>
-        Os campos marcados com
-        <i class="fa fa-fw fa-lg fa-asterisk"></i>
-        são obrigatórios.
-      </p>
 
       <div style="padding: 10px 0px;"></div>
 

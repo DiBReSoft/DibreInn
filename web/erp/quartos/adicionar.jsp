@@ -33,7 +33,9 @@
 
       <!-- Início do Formulário -->
       <form role="form" method="post" class="form-di"
-            action="adicionar" name="formQuarto">
+            action="adicionar" name="formQuarto"
+            accept-charset="UTF-8"
+            enctype="application/x-www-form-urlencoded">
 
         <!-- Início da #1 linha de GRID do formulário -->
         <div class="row">

@@ -70,7 +70,7 @@ public class PessoaCadastrarServlet extends HttpServlet {
 
     //buscando apenas os quartos disponiveis
     UnidadeDAO consulta = new UnidadeDAO();
-    request.setAttribute("lista", consulta.BuscarUnidades("buscartodasunidades", 0));
+    request.setAttribute("lista", consulta.listarUnidades("buscartodasunidades", 0));
 
     RequestDispatcher rd = request.getRequestDispatcher("/erp/pessoas/cadastrar.jsp");
     rd.forward(request, response);
