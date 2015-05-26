@@ -15,21 +15,17 @@ import java.util.logging.Logger;
 
 public class HospedeDAO {
 
-  public int cadastrarHospede(Hospede h) {
-
-    int codPessoa;
+  public boolean cadastrarHospede(Hospede h) {
 
     ConectarBD conexao = new ConectarBD();
     PreparedStatement stmt = null;
 
-    String sqlInsert = " INSERT INTO TB_PESSOA (STATUS, NOME, SOBRENOME, SEXO, RG, CPF, DATANASC, TELEFONE, CEL, EMAIL, NEWSLETTER) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) \n ";
+    String sqlInsert = "INSERT INTO TB_PESSOA (STATUS, NOME, SOBRENOME, SEXO, RG, CPF, DATANASC, TELEFONE, CEL, EMAIL, NEWSLETTER) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) \n ";
 
-    sqlInsert += " DECLARE @IdCliente AS INT = @@IDENTITY \n";
+    sqlInsert += "DECLARE @IdCliente AS INT = @@IDENTITY \n";
     //pega o id_pessoa da transação
 
-    sqlInsert += " INSERT INTO TB_HOSPEDE (ID_PESSOA,N_CARTAO) VALUES (@IdCliente, ?) ";
-    
-    String sqlConsulta = "SELECT max(ID_PESSOA) as ID_PESSOA FROM TB_PESSOA";
+    sqlInsert += "INSERT INTO TB_HOSPEDE (ID_PESSOA, N_CARTAO) VALUES (@IdCliente, ?) ";
 
     try {
 
@@ -53,19 +49,16 @@ public class HospedeDAO {
       stmt.setString(12, h.getnCartao());
 
       stmt.executeUpdate();
-      System.out.println("[INFO] Hospede " + h.getNome() + h.getSobrenome() + " cadastrado com sucesso!");
+      System.out.println("[INFO] Hospede " + h.getNome() + " " + h.getSobrenome() + " cadastrado com sucesso!");
 
-      System.out.println("Bucando o ID da pessoa cadastrada...");
-      conexao.executaSQL(sqlConsulta);
-      conexao.rs.next();
-      codPessoa = conexao.rs.getInt("ID_PESSOA");
-      System.out.println("ID encontrado!!!");
-      System.out.println("ID: " + codPessoa + "\n");
-      return codPessoa;
+      return true;
 
     } catch (SQLException ex) {
+
       Logger.getLogger(HospedeDAO.class.getName()).log(Level.SEVERE, null, ex);
-      return 0;
+
+      return false;
+
     } finally {
       if (stmt != null) {
 	try {
@@ -95,7 +88,7 @@ public class HospedeDAO {
 
     sql += " DECLARE @IdCliente AS INT = @@IDENTITY \n";//pega o id_pessoa da transação
 
-    sql += " UPDATE INTO TB_HOSPEDE (ID_PESSOA, N_CARTAO) VALUES (@IdCliente, ?) ";
+    sql += " UPDATE TB_HOSPEDE SET N_CARTAO = ? WHERE ID_PESSOA = @IdCliente";
 
     try {
 
@@ -116,13 +109,13 @@ public class HospedeDAO {
       stmt.setString(9, h.getCelular());
       stmt.setString(10, h.getEmail());
       stmt.setInt(11, h.getNewsletter());
-      stmt.setInt(13, h.getId());
+      stmt.setInt(12, h.getId());
 
-      stmt.setString(12, h.getnCartao());
+      stmt.setString(13, h.getnCartao());
 
       stmt.executeUpdate();
 
-      System.out.println("[INFO] Hospede " + h.getNome() + h.getSobrenome() + " atualizado com sucesso.");
+      System.out.println("[INFO] Hospede " + h.getNome() + " " + h.getSobrenome() + " atualizado com sucesso.");
 
     } catch (SQLException ex) {
       Logger.getLogger(HospedeDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -144,8 +137,84 @@ public class HospedeDAO {
     }
   }
 
-  public Hospede getHospedeById(int id) {
+  public List<Pessoa> buscarHospedes(String pesquisa, int tipoBusca) {
+    ResultSet rs = null;
+
+    ConectarBD conexao = new ConectarBD();
+    PreparedStatement stmt = null;
+
+    List<Pessoa> lista = new ArrayList<>();
+
+    String Query = "SELECT STATUS, ID_PESSOA,NOME, SOBRENOME, SEXO, RG, CPF, DATANASC, TELEFONE, CEL, EMAIL, NEWSLETTER \n"
+	    + "FROM TB_PESSOA WHERE ";
+
+    switch (tipoBusca) {
+      case 1:
+	Query += "NOME = ?";
+	break;
+      case 2:
+	Query += "EMAIL = ?";
+	break;
+      case 3:
+	Query += "CPF = ?";
+	break;
+      case 4:
+	Query += "ID_PESSOA = ?";
+	break;
+    }
     
+    try {
+      conexao.openConection();
+
+      stmt = conexao.conn.prepareStatement(Query);
+
+      stmt.setString(1, pesquisa);
+
+      ResultSet resultados = stmt.executeQuery();
+
+      while (resultados.next()) {
+
+	Hospede p = new Hospede();
+
+	p.setId(resultados.getInt("ID_PESSOA"));
+	p.setStatus(resultados.getInt("STATUS"));	
+	p.setNome(resultados.getString("NOME"));
+	p.setSobrenome(resultados.getString("SOBRENOME"));
+	p.setSexo(resultados.getString("SEXO"));
+	p.setRg(resultados.getString("RG"));
+	p.setCpf(resultados.getString("CPF"));
+	p.setDataNascimento(resultados.getDate("DATANASC"));
+	p.setTelefone(resultados.getString("TELEFONE"));
+	p.setCelular(resultados.getString("CEL"));
+	p.setEmail(resultados.getString("EMAIL"));
+	p.setNewsletter(resultados.getInt("NEWSLETTER"));
+
+	lista.add(p);
+
+      }
+
+      return lista;
+    } catch (SQLException ex) {
+      // Caso haja erro retorna 0 como ID e informa no log
+      Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, "[INFO] Erro ao buscar dados: ", ex);
+
+    } finally {
+      if (stmt != null) {
+	try {
+	  stmt.close();
+	} catch (SQLException ex) {
+	  Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
+	}
+      }
+      if (conexao != null) {
+	conexao.closeConection();
+      }
+    }
+    return null;
+  }
+
+  public Hospede getHospedeById(int id) {
+
     System.out.println("Buscar hospede pelo ID: " + id);
 
     ConectarBD conexao = new ConectarBD();
@@ -155,15 +224,15 @@ public class HospedeDAO {
 
     query = "SELECT pe.ID_PESSOA, pe.STATUS, pe.NOME, pe.SOBRENOME, pe.SEXO, pe.RG, CPF, pe.DATANASC, pe.TELEFONE, pe.CEL, pe.EMAIL ,pe.NEWSLETTER,\n"
 	    + "hosp.N_CARTAO\n"
-	    + "FROM TB_PESSOA as pe\n"
-	    + "INNER JOIN TB_HOSPEDE as hosp on hosp.ID_PESSOA = pe.ID_PESSOA\n"
-	    + "WHERE pe.ID_PESSOA = ?";
+	    + "FROM TB_HOSPEDE as hosp\n"
+	    + "INNER JOIN TB_PESSOA as pe on pe.ID_PESSOA = hosp.ID_PESSOA\n"
+	    + "WHERE hosp.ID_PESSOA = ?";
 
     try {
       conexao.openConection();
       stmt = conexao.conn.prepareStatement(query);
       stmt.setInt(1, id);
-      
+
       ResultSet result = stmt.executeQuery();
       result.next();
 
@@ -174,7 +243,9 @@ public class HospedeDAO {
       hosp.setSexo(result.getString("SEXO"));
       hosp.setRg(result.getString("RG"));
       hosp.setCpf(result.getString("CPF"));
+
       hosp.setDataNascimento(result.getDate("DATANASC"));
+
       hosp.setTelefone(result.getString("TELEFONE"));
       hosp.setCelular(result.getString("CEL"));
       hosp.setEmail(result.getString("EMAIL"));
@@ -184,13 +255,16 @@ public class HospedeDAO {
       System.out.println("[INFO] Hospede encontrado e retornando.");
       conexao.closeConection();
 
+      return hosp;
+
     } catch (SQLException ex) {
       // Caso haja erro 
       Logger.getLogger(HospedeDAO.class.getName()).log(Level.SEVERE, "[INFO] Erro ao popular os dados de hospede: ", ex);
       conexao.closeConection();
-    }
 
-    return hosp;
+      return null;
+
+    }
 
   }
 

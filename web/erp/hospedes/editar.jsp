@@ -43,7 +43,7 @@
 
         <!-- Início do Formulário -->
         <form role="form" method="post" class="form-di"
-              action="cadastrar"
+              action="editar"
               accept-charset="UTF-8"
               enctype="application/x-www-form-urlencoded">
 
@@ -151,7 +151,8 @@
                        placeholder="CPF" 
                        maxlength="50"
                        required
-                       value="${hospede.cpf}" />
+                       value="${hospede.cpf}"
+                       readonly />
               </div>
 
             </div>
@@ -295,17 +296,7 @@
           <!-- Linha de botões do formulário -->
           <div class="row">
 
-            <div class="col-sm-2 hidden-xs"></div>
-
-            <div class="col-xs-6 col-sm-4">
-
-              <button type="reset" class="btn btn-block btn-lg btn-primary" 
-                      tabindex="12">
-                <i class="fa fa-eraser"></i>
-                LIMPAR
-              </button>
-
-            </div>
+            <div class="col-sm-4 hidden-xs"></div>
 
             <div class="col-xs-6 col-sm-4">
 

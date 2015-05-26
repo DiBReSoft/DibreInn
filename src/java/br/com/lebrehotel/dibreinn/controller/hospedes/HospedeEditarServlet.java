@@ -37,15 +37,19 @@ public class HospedeEditarServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	  throws ServletException, IOException {
-    
+
     String hospedeParametroURL = request.getParameter("id");
-    
+
     HospedeDAO hospedeBD = new HospedeDAO();
     Hospede hosp = hospedeBD.getHospedeById(Integer.parseInt(hospedeParametroURL));
-    request.setAttribute("hospede", hosp);
 
-    RequestDispatcher rd = request.getRequestDispatcher("/erp/hospedes/cadastrar.jsp");
-    rd.forward(request, response);
+    if (hosp != null) {
+      request.setAttribute("hospede", hosp);
+      RequestDispatcher rd = request.getRequestDispatcher("/erp/hospedes/editar.jsp");
+      rd.forward(request, response);
+    } else {
+      response.sendRedirect("../erro");
+    }
 
   }
 
@@ -86,19 +90,17 @@ public class HospedeEditarServlet extends HttpServlet {
 
 	h.setDataNascimento(dataNasc);
 
-	HospedeDAO hospedeBD = new HospedeDAO();
-	hospedeBD.editarHospede(h);
-
-	response.sendRedirect("../sucesso");
-	
       } catch (ParseException ex) {
 
 	Logger.getLogger(HospedeEditarServlet.class.getName()).log(Level.SEVERE, null, ex);
 	System.err.print("[ERRO]\n" + ex);
 
-	response.sendRedirect("../erro");
-
       }
+
+      HospedeDAO hospedeBD = new HospedeDAO();
+      hospedeBD.editarHospede(h);
+
+      response.sendRedirect("../sucesso");
 
     } catch (Exception ex) {
 

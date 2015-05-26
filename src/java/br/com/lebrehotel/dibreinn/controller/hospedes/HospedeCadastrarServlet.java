@@ -69,31 +69,25 @@ public class HospedeCadastrarServlet extends HttpServlet {
       h.setnCartao(request.getParameter("formCartao"));
 
       try {
-
 	String hospedeFormDataNasc = request.getParameter("formDataNasc");
-
 	Date dataNasc;
 	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
 	dataNasc = sdf.parse(hospedeFormDataNasc);
-
 	h.setDataNascimento(dataNasc);
-
-	HospedeDAO hospedeBD = new HospedeDAO();
-	hospedeBD.cadastrarHospede(h);
-
-	response.sendRedirect("../sucesso");
-
-	//montaEmail(h);
-	
       } catch (ParseException ex) {
-
 	Logger.getLogger(HospedeCadastrarServlet.class.getName()).log(Level.SEVERE, null, ex);
 	System.err.print("[ERRO]\n" + ex);
-
-	response.sendRedirect("../erro");
-
       }
+
+      HospedeDAO hospedeBD = new HospedeDAO();
+      boolean resultadoCadastro = hospedeBD.cadastrarHospede(h);
+      
+      if (resultadoCadastro) {
+	response.sendRedirect("../sucesso");
+      } else {
+	response.sendRedirect("../erro");
+      }
+      //montaEmail(h);
 
     } catch (Exception ex) {
 
