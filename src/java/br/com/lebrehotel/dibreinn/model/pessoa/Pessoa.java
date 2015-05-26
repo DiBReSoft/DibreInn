@@ -123,4 +123,12 @@ public abstract class Pessoa {
     this.newsletter = newsletter;
   }
 
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
 }

@@ -1,4 +1,6 @@
-package br.com.lebrehotel.dibreinn.model.pessoa;
+package br.com.lebrehotel.dibreinn.model.hospede;
+
+import br.com.lebrehotel.dibreinn.model.pessoa.Pessoa;
 
 /**
  *

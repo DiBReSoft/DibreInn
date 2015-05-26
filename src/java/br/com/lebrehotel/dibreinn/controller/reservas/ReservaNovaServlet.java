@@ -1,7 +1,8 @@
 package br.com.lebrehotel.dibreinn.controller.reservas;
 
 import br.com.lebrehotel.dibreinn.model.pessoa.Pessoa;
-import br.com.lebrehotel.dibreinn.model.pessoa.PessoaDAO;
+import br.com.lebrehotel.dibreinn.model.funcionario.FuncionarioDAO;
+import br.com.lebrehotel.dibreinn.model.hospede.HospedeDAO;
 import br.com.lebrehotel.dibreinn.model.quarto.Quarto;
 import br.com.lebrehotel.dibreinn.model.quarto.QuartoDAO;
 import br.com.lebrehotel.dibreinn.model.reserva.Reserva;
@@ -53,7 +54,8 @@ public class ReservaNovaServlet extends HttpServlet {
       listaQuartos = quartosBD.listarQuartos();
       request.setAttribute("listaQuartos", listaQuartos);
 
-      PessoaDAO pessoasBD = new PessoaDAO();
+      FuncionarioDAO pessoasBD = new FuncionarioDAO();
+      HospedeDAO hospedeBD = new HospedeDAO();
       List <Pessoa> listaPessoas = new ArrayList<>();
 
       // Esse atributo irá esconder a DIV com os resultados da busca na página nova.jsp
@@ -75,19 +77,19 @@ public class ReservaNovaServlet extends HttpServlet {
 
       if (nomeParaBuscar != null) {
         // busca por nome, retornando uma pessoa
-        request.setAttribute("lista", pessoasBD.buscarPessoas(nomeParaBuscar, 1));
+        request.setAttribute("lista", hospedeBD.buscarHospedes(nomeParaBuscar, 1));
       } else if (buscarEmail != null) {
         // busca por email, retornando uma pessoa
-        request.setAttribute("lista", pessoasBD.buscarPessoas(buscarEmail, 2));
+        request.setAttribute("lista", hospedeBD.buscarHospedes(buscarEmail, 2));
       } else if (buscarCpf != null) {
         // busca por cpf, retornando uma pessoa
-        request.setAttribute("lista", pessoasBD.buscarPessoas(buscarCpf, 3));
+        request.setAttribute("lista", hospedeBD.buscarHospedes(buscarCpf, 3));
       }
 
       String idHospedeReserva = request.getParameter("id");
 
       if (idHospedeReserva != null) {
-        request.setAttribute("lista", pessoasBD.buscarPessoas(idHospedeReserva, 4));
+        request.setAttribute("lista", hospedeBD.buscarHospedes(idHospedeReserva, 4));
         request.setAttribute("idHospede", idHospedeReserva);
         String js = "stepTwo.click();";
         request.setAttribute("selecionouHospede", js);

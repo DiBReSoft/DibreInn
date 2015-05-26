@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.lebrehotel.dibreinn.controller.pessoas;
+package br.com.lebrehotel.dibreinn.controller.funcionarios;
 
-import br.com.lebrehotel.dibreinn.model.pessoa.PessoaDAO;
+import br.com.lebrehotel.dibreinn.model.funcionario.FuncionarioDAO;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,14 +18,14 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Thi
  */
-@WebServlet(name = "PessoaBuscarServlet", urlPatterns = {"/erp/pessoas/buscar"})
-public class PessoaBuscarServlet extends HttpServlet {
+@WebServlet(name = "FuncionarioBuscarServlet", urlPatterns = {"/erp/funcionarios/buscar"})
+public class FuncionarioBuscarServlet extends HttpServlet {
   
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	  throws ServletException, IOException {
     
-    PessoaDAO consulta = new PessoaDAO();
+    FuncionarioDAO consulta = new FuncionarioDAO();
     
     // Esse atributo irá esconder a DIV com os resultados da busca na página buscar.jsp
     request.setAttribute("visibilidadeResultados", "hidden");
@@ -46,16 +46,16 @@ public class PessoaBuscarServlet extends HttpServlet {
 
     if (nomeParaBuscar != null) {
       // busca por nome, retornando uma pessoa
-      request.setAttribute("lista", consulta.BuscarPessoas(nomeParaBuscar, 1));
+      request.setAttribute("lista", consulta.buscarFuncionario(nomeParaBuscar, 1));
     } else if (buscarEmail != null) {
       // busca por email, retornando uma pessoa
-      request.setAttribute("lista", consulta.BuscarPessoas(buscarEmail, 2));
+      request.setAttribute("lista", consulta.buscarFuncionario(buscarEmail, 2));
     } else if (buscarCpf != null) {
       // busca por cpf, retornando uma pessoa
-      request.setAttribute("lista", consulta.BuscarPessoas(buscarCpf, 3));
+      request.setAttribute("lista", consulta.buscarFuncionario(buscarCpf, 3));
     }
 
-    RequestDispatcher rd = request.getRequestDispatcher("/erp/pessoas/buscar.jsp");
+    RequestDispatcher rd = request.getRequestDispatcher("/erp/funcionarios/buscar.jsp");
     rd.forward(request, response);
 
   }

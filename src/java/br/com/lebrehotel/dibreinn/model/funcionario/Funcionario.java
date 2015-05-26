@@ -1,5 +1,7 @@
-package br.com.lebrehotel.dibreinn.model.pessoa;
+package br.com.lebrehotel.dibreinn.model.funcionario;
 
+import br.com.lebrehotel.dibreinn.model.pessoa.Pessoa;
+import br.com.lebrehotel.dibreinn.model.usuario.Usuario;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.logging.Level;

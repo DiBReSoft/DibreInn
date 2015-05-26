@@ -1,8 +1,7 @@
-package br.com.lebrehotel.dibreinn.controller.pessoas;
+package br.com.lebrehotel.dibreinn.controller.funcionarios;
 
-import br.com.lebrehotel.dibreinn.model.pessoa.Funcionario;
-import br.com.lebrehotel.dibreinn.model.pessoa.Hospede;
-import br.com.lebrehotel.dibreinn.model.pessoa.PessoaDAO;
+import br.com.lebrehotel.dibreinn.model.funcionario.Funcionario;
+import br.com.lebrehotel.dibreinn.model.funcionario.FuncionarioDAO;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jSilverize
  */
-@WebServlet(name = "PessoaVisualizarServlet", urlPatterns = {"/erp/pessoas/visualizar", "/erp/pessoas/perfil"})
-public class PessoaVisualizarServlet extends HttpServlet {
+@WebServlet(name = "FuncionarioEditarServlet", urlPatterns = {"/erp/funcionarios/editar"})
+public class FuncionarioEditarServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -26,31 +25,22 @@ public class PessoaVisualizarServlet extends HttpServlet {
 
         if (pessoaID != null) {
 
-            PessoaDAO consulta = new PessoaDAO();
+            FuncionarioDAO consulta = new FuncionarioDAO();
 
             if (consulta.isFuncionario(Integer.parseInt(pessoaID))) {
 
                 Funcionario func = new Funcionario();
 
-                func = consulta.getFuncionario(Integer.parseInt(pessoaID));
+                func = consulta.getFuncionarioById(Integer.parseInt(pessoaID));
 
                 request.setAttribute("pessoa", func);
 
-            } else {
-                
-                Hospede hosp = new Hospede();
-                
-                hosp = consulta.getHospede(Integer.parseInt(pessoaID));
-                
-                request.setAttribute("pessoa", hosp);
-                
             }
 
+            RequestDispatcher rd = request.getRequestDispatcher("/erp/pessoas/perfil.jsp");
+            rd.forward(request, response);
+
         }
-
-        RequestDispatcher rd = request.getRequestDispatcher("/erp/pessoas/perfil.jsp");
-        rd.forward(request, response);
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

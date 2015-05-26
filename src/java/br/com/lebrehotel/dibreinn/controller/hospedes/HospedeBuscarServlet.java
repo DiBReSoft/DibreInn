@@ -1,6 +1,6 @@
 package br.com.lebrehotel.dibreinn.controller.hospedes;
 
-import br.com.lebrehotel.dibreinn.model.pessoa.HospedeDAO;
+import br.com.lebrehotel.dibreinn.model.hospede.HospedeDAO;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

@@ -1,6 +1,6 @@
 package br.com.lebrehotel.dibreinn.controller.sessao;
 
-import br.com.lebrehotel.dibreinn.model.pessoa.Usuario;
+import br.com.lebrehotel.dibreinn.model.usuario.Usuario;
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;

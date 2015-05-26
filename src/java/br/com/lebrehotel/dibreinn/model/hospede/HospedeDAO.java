@@ -1,4 +1,4 @@
-package br.com.lebrehotel.dibreinn.model.pessoa;
+package br.com.lebrehotel.dibreinn.model.hospede;
 
 /**
  *
@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -83,12 +84,10 @@ public class HospedeDAO {
     PreparedStatement stmt = null;
 
     String sql = "UPDATE TB_PESSOA SET STATUS = ?, NOME = ?, SOBRENOME = ?, "
-	    + "SEXO = ?, RG = ?, CPF = ?, DATANASC ?, TEL = ?, CEL = ?, EMAIL = ?, NEWSLETTER = ? "
-	    + "WHERE ID_PESSOA = ?";
+	    + "SEXO = ?, RG = ?, CPF = ?, DATANASC = ?, TELEFONE = ?, CEL = ?, EMAIL = ?, NEWSLETTER = ? \n"
+	    + "WHERE ID_PESSOA = ? \n";
 
-    sql += " DECLARE @IdCliente AS INT = @@IDENTITY \n";//pega o id_pessoa da transação
-
-    sql += " UPDATE TB_HOSPEDE SET N_CARTAO = ? WHERE ID_PESSOA = @IdCliente";
+    sql += " UPDATE TB_HOSPEDE SET N_CARTAO = ? WHERE ID_PESSOA = ?";
 
     try {
 
@@ -112,6 +111,7 @@ public class HospedeDAO {
       stmt.setInt(12, h.getId());
 
       stmt.setString(13, h.getnCartao());
+      stmt.setInt(14, h.getId());
 
       stmt.executeUpdate();
 
@@ -137,17 +137,18 @@ public class HospedeDAO {
     }
   }
 
-  public List<Pessoa> buscarHospedes(String pesquisa, int tipoBusca) {
+  public List<Hospede> buscarHospedes(String pesquisa, int tipoBusca) {
     ResultSet rs = null;
 
     ConectarBD conexao = new ConectarBD();
     PreparedStatement stmt = null;
 
-    List<Pessoa> lista = new ArrayList<>();
+    List<Hospede> lista = new ArrayList<>();
 
-    String Query = "SELECT STATUS, ID_PESSOA,NOME, SOBRENOME, SEXO, RG, CPF, DATANASC, TELEFONE, CEL, EMAIL, NEWSLETTER \n"
-	    + "FROM TB_PESSOA WHERE ";
-
+    String Query = "SELECT STATUS, TB_PESSOA.ID_PESSOA,NOME, SOBRENOME, SEXO, RG, CPF, DATANASC, TELEFONE, CEL, EMAIL, NEWSLETTER \n"
+	    + "FROM TB_PESSOA \n"
+            + "INNER JOIN TB_HOSPEDE on TB_HOSPEDE.ID_PESSOA = TB_PESSOA.ID_PESSOA \n"
+            + " WHERE ";
     switch (tipoBusca) {
       case 1:
 	Query += "NOME = ?";
@@ -159,7 +160,7 @@ public class HospedeDAO {
 	Query += "CPF = ?";
 	break;
       case 4:
-	Query += "ID_PESSOA = ?";
+	Query += "TB_PESSOA.ID_PESSOA = ?";
 	break;
     }
     
@@ -183,7 +184,15 @@ public class HospedeDAO {
 	p.setSexo(resultados.getString("SEXO"));
 	p.setRg(resultados.getString("RG"));
 	p.setCpf(resultados.getString("CPF"));
-	p.setDataNascimento(resultados.getDate("DATANASC"));
+	
+      //  Date teste =resultados.getDate("DATANASC");
+        //int dia,mes,ano;
+        //dia = teste.getDay();
+        //mes = teste.getMonth();
+        //ano = teste.getYear();
+       //String data = dia+"/"+mes+"/"+ano;
+      
+        p.setDataNascimento(resultados.getDate("DATANASC"));
 	p.setTelefone(resultados.getString("TELEFONE"));
 	p.setCelular(resultados.getString("CEL"));
 	p.setEmail(resultados.getString("EMAIL"));
@@ -196,14 +205,14 @@ public class HospedeDAO {
       return lista;
     } catch (SQLException ex) {
       // Caso haja erro retorna 0 como ID e informa no log
-      Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, "[INFO] Erro ao buscar dados: ", ex);
+      Logger.getLogger(HospedeDAO.class.getName()).log(Level.SEVERE, "[INFO] Erro ao buscar dados: ", ex);
 
     } finally {
       if (stmt != null) {
 	try {
 	  stmt.close();
 	} catch (SQLException ex) {
-	  Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
+	  Logger.getLogger(HospedeDAO.class.getName()).log(Level.SEVERE, null, ex);
 	}
       }
       if (conexao != null) {

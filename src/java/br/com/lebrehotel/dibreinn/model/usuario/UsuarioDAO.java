@@ -1,4 +1,4 @@
-package br.com.lebrehotel.dibreinn.model.pessoa;
+package br.com.lebrehotel.dibreinn.model.usuario;
 
 /**
  *

@@ -1,6 +1,6 @@
 package br.com.lebrehotel.dibreinn.controller.quartos;
 
-import br.com.lebrehotel.dibreinn.model.pessoa.Usuario;
+import br.com.lebrehotel.dibreinn.model.usuario.Usuario;
 import br.com.lebrehotel.dibreinn.model.quarto.QuartoDAO;
 import br.com.lebrehotel.dibreinn.model.unidade.UnidadeDAO;
 import java.io.IOException;

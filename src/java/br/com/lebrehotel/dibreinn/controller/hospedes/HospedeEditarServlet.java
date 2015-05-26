@@ -1,8 +1,8 @@
 package br.com.lebrehotel.dibreinn.controller.hospedes;
 
 import br.com.lebrehotel.dibreinn.model.email.Email;
-import br.com.lebrehotel.dibreinn.model.pessoa.Hospede;
-import br.com.lebrehotel.dibreinn.model.pessoa.HospedeDAO;
+import br.com.lebrehotel.dibreinn.model.hospede.Hospede;
+import br.com.lebrehotel.dibreinn.model.hospede.HospedeDAO;
 import br.com.lebrehotel.dibreinn.model.pessoa.Pessoa;
 import java.io.IOException;
 import java.text.ParseException;
