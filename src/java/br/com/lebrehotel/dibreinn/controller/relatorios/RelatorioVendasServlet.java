@@ -29,6 +29,9 @@ public class RelatorioVendasServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
+      
+      
+      
     
     String vendas = 
             "{unidade: 'Unidade SP1', vendas: 100}, "

@@ -22,15 +22,15 @@ public class FuncionarioDAO {
     ConectarBD conexao = new ConectarBD();
     PreparedStatement stmt = null;
 
-    int codPessoa;
+//    int codPessoa;
 
-    String sqlConsulta = "SELECT max(ID_PESSOA) as ID_PESSOA FROM TB_PESSOA";
+//    String sqlConsulta = "SELECT max(ID_PESSOA) as ID_PESSOA FROM TB_PESSOA";
 
     String sqlInsert = " INSERT INTO TB_PESSOA (NOME, SOBRENOME, SEXO, RG, CPF, DATANASC, TELEFONE, CEL, EMAIL, NEWSLETTER) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) \n ";
 
     sqlInsert += " DECLARE @IdCliente AS INT = @@IDENTITY \n";//pega o id_pessoa da transação
 
-    sqlInsert += " INSERT INTO TB_FUNCIONARIO (ID_PESSOA,ID_UNIDADE,DEPARTAMENTO,CARGO,SALARIO,SENHA) VALUES (@IdCliente,?,?,?,?,?) \n ";
+    sqlInsert += " INSERT INTO TB_FUNCIONARIO (ID_PESSOA,ID_UNIDADE,ID_PRIVILEGIO,SENHA) VALUES (@IdCliente,?,?,?) \n ";
 
     try {
       conexao.openConection();
@@ -41,27 +41,26 @@ public class FuncionarioDAO {
       stmt.setString(3, f.getSexo());
       stmt.setString(4, f.getRg());
       stmt.setString(5, f.getCpf());
-      stmt.setDate(6, (Date) f.getDataNascimento());
+        java.sql.Date sqlDataNasc = new java.sql.Date(f.getDataNascimento().getTime());
+      stmt.setDate(7, sqlDataNasc);
       stmt.setString(7, f.getTelefone());
       stmt.setString(8, f.getCelular());
       stmt.setString(9, f.getEmail());
       stmt.setInt(10, f.getNewsletter());
 
-      stmt.setInt(20, f.getUnidade());
-      stmt.setString(21, f.getDepartamento());
-      stmt.setString(22, f.getCargo());
-      stmt.setDouble(23, f.getSalario());
-      stmt.setString(24, f.getSenha());
+      stmt.setInt(11, f.getUnidade());
+      stmt.setInt(12, f.getPrivilegio());
+      stmt.setString(13, f.getSenha());
       stmt.executeUpdate();
 
-      System.out.println("Dados Salvos com sucesso!!!");
+      System.out.println("[INFO] Funcionario " + f.getNome() + " " + f.getSobrenome() + " Cadastrado com sucesso.");
 
-      System.out.println("Bucando o id da pessoa cadastrada...");
-      conexao.executaSQL(sqlConsulta);
-      conexao.rs.next();
-      codPessoa = conexao.rs.getInt("ID_PESSOA");
-      System.out.println("Id encontrado!!");
-      System.out.println("Id: " + codPessoa + "\n");
+//      System.out.println("Bucando o id da pessoa cadastrada...");
+//      conexao.executaSQL(sqlConsulta);
+//      conexao.rs.next();
+//      codPessoa = conexao.rs.getInt("ID_PESSOA");
+//      System.out.println("Id encontrado!!");
+//      System.out.println("Id: " + codPessoa + "\n");
 
     } catch (SQLException ex) {
       Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -82,7 +81,7 @@ public class FuncionarioDAO {
 	}
       }
     }
-    return codPessoa;
+    return 1;
   }
 
  
@@ -95,7 +94,9 @@ public class FuncionarioDAO {
     List<Funcionario> lista = new ArrayList<>();
 
     String Query = "SELECT STATUS, ID_PESSOA,NOME, SOBRENOME, SEXO, RG, CPF, DATANASC, TELEFONE, CEL, EMAIL, NEWSLETTER \n"
-	    + "FROM TB_PESSOA WHERE ";
+	    + "FROM TB_PESSOA "
+            + "INNER JOIN TB_FUNCIONARIO on TB_FUNCIONARIO.ID_PESSOA = TB_PESSOA.ID_PESSOA \n"
+            + " WHERE ";
 
     switch (tipoBusca) {
       case 1:
@@ -161,36 +162,40 @@ public class FuncionarioDAO {
     return null;
   }
 
-  public int atualizaFuncionario(int id, Funcionario p) {
+ public int editarFuncionario(Funcionario f) {
 
     ConectarBD conexao = new ConectarBD();
     PreparedStatement stmt = null;
 
-    String sql = "BEGIN TRANSACTION "
-	    + "DECLARE @idCliente INT = ? "
-	    + "UPDATE TB_PESSOA SET SOBRENOME='?', DATANASC='?', TELEFONE='?',CEL='?', EMAIL='?',NEWSLETTER=?"
-	    + "WHERE ID_PESSOA = @idCliente"
-	    + "UPDATE TB_FUNCIONARIO SET ID_UNIDADE='?',DEPARTAMENTO='?',CARGO='?',SALARIO=?,SENHA='?'"
-	    + "WHERE ID_PESSOA =@idCliente"
-	    + "UPDATE TB_ENDERECO SET LOGRADOURO='?',NUM=?,CEP='?',COMPLEMENTO='?',BAIRRO='?',CIDADE='?',ESTADO='?',PAIS='?'"
-	    + "WHERE ID_PESSOA = @idCliente"
-	    + "IF @@ERROR <> 0\n BEGIN\n ROLLBACK\n END\n ELSE\n COMMIT\n GO";
+    String sql = "UPDATE TB_PESSOA SET STATUS = ?, NOME = ?, SOBRENOME = ?, "
+	    + "SEXO = ?, RG = ?, CPF = ?, DATANASC = ?, TELEFONE = ?, CEL = ?, EMAIL = ?, NEWSLETTER = ? \n"
+	    + "WHERE ID_PESSOA = ? \n";
+
+    sql += " UPDATE TB_FUNCIONARIO SET ID_UNIDADE = ?,ID_PRIVILEGIO = ? WHERE ID_PESSOA = ?";
 
     try {
       conexao.openConection();
       stmt = conexao.conn.prepareStatement(sql);
 
-      stmt.setInt(1, id);
-      stmt.setString(2, p.getSobrenome());
-      stmt.setDate(3, (Date) p.getDataNascimento());
-      stmt.setString(4, p.getTelefone());
-      stmt.setString(5, p.getCelular());
-      stmt.setString(5, p.getEmail());
-      stmt.setInt(7, p.getNewsletter());
+      stmt.setInt(1, f.getStatus());
+      stmt.setString(2, f.getNome());
+      stmt.setString(3, f.getSobrenome());
+      stmt.setString(4, f.getSexo());
+      stmt.setString(5, f.getRg());
+      stmt.setString(6, f.getCpf());
 
-      stmt.setInt(8, p.getUnidade());
-      stmt.setString(9, p.getDepartamento());
-      stmt.setString(12, p.getSenha());
+      java.sql.Date sqlDataNasc = new java.sql.Date(f.getDataNascimento().getTime());
+      stmt.setDate(7, sqlDataNasc);
+
+      stmt.setString(8, f.getTelefone());
+      stmt.setString(9, f.getCelular());
+      stmt.setString(10, f.getEmail());
+      stmt.setInt(11, f.getNewsletter());
+      stmt.setInt(12, f.getId());
+
+      stmt.setInt(13, f.getUnidade());
+      stmt.setInt(14, f.getPrivilegio());
+      stmt.setInt(15, f.getId());
       
       stmt.executeUpdate();
       System.out.println("Dados Alterados com sucesso!!!");
@@ -226,7 +231,7 @@ public class FuncionarioDAO {
     Funcionario func = new Funcionario();
 
     query = "SELECT pe.STATUS, pe.ID_PESSOA, pe.NOME, pe.SOBRENOME, pe.SEXO, pe.RG, CPF, pe.DATANASC, pe.TELEFONE, pe.CEL, pe.EMAIL, pe.TIPO,pe.NEWSLETTER,"
-	    + "func.ID_UNIDADE, func.DEPARTAMENTO, func.CARGO, func.SALARIO "
+	    + "func.ID_UNIDADE, func.ID_PRIVILEGIO "
 	    + "FROM TB_FUNCIONARIO as func "
 	    + "INNER JOIN TB_PESSOA as pe on pe.ID_PESSOA = func.id_pessoa Where func.ID_PESSOA =?";
 
@@ -250,9 +255,8 @@ public class FuncionarioDAO {
       func.setEmail(result.getString("EMAIL"));
       func.setNewsletter(result.getInt("NEWSLETTER"));
       func.setUnidade(Integer.parseInt(result.getString("ID_UNIDADE")));
-      func.setDepartamento(result.getString("DEPARTAMENTO"));
+      func.setPrivilegio(Integer.parseInt(result.getString("ID_PRIVILEGIO")));
       
-
       System.out.println("Dados de funcionario populados com sucesso");
       conexao.closeConection();
 

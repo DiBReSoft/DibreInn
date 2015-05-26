@@ -7,6 +7,8 @@ import br.com.lebrehotel.dibreinn.model.funcionario.FuncionarioDAO;
 import br.com.lebrehotel.dibreinn.model.privilegio.PrivilegioDAO;
 import br.com.lebrehotel.dibreinn.model.unidade.UnidadeDAO;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import java.util.Properties;
 import javax.mail.Address;
@@ -62,7 +64,11 @@ public class FuncionarioCadastrarServlet extends HttpServlet {
             f.setSexo(request.getParameter("formSexo"));
             f.setRg(request.getParameter("formRg"));
             f.setCpf(request.getParameter("formCpf"));
-            f.setDataNascimento(java.sql.Date.valueOf(request.getParameter("formDataNasc")));
+            String funcionarioFormDataNasc = request.getParameter("formDataNasc");
+            Date dataNasc;
+	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	dataNasc = sdf.parse(funcionarioFormDataNasc);
+	f.setDataNascimento(dataNasc);
             f.setTelefone(request.getParameter("formTel"));
             f.setCelular(request.getParameter("formCel"));
             f.setEmail(request.getParameter("formEmail"));
@@ -80,7 +86,7 @@ public class FuncionarioCadastrarServlet extends HttpServlet {
                 f.setLogin(null);
                 f.setSenha(null);
             }
-            f.setDepartamento(request.getParameter("formPrivilegio"));
+            f.setPrivilegio(Integer.parseInt(request.getParameter("formPrivilegio")));
             f.setUnidade(Integer.parseInt(request.getParameter("formUnidade")));
 
             FuncionarioDAO pessoaBD = new FuncionarioDAO();

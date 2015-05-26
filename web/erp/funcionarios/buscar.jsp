@@ -226,7 +226,7 @@
                   <c:out value="${funcionario.email}" />
                 </td>
                 <td class="text-center">
-                  <a href="<c:url value="/erp/hospedes/editar?id=${funcionario.id}" />"
+                  <a href="<c:url value="/erp/funcionarios/editar?id=${funcionario.id}" />"
                      class="btn btn-sm btn-default">
                     <i class="fa fa-fw fa-lg fa-edit"></i>
                     Cadastro Completo
