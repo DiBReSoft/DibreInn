@@ -3,21 +3,18 @@ $(document).ready(function() {
  
  //aplicando mascaras
      $("#formCartao").unmask();
-     $("#formPassaporte").unmask();
      $('#formCpf').unmask();
      $('#formRg').unmask();
      $('#formCep').unmask();
      $('#formTel').unmask();
-     $("#formCartao").unmask();
+     $('#formCel').unmask();
      
-     $("#formPassaporte").numeric();
-     $("#formCartao").numeric();
+     $("#formCartao").mask('9999 9999 9999 9999');
      $('#formCpf').mask('999.999.999-99');
      $('#formRg').mask('**.999.999-*');
      $('#formCep').mask('99999-999');
-     $('#formTel').mask('(99)9999-9999');
-    
- 
+     $('#formTel').mask('(99) 9999-9999');
+     $('#formCel').mask('(99) 999-999-999');
  
  
 //começa verificação de cpf

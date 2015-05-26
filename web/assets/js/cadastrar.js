@@ -1,34 +1,3 @@
-$(document).ready(function () {
-
-  $("a[href=#abaHospede]").click(function () {
-    console.log("Aba de hospede ativa");
-    $("#formTipo1").click();
-
-    $("#formCartao").attr("required", "");
-    $("#formUnidade").removeAttr("required");
-    $("#formCargo").removeAttr("required");
-    $("#formSenha").removeAttr("required");
-  });
-  $("a[href=#abaFuncionario]").click(function () {
-    console.log("Aba de funcionario ativa");
-    $("#formTipo2").click();
-
-    $("#formCartao").removeAttr("required");
-    $("#formUnidade").attr("required", "");
-    $("#formCargo").attr("required", "");
-    $("#formSenha").attr("required", "");
-  });
-
-  $("#checkOpUsuario").click(function () {
-    if ($("#formSenha").attr("required")) {
-      $("#formSenha").removeAttr("required");
-    } else {
-      $("#formSenha").attr("required", "");
-    }
-  });
-
-});
-
 var cep = document.querySelector("#formCep");
 
 function consultacep(cep) {

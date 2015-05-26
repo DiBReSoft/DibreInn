@@ -53,42 +53,82 @@
 
           <div class="row">
 
-            <div class="col-sm-4">
+            <div class="col-xs-6 col-sm-4">
 
               <div class="form-group">
-                <label for="formNome">
-                  Nome da Unidade:
+                <label for="unidadeId">
+                  <i class="fa fa-fw fa-lg fa-barcode"></i>
+                  ID:
                 </label>
                 <input type="text" class="form-control"
                        tabindex="1"
-                       name="unidadeNome" id="formNome" 
-                       placeholder="SAO PAULO III"
+                       name="unidadeId" id="unidadeId"
                        required="true" 
-                       value="<c:out value="${unidade.nome}" />" />
+                       value="<c:out value="${unidade.id}" />" 
+                       readonly 
+                       title="Não é possível mudar o ID"/>
               </div>
 
             </div>
 
-            <div class="col-sm-5">
+            <div class="col-xs-6 col-sm-4">
 
               <div class="form-group">
-                <label for="formCnpj">
-                  CNPJ:
+
+                <label for="formStatus">
+                  <i class="fa fa-lg fa-building"></i>
+                  Status:
                 </label>
-                <input type="text" class="form-control"
-                       tabindex="2"
-                       name="unidadeCnpj" id="formCnpj" 
-                       placeholder=""
-                       required="true" 
-                       value="<c:out value="${unidade.cnpj}" />" />
+
+                <div class="row">
+
+                  <div class="col-xs-6 text-right">
+
+                    <label for="formStatus1">
+                      Ativa
+                    </label>
+
+                    <input type="radio"
+                           tabindex="2"
+                           name="unidadeStatus" id="formStatus1"
+                           value="1"
+                           required="true"
+                           <c:if test="${unidade.status == '1'}">
+                             checked
+                           </c:if>
+                           />
+
+                  </div>
+
+                  <div class="col-xs-6 text-left">
+
+                    <input type="radio"
+                           tabindex="3"
+                           name="unidadeStatus" id="formStatus2"
+                           value="0"
+                           required="true" 
+                           <c:if test="${unidade.status == '0'}">
+                             checked
+                           </c:if>
+                           />
+
+                    <label for="formStatus2">
+                      Inativa
+                    </label>
+
+                  </div>
+
+                </div>
+
               </div>
 
             </div>
 
-            <div class="col-sm-3">
+            <div class="col-xs-6 col-sm-4">
 
               <div class="form-group">
                 <label for="formTipo">
+                  <i class="fa fa-fw fa-lg fa-tags"></i>
                   Tipo:
                 </label>
                 <select class="form-control"
@@ -113,6 +153,40 @@
                     </option>
                   </c:if>
                 </select>
+              </div>
+
+            </div>
+
+            <div class="col-sm-6">
+
+              <div class="form-group">
+                <label for="formNome">
+                  <i class="fa fa-fw fa-lg fa-tag"></i>
+                  Nome da Unidade:
+                </label>
+                <input type="text" class="form-control"
+                       tabindex="1"
+                       name="unidadeNome" id="formNome" 
+                       placeholder="SAO PAULO III"
+                       required="true" 
+                       value="<c:out value="${unidade.nome}" />" />
+              </div>
+
+            </div>
+
+            <div class="col-sm-6">
+
+              <div class="form-group">
+                <label for="formCnpj">
+                  <i class="fa fa-fw fa-lg fa-briefcase"></i>
+                  CNPJ:
+                </label>
+                <input type="text" class="form-control"
+                       tabindex="2"
+                       name="unidadeCnpj" id="formCnpj" 
+                       placeholder=""
+                       required="true" 
+                       value="<c:out value="${unidade.cnpj}" />" />
               </div>
 
             </div>
@@ -223,7 +297,7 @@
 
             </div>
 
-            <div class="col-sm-5">
+            <div class="col-sm-6">
 
               <div class="form-group">
                 <label for="formCidade">
@@ -238,11 +312,11 @@
 
             </div>
 
-            <div class="col-sm-3">
+            <div class="col-sm-6">
 
               <div class="form-group">
                 <label for="formEstado" title="Estado">
-                  UF:
+                  ESTADO (UF):
                 </label>
                 <input type="text" class="form-control" 
                        name="unidadeEstado" id="formEstado" 
@@ -272,19 +346,9 @@
       <!-- Linha de botões do formulário -->
       <div class="row">
 
-        <div class="col-sm-3 hidden-xs"></div>
+        <div class="col-xs-3 col-sm-4 hidden-xs"></div>
 
-        <div class="col-xs-6 col-sm-3">
-
-          <button type="reset" class="btn btn-block btn-lg btn-primary" 
-                  tabindex="8">
-            <i class="fa fa-eraser"></i>
-            LIMPAR
-          </button>
-
-        </div>
-
-        <div class="col-xs-6 col-sm-3">
+        <div class="col-xs-6 col-sm-4">
 
           <button type="submit" class="btn btn-block btn-lg btn-default" 
                   tabindex="7">

@@ -18,14 +18,12 @@ import java.util.logging.Logger;
  */
 public class ReservaDAO {
 
-  public boolean cadastrarReserva(Reserva res) {
-
-    boolean resultadoOperacao;
+  public void cadastrarReserva(Reserva res) {
 
     ConectarBD conexao = new ConectarBD();
     PreparedStatement stmt = null;
 
-    String sql = " INSERT INTO TB_RESERVA (ID_FUNCIONARIO, ID_HOSPEDE, ID_QUARTO, DT_INICIO) VALUES (?, ?, ?, ?)\n ";
+    String sql = " INSERT INTO TB_RESERVA (ID_FUNCIONARIO, ID_HOSPEDE, ID_QUARTO, DT_INICIO, DT_FIM) VALUES (?, ?, ?, ?, ?)\n ";
 
     try {
 
@@ -38,17 +36,16 @@ public class ReservaDAO {
 
       java.sql.Date sqlDataCheckin = new java.sql.Date(res.getCheckIn().getTime());
       stmt.setDate(4, sqlDataCheckin);
+      
+      java.sql.Date sqlDataCheckout = new java.sql.Date(res.getCheckOut().getTime());
+      stmt.setDate(5, sqlDataCheckout);
 
       stmt.executeUpdate();
       System.out.println("[INFO] Reserva registrada com sucesso.");
 
-      return resultadoOperacao = true;
-
     } catch (SQLException ex) {
 
       Logger.getLogger(ReservaDAO.class.getName()).log(Level.SEVERE, null, ex);
-
-      return resultadoOperacao = false;
 
     } finally {
 

@@ -1,44 +1,22 @@
 package br.com.lebrehotel.dibreinn.model.pessoa;
+
 /**
  *
- * @author Thiago
- * data: 04/04/2015
- * essa classe tem como finalidade criar os atributos e metodos de funcionario com herança de pessoa
+ * @author Thiago, udimberto.sjunior data: 04/04/2015, 25/05/2015 essa classe
+ * tem como finalidade criar os atributos e metodos de hospede com herança de
+ * pessoa
  */
-public class Hospede extends Pessoa{
-    
- 
-    private String nacionalidade;
-    private String nPassaporte;
-    private String foto;
-    private String nCartao;
+public class Hospede extends Pessoa {
 
-    public Hospede() {
-        
-    }
- 
+  private String nPassaporte;
+  private String foto;
+  private String nCartao;
 
-    public String getNacionalidade() {
-        return nacionalidade;
-    }
+  public String getnCartao() {
+    return nCartao;
+  }
 
-    public void setNacionalidade(String nacionalidade) {
-        this.nacionalidade = nacionalidade;
-    }
-
-     public String getFoto() {
-        return foto;
-    }
-
-    public void setFoto(String foto) {
-        this.foto = foto;
-    }
-
-    public String getnCartao() {
-        return nCartao;
-    }
-
-    public void setnCartao(String nCartao) {
-        this.nCartao = nCartao;
-    }
+  public void setnCartao(String nCartao) {
+    this.nCartao = nCartao;
+  }
 }

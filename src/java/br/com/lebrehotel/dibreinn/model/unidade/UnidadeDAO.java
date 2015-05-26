@@ -20,22 +20,23 @@ public class UnidadeDAO {
     ConectarBD conexao = new ConectarBD();
     PreparedStatement stmt = null;
 
-    String sql = "INSERT INTO TB_UNIDADE (NOME,CNPJ,TIPO,LOGRADOURO,NUM,CEP,COMPLEMENTO,BAIRRO,CIDADE,ESTADO) VALUES  (?,?,?,?,?,?,?,?,?,?)";
+    String sql = "INSERT INTO TB_UNIDADE (NOME,STATUS,CNPJ,TIPO,LOGRADOURO,NUM,CEP,COMPLEMENTO,BAIRRO,CIDADE,ESTADO) VALUES  (?,?,?,?,?,?,?,?,?,?,?)";
 
     try {
       conexao.openConection();
       stmt = conexao.conn.prepareStatement(sql);
 
       stmt.setString(1, u.getNome());
-      stmt.setString(2, u.getCnpj());
-      stmt.setInt(3, u.getTipo());
-      stmt.setString(4, u.getLogradouro());
-      stmt.setString(5, u.getNumero());
-      stmt.setString(6, u.getCep());
-      stmt.setString(7, u.getComplemento());
-      stmt.setString(8, u.getBairro());
-      stmt.setString(9, u.getCidade());
-      stmt.setString(10, u.getEstado());
+      stmt.setInt(2, u.getStatus());
+      stmt.setString(3, u.getCnpj());
+      stmt.setInt(4, u.getTipo());
+      stmt.setString(5, u.getLogradouro());
+      stmt.setString(6, u.getNumero());
+      stmt.setString(7, u.getCep());
+      stmt.setString(8, u.getComplemento());
+      stmt.setString(9, u.getBairro());
+      stmt.setString(10, u.getCidade());
+      stmt.setString(11, u.getEstado());
 
       stmt.executeUpdate();
       System.out.println("Dados Salvos com sucesso!!!");
@@ -65,7 +66,7 @@ public class UnidadeDAO {
     ConectarBD conexao = new ConectarBD();
     PreparedStatement stmt = null;
 
-    String sql = "UPDATE TB_UNIDADE SET NOME = ?, CNPJ = ?, TIPO = ?, "
+    String sql = "UPDATE TB_UNIDADE SET STATUS = ?, NOME = ?, CNPJ = ?, TIPO = ?, "
 	    + "LOGRADOURO = ?, NUM = ?, CEP = ?, COMPLEMENTO = ?, "
 	    + "BAIRRO = ?, CIDADE = ?, ESTADO = ? "
 	    + "WHERE ID_UNIDADE = ?";
@@ -75,18 +76,19 @@ public class UnidadeDAO {
       conexao.openConection();
       stmt = conexao.conn.prepareStatement(sql);
 
-      stmt.setString(1, u.getNome());
-      stmt.setString(2, u.getCnpj());
-      stmt.setInt(3, u.getTipo());
-      stmt.setString(4, u.getLogradouro());
-      stmt.setString(5, u.getNumero());
-      stmt.setString(6, u.getCep());
-      stmt.setString(7, u.getComplemento());
-      stmt.setString(8, u.getBairro());
-      stmt.setString(9, u.getCidade());
-      stmt.setString(10, u.getEstado());
+      stmt.setInt(1, u.getStatus());
+      stmt.setString(2, u.getNome());
+      stmt.setString(3, u.getCnpj());
+      stmt.setInt(4, u.getTipo());
+      stmt.setString(5, u.getLogradouro());
+      stmt.setString(6, u.getNumero());
+      stmt.setString(7, u.getCep());
+      stmt.setString(8, u.getComplemento());
+      stmt.setString(9, u.getBairro());
+      stmt.setString(10, u.getCidade());
+      stmt.setString(11, u.getEstado());
       
-      stmt.setString(11, Integer.toString(u.getId()));
+      stmt.setString(12, Integer.toString(u.getId()));
 
       stmt.executeUpdate();
       
@@ -112,7 +114,7 @@ public class UnidadeDAO {
     }
   }
 
-  public List<Unidade> listarUnidades(String pesquisa, int tipoBusca) {
+  public List<Unidade> listarUnidades() {
     ResultSet rs = null;
 
     ConectarBD conexao = new ConectarBD();
@@ -120,30 +122,22 @@ public class UnidadeDAO {
 
     List<Unidade> lista = new ArrayList<>();
 
-    String Query = "SELECT ID_UNIDADE,NOME,CNPJ,TIPO,LOGRADOURO,NUM,CEP,COMPLEMENTO,BAIRRO,CIDADE,ESTADO \n"
+    String Query = "SELECT ID_UNIDADE, STATUS, NOME, CNPJ, TIPO, LOGRADOURO, NUM, CEP, COMPLEMENTO, BAIRRO, CIDADE, ESTADO \n"
 	    + "FROM TB_UNIDADE \n";
-
-    switch (tipoBusca) {
-      case 1:
-	Query += "WHERE ID_UNIDADE=?";
-	break;
-    }
 
     try {
       conexao.openConection();
 
       stmt = conexao.conn.prepareStatement(Query);
 
-      if (tipoBusca == 1) {
-	stmt.setString(1, pesquisa);
-      }
-
       ResultSet resultados = stmt.executeQuery();
 
       while (resultados.next()) {
+	
 	Unidade u = new Unidade();
 
 	u.setId(Integer.parseInt(resultados.getString("ID_UNIDADE")));
+	u.setStatus(Integer.parseInt(resultados.getString("STATUS")));
 	u.setNome(resultados.getString("NOME"));
 	u.setCnpj(resultados.getString("CNPJ"));
 	u.setTipo(resultados.getInt("TIPO"));
@@ -157,12 +151,13 @@ public class UnidadeDAO {
 	u.setEstado(resultados.getString("ESTADO"));
 
 	lista.add(u);
+	
       }
 
       return lista;
     } catch (SQLException ex) {
       // Caso haja erro retorna 0 como ID e informa no log
-      Logger.getLogger(UnidadeDAO.class.getName()).log(Level.SEVERE, "[INFO] Erro ao gravar os dados: ", ex);
+      Logger.getLogger(UnidadeDAO.class.getName()).log(Level.SEVERE, "[INFO] Erro ao consultar os dados de UNIDADES: ", ex);
 
     } finally {
       if (stmt != null) {
@@ -186,7 +181,7 @@ public class UnidadeDAO {
     ConectarBD conexao = new ConectarBD();
     PreparedStatement stmt = null;
 
-    String Query = "SELECT ID_UNIDADE,NOME,CNPJ,TIPO,LOGRADOURO,NUM,CEP,COMPLEMENTO,BAIRRO,CIDADE,ESTADO \n"
+    String Query = "SELECT ID_UNIDADE,STATUS, NOME,CNPJ,TIPO,LOGRADOURO,NUM,CEP,COMPLEMENTO,BAIRRO,CIDADE,ESTADO \n"
 	    + "FROM TB_UNIDADE WHERE ID_UNIDADE = ? \n";
 
     try {
@@ -203,6 +198,7 @@ public class UnidadeDAO {
       while (resultados.next()) {
 
 	u.setId(Integer.parseInt(resultados.getString("ID_UNIDADE")));
+	u.setStatus(Integer.parseInt(resultados.getString("STATUS")));
 	u.setNome(resultados.getString("NOME"));
 	u.setCnpj(resultados.getString("CNPJ"));
 	u.setTipo(resultados.getInt("TIPO"));

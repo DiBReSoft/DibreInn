@@ -6,6 +6,8 @@ import br.com.lebrehotel.dibreinn.model.quarto.Quarto;
 import br.com.lebrehotel.dibreinn.model.quarto.QuartoDAO;
 import br.com.lebrehotel.dibreinn.model.reserva.Reserva;
 import br.com.lebrehotel.dibreinn.model.reserva.ReservaDAO;
+import br.com.lebrehotel.dibreinn.model.unidade.Unidade;
+import br.com.lebrehotel.dibreinn.model.unidade.UnidadeDAO;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -41,16 +43,18 @@ public class ReservaNovaServlet extends HttpServlet {
           throws ServletException, IOException {
 
     try {
+      UnidadeDAO unidadesBD = new UnidadeDAO();
+      List <Unidade> listaUnidades = new ArrayList<>();
+      listaUnidades = unidadesBD.listarUnidades();
+      request.setAttribute("listaUnidades", listaUnidades);
 
       QuartoDAO quartosBD = new QuartoDAO();
-      List listaQuartos = new ArrayList<Quarto>();
-
-      // buscando apenas os quartos disponiveis
-      listaQuartos = quartosBD.BuscarQuartos(0, 1);
+      List <Quarto> listaQuartos = new ArrayList<>();
+      listaQuartos = quartosBD.listarQuartos();
       request.setAttribute("listaQuartos", listaQuartos);
 
       PessoaDAO pessoasBD = new PessoaDAO();
-      List listaPessoas = new ArrayList<Pessoa>();
+      List <Pessoa> listaPessoas = new ArrayList<>();
 
       // Esse atributo irá esconder a DIV com os resultados da busca na página nova.jsp
       request.setAttribute("visibilidadeResultados", "hidden");
@@ -71,19 +75,19 @@ public class ReservaNovaServlet extends HttpServlet {
 
       if (nomeParaBuscar != null) {
         // busca por nome, retornando uma pessoa
-        request.setAttribute("lista", pessoasBD.BuscarPessoas(nomeParaBuscar, 1));
+        request.setAttribute("lista", pessoasBD.buscarPessoas(nomeParaBuscar, 1));
       } else if (buscarEmail != null) {
         // busca por email, retornando uma pessoa
-        request.setAttribute("lista", pessoasBD.BuscarPessoas(buscarEmail, 2));
+        request.setAttribute("lista", pessoasBD.buscarPessoas(buscarEmail, 2));
       } else if (buscarCpf != null) {
         // busca por cpf, retornando uma pessoa
-        request.setAttribute("lista", pessoasBD.BuscarPessoas(buscarCpf, 3));
+        request.setAttribute("lista", pessoasBD.buscarPessoas(buscarCpf, 3));
       }
 
       String idHospedeReserva = request.getParameter("id");
 
       if (idHospedeReserva != null) {
-        request.setAttribute("lista", pessoasBD.BuscarPessoas(idHospedeReserva, 4));
+        request.setAttribute("lista", pessoasBD.buscarPessoas(idHospedeReserva, 4));
         request.setAttribute("idHospede", idHospedeReserva);
         String js = "stepTwo.click();";
         request.setAttribute("selecionouHospede", js);
@@ -102,6 +106,8 @@ public class ReservaNovaServlet extends HttpServlet {
       rd.forward(request, response);
 
     } catch (Exception ex) {
+      
+      System.out.println(ex);
 
       response.sendRedirect("../erro");
 
@@ -124,12 +130,14 @@ public class ReservaNovaServlet extends HttpServlet {
     String reservaFormFuncionarioID = request.getParameter("reservaFuncionarioID");
     String reservaFormHospedeID = request.getParameter("reservaHospedeID");
     String reservaFormQuarto = request.getParameter("reservaQuarto");
-    String reservaFormData = request.getParameter("reservaData");
+    String reservaFormDataCheckin = request.getParameter("checkIn");
+    String reservaFormDataCheckout = request.getParameter("checkOut");
 
     System.out.println("\nDados coletados de nova reserva:".toUpperCase());
     System.out.println("ID do Hospede: " + reservaFormHospedeID);
     System.out.println("ID do Quarto: " + reservaFormQuarto);
-    System.out.println("Data para reserva: " + reservaFormData);
+    System.out.println("Data CheckIn: " + reservaFormDataCheckin);
+    System.out.println("Data CheckOut: " + reservaFormDataCheckout);
 
     Reserva novaReserva = new Reserva();
 
@@ -140,13 +148,16 @@ public class ReservaNovaServlet extends HttpServlet {
 
     String status = null;
 
-    Date checkin = new Date();
+    Date checkin, checkout = new Date();
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
     try {
 
-      checkin = sdf.parse(reservaFormData);
+      checkin = sdf.parse(reservaFormDataCheckin);
       novaReserva.setCheckIn(checkin);
+
+      checkout = sdf.parse(reservaFormDataCheckout);
+      novaReserva.setCheckOut(checkout);
 
       ReservaDAO reservaBD = new ReservaDAO();
       reservaBD.cadastrarReserva(novaReserva);

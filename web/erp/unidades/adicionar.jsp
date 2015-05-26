@@ -205,7 +205,7 @@
 
             </div>
 
-            <div class="col-sm-5">
+            <div class="col-sm-6">
 
               <div class="form-group">
                 <label for="formCidade">
@@ -219,11 +219,11 @@
 
             </div>
 
-            <div class="col-sm-3">
+            <div class="col-sm-6">
 
               <div class="form-group">
                 <label for="formEstado" title="Estado">
-                  UF:
+                  Estado (UF):
                 </label>
                 <input type="text" class="form-control" 
                        name="unidadeEstado" id="formEstado" 

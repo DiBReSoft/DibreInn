@@ -1,6 +1,6 @@
 <%-- 
     Document   : buscar
-    Created on : 25/05/2015, 00:32:12
+    Created on : 25/05/2015, 11:57:25
     Author     : udimberto.sjunior
 --%>
 
@@ -11,7 +11,7 @@
 <t:defaultTemplate>
 
   <jsp:attribute name="paginaTitulo">
-    Unidades
+    Quartos
   </jsp:attribute>
 
   <jsp:attribute name="paginaHead">
@@ -38,7 +38,7 @@
   <jsp:body>
 
     <h1 class="page-title">
-      Unidades
+      Quartos
     </h1>
 
     <div class="form-di">
@@ -49,7 +49,7 @@
       <hr />
 
       <c:if test="${!lista.isEmpty()}">
-        <table class="table table-responsive table-hover table-striped table-condensed">
+        <table class="table table-responsive table-hover table-condensed">
           <thead>
             <tr>
               <th>
@@ -57,24 +57,24 @@
                 ID
               </th>
               <th>
+                <i class="fa fa-fw fa-lg fa-building"></i>
+                Unidade
+              </th>
+              <th>
+                <i class="fa fa-fw fa-lg fa-building-o"></i>
+                Andar
+              </th>
+              <th>
                 <i class="fa fa-fw fa-lg fa-tag"></i>
-                Nome
+                Número
               </th>
               <th>
-                <i class="fa fa-fw fa-lg fa-tags"></i>
-                Tipo
+                <i class="fa fa-fw fa-lg fa-phone"></i>
+                Ramal
               </th>
               <th>
-                <i class="fa fa-fw fa-lg fa-briefcase"></i>
-                CNPJ
-              </th>
-              <th>
-                <i class="fa fa-fw fa-lg fa-map-marker"></i>
-                Cidade
-              </th>
-              <th>
-                <i class="fa fa-fw fa-lg fa-map-marker"></i>
-                Estado
+                <i class="fa fa-fw fa-lg fa-usd"></i>
+                Diária
               </th>
               <th>
                 <i class="fa fa-fw fa-lg fa-check"></i>
@@ -86,52 +86,56 @@
             </tr>
           </thead>
           <tbody>
-            <c:forEach items="${lista}" var="unidade" varStatus="stat">
+            <c:forEach items="${listaQuartos}" var="quarto" varStatus="stat">
               <tr>
                 <td scope="row">
                   <i class="fa fa-fw fa-lg"></i>
-                  <c:out value="${unidade.id}" />
+                  ${quarto.id}
                 </td>
                 <td>
                   <i class="fa fa-fw fa-lg"></i>
-                  <c:out value="${unidade.nome}" />
+                  <c:forEach items="${listaUnidades}" var="unidade" varStatus="stat">
+                    <c:if test="${quarto.idUnidade == unidade.id}">
+                      <c:out value="${unidade.estado}" />
+                      -
+                      <c:out value="${unidade.nome}" />
+                    </c:if>
+                  </c:forEach>
                 </td>
                 <td>
                   <i class="fa fa-fw fa-lg"></i>
-                  <c:if test="${unidade.tipo eq '1'}">
-                    Matriz
-                  </c:if>
-                  <c:if test="${unidade.tipo eq '0'}">
-                    Filial
-                  </c:if>
+                  <c:out value="${quarto.andar}" />
+                  º
                 </td>
                 <td>
                   <i class="fa fa-fw fa-lg"></i>
-                  <c:out value="${unidade.cnpj}" />
+                  <c:out value="${quarto.numero}" />
                 </td>
                 <td>
                   <i class="fa fa-fw fa-lg"></i>
-                  <c:out value="${unidade.cidade}" />
+                  <c:out value="${quarto.ramal}" />
                 </td>
                 <td>
                   <i class="fa fa-fw fa-lg"></i>
-                  <c:out value="${unidade.estado}" />
+                  R$
+                  <c:out value="${quarto.valorDiaria}" />
                 </td>
-                <c:if test="${unidade.status == '0'}">
+                <c:if test="${quarto.status == '0'}">
                   <td class="text-center warning">
-                    Inativa
+                    Inativo
                   </td>
                 </c:if>
-                <c:if test="${unidade.status == '1'}">
+                <c:if test="${quarto.status == '1'}">
                   <td class="text-center success">
-                    Ativa
+                    Ativo
                   </td>
                 </c:if>
+                </td>
                 <td class="text-center">
                   <a class="btn btn-sm btn-default"
-                    title="Edite as propriedades completas desta unidade"
-                     href="<c:url value="/erp/unidades/editar?id=${unidade.id}" />">
-                    <i class="fa fa-fw fa-lg fa-edit"></i> 
+                     title="Edite as propriedades completas deste cômodo"
+                     href="<c:url value="/erp/quartos/editar?id=${quarto.id}" />">
+                    <i class="fa fa-fw fa-lg fa-edit"></i>
                     Editar Propriedades
                   </a>
                 </td>

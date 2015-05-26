@@ -1,7 +1,7 @@
 <%-- 
-    Document   : index
-    Created on : 12/05/2015, 12:18:15
-    Author     : Thi
+    Document   : adicionar
+    Created on : 25/05/2015, 13:26:10
+    Author     : Thiago, udimberto.sjunior
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -11,7 +11,7 @@
 <t:defaultTemplate>
 
   <jsp:attribute name="paginaTitulo">
-    Quartos: Cadastrados
+    Editar Quarto
   </jsp:attribute>
 
   <jsp:attribute name="paginaHead">
@@ -20,189 +20,249 @@
 
   <jsp:attribute name="paginaBottom">
     <!-- JavaScript e outros que vão ao final da página -->
-    <script type="text/javascript" src="<c:url value="/assets/js/bootstrap-switch.js" />"></script>
-    <script type="text/javascript" src="<c:url value="/assets/js/form-component.js" />"></script>
-    <script type="text/javascript" src="<c:url value="/assets/js/quartos.js" />"></script>
   </jsp:attribute>
 
   <jsp:body>
 
     <h1 class="page-title">
-      Visualizar Quarto
+      Editar Quarto
     </h1>
-
-    <!-- page start-->
-
-    <form role="form" method="get" class="form-di"
-          action="visualizar" name="formSelecionaQuarto"
-          accept-charset="UTF-8"
-          enctype="application/x-www-form-urlencoded">
-      <h4>
-        Informações dos quartos Cadastrados
-      </h4>
-      <hr />
-      <div class="row">
-        <div class="col-md-9 col-sm-8 form-di">
-          <table class="table table-responsive table-hover table-striped table-condensed">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Número</th>
-                <th>Andar</th>
-                <th>Ramal</th>
-                <th>Valor da Diaria</th>
-                <th>Ocupado</th>
-                <th>Editar</th>
-              </tr>
-            </thead>
-            <tbody>
-              <c:forEach items="${lista}" var="quarto" varStatus="stat">
-                <tr>
-                  <td class ="id" id="tableId" scope="row"><c:out value="${quarto.id}" /></td>
-                  <td class ="numero" id="tableNumero"><c:out value="${quarto.numero}" /></td>
-                  <td class ="andar" id="tableAndar"><c:out value="${quarto.andar}" /></td>
-                  <td class ="ramal" id="tableRamal"><c:out value="${quarto.ramal}" /></td>
-                  <td class ="valor" id="tableValor"><c:out value="${quarto.valorDiaria}" /></td>
-                  <td class ="ocupado" id="tableOcupado"><c:out value="${quarto.ocupado}" /></td>
-                  <td class="seleciona" id="tableSeleciona">
-                    <a href="" class="selecionado" id="tableSelecionado">
-                      Selecionar
-                    </a>
-                  </td>
-                </tr>
-              </c:forEach>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-    </form>
-
-    <!-- Fim da #1 linha de GRID dos formulários -->
-
-
-
-
 
     <!-- Início do Formulário -->
     <form role="form" method="post" class="form-di"
-          action="editar" name="formEditar">
+          action="editar" name="formQuarto"
+          accept-charset="UTF-8"
+          enctype="application/x-www-form-urlencoded">
 
-      <!-- Início da #1 linha de GRID do formulário -->
       <div class="row">
 
-        <!-- Início da primeira coluna: lado esquerdo - DADOS -->
-        <div class="col-md-9 col-sm-8 form-di">
+        <div class="col-md-2"></div>
+
+        <div class="col-md-8">
 
           <h4>
-            Resultado da busca
+            Dados do Quarto
           </h4>
 
           <hr />
 
+          <div class="row">
 
-          <div class="form-group">
-            <label for="formNumero">
-              Número do quarto:
-            </label>
-            <input readonly="true" type="text" class="form-control"
-                   tabindex="1"
-                   name="formNumero" id="formNumero" 
-                   placeholder="1"
-                   required="true" />
+            <div class="col-xs-2">
+
+              <div class="form-group">
+
+                <label for="formId">
+                  <i class="fa fa-lg fa-barcode"></i>
+                  ID:
+                </label>
+
+                <input type="text" class="form-control"
+                       tabindex="1"
+                       name="formId" id="formId"
+                       value="<c:out value="${quarto.id}" />"
+                       readonly 
+                       title="Não é possível mudar o ID do quarto" />
+
+              </div>
+
+            </div>
+
+            <div class="col-xs-4">
+
+              <div class="form-group">
+
+                <label for="formUnidade">
+                  <i class="fa fa-lg fa-building"></i>
+                  Unidade:
+                </label>
+
+                <!-- USUÁRIO NÃO PODE EDITAR A UNIDADE DO QUARTO -->
+                <input type="hidden" 
+                       name="formId"
+                       value="<c:out value="${quarto.id}" />" />
+
+                <input type="hidden" 
+                       name="formUnidade"
+                       value="<c:out value="${unidade.id}" />" />
+                <!-- USUÁRIO NÃO PODE EDITAR A UNIDADE DO QUARTO -->
+
+                <input type="text" class="form-control"
+                       tabindex="1"
+                       value="${unidade.estado} - ${unidade.nome}"
+                       readonly 
+                       title="Não é possível mudar um quarto de sua primeira unidade" />
+
+              </div>
+
+            </div>
+
+            <div class="col-sm-6">
+
+              <div class="form-group">
+
+                <label for="formStatus">
+                  <i class="fa fa-lg fa-building"></i>
+                  Status:
+                </label>
+
+                <div class="row">
+
+                  <div class="col-xs-6 text-right">
+
+                    <label for="formStatus1">
+                      Ativo
+                    </label>
+
+                    <input type="radio"
+                           tabindex="2"
+                           name="formStatus" id="formStatus1"
+                           value="1"
+                           required="true"
+                           <c:if test="${quarto.status == '1'}">
+                             checked
+                           </c:if>
+                           />
+
+                  </div>
+
+                  <div class="col-xs-6 text-left">
+
+                    <input type="radio"
+                           tabindex="3"
+                           name="formStatus" id="formStatus2"
+                           value="0"
+                           required="true" 
+                           <c:if test="${quarto.status == '0'}">
+                             checked
+                           </c:if>
+                           />
+
+                    <label for="formStatus2">
+                      Inativo
+                    </label>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
           </div>
+
+          <div class="row">
+
+            <div class="col-sm-6">
+
+              <div class="form-group">
+                <label for="formAndar">
+                  <i class="fa fa-lg fa-building"></i>
+                  Andar:
+                </label>
+                <input type="text" class="form-control" 
+                       tabindex="2"
+                       name="formAndar" id="formAndar"
+                       placeholder="Ex.: 5"
+                       required="true"
+                       value="<c:out value="${quarto.andar}" />" />
+              </div>
+
+            </div>
+
+            <div class="col-sm-6">
+
+              <div class="form-group">
+                <label for="formNumero">
+                  <i class="fa fa-lg fa-tag"></i>
+                  Número:
+                </label>
+                <input type="text" class="form-control" 
+                       tabindex="3"
+                       name="formNumero" id="formNumero"
+                       placeholder="Ex.: 525"
+                       required="true"
+                       value="<c:out value="${quarto.numero}" />" />
+              </div>
+
+            </div>
+
+            <div class="col-sm-6">
+
+              <div class="form-group">
+                <label for="formRamal">
+                  <i class="fa fa-lg fa-phone"></i>
+                  Ramal:
+                </label>                  
+                <input type="text" class="form-control"
+                       tabindex="4"
+                       name="formRamal" id="formRamal" 
+                       placeholder="Ex.: 5525" 
+                       maxlength="20" 
+                       required="true"
+                       value="<c:out value="${quarto.ramal}" />" />
+              </div>
+
+            </div>
+
+            <div class="col-sm-6">
+
+              <div class="form-group">
+                <label for="formValor">
+                  <i class="fa fa-lg fa-usd"></i>
+                  Valor da Diária:
+                </label>
+                <input type="text" class="form-control"
+                       tabindex="5"
+                       name="formValor" id="formValor" 
+                       placeholder="Ex.: 125"
+                       maxlength="50" 
+                       required="true"
+                       value="<c:out value="${quarto.valorDiaria}" />" />
+              </div>
+
+            </div>
+
+          </div>
+
+          <div style="padding: 10px 0px;"></div>
+
+          <p>
+            Os campos marcados com
+            <i class="fa fa-fw fa-lg fa-asterisk"></i>
+            são obrigatórios.
+          </p>
+
+          <div style="padding: 10px 0px;"></div>
 
         </div>
 
-        <div class="col-xs-6">
-
-          <div class="form-group">
-            <label for="formAndar">
-              Andar
-            </label>
-            <input readonly="true" type="text" class="form-control" 
-                   tabindex="2"
-                   name="formAndar" id="formAndar"
-                   placeholder="11"
-                   required="true" />
-          </div>
-
-        </div>
-
-
-        <div class="col-sm-4">
-
-          <div class="form-group">                    
-            <label for="formRamal">
-              Ramal:
-            </label>                  
-            <input readonly="true" type="text" class="form-control"
-                   tabindex="3"
-                   name="formRamal" id="formRamal" 
-                   placeholder="55" 
-                   maxlength="20" 
-                   required="true"/>
-          </div>
-
-        </div>
-
-        <div class="col-sm-4">
-
-          <div class="form-group">                    
-            <label for="formValor">
-              Valor da Diaria:
-            </label>
-            <input readonly="true" type="number" class="form-control"
-                   tabindex="4"
-                   name="formValor" id="formValor" 
-                   placeholder="120" 
-                   maxlength="50" 
-                   required="true"/>
-          </div>
-
-        </div>
       </div>
 
+      <!-- Linha de botões do formulário -->
+      <div class="row">
 
+        <div class="col-xs-3 col-sm-4"></div>
+
+        <div class="col-xs-6 col-sm-4">
+
+          <button type="submit" class="btn btn-block btn-lg btn-default" 
+                  tabindex="6">
+            ATUALIZAR
+            <i class="fa fa-check-square"></i>
+          </button>
+
+        </div>
+
+      </div>   
+      <!-- Linha de botões do formulário -->
 
     </form>
     <!-- Fim do Formulário -->
 
     <div style="padding: 15px 0px;"></div>
 
-    <!-- Linha de botões do formulário -->
-    <div class="row">
-
-      <div class="col-sm-3 hidden-xs"></div>
-
-      <div class="col-xs-6 col-sm-3">
-
-        <button type="reset" class="btn btn-block btn-lg btn-primary" 
-                tabindex="5">
-          <i class="fa fa-lg fa-times"></i>
-          EXCLUIR
-        </button>
-
-      </div>
-
-      <div class="col-xs-6 col-sm-3">
-
-        <button type="submit" class="btn btn-block btn-lg btn-default" 
-                tabindex="6">
-          EDITAR
-          <i class="fa fa-lg fa-edit"></i>
-        </button>
-
-      </div>
-
-    </div>   
-    <!-- Linha de botões do formulário -->
-
-
-    <div style="padding: 15px 0px;"></div>
-
-  </div>
-
-</jsp:body>
+  </jsp:body>
 
 </t:defaultTemplate>

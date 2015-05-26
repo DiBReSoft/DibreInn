@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.lebrehotel.dibreinn.model.pessoa;
 
 import java.util.Arrays;
@@ -12,12 +7,14 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author fernando.tsuda
+ * @author fernando.tsuda, udimberto.sjunior
  */
 public class Usuario {
 
+  private int unidadeId;
+
   private String nome;
-  
+
   private String email;
 
   private String senha;
@@ -48,6 +45,22 @@ public class Usuario {
     this.papeis = papeis;
   }
 
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public int getUnidadeId() {
+    return unidadeId;
+  }
+
+  public void setUnidadeId(int unidadeId) {
+    this.unidadeId = unidadeId;
+  }
+
   public boolean autenticar(String nome, String senha) {
     if (this.nome != null) {
       try {
@@ -72,14 +85,6 @@ public class Usuario {
   public boolean autorizado(String papelNecessario) {
     List<String> papeisUsuario = Arrays.asList(this.papeis);
     return papeisUsuario.contains(papelNecessario);
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
   }
 
 }

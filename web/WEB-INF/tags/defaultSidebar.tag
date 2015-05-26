@@ -14,16 +14,16 @@
       <li class="sub-menu">
         <a href="javascript:;" >
           <i class="fa fa-fw fa-lg fa-users"></i>
-          <span>Pessoas</span>
+          <span>Hospedes</span>
         </a>
         <ul class="sub">
           <li class="item-menu">
-            <a  href="<c:url value="/erp/pessoas/cadastrar" />">
+            <a  href="<c:url value="/erp/hospedes/cadastrar" />">
               Cadastrar
             </a>
           </li>
           <li class="item-menu">
-            <a  href="<c:url value="/erp/pessoas/buscar" />">
+            <a  href="<c:url value="/erp/hospedes/buscar" />">
               Buscar &amp; Editar
             </a>
           </li>
@@ -106,7 +106,7 @@
             </a>
           </li>
           <li class="item-menu">
-            <a href="<c:url value="/erp/quartos/editar" />">
+            <a href="<c:url value="/erp/quartos/listar" />">
               Listar &amp; Editar
             </a>
           </li>

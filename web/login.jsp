@@ -20,8 +20,8 @@
   <jsp:attribute name="paginaBottom">
     <!-- JavaScript e outros que vão ao final -->
     <script type="text/javascript">
-      $(document).ready(function() {
-        ${exibirMsgErro}
+      $(document).ready(function () {
+      ${exibirMsgErro}
       });
     </script>
 
@@ -103,19 +103,19 @@
           </div>
           <div class="form-group">
             <div class="col-xs-6 col-xs-push-6">
+              <!-- 
               <button class="btn btn-block btn-sm btn-default" 
                       type="submit" id="loginSubmit">
                 Entrar
                 <i class="fa fa-sign-in"></i>
               </button>
-              <!-- 
               Precisa criar o controle de acesso para habilitar esse botão
+              -->
               <button class="btn btn-block btn-sm btn-default" 
-                      type="button" id="loginSubmit" onclick="location.href='erp/inicio'">
+                      type="button" id="loginSubmit" onclick="location.href = 'erp/inicio'">
                 Entrar
                 <i class="fa fa-sign-in"></i>
               </button>
-              -->
             </div>
             <div class="col-xs-6 col-xs-pull-6">
               <button class="btn btn-block btn-sm" 

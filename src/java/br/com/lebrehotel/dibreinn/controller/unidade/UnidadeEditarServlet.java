@@ -37,6 +37,7 @@ public class UnidadeEditarServlet extends HttpServlet {
       response.sendRedirect("../erro");
 
     }
+    
   }
 
   @Override
@@ -52,6 +53,7 @@ public class UnidadeEditarServlet extends HttpServlet {
       u.setNome(request.getParameter("unidadeNome"));
       u.setCnpj(request.getParameter("unidadeCnpj"));
       u.setTipo(Integer.parseInt(request.getParameter("unidadeTipo")));
+      u.setStatus(Integer.parseInt(request.getParameter("unidadeStatus")));
 
       u.setCep((request.getParameter("unidadeCep")));
       u.setLogradouro(request.getParameter("unidadeLogradouro"));
@@ -60,15 +62,6 @@ public class UnidadeEditarServlet extends HttpServlet {
       u.setBairro(request.getParameter("unidadeBairro"));
       u.setCidade(request.getParameter("unidadeCidade"));
       u.setEstado(request.getParameter("unidadeEstado"));
-      
-      //Endereco end = new Endereco();
-      //end.setCep((request.getParameter("unidadeCep")));
-      //end.setLogradouro(request.getParameter("unidadeLogradouro"));
-      //end.setNumero(request.getParameter("unidadeNumero"));
-      //end.setComplemento(request.getParameter("unidadeComplemento"));
-      //end.setBairro(request.getParameter("unidadeBairro"));
-      //end.setCidade(request.getParameter("unidadeCidade"));
-      //end.setEstado(request.getParameter("unidadeEstado"));
 
       UnidadeDAO unidadeBD = new UnidadeDAO();
       unidadeBD.editarUnidade(u);

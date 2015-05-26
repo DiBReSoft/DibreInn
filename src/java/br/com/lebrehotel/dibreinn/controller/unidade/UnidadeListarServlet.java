@@ -21,9 +21,7 @@ public class UnidadeListarServlet extends HttpServlet {
             throws ServletException, IOException {
       
         UnidadeDAO unidadeBD = new UnidadeDAO();
-        String pesquisar = "";
-        int tipoBusca = 0;
-        request.setAttribute("lista", unidadeBD.listarUnidades(pesquisar, tipoBusca));
+        request.setAttribute("lista", unidadeBD.listarUnidades());
 
         RequestDispatcher rd = request.getRequestDispatcher("/erp/unidades/listar.jsp");
         rd.forward(request, response);

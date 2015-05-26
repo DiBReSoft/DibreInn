@@ -64,7 +64,7 @@
             action="cadastrar"
             accept-charset="UTF-8"
             enctype="application/x-www-form-urlencoded">
-        
+
         <input type="hidden" name="formID" id="formID"
                value="${pessoa.id}" />
 
@@ -569,9 +569,13 @@
                     <select class="form-control" tabindex="18" aria-describedby="basic-addon2"
                             name="formUnidade" id="formUnidade">
                       <c:forEach items="${lista}" var="unidade" varStatus="stat">
-                        <option value="${unidade.id}">
-                          <c:out value="${unidade.nome}" />
-                        </option>
+                        <c:if test="${unidade.status == '1'}">
+                          <option value="${unidade.id}">
+                            <c:out value="${unidade.estado}" />
+                            -
+                            <c:out value="${unidade.nome}" />
+                          </option>
+                        </c:if>
                       </c:forEach>
                     </select>              
 
@@ -582,49 +586,19 @@
                 <div class="col-md-3 col-sm-6">
 
                   <div class="form-group">
-                    <label for="formDepartamento">
-                      Departamento:
+                    <label for="formPrivilegio">
+                      Privilégios:
                     </label>
                     <select class="form-control" tabindex="18" aria-describedby="basic-addon2"
-                            name="formDepartamento" id="formDepartamento">
-                      <option value="Recepção">
-                        <c:out value="Recepção" />
-                      </option>
-                      <option value="Vendas">
-                        <c:out value="Vendas" />
-                      </option>
-                      <option value="Gerência">
-                        <c:out value="Gerência" />
-                      </option>
+                            name="formPrivilegio" id="formPrivilegio">
+                      <c:forEach items="${listaPrivilegios}" var="privilegio" varStatus="stat">
+                        <c:if test="${privilegio.status == '1'}">
+                          <option value="${privilegio.id}">
+                            <c:out value="${privilegio.titulo}" />
+                          </option>
+                        </c:if>
+                      </c:forEach>
                     </select>
-                  </div>
-
-                </div>
-
-                <div class="col-md-3">
-
-                  <div class="form-group">
-                    <label for="formCargo">
-                      Cargo:
-                    </label>                  
-                    <input type="text" class="form-control"
-                           tabindex="20"
-                           name="formCargo" id="formCargo" 
-                           placeholder="Recepcionista" />
-                  </div>
-
-                </div>
-
-                <div class="col-md-2 col-xs-6">
-
-                  <div class="form-group">                    
-                    <label for="formSalario">
-                      Sálario:
-                    </label>
-                    <input type="number" class="form-control" 
-                           tabindex="22"
-                           name="formSalario" id="formSalario"
-                           placeholder="1500" />
                   </div>
 
                 </div>
