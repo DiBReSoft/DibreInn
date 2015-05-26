@@ -20,57 +20,55 @@ public class EnviarEmail {
 
   public void EnviarEmail(Email email) {
 
-    Properties props = new Properties();
-    /**
-     * Parâmetros de conexão com servidor Gmail
-     */
-    props.put("mail.smtp.host", "smtp.gmail.com");
-    props.put("mail.smtp.socketFactory.port", "465");
-    props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-    props.put("mail.smtp.auth", "true");
-    props.put("mail.smtp.port", "465");
+     Properties props = new Properties();
+        /**
+         * Parâmetros de conexão com servidor Gmail
+         */
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", "465");
 
-    Session session = Session.getDefaultInstance(props,
-	    new javax.mail.Authenticator() {
-	      protected PasswordAuthentication getPasswordAuthentication() {
-		return new PasswordAuthentication("lebrehotel@gmail.com", "senac123");
-	      }
-	    });
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
 
-    /**
-     * Ativa Debug para sessão
-     */
-    session.setDebug(true);
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication("lebrehotel@gmail.com", "senac123");
+                    }
+                });
 
-    try {
+        /**
+         * Ativa Debug para sessão
+         */
+        session.setDebug(true);
 
-      Message message = new MimeMessage(session);
+        try {
 
-      // Remetente
-      message.setFrom(new InternetAddress("lebrehotel@gmail.com"));
+            Message message = new MimeMessage(session);
 
-      // Destinatário(s)
-      Address[] toUser = InternetAddress.parse("lebrehotel@gmail.com, luciano.lourenco@ciaathletica.com.br, thiago@novatela.com, elvitous@gmail.com, fabioernanni.ac@gmail.com" );
-      for(String destinatario : email.getDestinatario()){
-      toUser = InternetAddress.parse(", "+destinatario);      
-      }
-      message.setRecipients(Message.RecipientType.TO, toUser);
+            // Remetente
+            message.setFrom(new InternetAddress("lebrehotel@gmail.com"));
 
-      // Assunto
-      message.setSubject(email.getAssunto());
+            // Destinatário(s)
+            String destinos = "";
+            for (String destinatario : email.getDestinatario()) {
+                destinos += ", " + destinatario;
+            }
+            Address[] toUser = InternetAddress.parse("lebrehotel@gmail.com,fabioernanni@hotmail.com,elvitous@gmail.com,lucianolourencoti@gmail.com" + destinos);
+            message.setRecipients(Message.RecipientType.TO, toUser);
 
-      // Montar corpo da mensagem
-      message.setText(email.getMensagem());
+            // Assunto
+            message.setSubject(email.getAssunto());
 
-      // Método para enviar a mensagem criada
-      Transport.send(message);
+            // Montar corpo da mensagem
+            message.setText(email.getMensagem());
 
-    } catch (MessagingException e) {
-      throw new RuntimeException(e);
-    }
+            // Método para enviar a mensagem criada
+            Transport.send(message);
+
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
   }
-
-    public EnviarEmail() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

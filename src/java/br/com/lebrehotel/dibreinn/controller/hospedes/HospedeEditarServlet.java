@@ -123,67 +123,6 @@ public class HospedeEditarServlet extends HttpServlet {
     return "Short description";
   }// </editor-fold>
 
-  private void montaEmail(Pessoa p) {
-    System.out.println("[DADOS GRAVADOS COM SUCESSO] Novo cadastro: " + p.getNome() + " " + p.getSobrenome());
-    Email email = new Email();
-    email.setDestinatario(p.getEmail());
-    email.setAssunto("Cadastro Efetuado");
-    email.setMensagem(p.getNome() + ", seja bem-vindo(a) e obrigado por efetuar o cadastro no Lebre Hotel!");
-    EnviarEmail(email);
-  }
-
-  public void EnviarEmail(Email email) {
-
-    Properties props = new Properties();
-    /**
-     * Parâmetros de conexão com servidor Gmail
-     */
-    props.put("mail.smtp.host", "smtp.gmail.com");
-    props.put("mail.smtp.socketFactory.port", "465");
-    props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-    props.put("mail.smtp.auth", "true");
-    props.put("mail.smtp.port", "465");
-
-    Session session = Session.getInstance(props,
-	    new javax.mail.Authenticator() {
-	      @Override
-	      protected PasswordAuthentication getPasswordAuthentication() {
-		return new PasswordAuthentication("lebrehotel@gmail.com", "senac123");
-	      }
-	    });
-
-    /**
-     * Ativa Debug para sessão
-     */
-    session.setDebug(true);
-
-    try {
-
-      Message message = new MimeMessage(session);
-
-      // Remetente
-      message.setFrom(new InternetAddress("lebrehotel@gmail.com"));
-
-      // Destinatário(s)
-      String destinos = "";
-      for (String destinatario : email.getDestinatario()) {
-	destinos += ", " + destinatario;
-      }
-      Address[] toUser = InternetAddress.parse("lebrehotel@gmail.com,fabioernanni@hotmail.com,elvitous@gmail.com,lucianolourencoti@gmail.com" + destinos);
-      message.setRecipients(Message.RecipientType.TO, toUser);
-
-      // Assunto
-      message.setSubject(email.getAssunto());
-
-      // Montar corpo da mensagem
-      message.setText(email.getMensagem());
-
-      // Método para enviar a mensagem criada
-      Transport.send(message);
-
-    } catch (MessagingException e) {
-      throw new RuntimeException(e);
-    }
-  }
+  
 
 }

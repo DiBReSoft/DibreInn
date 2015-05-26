@@ -93,7 +93,7 @@ public class FuncionarioDAO {
 
     List<Funcionario> lista = new ArrayList<>();
 
-    String Query = "SELECT STATUS, ID_PESSOA,NOME, SOBRENOME, SEXO, RG, CPF, DATANASC, TELEFONE, CEL, EMAIL, NEWSLETTER \n"
+    String Query = "SELECT STATUS, TB_PESSOA.ID_PESSOA,NOME, SOBRENOME, SEXO, RG, CPF, DATANASC, TELEFONE, CEL, EMAIL, NEWSLETTER \n"
 	    + "FROM TB_PESSOA "
             + "INNER JOIN TB_FUNCIONARIO on TB_FUNCIONARIO.ID_PESSOA = TB_PESSOA.ID_PESSOA \n"
             + " WHERE ";
@@ -109,7 +109,7 @@ public class FuncionarioDAO {
 	Query += "CPF = ?";
 	break;
       case 4:
-	Query += "ID_PESSOA = ?";
+	Query += "TB_PESSOA.ID_PESSOA = ?";
 	break;
     }
     try {
@@ -230,7 +230,7 @@ public class FuncionarioDAO {
     String query;
     Funcionario func = new Funcionario();
 
-    query = "SELECT pe.STATUS, pe.ID_PESSOA, pe.NOME, pe.SOBRENOME, pe.SEXO, pe.RG, CPF, pe.DATANASC, pe.TELEFONE, pe.CEL, pe.EMAIL, pe.TIPO,pe.NEWSLETTER,"
+    query = "SELECT pe.STATUS, pe.ID_PESSOA, pe.NOME, pe.SOBRENOME, pe.SEXO, pe.RG, CPF, pe.DATANASC, pe.TELEFONE, pe.CEL, pe.EMAIL, pe.NEWSLETTER,"
 	    + "func.ID_UNIDADE, func.ID_PRIVILEGIO "
 	    + "FROM TB_FUNCIONARIO as func "
 	    + "INNER JOIN TB_PESSOA as pe on pe.ID_PESSOA = func.id_pessoa Where func.ID_PESSOA =?";
@@ -293,40 +293,7 @@ public class FuncionarioDAO {
       return 0;
     }
 
-  }
-
-  public boolean isFuncionario(int id) {
-    String tipoPessoa;
-    boolean result = false;
-    ConectarBD conexao = new ConectarBD();
-    PreparedStatement stmt = null;
-    String consultaCpf = "SELECT TIPO FROM TB_PESSOA WHERE ID_PESSOA=?";
-
-    try {
-      conexao.openConection();
-      stmt = conexao.conn.prepareStatement(consultaCpf);
-      stmt.setInt(1, id);
-      ResultSet rs = stmt.executeQuery();
-      rs.next();
-
-      tipoPessoa = rs.getString("TIPO");
-      if (tipoPessoa.equalsIgnoreCase("f")) {
-	conexao.closeConection();
-	System.out.println("É funcionario");
-	result = true;
-
-      } else {
-	conexao.closeConection();
-	System.out.println("É Hospede");
-	result = false;
-	return result;
-      }
-
-    } catch (SQLException ex) {
-      System.out.println("Erro ao procurar o tipo de pessoa: " + ex);
-    }
-    return result;
-  }
+  }  
 
   public int deletarPessoa(int id, String tipo) {
 
