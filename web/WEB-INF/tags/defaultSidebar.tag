@@ -32,6 +32,25 @@
       
       <li class="sub-menu">
         <a href="javascript:;" >
+          <i class="fa fa-fw fa-lg fa-users"></i>
+          <span>Funcionarios</span>
+        </a>
+        <ul class="sub">
+          <li class="item-menu">
+            <a  href="<c:url value="/erp/funcionarios/cadastrar" />">
+              Cadastrar
+            </a>
+          </li>
+          <li class="item-menu">
+            <a  href="<c:url value="/erp/funcionarios/buscar" />">
+              Buscar &amp; Editar
+            </a>
+          </li>
+        </ul>
+      </li>
+      
+      <li class="sub-menu">
+        <a href="javascript:;" >
           <i class="fa fa-fw fa-lg fa-th"></i>
           <span>
             Reservas

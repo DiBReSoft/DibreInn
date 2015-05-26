@@ -102,7 +102,7 @@ public class PrivilegioDAO {
 
     List<Privilegio> lista = new ArrayList<>();
 
-    String Query = "SELECT ID_PRIVILEGIO, STATUS, TITULO"
+    String Query = "SELECT ID_PRIVILEGIO, STATUS, PRIVILEGIO "
 	    + "FROM TB_PRIVILEGIO \n";
 
     try {
@@ -167,7 +167,7 @@ public class PrivilegioDAO {
 
       while (resultados.next()) {
 
-	priv.setId(Integer.parseInt(resultados.getString("ID_UNIDADE")));
+	priv.setId(Integer.parseInt(resultados.getString("ID_PRIVILEGIO")));
 	priv.setStatus(Integer.parseInt(resultados.getString("STATUS")));
 	priv.setTitulo(resultados.getString("PRIVILEGIO"));
 
