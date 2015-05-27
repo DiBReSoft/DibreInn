@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     <meta name="author" content="Luciano Lourenço, Thiago Medeiros, Fabio Ernani, Udimberto Junior" />
-    
+
     <link rel="shortcut icon" href="<c:url value="/assets/img/favicon.ico" />" type="image/x-icon" />
 
     <title>
@@ -46,7 +46,7 @@
 
         m = checkTime(m);
         s = checkTime(s);
-        document.getElementById('showtime').innerHTML = h + ":" + m + ":" + s;
+        document.getElementById('showtime').innerHTML = h + ":" + m;
         t = setTimeout(function () {
           getTime()
         }, 500);
@@ -63,14 +63,6 @@
   </head>
   <body onload="getTime()">
 
-    <header>
-      
-      <div class="text-right">
-        <span id="showtime"></span>
-      </div>
-
-    </header>
-
     <section>
 
       <jsp:doBody/>
@@ -80,9 +72,30 @@
     <br style="clear: both;" />
 
     <footer>
-      <div class="text-left">
-        <span id="mostrarAno"></span> <i class="fa fa-fw fa-lg fa-copyright"></i> Desenvolvido pela DiBRe Soft
+
+      <div class="container-fluid">
+
+        <div class="row">
+
+          <div class="col-sm-6 text-left">
+            <span id="mostrarAno"></span> 
+            <i class="fa fa-fw fa-lg fa-copyright"></i> 
+            Desenvolvido pela DiBRe Soft
+          </div>
+          <div class="col-sm-6 text-right">
+            Imagens disponibilizadas por
+            <i class="fa fa-fw fa-lg fa-camera"></i>
+            <a href="http://unsplash.com"
+               title="Free High-Resolution Photos"
+               target="_blank">
+              Unsplash
+            </a>
+          </div>
+
+        </div>
+
       </div>
+
     </footer>
 
     <!-- JS Base -->
@@ -93,7 +106,12 @@
     <!-- JS Especial para este tipo de pagina -->
     <script type="text/javascript" src="<c:url value="/assets/js/lockscreen.js" />"></script>
     <script type="text/javascript">
-    $.backstretch("<c:url value="/assets/img/login-bg.jpg" />", {speed: 500});
+    $.backstretch([
+      "<c:url value="/assets/img/login-bg-2.jpg" />",
+      "<c:url value="/assets/img/login-bg-1.jpg" />",
+      "<c:url value="/assets/img/login-bg-3.jpg" />",
+      "<c:url value="/assets/img/login-bg-4.jpg" />"
+    ], {duration: 3000, fade: 250, speed: 2000});
     </script>
 
     <script type="text/javascript">

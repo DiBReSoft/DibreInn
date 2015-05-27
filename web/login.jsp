@@ -57,75 +57,97 @@
 
   <jsp:body>
 
-    <div class="lock-panel">
+    <div class="container-fluid">
 
-      <div class="lock-panel-header">
-        <strong>DiBRe Inn</strong>
-        <small>Acesso</small>
-      </div>
+      <div class="row">
 
-      <div class="lock-panel-body">
+        <div class="col-sm-6 col-sm-push-6">
 
-        <form class="form-horizontal"
-              role="form" method="post"
-              action="login"
-              accept-charset="UTF-8"
-              enctype="application/x-www-form-urlencoded">
-          <div class="form-group">
-            <label class="col-sm-2 control-label"
-                   for="loginEmail">
-              <small>
-                E-mail:
-              </small>
-            </label>
-            <div class="col-sm-10">
-              <input class="form-control input-sm" 
-                     type="email" id="loginEmail"
-                     placeholder="exemplo@lebrehotel.com.br"
-                     required="true" 
-                     name="loginEmail" />
+          <div class="lock-panel center-block">
+
+            <div class="lock-panel-header">
+              <strong>
+                DiBRe 
+                <span class="text-success">Inn</span>
+              </strong>
+              <small>Acesso</small>
             </div>
+
+            <div class="lock-panel-body">
+
+              <form class="form-horizontal"
+                    role="form" method="post"
+                    action="login"
+                    accept-charset="UTF-8"
+                    enctype="application/x-www-form-urlencoded">
+                <div class="form-group">
+                  <label class="col-sm-2 control-label"
+                         for="loginEmail">
+                    <small>
+                      E-mail:
+                    </small>
+                  </label>
+                  <div class="col-sm-10">
+                    <input class="form-control input-sm" 
+                           type="email" id="loginEmail"
+                           placeholder="exemplo@lebrehotel.com.br"
+                           required="true" 
+                           name="loginEmail" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label"
+                         for="loginSenha">
+                    <small>
+                      Senha:
+                    </small>
+                  </label>
+                  <div class="col-sm-10">
+                    <input class="form-control input-sm" 
+                           type="password" id="loginSenha"
+                           required="true"
+                           name="loginSenha"
+                           placeholder="****************************" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-xs-6 col-xs-push-6">
+                    <!-- 
+                    <button class="btn btn-block btn-sm btn-default" 
+                            type="submit" id="loginSubmit">
+                      Entrar
+                      <i class="fa fa-sign-in"></i>
+                    </button>
+                    Precisa criar o controle de acesso para habilitar esse botão
+                    -->
+                    <button class="btn btn-block btn-default" 
+                            type="button" id="loginSubmit" onclick="location.href = 'erp/inicio'">
+                      Entrar
+                      <i class="fa fa-sign-in"></i>
+                    </button>
+                  </div>
+                  <div class="col-xs-6 col-xs-pull-6">
+                    <button class="btn btn-block btn-sm btn-link" 
+                            type="button" id="loginForgot"
+                            onclick="window.location.href = 'recuperar-senha'">
+                      <i class="fa fa-lock"></i>
+                      Esqueci a senha
+                    </button>
+                  </div>
+                </div>
+              </form>
+
+            </div>
+
           </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label"
-                   for="loginSenha">
-              <small>
-                Senha:
-              </small>
-            </label>
-            <div class="col-sm-10">
-              <input class="form-control input-sm" 
-                     type="password" id="loginSenha"
-                     required="true"
-                     name="loginSenha"
-                     placeholder="****************************" />
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-xs-6 col-xs-push-6">
-              <!-- 
-              <button class="btn btn-block btn-sm btn-default" 
-                      type="submit" id="loginSubmit">
-                Entrar
-                <i class="fa fa-sign-in"></i>
-              </button>
-              Precisa criar o controle de acesso para habilitar esse botão
-              -->
-              <button class="btn btn-block btn-sm btn-default" 
-                      type="button" id="loginSubmit" onclick="location.href = 'erp/inicio'">
-                Entrar
-                <i class="fa fa-sign-in"></i>
-              </button>
-            </div>
-            <div class="col-xs-6 col-xs-pull-6">
-              <button class="btn btn-block btn-sm" 
-                      type="button" id="loginForgot"
-                      onclick="window.location.href = 'recuperar-senha'">
-                Esqueci a senha
-              </button>
-            </div>
-          </div>
-        </form>
+
+        </div>
+
+        <div class="col-sm-6 col-sm-pull-6 text-right">
+
+          <span id="showtime"></span>
+
+        </div>
 
       </div>
 

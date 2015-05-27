@@ -20,7 +20,7 @@ $(document).ready(function () {
 
   function posicionarBoxCredenciais() {
     if (telaAltura > 450) {
-      $("footer").css("top", (telaAltura / 2 - 198) + "px");
+      $("footer").css("top", (telaAltura / 2 - 191) + "px");
     }
     if (telaAltura > 300) {
       $("section").css("margin-top", ((telaAltura / 2) - 180) + "px");

@@ -3020,7 +3020,7 @@ fieldset[disabled] .btn-danger.active {
 }
 .btn-link {
     font-weight: normal;
-    color: #428bca;
+    color: #37BBAF;
     cursor: pointer;
     border-radius: 0;
 }
@@ -3040,7 +3040,7 @@ fieldset[disabled] .btn-link {
 }
 .btn-link:hover,
 .btn-link:focus {
-    color: #2a6496;
+    color: #009688;
     text-decoration: underline;
     background-color: transparent;
 }
