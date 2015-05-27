@@ -253,7 +253,7 @@
 
                             <div class="form-group">
                                 <label for="formPrivilegio">
-                                    Privilégios:
+                                    Cargo:
                                 </label>
                                 <select class="form-control" tabindex="18" aria-describedby="basic-addon2"
                                         name="formPrivilegio" id="formPrivilegio">
@@ -266,113 +266,86 @@
                                     </c:forEach>
                                 </select>
                             </div>
-
-
-
-
                             <!-- Fim da linha de GRID do formulário -->
-
-                            <div class="form-group">
-                                <label for="formUsuario">
-                                    Cadastrar como usuário do sistema?
-                                </label>
-                                <br style="clear: both;" />
-                                <div class="switch switch-square"
-                                     data-toggle="collapse" data-target="#collapseExample"
-                                     data-on-label="<i class='fa fa-check'></i>"
-                                     data-off-label="<i class='fa fa-times'></i>"
-                                     id="checkOpUsuario">
-                                    <input type="checkbox" value="1"
-                                           name="formOpUsuario" 
-                                           id="formOpUsuario"
-                                           checked
-                                           />
-                                </div>
-                                <!-- Check Option de Criação de id e senha -->
-                            </div>
-
-                            <div class="collapsed in" id="collapseExample">
-                                <div class="row" id="formUsuario">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="formLogin">
-                                                Login:
-                                            </label>                  
-                                            <input type="text" class="form-control"
-                                                   name="formLogin" id="formLogin" 
-                                                   placeholder="Nome de Usuário" 
-                                                   disabled />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-6">
-                                        <div class="form-group">
-                                            <label for="formSenha">
-                                                Senha:
-                                            </label>                  
-                                            <input type="password" class="form-control"
-                                                   name="formSenha" id="formSenha" 
-                                                   placeholder="********" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- DIV com os campos de id e senha -->
-
                         </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="formLogin">
+                                    Login:
+                                </label>                  
+                                <input type="text" class="form-control"
+                                       name="formLogin" id="formLogin" 
+                                       placeholder="Nome de Usuário" 
+                                       disabled />
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label for="formSenha">
+                                    Senha:
+                                </label>                  
+                                <input type="password" class="form-control"
+                                       name="formSenha" id="formSenha" 
+                                       placeholder="********" />
+                            </div>
+                        </div>
+                        <!-- DIV com os campos de id e senha -->
+
+
                     </div>
 
                     <!-- Fim: Adicionais sobre o Funcionário -->
 
-        
 
-            <div style="padding: 10px 0px;"></div>
 
-            <p>
-                Os campos marcados com
-                <i class="fa fa-fw fa-lg fa-asterisk"></i>
-                são obrigatórios.
-            </p>
+                    <div style="padding: 10px 0px;"></div>
 
-            <div style="padding: 10px 0px;"></div>
+                    <p>
+                        Os campos marcados com
+                        <i class="fa fa-fw fa-lg fa-asterisk"></i>
+                        são obrigatórios.
+                    </p>
 
-            <!-- Linha de botões do formulário -->
-            <div class="row">
+                    <div style="padding: 10px 0px;"></div>
 
-                <div class="col-sm-2 hidden-xs"></div>
+                    <!-- Linha de botões do formulário -->
+                    <div class="row">
 
-                <div class="col-xs-6 col-sm-4">
+                        <div class="col-sm-2 hidden-xs"></div>
 
-                    <button type="reset" class="btn btn-block btn-lg btn-primary" 
-                            tabindex="12">
-                        <i class="fa fa-eraser"></i>
-                        LIMPAR
-                    </button>
+                        <div class="col-xs-6 col-sm-4">
 
-                </div>
+                            <button type="reset" class="btn btn-block btn-lg btn-primary" 
+                                    tabindex="12">
+                                <i class="fa fa-eraser"></i>
+                                LIMPAR
+                            </button>
 
-                <div class="col-xs-6 col-sm-4">
+                        </div>
 
-                    <button type="submit" 
-                            class="btn btn-block btn-lg btn-default" 
-                            tabindex="11">
-                        SALVAR
-                        <i class="fa fa-check-square"></i>
-                    </button>
+                        <div class="col-xs-6 col-sm-4">
 
-                </div>
+                            <button type="submit" 
+                                    class="btn btn-block btn-lg btn-default" 
+                                    tabindex="11">
+                                SALVAR
+                                <i class="fa fa-check-square"></i>
+                            </button>
+
+                        </div>
+
+                    </div>
+                    <!-- Linha de botões do formulário -->
+
+                    <div style="padding: 15px 0px;"></div>
+
+                </form>
+                <!-- Fim do Formulário -->
 
             </div>
-            <!-- Linha de botões do formulário -->
 
-            <div style="padding: 15px 0px;"></div>
+        </div>
 
-        </form>
-        <!-- Fim do Formulário -->
-
-    </div>
-
-</div>
-
-</jsp:body>
+    </jsp:body>
 
 </t:defaultTemplate>

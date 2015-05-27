@@ -78,14 +78,8 @@ public class FuncionarioCadastrarServlet extends HttpServlet {
             } else {
                 f.setNewsletter(0);
             }
-
-            if (request.getParameter("formOpUsuario").equals("1")) {
-                f.setLogin(request.getParameter("formEmail"));
-                f.setSenha(request.getParameter("formSenha"));
-            } else {
-                f.setLogin(null);
-                f.setSenha(null);
-            }
+            f.setLogin(request.getParameter("formEmail"));
+            f.setSenha(request.getParameter("formSenha"));
             f.setPrivilegio(Integer.parseInt(request.getParameter("formPrivilegio")));
             f.setUnidade(Integer.parseInt(request.getParameter("formUnidade")));
 
