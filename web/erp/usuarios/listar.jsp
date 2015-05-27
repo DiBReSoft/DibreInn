@@ -80,7 +80,7 @@
                 </td>
                 <td>
                   <i class="fa fa-fw fa-lg"></i>
-                  senha
+                  
                   <c:out value="******" />
                 </td>
                 <c:if test="${usuario.status == '0'}">

@@ -11,12 +11,16 @@ import java.util.logging.Logger;
  */
 public class Usuario {
 
+  private int id;
+  
   private int unidadeId;
 
   private String nome;
 
-  private String email;
+  private String login;
 
+  private int status;
+  
   private String senha;
 
   private String papeis;
@@ -45,12 +49,12 @@ public class Usuario {
     this.papeis = papeis;
   }
 
-  public String getEmail() {
-    return email;
+  public String getLogin() {
+    return login;
   }
 
-  public void setEmail(String email) {
-    this.email = email;
+  public void setLogin(String login) {
+    this.login = login;
   }
 
   public int getUnidadeId() {
@@ -86,5 +90,33 @@ public class Usuario {
     List<String> papeisUsuario = Arrays.asList(this.papeis);
     return papeisUsuario.contains(papelNecessario);
   }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the status
+     */
+    public int getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
 }

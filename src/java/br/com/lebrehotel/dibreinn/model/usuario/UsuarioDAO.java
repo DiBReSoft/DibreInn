@@ -48,7 +48,7 @@ public class UsuarioDAO {
             }
 
             u = new Usuario();
-            u.setEmail(rs.getString("EMAIL"));
+            u.setLogin(rs.getString("EMAIL"));
             u.setSenha(rs.getString("SENHA"));
 
         } catch (SQLException ex) {
@@ -78,7 +78,8 @@ public class UsuarioDAO {
 
         List<Usuario> lista = new ArrayList<>();
 
-        String Query = "SELECT P.EMAIL as EMAIL, F.SENHA as SENHA FROM TB_PESSOA AS P "
+        String Query = "SELECT P.ID_PESSOA AS ID, P.EMAIL AS EMAIL, F.SENHA AS SENHA, P.STATUS AS STATUS "
+                + "FROM TB_PESSOA AS P "
                 + "JOIN TB_FUNCIONARIO AS F "
                 + "ON P.ID_PESSOA = F.ID_PESSOA ";
 
@@ -87,13 +88,15 @@ public class UsuarioDAO {
 
             stmt = conexao.conn.prepareStatement(Query);
 
-            ResultSet resultados = stmt.executeQuery();
+            rs = stmt.executeQuery();
             Usuario u = null;
-            while (resultados.next()) {
+            while (rs.next()) {
 
                 u = new Usuario();
-                u.setEmail(rs.getString("EMAIL"));
+                u.setId(rs.getInt("ID"));
+                u.setLogin(rs.getString("EMAIL"));
                 u.setSenha(rs.getString("SENHA"));
+                u.setStatus(rs.getInt("STATUS"));
 
                 lista.add(u);
 
@@ -118,5 +121,7 @@ public class UsuarioDAO {
         }
         return null;
     }
+    
+    
 
 }

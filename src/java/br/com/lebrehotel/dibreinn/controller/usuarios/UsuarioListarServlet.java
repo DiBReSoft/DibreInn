@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author geoinformacao
  */
-@WebServlet(name = "UsuarioListarServlet", urlPatterns = {"/erp/usuarios", "/erp/usuarios/listar"})
+@WebServlet(name = "UsuarioListarServlet", urlPatterns = {"/erp/usuarios", "/erp/administracao/listar"})
 public class UsuarioListarServlet extends HttpServlet {
 
     /**
@@ -45,8 +45,8 @@ public class UsuarioListarServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//    UsuarioDAO unidadeBD = new UsuarioDAO();
-//        request.setAttribute("lista", unidadeBD.listarUsuarios());
+        UsuarioDAO unidadeBD = new UsuarioDAO();
+        request.setAttribute("lista", unidadeBD.listarUsuarios());
 
         RequestDispatcher rd = request.getRequestDispatcher("/erp/usuarios/listar.jsp");
         rd.forward(request, response);
