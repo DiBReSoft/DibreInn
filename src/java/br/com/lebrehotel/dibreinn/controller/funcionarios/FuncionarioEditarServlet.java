@@ -28,10 +28,15 @@ public class FuncionarioEditarServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String hospedeParametroURL = request.getParameter("id");
+        String funcionarioParametroURL = request.getParameter("id");
 
         FuncionarioDAO funcionarioBD = new FuncionarioDAO();
-        Funcionario func = funcionarioBD.getFuncionarioById(Integer.parseInt(hospedeParametroURL));
+        Funcionario func = null;
+        try {
+            func = funcionarioBD.getFuncionarioById(Integer.parseInt(funcionarioParametroURL));
+        } catch (ParseException ex) {
+            Logger.getLogger(FuncionarioEditarServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         if (func != null) {
             request.setAttribute("funcionario", func);

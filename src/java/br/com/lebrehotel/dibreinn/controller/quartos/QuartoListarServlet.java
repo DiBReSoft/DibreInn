@@ -25,7 +25,21 @@ public class QuartoListarServlet extends HttpServlet {
 
     QuartoDAO quartoBD = new QuartoDAO();
 
-    request.setAttribute("listaQuartos", quartoBD.listarQuartos());
+    
+    //Requisitos do filtro de pesquisa
+    
+    String buscaUnidade = request.getParameter("unidade");
+    String buscaNumero = request.getParameter("numero");
+    
+    request.setAttribute("listaUnidade", buscaUnidade);
+    request.setAttribute("numeroQuarto", buscaNumero);
+    if(buscaUnidade != null){
+        request.setAttribute(buscaUnidade, 1);
+    } else if(buscaNumero != null){
+        request.setAttribute(buscaNumero, 2);
+    } else {
+        request.setAttribute("listaQuartos", quartoBD.listarQuartos("", 0));
+    }
 
     UnidadeDAO unidadeBD = new UnidadeDAO();
     request.setAttribute("listaUnidades", unidadeBD.listarUnidades());
