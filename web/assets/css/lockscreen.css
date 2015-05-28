@@ -12,6 +12,7 @@ footer {
 }
 
 /*LOCK SCREEN CONF*/
+
 #showtime {
   font-family: 'Roboto';
   display: inline-block;
@@ -21,6 +22,22 @@ footer {
   text-shadow: 1px 2px 0px #767979;
   font-size: 200px;
   line-height: 100px;
+  text-align: right;
+}
+
+@media(max-width: 919px) {
+  #showtime {
+    font-size: 150px;
+    text-align: center;
+  }
+}
+
+@media(max-width: 467px) {
+  #showtime {
+    font-size: 100px;
+    text-align: center;
+    padding: 40px 15px 0px 10px;
+  }
 }
 
 .lock-panel {
@@ -68,4 +85,16 @@ footer {
 
 footer a {
   color: #fff;
+}
+
+@media(min-width: 768px) {
+  footer .creditos:last-of-type {
+    text-align: right;
+  }
+}
+
+@media(max-width: 767px) {
+  footer .creditos:last-of-type {
+    padding-top: 10px;
+  }
 }

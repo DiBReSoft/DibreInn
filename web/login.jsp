@@ -33,20 +33,21 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-            <h4 class="modal-title" id="informarErroModalLabel">
-              ERRO AO TENTAR FAZER LOGIN
-            </h4>
+            <h1 class="modal-title" id="informarErroModalLabel">
+              Erro ao tentar fazer login
+            </h1>
           </div>
           <div class="modal-body">
-            <h3>              
+            <h1>              
               <c:out value="${erroTitulo}" />
-            </h3>
-            <h4>
+            </h1>
+            <h3>
               <c:out value="${erroMsg}" />
-            </h4>
+            </h3>
+            <div style="padding: 10px 0px;"></div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">
+            <button type="button" class="btn btn-lg btn-default" data-dismiss="modal">
               Fechar
             </button>
           </div>
@@ -143,7 +144,7 @@
 
         </div>
 
-        <div class="col-sm-6 col-sm-pull-6 text-right">
+        <div class="col-sm-6 col-sm-pull-6">
 
           <span id="showtime"></span>
 

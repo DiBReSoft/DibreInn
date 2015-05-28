@@ -23,25 +23,39 @@
     <ul class="nav top-menu">
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-          <span class="hidden-xs">
+          <span class="avatar-nome hidden-xs">
             Gerald Richie
+            <small>
+              Matriz São Paulo
+            </small>
           </span>
-          <img class="img-responsive img-circle"
-               src="//pbs.twimg.com/profile_images/2934946269/d069c7c3ebf55fdecc7fb1c552804026_400x400.jpeg" />
-          <span class="caret"></span>
+          <span class="avatar-img">            
+            <img class="img-responsive img-circle"
+                 src="//pbs.twimg.com/profile_images/2934946269/d069c7c3ebf55fdecc7fb1c552804026_400x400.jpeg" />
+            <span class="caret"></span>
+          </span>
         </a>
         <ul class="dropdown-menu dropdown-menu-right" role="menu">
+          <li class="dropdown-header visible-xs">
+            Gerald Richie
+            <small>              
+              Matriz São Paulo
+            </small>
+          </li>
+          <li class="divider visible-xs"></li>
           <li>
-            <a href="<c:url value="/erp/pessoas/perfil" />">
+            <a href="<c:url value="/erp/funcionarios/perfil" />">
               <i class="fa fa-fw fa-lg fa-user"></i>
               Dados Cadastrais
+              <i class="fa"></i>
             </a>
           </li>
           <li class="divider"></li>
           <li>
             <a href="<c:url value="/logout" />">
               <i class="fa fa-fw fa-lg fa-power-off"></i>
-              Fazer Logoff
+              Sair
+              <i class="fa"></i>
             </a>
           </li>
         </ul>

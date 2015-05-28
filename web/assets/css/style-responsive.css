@@ -55,7 +55,7 @@
   #sidebar > ul > li > a {
     /* height:35px; */
     line-height:35px;
-    padding: 0 10px;
+    padding: 5px 10px;
     text-align: left;
   }
   #sidebar > ul > li > a i{
@@ -74,10 +74,10 @@
 
   #sidebar > ul > li > a, #sidebar > ul > li > ul.sub > li {
     width: 100%;
-  
+
     display: block;
     position: relative;
-}
+  }
   #sidebar > ul > li > ul.sub > li > a {
     background: transparent !important ;
   }

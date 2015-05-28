@@ -77,13 +77,16 @@
 
         <div class="row">
 
-          <div class="col-sm-6 text-left">
+          <div class="col-sm-6 creditos">
             <span id="mostrarAno"></span> 
-            <i class="fa fa-fw fa-lg fa-copyright"></i> 
+            <i class="fa fa-fw fa-lg fa-copyright"></i>
+            <br class="visible-xs-inline-block" />
             Desenvolvido pela DiBRe Soft
           </div>
-          <div class="col-sm-6 text-right">
-            Imagens disponibilizadas por
+          <div class="col-sm-6 creditos">
+            Imagens disponibilizadas 
+            <br class="visible-xs-inline-block" />
+            por
             <i class="fa fa-fw fa-lg fa-camera"></i>
             <a href="http://unsplash.com"
                title="Free High-Resolution Photos"
