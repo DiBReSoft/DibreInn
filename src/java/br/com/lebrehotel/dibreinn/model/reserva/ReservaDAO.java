@@ -18,205 +18,207 @@ import java.util.logging.Logger;
  */
 public class ReservaDAO {
 
-  public void cadastrarReserva(Reserva res) {
+    public void cadastrarReserva(Reserva res) {
 
-    ConectarBD conexao = new ConectarBD();
-    PreparedStatement stmt = null;
+        ConectarBD conexao = new ConectarBD();
+        PreparedStatement stmt = null;
 
-    String sql = " INSERT INTO TB_RESERVA (ID_FUNCIONARIO, ID_HOSPEDE, ID_QUARTO, DT_INICIO, DT_FIM) VALUES (?, ?, ?, ?, ?)\n ";
+        String sql = " INSERT INTO TB_RESERVA (ID_FUNCIONARIO, ID_HOSPEDE, ID_QUARTO, DT_INICIO, DT_FIM, VALOR) VALUES (?, ?, ?, ?, ?, ?)\n ";
 
-    try {
+        try {
 
-      conexao.openConection();
-      stmt = conexao.conn.prepareStatement(sql);
+            conexao.openConection();
+            stmt = conexao.conn.prepareStatement(sql);
 
-      stmt.setInt(1, res.getIdFuncionario());
-      stmt.setInt(2, res.getIdHospede());
-      stmt.setInt(3, res.getIdQuarto());
+            stmt.setInt(1, res.getIdFuncionario());
+            stmt.setInt(2, res.getIdHospede());
+            stmt.setInt(3, res.getIdQuarto());
 
-      java.sql.Date sqlDataCheckin = new java.sql.Date(res.getCheckIn().getTime());
-      stmt.setDate(4, sqlDataCheckin);
-      
-      java.sql.Date sqlDataCheckout = new java.sql.Date(res.getCheckOut().getTime());
-      stmt.setDate(5, sqlDataCheckout);
+            java.sql.Date sqlDataCheckin = new java.sql.Date(res.getCheckIn().getTime());
+            stmt.setDate(4, sqlDataCheckin);
 
-      stmt.executeUpdate();
-      System.out.println("[INFO] Reserva registrada com sucesso.");
+            java.sql.Date sqlDataCheckout = new java.sql.Date(res.getCheckOut().getTime());
+            stmt.setDate(5, sqlDataCheckout);
+            stmt.setDouble(6,res.getValorEstadia());
 
-    } catch (SQLException ex) {
+            stmt.executeUpdate();
+            System.out.println("[INFO] Reserva registrada com sucesso.");
+            conexao.closeConection();
 
-      Logger.getLogger(ReservaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
 
-    } finally {
+            Logger.getLogger(ReservaDAO.class.getName()).log(Level.SEVERE, null, ex);
 
-      if (stmt != null) {
-	try {
-	  stmt.close();
-	} catch (SQLException ex) {
-	  Logger.getLogger(ReservaDAO.class.getName()).log(Level.SEVERE, null, ex);
-	}
-      }
-      if (conexao.conn != null) {
-	try {
-	  conexao.conn.close();
-	} catch (SQLException ex) {
-	  Logger.getLogger(ReservaDAO.class.getName()).log(Level.SEVERE, null, ex);
-	}
-      }
+        } finally {
 
-    }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ReservaDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (conexao.conn != null) {
+                try {
+                    conexao.conn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ReservaDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
 
-  }
-
-  public List<Reserva> buscarReservas(String data) {
-
-    ResultSet rs = null;
-
-    ConectarBD conexao = new ConectarBD();
-    PreparedStatement stmt = null;
-
-    java.util.Date checkin = new java.util.Date();
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
-    try {
-      checkin = sdf.parse(data);
-    } catch (ParseException ex) {
-      Logger.getLogger(ReservaDAO.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    java.sql.Date sqlDataCheckin = new java.sql.Date(checkin.getTime());
-
-    List<Reserva> listaReservas = new ArrayList<>();
-
-    String Query = "SELECT ID_RESERVA, ID_HOSPEDE, ID_FUNCIONARIO, ID_QUARTO FROM TB_RESERVA WHERE DT_INICIO = ?";
-
-    try {
-
-      conexao.openConection();
-
-      stmt = conexao.conn.prepareStatement(Query);
-
-      stmt.setDate(1, sqlDataCheckin);
-
-      ResultSet resultados = stmt.executeQuery();
-
-      while (resultados.next()) {
-
-	Reserva res = new Reserva();
-
-	res.setId(resultados.getInt("ID_RESERVA"));
-	res.setIdFuncionario(resultados.getInt("ID_FUNCIONARIO"));
-	res.setIdHospede(resultados.getInt("ID_HOSPEDE"));
-	res.setIdQuarto(resultados.getInt("ID_QUARTO"));
-	res.setCheckIn(checkin);
-
-	listaReservas.add(res);
-
-      }
-
-      return listaReservas;
-
-    } catch (SQLException ex) {
-      // Caso haja erro retorna 0 como ID e informa no log
-      Logger.getLogger(ReservaDAO.class.getName()).log(Level.SEVERE, "[INFO] Erro ao gravar os dados: ", ex);
-
-    } finally {
-
-      if (stmt != null) {
-	try {
-	  stmt.close();
-	} catch (SQLException ex) {
-	  Logger.getLogger(ReservaDAO.class.getName()).log(Level.SEVERE, null, ex);
-	}
-      }
-      if (conexao != null) {
-	conexao.closeConection();
-      }
+        }
 
     }
 
-    return null;
+    public List<Reserva> buscarReservas(String data) {
 
-  }
+        ResultSet rs = null;
 
-  public boolean alterarReserva(Reserva res) {
+        ConectarBD conexao = new ConectarBD();
+        PreparedStatement stmt = null;
 
-    boolean resultadoOperacao;
+        java.util.Date checkin = new java.util.Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-    ConectarBD conexao = new ConectarBD();
-    PreparedStatement stmt = null;
+        try {
+            checkin = sdf.parse(data);
+        } catch (ParseException ex) {
+            Logger.getLogger(ReservaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        java.sql.Date sqlDataCheckin = new java.sql.Date(checkin.getTime());
 
-    String sql = " UPDATE INTO TB_RESERVA (ID_RESERVA, ID_FUNCIONARIO, ID_HOSPEDE, ID_QUARTO, DT_INICIO, DT_FIM) VALUES (?, ?, ?, ?, ?, ?)\n ";
+        List<Reserva> listaReservas = new ArrayList<>();
 
-    try {
+        String Query = "SELECT ID_RESERVA, ID_HOSPEDE, ID_FUNCIONARIO, ID_QUARTO FROM TB_RESERVA WHERE DT_INICIO = ?";
 
-      conexao.openConection();
-      stmt = conexao.conn.prepareStatement(sql);
+        try {
 
-      stmt.setInt(1, res.getId());
-      stmt.setInt(2, res.getIdFuncionario());
-      stmt.setInt(3, res.getIdHospede());
-      stmt.setInt(4, res.getIdQuarto());
+            conexao.openConection();
 
-      java.sql.Date sqlDataCheckin = new java.sql.Date(res.getCheckIn().getTime());
-      stmt.setDate(5, sqlDataCheckin);
+            stmt = conexao.conn.prepareStatement(Query);
 
-      java.sql.Date sqlDataCheckout = new java.sql.Date(res.getCheckOut().getTime());
-      stmt.setDate(6, sqlDataCheckout);
+            stmt.setDate(1, sqlDataCheckin);
 
-      stmt.executeUpdate();
-      System.out.println("[INFO] Reserva alterada com sucesso.");
+            ResultSet resultados = stmt.executeQuery();
 
-      return resultadoOperacao = true;
+            while (resultados.next()) {
 
-    } catch (SQLException ex) {
+                Reserva res = new Reserva();
 
-      System.err.println("[ERRO] Não foi possível alterar a reserva.");
-      Logger.getLogger(ReservaDAO.class.getName()).log(Level.SEVERE, null, ex);
+                res.setId(resultados.getInt("ID_RESERVA"));
+                res.setIdFuncionario(resultados.getInt("ID_FUNCIONARIO"));
+                res.setIdHospede(resultados.getInt("ID_HOSPEDE"));
+                res.setIdQuarto(resultados.getInt("ID_QUARTO"));
+                res.setCheckIn(checkin);
 
-      return resultadoOperacao = false;
+                listaReservas.add(res);
 
-    } finally {
+            }
 
-      if (stmt != null) {
-	try {
-	  stmt.close();
-	} catch (SQLException ex) {
-	  Logger.getLogger(ReservaDAO.class.getName()).log(Level.SEVERE, null, ex);
-	}
-      }
-      if (conexao.conn != null) {
-	try {
-	  conexao.conn.close();
-	} catch (SQLException ex) {
-	  Logger.getLogger(ReservaDAO.class.getName()).log(Level.SEVERE, null, ex);
-	}
-      }
+            return listaReservas;
+
+        } catch (SQLException ex) {
+            // Caso haja erro retorna 0 como ID e informa no log
+            Logger.getLogger(ReservaDAO.class.getName()).log(Level.SEVERE, "[INFO] Erro ao gravar os dados: ", ex);
+
+        } finally {
+
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ReservaDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (conexao != null) {
+                conexao.closeConection();
+            }
+
+        }
+
+        return null;
 
     }
 
-  }
+    public boolean alterarReserva(Reserva res) {
 
-  public boolean deletarReserva(int id) {
+        boolean resultadoOperacao;
 
-    ConectarBD conexao = new ConectarBD();
-    PreparedStatement stmt = null;
+        ConectarBD conexao = new ConectarBD();
+        PreparedStatement stmt = null;
 
-    String query = "DELETE FROM TB_RESERVA WHERE ID_RESERVA = ? \n";
+        String sql = " UPDATE INTO TB_RESERVA (ID_RESERVA, ID_FUNCIONARIO, ID_HOSPEDE, ID_QUARTO, DT_INICIO, DT_FIM) VALUES (?, ?, ?, ?, ?, ?)\n ";
 
-    try {
-      conexao.openConection();
-      stmt = conexao.conn.prepareStatement(query);
+        try {
 
-      stmt.setInt(1, id);
-      stmt.executeQuery();
+            conexao.openConection();
+            stmt = conexao.conn.prepareStatement(sql);
 
-      System.out.println("[INFO] Reserva #" + id + " deletada com sucesso.");
-      return true;
+            stmt.setInt(1, res.getId());
+            stmt.setInt(2, res.getIdFuncionario());
+            stmt.setInt(3, res.getIdHospede());
+            stmt.setInt(4, res.getIdQuarto());
 
-    } catch (SQLException ex) {
-      System.out.println("[ERRO] Não foi possível deletar a reserva #" + id + "\n" + ex);
-      return false;
+            java.sql.Date sqlDataCheckin = new java.sql.Date(res.getCheckIn().getTime());
+            stmt.setDate(5, sqlDataCheckin);
+
+            java.sql.Date sqlDataCheckout = new java.sql.Date(res.getCheckOut().getTime());
+            stmt.setDate(6, sqlDataCheckout);
+
+            stmt.executeUpdate();
+            System.out.println("[INFO] Reserva alterada com sucesso.");
+
+            return resultadoOperacao = true;
+
+        } catch (SQLException ex) {
+
+            System.err.println("[ERRO] Não foi possível alterar a reserva.");
+            Logger.getLogger(ReservaDAO.class.getName()).log(Level.SEVERE, null, ex);
+
+            return resultadoOperacao = false;
+
+        } finally {
+
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ReservaDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (conexao.conn != null) {
+                try {
+                    conexao.conn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ReservaDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+        }
+
     }
-  }
-  
-}
+
+    public boolean deletarReserva(int id) {
+
+        ConectarBD conexao = new ConectarBD();
+        PreparedStatement stmt = null;
+
+        String query = "DELETE FROM TB_RESERVA WHERE ID_RESERVA = ? \n";
+
+        try {
+            conexao.openConection();
+            stmt = conexao.conn.prepareStatement(query);
+
+            stmt.setInt(1, id);
+            stmt.executeQuery();
+
+            System.out.println("[INFO] Reserva #" + id + " deletada com sucesso.");
+            return true;
+
+        } catch (SQLException ex) {
+            System.out.println("[ERRO] Não foi possível deletar a reserva #" + id + "\n" + ex);
+            return false;
+        }
+    }
+
+    }

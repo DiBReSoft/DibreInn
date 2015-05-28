@@ -128,7 +128,9 @@ public class ReservaNovaServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-
+      
+          
+    
     String reservaFormFuncionarioID = request.getParameter("reservaFuncionarioID");
     String reservaFormHospedeID = request.getParameter("reservaHospedeID");
     String reservaFormQuarto = request.getParameter("reservaQuarto");
@@ -140,7 +142,11 @@ public class ReservaNovaServlet extends HttpServlet {
     System.out.println("ID do Quarto: " + reservaFormQuarto);
     System.out.println("Data CheckIn: " + reservaFormDataCheckin);
     System.out.println("Data CheckOut: " + reservaFormDataCheckout);
-
+    QuartoDAO q = new QuartoDAO();
+    double valorQuarto = q.buscarValorQuartoId(reservaFormQuarto);
+    System.out.println("Valor Estadia: " + q.buscarValorQuartoId(reservaFormQuarto));
+    
+    
     Reserva novaReserva = new Reserva();
 
     //novaReserva.setIdFuncionario(Integer.parseInt(reservaFormFuncionarioID));
@@ -160,7 +166,8 @@ public class ReservaNovaServlet extends HttpServlet {
 
       checkout = sdf.parse(reservaFormDataCheckout);
       novaReserva.setCheckOut(checkout);
-
+      novaReserva.setValorEstadia(novaReserva.valorReserva(checkin, checkout, valorQuarto));
+      
       ReservaDAO reservaBD = new ReservaDAO();
       reservaBD.cadastrarReserva(novaReserva);
 
