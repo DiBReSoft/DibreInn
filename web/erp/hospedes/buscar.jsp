@@ -180,7 +180,7 @@
 
     <!-- Fim da #1 linha de GRID dos formulários -->
 
-    <div class="${visibilidadeResultados}">
+    <div class="form-di ${visibilidadeResultados}">
 
       <h4>
         Resultado(s) da busca
@@ -277,11 +277,9 @@
 
     </div>
 
-  </div>
 
+    <div class="center-block" style="padding: 35px 0px;"></div>
 
-  <div style="padding: 15px 0px;"></div>
-
-</jsp:body>
+  </jsp:body>
 
 </t:defaultTemplate>

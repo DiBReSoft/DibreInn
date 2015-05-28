@@ -32,7 +32,7 @@ var Script = function () {
   $(function () {
     var wSize = window.innerWidth;
     var hSize = window.innerHeight;
-    var alturaTela = hSize - 98;
+    var alturaTela = hSize - 101;
     $(".site-min-height").css("min-height", alturaTela + "px");
     function responsiveView() {
       if (wSize <= 768) {
