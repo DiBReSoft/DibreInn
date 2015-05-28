@@ -6,6 +6,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <t:defaultTemplate>
 
@@ -31,6 +32,7 @@
     </jsp:attribute>
 
     <jsp:body>
+<c:set var="now" value="<%=new java.util.Date()%>" />
 
         <h1 class="page-title">
             Editar Funcionario
@@ -170,7 +172,8 @@
                                        required 
                                        min="10"
                                        maxlength="10"
-                                       value="${funcionario.dataNascimento}" />
+                                       value="<fmt:formatDate type="date" 
+            value="${funcionario.dataNascimento}" />" />
                             </div>
 
                         </div>

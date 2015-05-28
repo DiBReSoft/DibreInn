@@ -22,6 +22,8 @@
   <jsp:attribute name="paginaBottom">
     <script type="text/javascript" src="<c:url value="/assets/js/jquery-ui.min.js" />"></script>
     <script type="text/javascript" src="<c:url value="/assets/js/jquery-calendar-configs.js" />"></script>
+    <script type="text/javascript" src="<c:url value="/assets/js/jquery.maskedinput.min.js" />"></script>
+    <script type="text/javascript" src="<c:url value="/assets/js/validacoes.js" />"></script>
     <script type="text/javascript">
       $(window).load(function () {
         var stepTwo = $("[data-target=#stepTwo]");

@@ -75,8 +75,7 @@
                 </td>               
                 <td>
                   <i class="fa fa-fw fa-lg"></i>
-                  login
-                  <c:out value="${usuario.login}" />
+                   <c:out value="${usuario.login}" />
                 </td>
                 <td>
                   <i class="fa fa-fw fa-lg"></i>

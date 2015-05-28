@@ -6,7 +6,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <t:defaultTemplate>
 
   <jsp:attribute name="paginaTitulo">
@@ -31,7 +31,7 @@
   </jsp:attribute>
 
   <jsp:body>
-
+<c:set var="now" value="<%=new java.util.Date()%>" />
     <h1 class="page-title">
       Editar Hospede
     </h1>
@@ -170,7 +170,9 @@
                        required 
                        min="10"
                        maxlength="10"
-                       value="${hospede.dataNascimento}" />
+                      value="<fmt:formatDate type="date" 
+                value="${hospede.dataNascimento}" />" 
+                />
               </div>
 
             </div>
@@ -303,7 +305,7 @@
               <button type="submit" 
                       class="btn btn-block btn-lg btn-default" 
                       tabindex="11">
-                SALVAR
+                ATUALIZAR
                 <i class="fa fa-check-square"></i>
               </button>
 

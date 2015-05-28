@@ -9,6 +9,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -220,7 +222,7 @@ public class FuncionarioDAO {
         return 1;
     }
 
-    public Funcionario getFuncionarioById(int id) {
+    public Funcionario getFuncionarioById(int id) throws ParseException {
 
         ConectarBD conexao = new ConectarBD();
         PreparedStatement stmt = null;
@@ -247,7 +249,9 @@ public class FuncionarioDAO {
             func.setSexo(result.getString("SEXO"));
             func.setRg(result.getString("RG"));
             func.setCpf(result.getString("CPF"));
-            func.setDataNascimento(result.getDate("DATANASC"));
+//               Date funcionarioFormDataNasc = result.getDate("DATANASC");
+///
+          func.setDataNascimento(result.getDate("DATANASC"));
             func.setTelefone(result.getString("TELEFONE"));
             func.setCelular(result.getString("CEL"));
             func.setEmail(result.getString("EMAIL"));
