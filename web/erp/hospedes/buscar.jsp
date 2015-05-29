@@ -193,15 +193,19 @@
           <thead>
             <tr>
               <th>
+                <i class="fa fa-fw fa-barcode"></i>
                 ID
               </th>
               <th>
+                <i class="fa fa-fw fa-tag"></i>
                 Nome
               </th>
               <th>
+                <i class="fa fa-fw fa-code"></i>
                 CPF
               </th>
               <th>
+                <i class="fa fa-fw fa-envelope"></i>
                 E-mail
               </th>
               <th class="text-center">
@@ -213,19 +217,24 @@
             <c:forEach items="${lista}" var="hospede" varStatus="stat">
               <tr>
                 <td scope="row">
+                  <i class="fa fa-fw"></i>
                   <c:out value="${hospede.id}" />
                 </td>
                 <td>
+                  <i class="fa fa-fw"></i>
                   <c:out value="${hospede.nome}" />
                   <c:out value="${hospede.sobrenome}" />
                 </td>
                 <td>
+                  <i class="fa fa-fw"></i>
                   <c:out value="${hospede.cpf}" />
                 </td>
                 <td>
+                  <i class="fa fa-fw"></i>
                   <c:out value="${hospede.email}" />
                 </td>
                 <td class="text-center">
+                  <i class="fa fa-fw"></i>
                   <a href="<c:url value="/erp/hospedes/editar?id=${hospede.id}" />"
                      class="btn btn-sm btn-default">
                     <i class="fa fa-fw fa-lg fa-edit"></i>

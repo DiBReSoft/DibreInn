@@ -38,7 +38,7 @@
 
     <!-- page start-->
     <div class="row">
-      
+
       <div class="col-md-2 hidden-sm hidden-xs"></div>
 
       <div class="col-md-8">
@@ -199,7 +199,8 @@
                 <input type="email" class="form-control" 
                        tabindex="8"
                        name="formEmail" id="formEmail"
-                       placeholder="fulano@dasilva.com.br" />
+                       placeholder="fulano@dasilva.com.br"
+                       required />
               </div>
 
             </div>
@@ -234,18 +235,35 @@
                 <label for="formUnidade">
                   Unidade:
                 </label>
-                <select class="form-control" tabindex="18" aria-describedby="basic-addon2"
-                        name="formUnidade" id="formUnidade">
-                  <c:forEach items="${lista}" var="unidade" varStatus="stat">
-                    <c:if test="${unidade.status == '1'}">
-                      <option value="${unidade.id}">
-                        <c:out value="${unidade.estado}" />
-                        -
-                        <c:out value="${unidade.nome}" />
-                      </option>
-                    </c:if>
-                  </c:forEach>
-                </select>              
+                <c:if test="${sessionScope.usuario.privilegioId == 2}">
+                  <input type="hidden" 
+                         name="formUnidade"
+                         value="${sessionScope.usuario.unidadeId}" />
+                  <input type="text" class="form-control" tabindex="10"
+                         value="${sessionScope.usuario.unidadeNome}"
+                         readonly/>
+                </c:if>
+                <c:if test="${sessionScope.usuario.privilegioId == 3}">
+                  <select class="form-control" tabindex="10" aria-describedby="basic-addon2"
+                          name="formUnidade" id="formUnidade">
+                    <c:forEach items="${lista}" var="unidade" varStatus="stat">
+                      <c:if test="${unidade.status == '1'}">
+                        <option value="${unidade.id}"
+                                <c:if test="${unidade.status == '0'}">
+                                  disabled
+                                </c:if>
+                                <c:if test="${unidade.id == funcionario.unidade}">
+                                  selected
+                                </c:if>
+                                >
+                          <c:out value="${unidade.estado}" />
+                          -
+                          <c:out value="${unidade.nome}" />
+                        </option>
+                      </c:if>
+                    </c:forEach>
+                  </select>
+                </c:if>
 
               </div>
 
@@ -258,7 +276,7 @@
                   Cargo:
                 </label>
                 <select class="form-control" tabindex="18" aria-describedby="basic-addon2"
-                        name="formPrivilegio" id="formPrivilegio">
+                        name="formPrivilegio" id="formPrivilegio" required >
                   <c:forEach items="${listaPrivilegios}" var="privilegio" varStatus="stat">
                     <c:if test="${privilegio.status == '1'}">
                       <option value="${privilegio.id}">
@@ -288,7 +306,8 @@
                 </label>                  
                 <input type="password" class="form-control"
                        name="formSenha" id="formSenha" 
-                       placeholder="********" />
+                       placeholder="********"
+                       required />
               </div>
             </div>
             <!-- DIV com os campos de id e senha -->

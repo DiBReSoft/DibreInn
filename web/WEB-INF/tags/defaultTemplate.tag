@@ -75,7 +75,7 @@
       var y = today.getFullYear();
       document.getElementById('mostrarAno').innerHTML = y;
       
-      $("[type=submit]").on("click", function() {
+      $("form").on("submit", function() {
         $("#paginaConteudo").load("<c:url value="/assets/loading.html" />");
       });
     </script>

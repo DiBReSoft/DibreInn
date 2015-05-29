@@ -134,7 +134,7 @@
                   <div class="col-xs-6 col-xs-push-6">
 
                     <button class="btn btn-block btn-sm btn-default" 
-                            type="submit" id="loginSubmit">
+                            type="submit" id="loginSubmit" data-loading-text="Loading...">
                       Entrar
                       <i class="fa fa-sign-in"></i>
                     </button>
