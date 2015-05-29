@@ -107,7 +107,7 @@ public class QuartoDAO {
         }
     }
 
-    public List<Quarto> listarQuartos(String busca, int tipoBusca) {
+    public List<Quarto> listarQuartos(int busca, int tipoBusca) {
         ResultSet rs = null;
 
         ConectarBD conexao = new ConectarBD();
@@ -133,7 +133,10 @@ public class QuartoDAO {
             conexao.openConection();
 
             stmt = conexao.conn.prepareStatement(Query);
-
+            
+            if (tipoBusca != 0)
+                stmt.setInt(1, busca);
+            
             ResultSet resultados = stmt.executeQuery();
 
             while (resultados.next()) {

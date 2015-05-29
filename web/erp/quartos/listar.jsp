@@ -45,7 +45,7 @@
 
 
                 <form role="form" method="get" enctype="utf-8" class="form-di"
-                      action="buscar" name="formUnidade">
+                      action="listar" name="formUnidade">
 
                     <h4>
                         <label for="unidade">
@@ -97,7 +97,7 @@
             <div class="col-sm-4">
                 <!-- Formulário #2 | Buscar por e-mail -->
                 <form role="form" method="get" enctype="utf-8" class="form-di"
-                      action="buscar" name="formBuscarEmail">
+                      action="listar" name="formBuscarEmail">
 
                     <h4>
                         <label for="email">

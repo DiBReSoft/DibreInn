@@ -31,14 +31,16 @@ public class QuartoListarServlet extends HttpServlet {
     String buscaUnidade = request.getParameter("unidade");
     String buscaNumero = request.getParameter("numero");
     
-    request.setAttribute("listaUnidade", buscaUnidade);
-    request.setAttribute("numeroQuarto", buscaNumero);
     if(buscaUnidade != null){
-        request.setAttribute(buscaUnidade, 1);
+        //Verifica se unidade está preenchido
+        request.setAttribute("listaQuartos", quartoBD.listarQuartos(Integer.parseInt(buscaUnidade), 1));
     } else if(buscaNumero != null){
-        request.setAttribute(buscaNumero, 2);
-    } else {
-        request.setAttribute("listaQuartos", quartoBD.listarQuartos("", 0));
+        //Verifica se número do quarto está preenchido
+        request.setAttribute("listaQuartos", quartoBD.listarQuartos(Integer.parseInt(buscaNumero), 2));
+    } 
+    if(buscaUnidade.equalsIgnoreCase("0") || buscaNumero.equalsIgnoreCase("0") || buscaUnidade == null && buscaNumero == null){
+        //Se nem numero do quarto nem unidade estiverem preenchido Listar tudo
+        request.setAttribute("listaQuartos", quartoBD.listarQuartos(0, 0));
     }
 
     UnidadeDAO unidadeBD = new UnidadeDAO();
