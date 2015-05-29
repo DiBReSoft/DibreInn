@@ -20,10 +20,8 @@ $(document).ready(function () {
 
   function posicionarBoxCredenciais() {
     if (telaAltura > 450) {
-      $("footer").css("top", (telaAltura / 2 - 197) + "px");
-    }
-    if (telaAltura > 300) {
-      $("section").css("margin-top", ((telaAltura / 2) - 180) + "px");
+      $("section").css("padding-top", (telaAltura / 2 - 258) + "px");
+      $("section").css("padding-bottom", (telaAltura / 2 - 220) + "px");
     }
   }
   posicionarBoxCredenciais();

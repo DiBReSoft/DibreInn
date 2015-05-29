@@ -55,7 +55,7 @@ public class UsuarioDAO {
 	    u.setId(rs.getInt("ID"));
             u.setLogin(rs.getString("EMAIL"));
             u.setSenha(rs.getString("SENHA"));
-            u.setNome(rs.getString("NOME") + rs.getString("SOBRENOME"));
+            u.setNome(rs.getString("NOME") + " " + rs.getString("SOBRENOME"));
             u.setUnidadeId(rs.getInt("ID_UNIDADE"));
             u.setPrivilegio(rs.getInt("ID_PRIVILEGIO"));
             

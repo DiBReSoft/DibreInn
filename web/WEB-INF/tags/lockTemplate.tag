@@ -13,8 +13,8 @@
     <link rel="shortcut icon" href="<c:url value="/assets/img/favicon.ico" />" type="image/x-icon" />
 
     <title>
-      D.I. | Lebre Hotel:
       <jsp:invoke fragment="paginaTitulo"/>
+      - Lebre Hotel | D.I.
     </title>
 
     <!-- CSS Base -->

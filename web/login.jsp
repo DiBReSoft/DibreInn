@@ -58,6 +58,28 @@
     <div class="container-fluid">
 
       <div class="row">
+        
+        <div class="col-sm-6 hidden-xs"></div>
+
+        <div class="col-sm-6">
+
+          <div class="logo-lebrehotel text-center">
+
+            <img src="<c:url value="/assets/img/logo-lebre.svg" />"
+                 alt="Lebre Hotel"
+                 class="center-block"/>
+
+            <h3>
+              Lebre Hotel
+            </h3>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="row">
 
         <div class="col-sm-6 col-sm-push-6">
 
@@ -110,15 +132,9 @@
                 </div>
                 <div class="form-group">
                   <div class="col-xs-6 col-xs-push-6">
-                    
+
                     <button class="btn btn-block btn-sm btn-default" 
                             type="submit" id="loginSubmit">
-                      Entrar
-                      <i class="fa fa-sign-in"></i>
-                    </button>
-                    <!-- 
-                    <button class="btn btn-block btn-default" 
-                            type="button" id="loginSubmit" onclick="location.href = 'erp/inicio'">
                       Entrar
                       <i class="fa fa-sign-in"></i>
                     </button>
@@ -130,8 +146,6 @@
                       <i class="fa fa-lock"></i>
                       Esqueci a senha
                     </button>
-                    Precisa criar o controle de acesso para habilitar esse botão
-                    -->
                   </div>
                 </div>
               </form>

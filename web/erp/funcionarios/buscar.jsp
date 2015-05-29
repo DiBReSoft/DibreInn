@@ -179,8 +179,10 @@
     </div>
 
     <!-- Fim da #1 linha de GRID dos formulários -->
-
-    <div class="${visibilidadeResultados}">
+    
+    <div style="padding: 10px;"></div>
+    
+    <div class="form-di ${visibilidadeResultados}">
 
       <h4>
         Resultado(s) da busca

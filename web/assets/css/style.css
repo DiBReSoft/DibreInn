@@ -267,10 +267,10 @@ ul.top-menu > li > .logout {
 
 /*LEFT NAVIGATION ICON*/
 .dcjq-icon {
-  height:17px;
-  width:17px;
+  /* height:17px; */
+  /* width:17px; */
   display:inline-block;
-  background: url("../img/nav-expand.png") no-repeat top;
+  /* background: url("../img/nav-expand.png") no-repeat top; */
   border-radius:3px;
   -moz-border-radius:3px;
   -webkit-border-radius:3px;
@@ -2371,6 +2371,7 @@ label {
   display: block;
   font-style: italic;
   font-weight: normal;
+  text-transform: capitalize;
 }
 
 .top-menu .dropdown-header small {

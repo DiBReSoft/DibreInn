@@ -13,6 +13,17 @@ footer {
 
 /*LOCK SCREEN CONF*/
 
+.logo-lebrehotel img {
+  width: 65px;
+  height: 65px;
+}
+
+.logo-lebrehotel h3 {
+  margin-top: 0px;
+  padding-top: 0px;
+  color: rgba(234, 234, 234, 0.8);
+}
+
 #showtime {
   font-family: 'Roboto';
   display: inline-block;

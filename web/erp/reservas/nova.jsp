@@ -204,7 +204,7 @@
                       <th>Nome</th>
                       <th>CPF</th>
                       <th>E-mail</th>
-                      <th>Selecionar</th>
+                      <th></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -213,20 +213,20 @@
                         <td scope="row">
                           <c:out value="${pessoa.id}" />
                         </td>
-                        <td class="nome">
+                        <td>
                           <c:out value="${pessoa.nome}" />
                           <c:out value="${pessoa.sobrenome}" />
                         </td>
-                        <td class="cpf">
+                        <td>
                           <c:out value="${pessoa.cpf}" />
                         </td>
-                        <td class="email">
+                        <td>
                           <c:out value="${pessoa.email}" />
                         </td>
-                        <td class="seleciona">
+                        <td>
                           <a href="<c:url value="/erp/reservas/nova?id=${pessoa.id}" />" 
-                             class="selecionado">
-                            <i class="fa fa-fw fa-lg fa-edit"></i>
+                             class="btn btn-sm btn-default">
+                            <i class="fa fa-fw fa-lg fa-check"></i>
                             Selecionar
                           </a>
                         </td>
@@ -362,17 +362,13 @@
                       <span class="input-group-addon" id="addonUnidade">
                         <i class="fa fa-fw fa-lg fa-building"></i>
                       </span>
-
-                      <select class="form-control" tabindex="3" aria-describedby="addonUnidade"
-                              name="reservaUnidade" id="reservaUnidade" required="true">
-                        <c:forEach items="${listaUnidades}" var="unidade" varStatus="stat">
-                          <option value="<c:out value="${unidade.id}" />">
-                            <c:out value="${unidade.estado}" />
-                            -
-                            <c:out value="${unidade.nome}" />
-                          </option>
-                        </c:forEach>
-                      </select>
+                      <input type="hidden" name="reservaUnidade" 
+                             value="${sessionScope.usuario.unidadeId}" />
+                      <input type="text" 
+                             class="form-control" tabindex="3" aria-describedby="addonUnidade"
+                             id="reservaUnidade" required="true" 
+                             readonly 
+                             value="${sessionScope.usuario.unidadeNome}"/>
 
                     </div>
 
@@ -396,9 +392,12 @@
                       <select class="form-control" tabindex="4" aria-describedby="addonQuarto"
                               name="reservaQuarto" id="reservaQuarto" required="true">
                         <c:forEach items="${listaQuartos}" var="quarto" varStatus="stat">
-                          <option value="<c:out value="${quarto.id}" />">
-                            Quarto <c:out value="${quarto.numero}" />
-                          </option>
+                          <c:if test="${sessionScope.usuario.unidadeId == quarto.idUnidade}">
+                            <option value="<c:out value="${quarto.id}" />">
+                              <c:out value="${quarto.numero}" />
+                              (Diária R$ <c:out value="${quarto.valorDiaria}" />)
+                            </option>
+                          </c:if>
                         </c:forEach>
                       </select>
                     </div>
@@ -414,7 +413,7 @@
                 <div class="form-group">
 
                   <h4>
-                    <label for="reservaQuarto">
+                    <label for="reservaAcomodacao">
                       Acomodação:
                     </label>
                     <div class="input-group input-group-lg">
@@ -424,12 +423,12 @@
                       </span>
 
                       <select class="form-control" tabindex="5" aria-describedby="addonAcomodacao"
-                              name="reservaQuarto" id="reservaQuarto" required="true">
-                        <option value="casal" />
-                        1 Cama de Casal
+                              name="reservaAcomodacao" id="reservaAcomodacao" required="true">
+                        <option value="casal">
+                          1 Cama de Casal
                         </option>
-                        <option value="solteiro" />
-                        2 Camas Solteiro
+                        <option value="solteiro">
+                          2 Camas Solteiro
                         </option>
                       </select>
 
@@ -472,7 +471,7 @@
                     <div class="input-group input-group-lg">
 
                       <span class="input-group-addon" id="addonCriancas">
-                        <i class="fa fa-fw fa-lg fa-ch"></i>
+                        <i class="fa fa-fw fa-lg fa-child"></i>
                       </span>
 
                       <input type="number" class="form-control" max="2" min="0"

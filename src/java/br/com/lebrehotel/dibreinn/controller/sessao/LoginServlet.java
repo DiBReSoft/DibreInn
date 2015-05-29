@@ -1,7 +1,6 @@
 package br.com.lebrehotel.dibreinn.controller.sessao;
 
 import java.io.IOException;
-import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,9 +21,11 @@ public class LoginServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	  throws ServletException, IOException {
-    
+
     HttpSession sessao = request.getSession(false);
-    sessao.invalidate();
+    if (sessao != null) {
+      sessao.invalidate();
+    }
 
     String paramErro = request.getParameter("erro");
 
@@ -51,7 +52,7 @@ public class LoginServlet extends HttpServlet {
       request.setAttribute("exibirMsgErro", exibirMsgErro);
 
     }
-    
+
     if (request.getParameter("erro") != null && paramErro.equals("permissao")) {
 
       String erroTitulo = "Permissão Negada";

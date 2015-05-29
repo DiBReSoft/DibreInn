@@ -155,7 +155,9 @@
                        maxlength="50"
                        required
                        value="${funcionario.cpf}"
-                       readonly />
+                       <c:if test="${sessionScope.usuario.privilegio == 1}">
+                         readonly
+                       </c:if> />
               </div>
 
             </div>
@@ -260,11 +262,18 @@
                 <label for="formUnidade">
                   Unidade:
                 </label>
-                <select class="form-control" tabindex="18" aria-describedby="basic-addon2"
+                <select class="form-control" tabindex="10" aria-describedby="basic-addon2"
                         name="formUnidade" id="formUnidade">
                   <c:forEach items="${lista}" var="unidade" varStatus="stat">
                     <c:if test="${unidade.status == '1'}">
-                      <option value="${unidade.id}">
+                      <option value="${unidade.id}"
+                              <c:if test="${unidade.status == '0'}">
+                                disabled
+                              </c:if>
+                              <c:if test="${unidade.id == funcionario.unidade}">
+                                selected
+                              </c:if>
+                              >
                         <c:out value="${unidade.estado}" />
                         -
                         <c:out value="${unidade.nome}" />
@@ -283,13 +292,13 @@
                 <label for="formPrivilegio">
                   Cargo:
                 </label>
-                <select class="form-control" tabindex="18" aria-describedby="basic-addon2"
+                <select class="form-control" tabindex="11" aria-describedby="basic-addon2"
                         name="formPrivilegio" id="formPrivilegio">
                   <c:forEach items="${listaPrivilegios}" var="privilegio" varStatus="stat">                    
                     <option value="${privilegio.id}"
                             <c:if test="${privilegio.status == '0'}">
                               disabled
-                            </c:if>                              
+                            </c:if>
                             <c:if test="${privilegio.id == funcionario.privilegio}">
                               selected
                             </c:if>
@@ -307,7 +316,8 @@
                 <label for="formLogin">
                   Login:
                 </label>                  
-                <input type="text" class="form-control"
+                <input type="text" tabindex="12"
+                       class="form-control"
                        name="formLogin" id="formLogin" 
                        placeholder="Nome de Usuário" 
                        disabled />
@@ -318,7 +328,8 @@
                 <label for="formSenha">
                   Senha:
                 </label>                  
-                <input type="password" class="form-control"
+                <input type="password" tabindex="13"
+                       class="form-control"
                        name="formSenha" id="formSenha" 
                        placeholder="********"                       
                        <c:if test="${funcionario.id != sessionScope.usuario.id}">
@@ -350,7 +361,7 @@
 
               <button type="submit" 
                       class="btn btn-block btn-lg btn-default" 
-                      tabindex="11">
+                      tabindex="14">
                 SALVAR
                 <i class="fa fa-check-square"></i>
               </button>

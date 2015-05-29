@@ -28,17 +28,17 @@
             <small>
                 <c:choose>
                     <c:when test="${sessionScope.usuario.unidadeId == '1'}">
-                        MATRIZ
+                        Matriz
                     </c:when>
                     <c:otherwise>
-                        FILIAL
+                        Filial
                     </c:otherwise>
                 </c:choose>
-                ${sessionScope.usuario.unidadeNome}
+                ${sessionScope.usuario.unidadeNome.toLowerCase()}
             </small>
           </span>
           <span class="avatar-img">            
-            <img class="img-responsive img-circle"
+            <img class="img-responsive"
                  src="<c:url value="/assets/img/avatar-generic.svg" />" />
             <span class="caret"></span>
           </span>
