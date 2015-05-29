@@ -19,53 +19,47 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "QuartoListarServlet", urlPatterns = {"/erp/quartos", "/erp/quartos/listar"})
 public class QuartoListarServlet extends HttpServlet {
 
-  @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-	  throws ServletException, IOException {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-    QuartoDAO quartoBD = new QuartoDAO();
+        QuartoDAO quartoBD = new QuartoDAO();
 
-    
-    //Requisitos do filtro de pesquisa
-    
-    String buscaUnidade = request.getParameter("unidade");
-    String buscaNumero = request.getParameter("numero");
-    
-    if(buscaUnidade != null){
-        //Verifica se unidade está preenchido
-        request.setAttribute("listaQuartos", quartoBD.listarQuartos(Integer.parseInt(buscaUnidade), 1));
-    } else if(buscaNumero != null){
-        //Verifica se número do quarto está preenchido
-        request.setAttribute("listaQuartos", quartoBD.listarQuartos(Integer.parseInt(buscaNumero), 2));
-    } 
-    if(buscaUnidade.equalsIgnoreCase("0") || buscaNumero.equalsIgnoreCase("0") || buscaUnidade == null && buscaNumero == null){
-        //Se nem numero do quarto nem unidade estiverem preenchido Listar tudo
-        request.setAttribute("listaQuartos", quartoBD.listarQuartos(0, 0));
+        //Requisitos do filtro de pesquisa
+        String buscaUnidade = request.getParameter("unidade");
+        String buscaNumero = request.getParameter("numero");
+
+        if (buscaUnidade != "0" && buscaUnidade != null) {
+            request.setAttribute("listaQuartos", quartoBD.listarQuartos(Integer.parseInt(buscaUnidade), 1));
+        } else if (buscaNumero != "0" && buscaNumero != null) {
+            request.setAttribute("listaQuartos", quartoBD.listarQuartos(Integer.parseInt(buscaNumero), 2));
+        } else {
+            request.setAttribute("listaQuartos", quartoBD.listarQuartos(0, 0));
+        }
+
+        UnidadeDAO unidadeBD = new UnidadeDAO();
+        request.setAttribute("listaUnidades", unidadeBD.listarUnidades());
+
+        RequestDispatcher rd = request.getRequestDispatcher("/erp/quartos/listar.jsp");
+        rd.forward(request, response);
+
     }
 
-    UnidadeDAO unidadeBD = new UnidadeDAO();
-    request.setAttribute("listaUnidades", unidadeBD.listarUnidades());
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-    RequestDispatcher rd = request.getRequestDispatcher("/erp/quartos/listar.jsp");
-    rd.forward(request, response);
+    }
 
-  }
-
-  @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
-	  throws ServletException, IOException {
-
-  }
-
-  // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-  /**
-   * Returns a short description of the servlet.
-   *
-   * @return a String containing servlet description
-   */
-  @Override
-  public String getServletInfo() {
-    return "Short description";
-  }// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
 
 }
