@@ -51,7 +51,7 @@ public class ReservaNovaServlet extends HttpServlet {
 
       QuartoDAO quartosBD = new QuartoDAO();
       List <Quarto> listaQuartos = new ArrayList<>();
-      listaQuartos = quartosBD.listarQuartos("", 0);
+      listaQuartos = quartosBD.listarQuartos(0, 0);
       request.setAttribute("listaQuartos", listaQuartos);
 
       FuncionarioDAO pessoasBD = new FuncionarioDAO();
