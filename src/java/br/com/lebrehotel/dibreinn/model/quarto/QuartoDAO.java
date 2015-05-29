@@ -228,4 +228,51 @@ public class QuartoDAO {
         return null;
     }
 
+        public double buscarValorQuartoId(String quartoId) {
+
+        ResultSet rs = null;
+
+        ConectarBD conexao = new ConectarBD();
+        PreparedStatement stmt = null;
+
+        String Query = "SELECT VALOR_DIARIA \n"
+                + "FROM TB_QUARTO WHERE ID_QUARTO = ? \n";
+
+        try {
+
+            conexao.openConection();
+
+            stmt = conexao.conn.prepareStatement(Query);
+
+            stmt.setString(1, quartoId);
+
+            ResultSet result = stmt.executeQuery();
+
+
+           result.next();
+
+               
+           double valorDiaria = result.getDouble("VALOR_DIARIA");
+                        
+
+            return valorDiaria;
+
+        } catch (SQLException ex) {
+
+            Logger.getLogger(QuartoDAO.class.getName()).log(Level.SEVERE, "[INFO] Erro ao buscar dados: ", ex);
+
+        } finally {
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(QuartoDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (conexao != null) {
+                conexao.closeConection();
+            }
+        }
+        return -1;
+    }
 }
