@@ -174,7 +174,7 @@ public class UnidadeDAO {
     return null;
   }
 
-  public Unidade buscarUnidadeId(String unidadeId) {
+  public Unidade buscarUnidadeId(int unidadeId) {
 
     ResultSet rs = null;
 
@@ -189,7 +189,7 @@ public class UnidadeDAO {
 
       stmt = conexao.conn.prepareStatement(Query);
 
-      stmt.setString(1, unidadeId);
+      stmt.setInt(1, unidadeId);
 
       ResultSet resultados = stmt.executeQuery();
 

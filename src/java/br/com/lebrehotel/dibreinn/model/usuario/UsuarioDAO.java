@@ -4,6 +4,8 @@ package br.com.lebrehotel.dibreinn.model.usuario;
  *
  * @author thiago
  */
+import br.com.lebrehotel.dibreinn.model.unidade.Unidade;
+import br.com.lebrehotel.dibreinn.model.unidade.UnidadeDAO;
 import br.com.lebrehotel.dibreinn.persistencia.ConectarBD;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,7 +24,9 @@ public class UsuarioDAO {
         PreparedStatement stmt = null;
         Usuario u = null;
 
-        String query = "SELECT P.EMAIL as EMAIL, F.SENHA as SENHA FROM TB_PESSOA AS P "
+        String query = "SELECT P.EMAIL as EMAIL, P.NOME as NOME, "
+                + "F.SENHA as SENHA, F.ID_UNIDADE as ID_UNIDADE, F.ID_PRIVILEGIO as ID_PRIVILEGIO "
+                + "FROM TB_PESSOA AS P "
                 + "JOIN TB_FUNCIONARIO AS F "
                 + "ON P.ID_PESSOA = F.ID_PESSOA "
                 + "WHERE P.EMAIL = ? AND F.SENHA = ?";
@@ -50,6 +54,14 @@ public class UsuarioDAO {
             u = new Usuario();
             u.setLogin(rs.getString("EMAIL"));
             u.setSenha(rs.getString("SENHA"));
+            u.setNome(rs.getString("NOME"));
+            u.setUnidadeId(rs.getInt("ID_UNIDADE"));
+            u.setPrivilegio(rs.getInt("ID_PRIVILEGIO"));
+            
+            UnidadeDAO unidadeBD = new UnidadeDAO();
+            Unidade unidadeUsuario = new Unidade();
+            unidadeUsuario = unidadeBD.buscarUnidadeId(u.getUnidadeId());
+            u.setUnidadeNome(unidadeUsuario.getNome());
 
         } catch (SQLException ex) {
             // Caso haja erro retorna 0 como ID e informa no log

@@ -24,22 +24,38 @@
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
           <span class="avatar-nome hidden-xs">
-            Gerald Richie
+              ${sessionScope.usuario.nome}
             <small>
-              Matriz São Paulo
+                <c:choose>
+                    <c:when test="${sessionScope.usuario.unidadeId == '1'}">
+                        MATRIZ
+                    </c:when>
+                    <c:otherwise>
+                        FILIAL
+                    </c:otherwise>
+                </c:choose>
+                ${sessionScope.usuario.unidadeNome}
             </small>
           </span>
           <span class="avatar-img">            
             <img class="img-responsive img-circle"
-                 src="//pbs.twimg.com/profile_images/2934946269/d069c7c3ebf55fdecc7fb1c552804026_400x400.jpeg" />
+                 src="<c:url value="/assets/img/avatar-generic.svg" />" />
             <span class="caret"></span>
           </span>
         </a>
         <ul class="dropdown-menu dropdown-menu-right" role="menu">
           <li class="dropdown-header visible-xs">
-            Gerald Richie
-            <small>              
-              Matriz São Paulo
+            ${sessionScope.usuario.nome}
+            <small>
+                <c:choose>
+                    <c:when test="${sessionScope.usuario.unidadeId == '1'}">
+                        MATRIZ
+                    </c:when>
+                    <c:otherwise>
+                        FILIAL
+                    </c:otherwise>
+                </c:choose>
+                ${sessionScope.usuario.unidadeNome}
             </small>
           </li>
           <li class="divider visible-xs"></li>

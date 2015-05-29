@@ -113,14 +113,13 @@
                 </div>
                 <div class="form-group">
                   <div class="col-xs-6 col-xs-push-6">
-                    <!-- 
+                    
                     <button class="btn btn-block btn-sm btn-default" 
                             type="submit" id="loginSubmit">
                       Entrar
                       <i class="fa fa-sign-in"></i>
                     </button>
-                    Precisa criar o controle de acesso para habilitar esse botão
-                    -->
+                    <!-- 
                     <button class="btn btn-block btn-default" 
                             type="button" id="loginSubmit" onclick="location.href = 'erp/inicio'">
                       Entrar
@@ -134,6 +133,8 @@
                       <i class="fa fa-lock"></i>
                       Esqueci a senha
                     </button>
+                    Precisa criar o controle de acesso para habilitar esse botão
+                    -->
                   </div>
                 </div>
               </form>

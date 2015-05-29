@@ -61,7 +61,7 @@ public class AutorizacaoFilter implements Filter {
     
     String pagina = req.getRequestURI();
     
-    if (pagina.endsWith("/erp/quartos/*") || pagina.endsWith("/erp/relatorios/*") || pagina.endsWith("/erp/unidades/*") && usuario.autorizado("Diretoria") || usuario.autorizado("Gerência")) {
+    if (pagina.contains("/erp/quartos/") || pagina.contains("/erp/relatorios/") || pagina.contains("/erp/unidades/") && usuario.getPrivilegio() == 2 || usuario.getPrivilegio() == 3) {
       return true;
     } else {
       return false;

@@ -37,7 +37,7 @@ public class QuartoEditarServlet extends HttpServlet {
 
       UnidadeDAO unidadeBD = new UnidadeDAO();
       String unidadeParametro = Integer.toString(q.getIdUnidade());
-      request.setAttribute("unidade", unidadeBD.buscarUnidadeId(unidadeParametro));
+      request.setAttribute("unidade", unidadeBD.buscarUnidadeId(Integer.parseInt(unidadeParametro)));
 
       RequestDispatcher rd = request.getRequestDispatcher("/erp/quartos/editar.jsp");
       rd.forward(request, response);

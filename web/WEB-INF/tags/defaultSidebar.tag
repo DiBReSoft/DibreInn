@@ -3,7 +3,7 @@
   <div id="sidebar" class="nav-collapse">
     <!-- sidebar menu start-->
     <ul class="sidebar-menu" id="nav-accordion">
-
+            
       <li class="item-menu">
         <a href="<c:url value="/erp/inicio" />">
           <i class="fa fa-fw fa-lg fa-home"></i>
@@ -30,10 +30,11 @@
         </ul>
       </li>
       
+      <c:if test="${sessionScope.usuario.privilegioId == 2 || sessionScope.usuario.privilegioId == 3}">
       <li class="sub-menu">
         <a href="javascript:;" >
           <i class="fa fa-fw fa-lg fa-users"></i>
-          <span>Funcionarios</span>
+          <span>Funcionários</span>
         </a>
         <ul class="sub">
           <li class="item-menu">
@@ -48,6 +49,7 @@
           </li>
         </ul>
       </li>
+      </c:if>      
       
       <li class="sub-menu">
         <a href="javascript:;" >
@@ -74,7 +76,8 @@
           </li>
         </ul>
       </li>
-
+      
+      <c:if test="${sessionScope.usuario.privilegioId == 2 || sessionScope.usuario.privilegioId == 3}">
       <li class="sub-menu">
         <a href="javascript:;" >
           <i class="fa fa-fw fa-lg fa-bar-chart-o"></i>
@@ -93,7 +96,9 @@
           </li>
         </ul>
       </li>
-
+      </c:if>
+      
+      <c:if test="${sessionScope.usuario.privilegioId == 3}">
       <li class="sub-menu">
         <a href="javascript:;" >
           <i class="fa fa-fw fa-lg fa-building"></i>
@@ -112,7 +117,9 @@
           </li>
         </ul>
       </li>
-
+      </c:if>
+      
+      <c:if test="${sessionScope.usuario.privilegioId == 2 || sessionScope.usuario.privilegioId == 3}">
       <li class="sub-menu">
         <a href="javascript:;" >
           <i class="fa fa-fw fa-lg fa-bed"></i>
@@ -131,7 +138,9 @@
           </li>
         </ul>
       </li>
-
+      </c:if>
+      
+      <c:if test="${sessionScope.usuario.privilegioId == 3}">
       <li class="sub-menu">
         <a href="javascript:;" >
           <i class="fa fa-fw fa-lg fa-briefcase"></i>
@@ -145,6 +154,7 @@
           </li>
         </ul>
       </li>
+      </c:if>
 
     </ul>
     <!-- sidebar menu end-->

@@ -1,7 +1,6 @@
 package br.com.lebrehotel.dibreinn.model.usuario;
 
-import java.util.Arrays;
-import java.util.List;
+import br.com.lebrehotel.dibreinn.model.unidade.Unidade;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -11,85 +10,75 @@ import java.util.logging.Logger;
  */
 public class Usuario {
 
-  private int id;
-  
-  private int unidadeId;
+    private int id;
 
-  private String nome;
+    private int unidadeId;
+    
+    private String unidadeNome;
 
-  private String login;
+    private String nome;
 
-  private int status;
-  
-  private String senha;
+    private String login;
 
-  private String papeis;
+    private int status;
 
-  public String getNome() {
-    return nome;
-  }
+    private String senha;
 
-  public void setNome(String nome) {
-    this.nome = nome;
-  }
+    private int privilegioId;
 
-  public String getSenha() {
-    return senha;
-  }
-
-  public void setSenha(String senha) {
-    this.senha = senha;
-  }
-
-  public String getPapeis() {
-    return papeis;
-  }
-
-  public void setPapeis(String papeis) {
-    this.papeis = papeis;
-  }
-
-  public String getLogin() {
-    return login;
-  }
-
-  public void setLogin(String login) {
-    this.login = login;
-  }
-
-  public int getUnidadeId() {
-    return unidadeId;
-  }
-
-  public void setUnidadeId(int unidadeId) {
-    this.unidadeId = unidadeId;
-  }
-
-  public boolean autenticar(String nome, String senha) {
-    if (this.nome != null) {
-      try {
-	UsuarioDAO user = new UsuarioDAO();
-	user.validarDados(nome, senha);
-	return true;
-	//return this.nome.equals(nome) && Arrays.equals(this.hashSenha, gerarHashSenhaPBKDF2(senha));
-      } catch (Exception ex) {
-	Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
-      }
+    public String getNome() {
+        return nome;
     }
-    return false;
-  }
 
-  /**
-   * Verifica se usuário possui autorização de acesso baseado nos papeis que
-   * possui.
-   *
-   * @param papelNecessario
-   * @return
-   */
-  public boolean autorizado(String papelNecessario) {
-    List<String> papeisUsuario = Arrays.asList(this.papeis);
-    return papeisUsuario.contains(papelNecessario);
-  }
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public int getPrivilegio() {
+        return privilegioId;
+    }
+
+    public void setPrivilegio(int privilegioId) {
+        this.privilegioId = privilegioId;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public int getUnidadeId() {
+        return unidadeId;
+    }
+
+    public void setUnidadeId(int unidadeId) {
+        this.unidadeId = unidadeId;
+    }
+
+    public boolean autenticar(String nome, String senha) {
+        if (this.nome != null) {
+            try {
+                UsuarioDAO user = new UsuarioDAO();
+                user.validarDados(nome, senha);
+                return true;
+                //return this.nome.equals(nome) && Arrays.equals(this.hashSenha, gerarHashSenhaPBKDF2(senha));
+            } catch (Exception ex) {
+                Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return false;
+    }
 
     /**
      * @return the id
@@ -117,6 +106,22 @@ public class Usuario {
      */
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getUnidadeNome() {
+        return unidadeNome;
+    }
+
+    public void setUnidadeNome(String unidadeNome) {
+        this.unidadeNome = unidadeNome;
+    }
+
+    public int getPrivilegioId() {
+        return privilegioId;
+    }
+
+    public void setPrivilegioId(int privilegioId) {
+        this.privilegioId = privilegioId;
     }
 
 }

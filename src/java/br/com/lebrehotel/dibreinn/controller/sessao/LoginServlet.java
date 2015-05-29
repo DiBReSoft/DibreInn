@@ -103,13 +103,13 @@ public class LoginServlet extends HttpServlet {
 
   private Usuario validar(String nome, String senha) {
 
-    Usuario verificado = new Usuario();
+    Usuario verificado = null;
 
     UsuarioDAO usuarioBD = new UsuarioDAO();
 
     verificado = usuarioBD.validarDados(nome, senha);
 
-    if (nome != null && usuarioBD.validarDados(nome, senha) != null) {
+    if (nome != null && verificado != null) {
 
       return verificado;
 

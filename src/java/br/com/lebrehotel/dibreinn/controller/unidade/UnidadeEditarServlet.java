@@ -27,7 +27,7 @@ public class UnidadeEditarServlet extends HttpServlet {
 
       String unidadeParametro = request.getParameter("id");
 
-      request.setAttribute("unidade", unidadeBD.buscarUnidadeId(unidadeParametro));
+      request.setAttribute("unidade", unidadeBD.buscarUnidadeId(Integer.parseInt(unidadeParametro)));
 
       RequestDispatcher rd = request.getRequestDispatcher("/erp/unidades/editar.jsp");
       rd.forward(request, response);
