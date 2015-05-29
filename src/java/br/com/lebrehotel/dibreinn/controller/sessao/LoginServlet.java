@@ -21,36 +21,47 @@ public class LoginServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
-          throws ServletException, IOException {
+	  throws ServletException, IOException {
     
+    HttpSession sessao = request.getSession(false);
+    sessao.invalidate();
+
     String paramErro = request.getParameter("erro");
-    
-    System.out.println("Parâmetro de Erro: " + paramErro);
-    
+
     String exibirMsgErro = "$('#informarErroModal').modal('show')";
-    
-    if(request.getParameter("erro") != null && paramErro.equals("acesso")) {
-      
+
+    if (request.getParameter("erro") != null && paramErro.equals("acesso")) {
+
       String erroTitulo = "Acesso Negado";
       String erroMsg = "Desculpe. Não foi possível liberar o acesso para este usuário e senha. Para recuperar sua senha, utilize o botão 'ESQUECI A SENHA'.";
       request.setAttribute("erroTitulo", erroTitulo);
       request.setAttribute("erroMsg", erroMsg);
-      
+
       request.setAttribute("exibirMsgErro", exibirMsgErro);
-      
+
     }
-    
-    if(request.getParameter("erro") != null && paramErro.equals("conexao")) {
-      
+
+    if (request.getParameter("erro") != null && paramErro.equals("conexao")) {
+
       String erroTitulo = "Conexão Falhou";
       String erroMsg = "Desculpe. Não foi possível estabelecer conexão com o serviço para liberar seu acesso. Tente novamente mais tarde.";
       request.setAttribute("erroTitulo", erroTitulo);
       request.setAttribute("erroMsg", erroMsg);
-      
+
       request.setAttribute("exibirMsgErro", exibirMsgErro);
-      
+
     }
     
+    if (request.getParameter("erro") != null && paramErro.equals("permissao")) {
+
+      String erroTitulo = "Permissão Negada";
+      String erroMsg = "Desculpe. Não foi possível liberar seu acesso ao conteúdo requisitado. É necessário que antes faça login.";
+      request.setAttribute("erroTitulo", erroTitulo);
+      request.setAttribute("erroMsg", erroMsg);
+
+      request.setAttribute("exibirMsgErro", exibirMsgErro);
+
+    }
 
     RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
     rd.forward(request, response);
@@ -59,12 +70,14 @@ public class LoginServlet extends HttpServlet {
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
-          throws ServletException, IOException {
+	  throws ServletException, IOException {
 
     String nome = request.getParameter("loginEmail");
     String senha = request.getParameter("loginSenha");
 
     Usuario usuario = new Usuario();
+
+    HttpSession sessao = request.getSession(false);
 
     try {
 
@@ -72,24 +85,22 @@ public class LoginServlet extends HttpServlet {
 
       if (usuario != null) {
 
-        HttpSession sessao = request.getSession(false);
+	if (sessao != null) {
+	  // Força invalidação da sessão anterior.
+	  sessao.invalidate();
+	}
 
-        if (sessao != null) {
-          // Força invalidação da sessão anterior.
-          sessao.invalidate();
-        }
+	sessao = request.getSession(true);
 
-        sessao = request.getSession(true);
+	sessao.setAttribute("usuario", usuario);
 
-        sessao.setAttribute("usuario", usuario);
+	response.sendRedirect("./erp/inicio");
 
-        response.sendRedirect("./erp/inicio");
-
-        return;
+	return;
 
       } else {
 
-        response.sendRedirect("login?erro=acesso");
+	response.sendRedirect("login?erro=acesso");
 
       }
 

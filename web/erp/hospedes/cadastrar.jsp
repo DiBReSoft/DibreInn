@@ -38,6 +38,8 @@
 
     <!-- page start-->
     <div class="row">
+      
+      <div class="col-md-2 hidden-sm hidden-xs"></div>
 
       <div class="col-md-8">
 
@@ -46,8 +48,6 @@
               action="cadastrar"
               accept-charset="UTF-8"
               enctype="application/x-www-form-urlencoded">
-
-          <div style="padding: 5px;"></div>
 
           <!-- Início:- DADOS -->
           <h4>

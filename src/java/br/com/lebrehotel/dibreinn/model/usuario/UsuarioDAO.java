@@ -24,7 +24,7 @@ public class UsuarioDAO {
         PreparedStatement stmt = null;
         Usuario u = null;
 
-        String query = "SELECT P.EMAIL as EMAIL, P.NOME as NOME, "
+        String query = "SELECT P.EMAIL as EMAIL, P.NOME as NOME, P.SOBRENOME as SOBRENOME, P.ID_PESSOA as ID, "
                 + "F.SENHA as SENHA, F.ID_UNIDADE as ID_UNIDADE, F.ID_PRIVILEGIO as ID_PRIVILEGIO "
                 + "FROM TB_PESSOA AS P "
                 + "JOIN TB_FUNCIONARIO AS F "
@@ -52,14 +52,15 @@ public class UsuarioDAO {
             }
 
             u = new Usuario();
+	    u.setId(rs.getInt("ID"));
             u.setLogin(rs.getString("EMAIL"));
             u.setSenha(rs.getString("SENHA"));
-            u.setNome(rs.getString("NOME"));
+            u.setNome(rs.getString("NOME") + rs.getString("SOBRENOME"));
             u.setUnidadeId(rs.getInt("ID_UNIDADE"));
             u.setPrivilegio(rs.getInt("ID_PRIVILEGIO"));
             
             UnidadeDAO unidadeBD = new UnidadeDAO();
-            Unidade unidadeUsuario = new Unidade();
+            Unidade unidadeUsuario;
             unidadeUsuario = unidadeBD.buscarUnidadeId(u.getUnidadeId());
             u.setUnidadeNome(unidadeUsuario.getNome());
 

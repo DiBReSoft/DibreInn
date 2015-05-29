@@ -7,15 +7,16 @@
 <!DOCTYPE html>
 <html>
   <head>
+    
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-    <meta name="author" content="Luciano Lourenço, Thiago Medeiros, Fabio Ernani, Udimberto Junior" />
-    
+    <meta name="author" content="Luciano Lourenço, Thiago Medeiros, Fabio Ernanni, Udimberto Junior" />
+
     <link rel="shortcut icon" href="<c:url value="/assets/img/favicon.ico" />" type="image/x-icon" />
 
     <title>
-      D.I. | Lebre Hotel :
       <jsp:invoke fragment="paginaTitulo"/>
+      - Lebre Hotel | D.I.
     </title>
 
     <!-- CSS Base -->
@@ -33,6 +34,7 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
   </head>
   <body>
 
@@ -49,7 +51,9 @@
 
       <footer class="site-footer">
         <div class="text-center">
-          <span id="mostrarAno"></span> - Desenvolvido pela DiBRe Soft
+          <span id="mostrarAno"></span> 
+          <i class="fa fa-copyright"></i> 
+          Desenvolvido pela DiBRe Soft
           <a class="go-top" title="voltar ao topo">
             <i class="fa fa-angle-up"></i>
           </a>
@@ -70,6 +74,10 @@
       var today = new Date();
       var y = today.getFullYear();
       document.getElementById('mostrarAno').innerHTML = y;
+      
+      $("[type=submit]").on("click", function() {
+        $("#paginaConteudo").load("<c:url value="/assets/loading.html" />");
+      });
     </script>
 
     <jsp:invoke fragment="paginaBottom"/>

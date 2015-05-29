@@ -60,7 +60,7 @@
           </li>
           <li class="divider visible-xs"></li>
           <li>
-            <a href="<c:url value="/erp/funcionarios/perfil" />">
+            <a href="<c:url value="/erp/funcionarios/perfil?id=${sessionScope.usuario.id}" />">
               <i class="fa fa-fw fa-lg fa-user"></i>
               Dados Cadastrais
               <i class="fa"></i>

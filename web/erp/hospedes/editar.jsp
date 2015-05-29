@@ -31,7 +31,7 @@
   </jsp:attribute>
 
   <jsp:body>
-<c:set var="now" value="<%=new java.util.Date()%>" />
+    <c:set var="now" value="<%=new java.util.Date()%>" />
     <h1 class="page-title">
       Editar Hospede
     </h1>
@@ -48,8 +48,6 @@
               enctype="application/x-www-form-urlencoded">
 
           <input type="hidden" name="formId" value="${hospede.id}" />
-
-          <div style="padding: 5px;"></div>
 
           <!-- Início:- DADOS -->
           <h4>
@@ -170,9 +168,9 @@
                        required 
                        min="10"
                        maxlength="10"
-                      value="<fmt:formatDate type="date" 
-                value="${hospede.dataNascimento}" />" 
-                />
+                       value="<fmt:formatDate type="date" 
+                                       value="${hospede.dataNascimento}" />" 
+                       />
               </div>
 
             </div>
@@ -318,6 +316,50 @@
 
         </form>
         <!-- Fim do Formulário -->
+
+      </div>
+
+      <div class="col-md-4">
+
+        <div class="form-di">
+
+          <h4>
+            Histórico de Reservas
+          </h4>
+          
+          <hr />
+
+          <table class="table table-condensed table-hover table-responsive">
+            <thead>
+              <tr>
+                <th>
+                  <i class="fa fa-fw fa-calendar"></i>
+                  Checkin
+                </th>
+                <th>
+                  <i class="fa fa-fw fa-calendar"></i>
+                  Checkout
+                </th>
+                <th>
+                  <i class="fa fa-fw fa-building"></i>
+                  Unidade
+                </th>
+                <th>
+                  <i class="fa fa-fw fa-bed"></i>
+                  Quarto
+                </th>
+                <th>
+                  <i class="fa fa-fw fa-money"></i>
+                  Valor
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Rodar o loop -->
+            </tbody>
+          </table>
+
+        </div>
 
       </div>
 

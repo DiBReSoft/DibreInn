@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author fernando.tsuda
  */
-@WebFilter(filterName = "AutorizacaoFilter", urlPatterns = {/*"/erp/*"*/})
+@WebFilter(filterName = "AutorizacaoFilter", urlPatterns = {"/", "/erp/*"})
 public class AutorizacaoFilter implements Filter {
 
   @Override
@@ -39,7 +39,7 @@ public class AutorizacaoFilter implements Filter {
     //    QUE USUÁRIO ESTÁ LOGADO
     //    CASO CONTRÁRIO, REDIRECIONA PARA TELA DE LOGIN
     if (usuario == null) {
-      httpResponse.sendRedirect("/DibreInn/bloqueado");
+      httpResponse.sendRedirect("/DibreInn/bloqueado?erro=permissao");
       return;
     }
 
@@ -50,23 +50,24 @@ public class AutorizacaoFilter implements Filter {
 	chain.doFilter(request, response);
       } else {
 	// SE NAO PODER ACESSAR, APRESENTA ERRO
-	httpResponse.sendRedirect("/DibreInn/erp/erro.jsp?acesso=negado");
+	httpResponse.sendRedirect("/DibreInn/erp/erro");
       }
     } catch (Throwable t) {
       t.printStackTrace();
     }
+
   }
 
   private boolean verificarAcesso(Usuario usuario, HttpServletRequest req, HttpServletResponse resp) {
-    
+
     String pagina = req.getRequestURI();
-    
-    if (pagina.contains("/erp/quartos/") || pagina.contains("/erp/relatorios/") || pagina.contains("/erp/unidades/") && usuario.getPrivilegio() == 2 || usuario.getPrivilegio() == 3) {
+
+    if (usuario.getPrivilegio() == 1 || usuario.getPrivilegio() == 2 || usuario.getPrivilegio() == 3) {
       return true;
     } else {
       return false;
     }
-    
+
   }
 
   /**
@@ -82,5 +83,4 @@ public class AutorizacaoFilter implements Filter {
   @Override
   public void init(FilterConfig filterConfig) {
   }
-
 }

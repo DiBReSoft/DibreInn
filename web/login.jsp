@@ -34,13 +34,10 @@
               <span aria-hidden="true">&times;</span>
             </button>
             <h1 class="modal-title" id="informarErroModalLabel">
-              Erro ao tentar fazer login
+              ${erroTitulo}
             </h1>
           </div>
           <div class="modal-body">
-            <h1>              
-              <c:out value="${erroTitulo}" />
-            </h1>
             <h3>
               <c:out value="${erroMsg}" />
             </h3>

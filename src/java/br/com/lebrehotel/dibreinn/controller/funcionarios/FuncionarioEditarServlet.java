@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jSilverize
  */
-@WebServlet(name = "FuncionarioEditarServlet", urlPatterns = {"/erp/funcionarios/editar"})
+@WebServlet(name = "FuncionarioEditarServlet", urlPatterns = {"/erp/funcionarios/editar", "/erp/funcionarios/perfil"})
 public class FuncionarioEditarServlet extends HttpServlet {
 
     @Override

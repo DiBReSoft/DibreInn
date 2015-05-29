@@ -11,7 +11,7 @@
 <t:defaultTemplate>
 
   <jsp:attribute name="paginaTitulo">
-    Buscar Funcionario
+    Buscar Funcionário
   </jsp:attribute>
 
   <jsp:attribute name="paginaHead">
@@ -36,7 +36,7 @@
   <jsp:body>
 
     <h1 class="page-title">
-      Buscar Funcionario
+      Buscar Funcionário
     </h1>
 
     <!-- Início da #1 linha de GRID dos formulários -->
