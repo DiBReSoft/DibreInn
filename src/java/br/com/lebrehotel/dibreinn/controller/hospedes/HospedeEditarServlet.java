@@ -1,25 +1,14 @@
 package br.com.lebrehotel.dibreinn.controller.hospedes;
 
-import br.com.lebrehotel.dibreinn.model.email.Email;
 import br.com.lebrehotel.dibreinn.model.hospede.Hospede;
 import br.com.lebrehotel.dibreinn.model.hospede.HospedeDAO;
-import br.com.lebrehotel.dibreinn.model.pessoa.Pessoa;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.mail.Address;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -77,6 +66,7 @@ public class HospedeEditarServlet extends HttpServlet {
       } else {
 	h.setNewsletter(0);
       }
+      h.setStatus(Integer.parseInt(request.getParameter("formStatus")));
       h.setnCartao(request.getParameter("formCartao"));
 
       try {

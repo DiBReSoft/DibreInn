@@ -36,7 +36,7 @@
 
     <div class="row">
 
-      <div class="col-sm-4 mb">
+      <div class="col-sm-4 col-sm-push-4 mb">
 
         <div class="weather pn">
           <i class="fa fa-cloud fa-4x"></i>
@@ -46,23 +46,11 @@
 
       </div>
 
-      <div class="col-sm-4 mb">
+      <div class="col-sm-4 col-sm-pull-4 mb">
         <div class="twitter-panel pn">
           <i class="fa fa-twitter fa-4x"></i>
           <p>Dashgum is here! Take a look and enjoy this new Bootstrap Dashboard theme.</p>
           <p class="user">@Alvrz_is</p>
-        </div>
-      </div>
-
-      <div class="col-lg-4 col-md-4 col-sm-4 mb">
-        <div class="steps pn">
-          <input id="op1" name="op1" type="checkbox" checked="">
-          <label for="op1">Update Profile</label>
-          <input id="op2" name="op2" type="checkbox">
-          <label for="op2">Contact Paul</label>
-          <input id="op3" name="op3" type="checkbox">
-          <label for="op3">Enjoy Life</label>
-          <input type="submit" value="All Done!" id="submit">
         </div>
       </div>
 
@@ -85,6 +73,18 @@
           <div class="summary">
             <strong>18.3 M</strong> <span>SHARES TRADED</span>
           </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-4 col-sm-4 mb">
+        <div class="steps pn">
+          <input id="op1" name="op1" type="checkbox" checked="">
+          <label for="op1">Update Profile</label>
+          <input id="op2" name="op2" type="checkbox">
+          <label for="op2">Contact Paul</label>
+          <input id="op3" name="op3" type="checkbox">
+          <label for="op3">Enjoy Life</label>
+          <input type="submit" value="All Done!" id="submit">
         </div>
       </div>
 

@@ -209,9 +209,10 @@
 
               <div class="form-group">
                 <label for="formNewsletter">
-                  Aceita receber Newsletter:
+                  Newsletter:
                 </label>
-                <input type="checkbox" class="form-control"
+                <br style="clear: both;" />
+                <input type="checkbox"
                        tabindex="9"
                        name="formNewsletter" id="formNewsletter"
                        value="1"

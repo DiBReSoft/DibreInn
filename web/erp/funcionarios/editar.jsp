@@ -94,6 +94,10 @@
 
             </div>
 
+          </div>
+
+          <div class="row">
+
             <div class="col-sm-4">
 
               <div class="form-group">
@@ -162,6 +166,10 @@
 
             </div>
 
+          </div>
+
+          <div class="row">
+
             <div class="col-sm-4">
 
               <div class="form-group">
@@ -214,7 +222,11 @@
 
             </div>
 
-            <div class="col-xs-8">
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-6">
 
               <div class="form-group">
                 <label for="formEmail">
@@ -229,13 +241,14 @@
 
             </div>
 
-            <div class="col-xs-4">
+            <div class="col-md-3">
 
               <div class="form-group">
                 <label for="formNewsletter">
-                  Aceita receber Newsletter:
+                  Newsletter:
                 </label>
-                <input type="checkbox" class="form-control"
+                <br style="clear: both;" />
+                <input type="checkbox"
                        tabindex="9"
                        name="formNewsletter" id="formNewsletter"
                        value="1"
@@ -243,6 +256,41 @@
                          checked                         
                        </c:if>
                        />
+                <label for="formNewsletter">
+                  Recebe
+                </label>
+              </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+              <div class="form-group">
+                <label>
+                  Status cadastral:
+                </label>
+                <label for="formStatus1">
+                  Ativo
+                </label>                
+                <input type="radio"
+                       tabindex="10"
+                       name="formStatus" id="formStatus1"
+                       value="1"
+                       <c:if test="${funcionario.status == '1'}">
+                         checked                         
+                       </c:if>
+                       />
+                <input type="radio"
+                       tabindex="11"
+                       name="formStatus" id="formStatus2"
+                       value="0"
+                       <c:if test="${funcionario.status == '0'}">
+                         checked                         
+                       </c:if>
+                       />
+                <label for="formStatus2">
+                  Inativo
+                </label>
               </div>
 
             </div>

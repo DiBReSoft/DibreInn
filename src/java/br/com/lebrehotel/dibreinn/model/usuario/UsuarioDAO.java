@@ -29,7 +29,7 @@ public class UsuarioDAO {
                 + "FROM TB_PESSOA AS P "
                 + "JOIN TB_FUNCIONARIO AS F "
                 + "ON P.ID_PESSOA = F.ID_PESSOA "
-                + "WHERE P.EMAIL = ? AND F.SENHA = ?";
+                + "WHERE P.EMAIL = ? AND F.SENHA = ? AND P.STATUS = 1";
 
         try {
 
