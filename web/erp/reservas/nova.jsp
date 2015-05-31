@@ -299,6 +299,9 @@
               accept-charset="UTF-8"
               enctype="application/x-www-form-urlencoded"
               action="nova">
+          
+          <input type="hidden" name="reservaFuncionarioID"
+                 value="${sessionScope.usuario.id}" />
 
           <div class="steps-container">
 

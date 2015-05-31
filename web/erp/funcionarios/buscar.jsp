@@ -179,9 +179,9 @@
     </div>
 
     <!-- Fim da #1 linha de GRID dos formulários -->
-    
+
     <div style="padding: 10px;"></div>
-    
+
     <div class="form-di ${visibilidadeResultados}">
 
       <h4>
@@ -243,34 +243,39 @@
 
       <c:if test="${lista.isEmpty()}">
 
-        <div class="col-sm-3"></div>
+        <div class="col-sm-2"></div>
 
-        <div class="col-sm-6">
+        <div class="col-sm-8">
 
           <div class="text-center">
             <h1>
               <span class="fa-stack fa-lg">
-                <i class="fa fa-user fa-stack-1x text-success"></i>
-                <i class="fa fa-search fa-stack-2x text-muted"></i>
+                <i class="fa fa-stack-1x fa-users text-muted"></i>
+                <i class="fa fa-stack-2x fa-search text-success"></i>
               </span>
             </h1>
             <h2>
               Desculpe.
             </h2>
             <h3>
-              Não pudemos encontrar pessoas com 
+              Não pudemos encontrar funcionários com o
               <c:choose>
                 <c:when test="${nomeBuscado != null}">
-                  o nome <div>"<c:out value="${nomeBuscado}" />"</div>
+                  nome <div>"<strong><c:out value="${nomeBuscado}" /></strong>"</div>
                 </c:when>
                 <c:when test="${emailBuscado != null}">
-                  o e-mail <div>"<c:out value="${emailBuscado}" />"</div>
+                  e-mail <div>"<strong><c:out value="${emailBuscado}" /></strong>"</div>
                 </c:when>
                 <c:when test="${cpfBuscado != null}">
-                  o CPF <div>"<c:out value="${cpfBuscado}" />"</div>
+                  CPF <div>"<strong><c:out value="${cpfBuscado}" /></strong>"</div>
                 </c:when>
               </c:choose>
             </h3>
+            <div class="center-block" style="padding: 10px 0px;"></div>
+            <a class="btn btn-lg btn-default"
+               href="<c:url value="/erp/funcionarios/cadastrar" />">
+              CADASTRAR NOVO FUNCIONARIO
+            </a>
           </div>
 
         </div>

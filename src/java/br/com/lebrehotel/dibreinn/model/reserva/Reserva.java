@@ -5,6 +5,9 @@ package br.com.lebrehotel.dibreinn.model.reserva;
  * @authors Fabio Ernanni, Luciano, Udimberto
  *
  */
+import br.com.lebrehotel.dibreinn.model.funcionario.Funcionario;
+import br.com.lebrehotel.dibreinn.model.hospede.Hospede;
+import br.com.lebrehotel.dibreinn.model.quarto.Quarto;
 import java.util.Date;
 
 public class Reserva {
@@ -13,8 +16,11 @@ public class Reserva {
   private String status;
   private int idUnidade;
   private int idFuncionario;
+  private Funcionario funcionario;
   private int idHospede;
+  private Hospede hospede;
   private int idQuarto;
+  private Quarto quarto;
   private Date checkIn;
   private Date checkOut;
   private double valorEstadia;
@@ -110,5 +116,29 @@ public class Reserva {
 
   public void setStatus(String status) {
     this.status = status;
+  }
+
+  public Funcionario getFuncionario() {
+    return funcionario;
+  }
+
+  public void setFuncionario(Funcionario funcionario) {
+    this.funcionario = funcionario;
+  }
+
+  public Hospede getHospede() {
+    return hospede;
+  }
+
+  public void setHospede(Hospede hospede) {
+    this.hospede = hospede;
+  }
+
+  public Quarto getQuarto() {
+    return quarto;
+  }
+
+  public void setQuarto(Quarto quarto) {
+    this.quarto = quarto;
   }
 }

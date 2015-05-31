@@ -30,15 +30,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ReservaNovaServlet", urlPatterns = {"/erp/reservas/nova"})
 public class ReservaNovaServlet extends HttpServlet {
-
-  /**
-   * Handles the HTTP <code>GET</code> method.
-   *
-   * @param request servlet request
-   * @param response servlet response
-   * @throws ServletException if a servlet-specific error occurs
-   * @throws IOException if an I/O error occurs
-   */
+  
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
@@ -116,21 +108,13 @@ public class ReservaNovaServlet extends HttpServlet {
     }
 
   }
-
-  /**
-   * Handles the HTTP <code>POST</code> method.
-   *
-   * @param request servlet request
-   * @param response servlet response
-   * @throws ServletException if a servlet-specific error occurs
-   * @throws IOException if an I/O error occurs
-   */
+  
+  
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
-          throws ServletException, IOException {
-      
-          
-    
+          throws ServletException, IOException {    
+
+    String reservaStatus = "A";
     String reservaFormFuncionarioID = request.getParameter("reservaFuncionarioID");
     String reservaFormHospedeID = request.getParameter("reservaHospedeID");
     String reservaFormQuarto = request.getParameter("reservaQuarto");
@@ -142,21 +126,20 @@ public class ReservaNovaServlet extends HttpServlet {
     System.out.println("ID do Quarto: " + reservaFormQuarto);
     System.out.println("Data CheckIn: " + reservaFormDataCheckin);
     System.out.println("Data CheckOut: " + reservaFormDataCheckout);
+    System.out.println("ID do Responsável: " + reservaFormFuncionarioID);
     QuartoDAO q = new QuartoDAO();
     double valorQuarto = q.buscarValorQuartoId(reservaFormQuarto);
     System.out.println("Valor Estadia: " + q.buscarValorQuartoId(reservaFormQuarto));
     
     
     Reserva novaReserva = new Reserva();
-
-    //novaReserva.setIdFuncionario(Integer.parseInt(reservaFormFuncionarioID));
-    novaReserva.setIdFuncionario(3);
+    
+    novaReserva.setStatus(reservaStatus);
+    novaReserva.setIdFuncionario(Integer.parseInt(reservaFormFuncionarioID));
     novaReserva.setIdHospede(Integer.parseInt(reservaFormHospedeID));
     novaReserva.setIdQuarto(Integer.parseInt(reservaFormQuarto));
-
-    String status = null;
-
-    Date checkin, checkout = new Date();
+    
+    Date checkin, checkout;
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
     try {

@@ -60,18 +60,23 @@
         </a>
         <ul class="sub">
           <li class="item-menu">
-            <a  href="<c:url value="/erp/reservas/nova" />">
-              Nova
+            <a href="<c:url value="/erp/reservas/nova" />">
+              Agendar Nova
             </a>
           </li>
           <li class="item-menu">
-            <a  href="<c:url value="/erp/reservas/listar" />">
-              Listar
-            </a>
-          </li>
-          <li class="item-menu">
-            <a  href="<c:url value="/erp/reservas/buscar" />">
+            <a href="<c:url value="/erp/reservas/listar" />">
               Buscar &amp; Editar
+            </a>
+          </li>
+          <li class="item-menu">
+            <a href="<c:url value="/erp/reservas/checkin" />">
+              Efetuar CheckIn
+            </a>
+          </li>
+          <li class="item-menu">
+            <a href="<c:url value="/erp/reservas/checkout" />">
+              Efetuar CheckOut
             </a>
           </li>
         </ul>

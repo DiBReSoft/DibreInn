@@ -7,11 +7,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <t:defaultTemplate>
 
   <jsp:attribute name="paginaTitulo">
-    Efetuar CheckIn de Reserva
+    Efetuar Check-In de Reserva
   </jsp:attribute>
 
   <jsp:attribute name="paginaHead">
@@ -27,7 +28,7 @@
   <jsp:body>
 
     <h1 class="page-title">
-      Efetuar CheckIn de Reserva
+      Efetuar Check-In de Reserva
     </h1>
 
     <div class="form-di">
@@ -37,43 +38,101 @@
       </h4>
       <hr />
 
-      <c:if test="${!lista.isEmpty()}">
+      <c:if test="${!reservasNaData.isEmpty()}">
 
         <table class="table table-responsive table-hover table-striped table-condensed">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Atendente</th>
-              <th>Hospede</th>
-              <th>Checkin</th>
-              <th>Quarto</th>
-              <th>Editar</th>
+              <th>
+                <i class="fa fa-fw fa-lg fa-barcode"></i>
+                ID
+              </th>
+              <th>
+                <i class="fa fa-fw fa-lg fa-user"></i>
+                Hospede
+              </th>
+              <th>
+                <i class="fa fa-fw fa-lg fa-calendar"></i>
+                Check-In
+              </th>
+              <th>
+                <i class="fa fa-fw fa-lg fa-calendar-o"></i>
+                Check-Out
+              </th>
+              <th>
+                <i class="fa fa-fw fa-lg fa-tag"></i>
+                Quarto
+              </th>
+              <th>
+                <i class="fa fa-fw fa-lg fa-user"></i>
+                Responsável
+              </th>
+              <th>
+                <i class="fa fa-fw fa-lg fa-bed"></i>
+                Estadia
+              </th>
             </tr>
           </thead>
           <tbody>
-            <c:forEach items="${lista}" var="reserva" varStatus="stat">
-              <tr>
+            <c:forEach items="${reservasNaData}" var="reserva" varStatus="stat">
+              <tr
+                <c:if test="${reserva.status == 'A'}">
+                  class="info"
+                </c:if>
+                <c:if test="${reserva.status == 'P'}">
+                  class="warning"
+                </c:if>
+                <c:if test="${reserva.status == 'F'}">
+                  class="success"
+                </c:if>
+                <c:if test="${reserva.status == 'C'}">
+                  class="danger"
+                </c:if>
+                >
                 <td scope="row">
+                  <i class="fa fa-fw fa-lg"></i>
                   <c:out value="${reserva.id}" />
                 </td>
-                <td class="nome">
-                  <c:out value="${reserva.idFuncionario}" />
+                <td>
+                  <i class="fa fa-fw fa-lg"></i>
+                  <c:out value="${reserva.hospede.nome}" />
+                  <c:out value="${reserva.hospede.sobrenome}" />
                 </td>
-                <td class="nome">
-                  <c:out value="${reserva.idHospede}" />
+                <td>
+                  <i class="fa fa-fw fa-lg"></i>
+                  <fmt:formatDate type="date" value="${reserva.checkIn}" />
                 </td>
-                <td class="cpf">
-                  <c:out value="${reserva.checkIn}" />
+                <td>
+                  <i class="fa fa-fw fa-lg"></i>
+                  <fmt:formatDate type="date" value="${reserva.checkOut}" />
                 </td>
-                <td class="cpf">
-                  <c:out value="${reserva.idQuarto}" />
+                <td>
+                  <i class="fa fa-fw fa-lg"></i>
+                  <c:out value="${reserva.quarto.numero}" />
                 </td>
-                <td class="seleciona">
-                  <a href="<c:url value="/erp/reservas/editar?id=${reserva.id}" />" 
-                     class="selecionado">
-                    <i class="fa fa-fw fa-lg fa-edit"></i>
-                    Selecionar
-                  </a>
+                <td>
+                  <i class="fa fa-fw fa-lg"></i>
+                  <c:out value="${reserva.funcionario.nome}" />
+                  <c:out value="${reserva.funcionario.sobrenome}" />
+                </td>
+                <td>
+                  <i class="fa fa-fw fa-lg"></i>
+                  <c:if test="${reserva.status == 'A'}">
+                    <a href="<c:url value="/erp/reservas/iniciar?id=${reserva.id}" />" 
+                       class="btn btn-sm btn-default">
+                      <i class="fa fa-fw fa-lg fa-play"></i>
+                      Iniciar
+                    </a>
+                  </c:if>
+                  <c:if test="${reserva.status == 'P'}">
+                    EM PROGRESSO...
+                  </c:if>
+                  <c:if test="${reserva.status == 'F'}">
+                    FECHADA
+                  </c:if>
+                  <c:if test="${reserva.status == 'C'}">
+                    CANCELADA
+                  </c:if>
                 </td>
               </tr>
             </c:forEach>
@@ -82,11 +141,11 @@
 
       </c:if>
 
-      <c:if test="${lista.isEmpty()}">
+      <c:if test="${reservasNaData.isEmpty()}">
 
-        <div class="col-sm-3"></div>
+        <div class="col-sm-2"></div>
 
-        <div class="col-sm-6">
+        <div class="col-sm-8">
 
           <div class="text-center">
             <h1>
@@ -100,7 +159,7 @@
             </h2>
             <h3>
               Não existem reservas agendadas para hoje, dia 
-              <strong><c:out value="${dataParaListar}" /></strong>
+              <strong><c:out value="${exibirData}" /></strong>
             </h3>
           </div>
 
