@@ -73,26 +73,30 @@ public class ReservaDAO {
 
   }
 
-  public List<Reserva> buscarReservas(String data) {
+  public List<Reserva> buscarReservas(String dtInicio, String dtFim) {
 
     ResultSet rs = null;
 
     ConectarBD conexao = new ConectarBD();
     PreparedStatement stmt = null;
 
-    java.util.Date checkin = new java.util.Date();
+    java.util.Date dataIni = new java.util.Date();
+    java.util.Date dataFim = new java.util.Date();
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
     try {
-      checkin = sdf.parse(data);
+      dataIni = sdf.parse(dtInicio);
+      dataFim = sdf.parse(dtFim);
     } catch (ParseException ex) {
       Logger.getLogger(ReservaDAO.class.getName()).log(Level.SEVERE, null, ex);
     }
-    java.sql.Date sqlDataCheckin = new java.sql.Date(checkin.getTime());
+    java.sql.Date sqlDataInicio = new java.sql.Date(dataIni.getTime());
+    java.sql.Date sqlDataFim = new java.sql.Date(dataFim.getTime());
 
     List<Reserva> listaReservas = new ArrayList<>();
 
-    String Query = "SELECT STATUS, ID_RESERVA, ID_HOSPEDE, ID_FUNCIONARIO, ID_QUARTO FROM TB_RESERVA WHERE DT_INICIO = ?";
+    String Query = "SELECT STATUS, ID_RESERVA, ID_HOSPEDE, ID_FUNCIONARIO, ID_QUARTO FROM TB_RESERVA "
+            + "WHERE DT_INICIO > ? AND DT_INICIO < ?";
 
     try {
 
@@ -100,7 +104,8 @@ public class ReservaDAO {
 
       stmt = conexao.conn.prepareStatement(Query);
 
-      stmt.setDate(1, sqlDataCheckin);
+      stmt.setDate(1, sqlDataInicio);
+      stmt.setDate(2, sqlDataFim);
 
       ResultSet resultados = stmt.executeQuery();
 
@@ -113,7 +118,7 @@ public class ReservaDAO {
 	res.setIdFuncionario(resultados.getInt("ID_FUNCIONARIO"));
 	res.setIdHospede(resultados.getInt("ID_HOSPEDE"));
 	res.setIdQuarto(resultados.getInt("ID_QUARTO"));
-	res.setCheckIn(checkin);
+	res.setCheckIn(dataIni);
 
 	listaReservas.add(res);
 

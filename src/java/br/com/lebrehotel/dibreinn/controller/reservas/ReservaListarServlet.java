@@ -25,17 +25,18 @@ public class ReservaListarServlet extends HttpServlet {
       // Esse atributo irá esconder a DIV com os resultados da busca na página buscar.jsp
       request.setAttribute("visibilidadeResultados", "hidden");
 
-      String data = request.getParameter("data");
-      request.setAttribute("dataParaListar", data);
+      String dataInicio = request.getParameter("dataInicio");
+      String dataFim = request.getParameter("dataFim");
+      request.setAttribute("dataParaListar", dataInicio);
 
     // Se um destes campos de busca estiverem preenchidos, 
       // deixe a DIV com os resultados da busca visível
-      if (data != null) {
+      if (dataInicio != null && dataFim != null) {
 
-        data = data.replaceAll("%2F", "/");
+        dataInicio = dataInicio.replaceAll("%2F", "/");
 
         ReservaDAO reservaBD = new ReservaDAO();
-        request.setAttribute("lista", reservaBD.buscarReservas(data));
+        request.setAttribute("lista", reservaBD.buscarReservas(dataInicio, dataFim));
 
         request.setAttribute("visibilidadeResultados", null);
 
