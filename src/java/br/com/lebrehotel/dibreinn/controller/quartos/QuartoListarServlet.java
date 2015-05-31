@@ -28,12 +28,15 @@ public class QuartoListarServlet extends HttpServlet {
         //Requisitos do filtro de pesquisa
         String buscaUnidade = request.getParameter("unidade");
         String buscaNumero = request.getParameter("numero");
-
-        if (buscaUnidade != "0" && buscaUnidade != null) {
-            request.setAttribute("listaQuartos", quartoBD.listarQuartos(Integer.parseInt(buscaUnidade), 1));
-        } else if (buscaNumero != "0" && buscaNumero != null) {
-            request.setAttribute("listaQuartos", quartoBD.listarQuartos(Integer.parseInt(buscaNumero), 2));
-        } else {
+        try {
+            if (buscaUnidade != "0" && buscaUnidade != null) {
+                request.setAttribute("listaQuartos", quartoBD.listarQuartos(Integer.parseInt(buscaUnidade), 1));
+            } else if (buscaNumero != "0" && buscaNumero != null) {
+                request.setAttribute("listaQuartos", quartoBD.listarQuartos(Integer.parseInt(buscaNumero), 2));
+            } else {
+                request.setAttribute("listaQuartos", quartoBD.listarQuartos(0, 0));
+            }
+        } catch (NumberFormatException e) {
             request.setAttribute("listaQuartos", quartoBD.listarQuartos(0, 0));
         }
 
