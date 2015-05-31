@@ -230,8 +230,8 @@ ul.top-menu > li > .logout {
   width: 210px;
   height: 100%;
   position: fixed;
-  background-color: #dfdfdf;   
-  background-image: -webkit-linear-gradient(top,#dddbd1,#d2dbdc);   background-image: linear-gradient(top,#dddbd1,#d2dbdc);
+  background-color: #F5F5F5;   
+  background-image: -webkit-linear-gradient(top,#FFFFFF,#D2D2D2);   
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.48),0 2px 5px 0 rgba(0,0,0,.2);
   transition: .3s;
 }

@@ -77,6 +77,7 @@ public class FuncionarioEditarServlet extends HttpServlet {
             } else {
                 f.setNewsletter(0);
             }
+	    f.setStatus(Integer.parseInt(request.getParameter("formStatus")));
             f.setUnidade(Integer.parseInt(request.getParameter("formUnidade")));
             f.setPrivilegio(Integer.parseInt(request.getParameter("formPrivilegio")));
 
