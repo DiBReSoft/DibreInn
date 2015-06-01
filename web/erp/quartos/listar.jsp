@@ -40,59 +40,70 @@
         <h1 class="page-title">
             Quartos
         </h1>
+
         <div class="row">
-            <div class="col-sm-4">
+
+            <c:if test="${sessionScope.usuario.privilegioId == 3}">
+
+                <div class="col-sm-4">
 
 
-                <form role="form" method="get" enctype="utf-8" class="form-di"
-                      action="listar" name="formUnidade">
+                    <form role="form" method="get" enctype="utf-8" class="form-di"
+                          action="listar" name="formUnidade">
 
-                    <h4>
-                        <label for="unidade">
-                            Buscar por Unidade
-                        </label>
-                    </h4>
-                    <hr />
+                        <h4>
+                            <label for="unidade">
+                                Buscar por Unidade
+                            </label>
+                        </h4>
+                        <hr />
 
-                    <div class="input-group">
+                        <div class="input-group">
 
-                        <select class="form-control" tabindex="18" aria-describedby="basic-addon2"
-                                name="unidade" id="formUnidade">
-                            <option value="0">
-                                
-                            </option>
-                            <c:forEach items="${listaUnidades}" var="unidade" varStatus="stat">
-                                <c:if test="${unidade.status == '1'}">
-                                    <option value="${unidade.id}">
-                                        <c:out value="${unidade.estado}" />
-                                        -
-                                        <c:out value="${unidade.nome}" />
-                                    </option>
-                                </c:if>
-                            </c:forEach>
-                        </select>
+                            <select class="form-control" tabindex="18" aria-describedby="basic-addon2"
+                                    name="unidade" id="formUnidade">
+                                <option value="0">
 
-                        <span class="input-group-btn">              
+                                </option>
+                                <c:forEach items="${listaUnidades}" var="unidade" varStatus="stat">
+                                    <c:if test="${unidade.status == '1'}">
+                                        <c:if test="${unidade.id == sessionScope.usuario.unidadeId}">
+                                            <option value="${unidade.id}">
+                                                <c:out value="${unidade.estado}" />
+                                                -
+                                                <c:out value="${unidade.nome}" />
+                                            </option>
+                                        </c:if>
+                                    </c:if>
+                                </c:forEach>
+                            </select>    
 
-                            <button type="submit" class="btn btn-default" 
-                                    tabindex="1">
+                            <span class="input-group-btn">              
 
-                                <span class="hidden-sm hidden-xs">
-                                    Buscar
-                                </span>                
+                                <button type="submit" class="btn btn-default" 
+                                        tabindex="1">
 
-                                <i class="fa fa-fw fa-lg fa-search"></i>
+                                    <span class="hidden-sm hidden-xs">
+                                        Buscar
+                                    </span>                
 
-                            </button>
+                                    <i class="fa fa-fw fa-lg fa-search"></i>
 
-                        </span>
-                    </div>
+                                </button>
 
-                </form>
-                <!-- Formulário #1 | Buscar por nome -->
+                            </span>    
 
-                <div style="padding: 5px 0px;"></div>
-            </div>
+                        </div>
+
+                    </form>
+                    <!-- Formulário #1 | Buscar por nome -->
+
+                    <div style="padding: 5px 0px;"></div>
+
+                </div>
+
+            </c:if>
+
 
             <div class="col-sm-4">
                 <!-- Formulário #2 | Buscar por e-mail -->
@@ -135,13 +146,18 @@
                 <!-- Formulário #2 | Buscar por e-mail -->
             </div>
         </div>
+
+
+        <div style="padding: 15px 0px;"></div>
+
+
         <div class="form-di">
             <h4>
                 Listagem de registros
             </h4>
             <hr />
 
-            <c:if test="${!lista.isEmpty()}">
+            <c:if test="${!listaQuartos.isEmpty()}">
                 <table class="table table-responsive table-hover table-condensed">
                     <thead>
                         <tr>
@@ -180,75 +196,77 @@
                     </thead>
                     <tbody>
                         <c:forEach items="${listaQuartos}" var="quarto" varStatus="stat">
-                            <tr>
-                                <td scope="row">
-                                    <i class="fa fa-fw fa-lg"></i>
-                                    ${quarto.id}
-                                </td>
-                                <td>
-                                    <i class="fa fa-fw fa-lg"></i>
-                                    <c:forEach items="${listaUnidades}" var="unidade" varStatus="stat">
-                                        <c:if test="${quarto.idUnidade == unidade.id}">
-                                            <c:out value="${unidade.estado}" />
-                                            -
-                                            <c:out value="${unidade.nome}" />
-                                        </c:if>
-                                    </c:forEach>
-                                </td>
-                                <td>
-                                    <i class="fa fa-fw fa-lg"></i>
-                                    <c:out value="${quarto.andar}" />
-                                    º
-                                </td>
-                                <td>
-                                    <i class="fa fa-fw fa-lg"></i>
-                                    <c:out value="${quarto.numero}" />
-                                </td>
-                                <td>
-                                    <i class="fa fa-fw fa-lg"></i>
-                                    <c:out value="${quarto.ramal}" />
-                                </td>
-                                <td>
-                                    <i class="fa fa-fw fa-lg"></i>
-                                    R$
-                                    <c:out value="${quarto.valorDiaria}" />
-                                </td>
-                                <c:if test="${quarto.status == '0'}">
-                                    <td class="text-center warning">
-                                        Inativo
+                            <c:if test="${quarto.idUnidade == sessionScope.usuario.unidadeId}">
+                                <tr>
+                                    <td scope="row">
+                                        <i class="fa fa-fw fa-lg"></i>
+                                        ${quarto.id}
                                     </td>
-                                </c:if>
-                                <c:if test="${quarto.status == '1'}">
-                                    <td class="text-center success">
-                                        Ativo
+                                    <td>
+                                        <i class="fa fa-fw fa-lg"></i>
+                                        <c:forEach items="${listaUnidades}" var="unidade" varStatus="stat">
+                                            <c:if test="${quarto.idUnidade == unidade.id}">
+                                                <c:out value="${unidade.estado}" />
+                                                -
+                                                <c:out value="${unidade.nome}" />
+                                            </c:if>
+                                        </c:forEach>
                                     </td>
-                                </c:if>
-                                </td>
-                                <td class="text-center">
-                                    <a class="btn btn-sm btn-default"
-                                       title="Edite as propriedades completas deste cômodo"
-                                       href="<c:url value="/erp/quartos/editar?id=${quarto.id}" />">
-                                        <i class="fa fa-fw fa-lg fa-edit"></i>
-                                        Editar Propriedades
-                                    </a>
-                                </td>
-                            </tr>
+                                    <td>
+                                        <i class="fa fa-fw fa-lg"></i>
+                                        <c:out value="${quarto.andar}" />
+                                        º
+                                    </td>
+                                    <td>
+                                        <i class="fa fa-fw fa-lg"></i>
+                                        <c:out value="${quarto.numero}" />
+                                    </td>
+                                    <td>
+                                        <i class="fa fa-fw fa-lg"></i>
+                                        <c:out value="${quarto.ramal}" />
+                                    </td>
+                                    <td>
+                                        <i class="fa fa-fw fa-lg"></i>
+                                        R$
+                                        <c:out value="${quarto.valorDiaria}" />
+                                    </td>
+                                    <c:if test="${quarto.status == '0'}">
+                                        <td class="text-center warning">
+                                            Inativo
+                                        </td>
+                                    </c:if>
+                                    <c:if test="${quarto.status == '1'}">
+                                        <td class="text-center success">
+                                            Ativo
+                                        </td>
+                                    </c:if>
+                                    </td>
+                                    <td class="text-center">
+                                        <a class="btn btn-sm btn-default"
+                                           title="Edite as propriedades completas deste cômodo"
+                                           href="<c:url value="/erp/quartos/editar?id=${quarto.id}" />">
+                                            <i class="fa fa-fw fa-lg fa-edit"></i>
+                                            Editar Propriedades
+                                        </a>
+                                    </td>
+                                </tr>
+                            </c:if>
                         </c:forEach>
                     </tbody>
                 </table>
 
             </c:if>
 
-            <c:if test="${lista.isEmpty()}">
+            <c:if test="${listaQuartos.isEmpty()}">
 
-                <div class="col-sm-3"></div>
+                <div class="col-sm-2"></div>
 
-                <div class="col-sm-6">
+                <div class="col-sm-8">
 
                     <div class="text-center">
                         <h1>
                             <span class="fa-stack fa-lg">
-                                <i class="fa fa-user fa-stack-1x text-success"></i>
+                                <i class="fa fa-bed fa-stack-1x text-success"></i>
                                 <i class="fa fa-search fa-stack-2x text-muted"></i>
                             </span>
                         </h1>

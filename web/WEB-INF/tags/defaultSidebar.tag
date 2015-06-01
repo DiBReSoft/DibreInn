@@ -49,7 +49,7 @@
           </li>
         </ul>
       </li>
-      </c:if>      
+      </c:if>
       
       <li class="sub-menu">
         <a href="javascript:;" >
@@ -65,17 +65,30 @@
             </a>
           </li>
           <li class="item-menu">
-            <a href="<c:url value="/erp/reservas/listar" />">
+            <a href="<c:url value="/erp/reservas/buscar" />">
               Buscar &amp; Editar
             </a>
           </li>
+        </ul>
+      </li>
+      
+      
+      
+      <li class="sub-menu">
+        <a href="javascript:;" >
+          <i class="fa fa-fw fa-lg fa-briefcase"></i>
+          <span>
+            Estadias
+          </span>
+        </a>
+        <ul class="sub">
           <li class="item-menu">
-            <a href="<c:url value="/erp/reservas/checkin" />">
+            <a href="<c:url value="/erp/estadias/checkin" />">
               Efetuar CheckIn
             </a>
           </li>
           <li class="item-menu">
-            <a href="<c:url value="/erp/reservas/checkout" />">
+            <a href="<c:url value="/erp/estadias/checkout" />">
               Efetuar CheckOut
             </a>
           </li>

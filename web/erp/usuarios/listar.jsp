@@ -11,7 +11,7 @@
 <t:defaultTemplate>
 
   <jsp:attribute name="paginaTitulo">
-    Usuarios
+    Usuários
   </jsp:attribute>
 
   <jsp:attribute name="paginaHead">
@@ -38,13 +38,13 @@
   <jsp:body>
 
     <h1 class="page-title">
-      Usuarios
+      Usuários
     </h1>
 
     <div class="form-di">
 
       <h4>
-        Listagem de registros
+        Listagem de registrados no sistema
       </h4>
       <hr />
 
@@ -57,13 +57,21 @@
                 ID
               </th>
               <th>
-                <i class="fa fa-fw fa-lg fa-building"></i>
+                <i class="fa fa-fw fa-lg fa-envelope"></i>
                 Login
               </th>
               <th>
-                <i class="fa fa-fw fa-lg fa-building-o"></i>
+                <i class="fa fa-fw fa-lg fa-lock"></i>
                 Senha
-              </th>            
+              </th>
+              <th>
+                <i class="fa fa-fw fa-lg fa-check"></i>
+                Status
+              </th>
+              <th class="text-center">
+                <i class="fa fa-fw fa-lg fa-briefcase"></i>
+                Propriedades
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -95,8 +103,8 @@
                 </td>
                 <td class="text-center">
                   <a class="btn btn-sm btn-default"
-                     title="Edite as propriedades completas deste cômodo"
-                     href="<c:url value="/erp/usuarios/editar?id=${usuario.id}" />">
+                     title="Edite as propriedades completas deste usuário"
+                     href="<c:url value="/erp/funcionarios/editar?id=${usuario.id}" />">
                     <i class="fa fa-fw fa-lg fa-edit"></i>
                     Editar Propriedades
                   </a>

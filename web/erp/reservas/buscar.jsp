@@ -42,7 +42,7 @@
     <form role="form" method="get" class="form-di"
           accept-charset="UTF-8"
           enctype="application/x-www-form-urlencoded"
-          action="listar">
+          action="buscar">
 
       <div class="row">
 
@@ -101,7 +101,7 @@
       </h4>
       <hr />
 
-      <c:if test="${!lista.isEmpty()}">
+      <c:if test="${!reservasNoPeriodo.isEmpty()}">
 
         <table class="table table-responsive table-hover table-striped table-condensed">
           <thead>
@@ -222,7 +222,7 @@
 
       </c:if>
 
-      <c:if test="${lista.isEmpty()}">
+      <c:if test="${reservasNoPeriodo.isEmpty()}">
 
         <div class="col-sm-2"></div>
 

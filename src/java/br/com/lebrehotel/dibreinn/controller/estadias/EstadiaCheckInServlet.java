@@ -1,7 +1,11 @@
-package br.com.lebrehotel.dibreinn.controller.reservas;
+package br.com.lebrehotel.dibreinn.controller.estadias;
 
 import br.com.lebrehotel.dibreinn.model.reserva.ReservaDAO;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,41 +17,42 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jSilverize
  */
-@WebServlet(name = "ReservaListarServlet", urlPatterns = {"/erp/reservas/", "/erp/reservas/listar"})
-public class ReservaListarServlet extends HttpServlet {
+@WebServlet(name = "EstadiaCheckInServlet", urlPatterns = {"/erp/estadias/checkin"})
+public class EstadiaCheckInServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
-          throws ServletException, IOException {
+	  throws ServletException, IOException {
 
     try {
+      
+      ReservaDAO reservaBD = new ReservaDAO();
 
-      // Esse atributo irá esconder a DIV com os resultados da busca na página buscar.jsp
-      request.setAttribute("visibilidadeResultados", "hidden");
+      String data = request.getParameter("data");
 
-      String dataInicio = request.getParameter("inicial");
-      String dataFim = request.getParameter("final");
-      request.setAttribute("dataInicial", dataInicio);
-      request.setAttribute("dataFinal", dataFim);
+      if (data != null) {
 
-    // Se um destes campos de busca estiverem preenchidos, 
-      // deixe a DIV com os resultados da busca visível
-      if (dataInicio != null && dataFim != null) {
+	request.setAttribute("exibirData", data);
+	data = data.replaceAll("%2F", "/");
+	request.setAttribute("reservasNaData", reservaBD.listarReservasParaCheckin(data));
 
-        dataInicio = dataInicio.replaceAll("%2F", "/");
-
-        ReservaDAO reservaBD = new ReservaDAO();
-        request.setAttribute("reservasNoPeriodo", reservaBD.buscarReservas(dataInicio, dataFim));
-
-        request.setAttribute("visibilidadeResultados", null);
+      } else {
+	
+	String dataHoje;
+	Date dataDia = new Date();
+	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	dataHoje = sdf.format(dataDia);
+	request.setAttribute("exibirData", dataHoje);
+	request.setAttribute("reservasNaData", reservaBD.listarReservasParaCheckin(dataHoje));
 
       }
 
-      RequestDispatcher rd = request.getRequestDispatcher("/erp/reservas/listar.jsp");
+      RequestDispatcher rd = request.getRequestDispatcher("/erp/estadias/checkin.jsp");
       rd.forward(request, response);
 
     } catch (Exception ex) {
-
+      
+      Logger.getLogger(ReservaDAO.class.getName()).log(Level.SEVERE, "[INFO] Erro ao gravar os dados: ", ex);
       response.sendRedirect("../erro");
 
     }
@@ -65,7 +70,7 @@ public class ReservaListarServlet extends HttpServlet {
    */
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
-          throws ServletException, IOException {
+	  throws ServletException, IOException {
 
   }
 

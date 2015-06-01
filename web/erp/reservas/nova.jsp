@@ -27,7 +27,15 @@
     <script type="text/javascript">
       $(window).load(function () {
         var stepTwo = $("[data-target=#stepTwo]");
-      ${selecionouHospede}
+        ${selecionouHospede}
+        $('#btnBuscarNome').click(function(event) {  
+            var nomeBuscar = $('#formNome').val();
+            $.get('ReservaBuscarHospedeServlet',
+            { nome: nomeBuscar },
+            function(responseText) { 
+                $('#resultado').text(responseText);
+            });
+        });
       });
     </script>
   </jsp:attribute>
@@ -36,6 +44,7 @@
 
     <h1 class="page-title">
       Nova Reserva
+      <span id="resultado"></span>
     </h1>
 
     <ul class="nav-steps">
@@ -86,7 +95,7 @@
 
                   <span class="input-group-btn">              
 
-                    <button type="submit" class="btn btn-default" 
+                    <button type="button" id="btnBuscarNome" class="btn btn-default" 
                             tabindex="2">
 
                       <span class="hidden-sm hidden-xs">
