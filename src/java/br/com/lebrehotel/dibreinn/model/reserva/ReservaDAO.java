@@ -124,7 +124,7 @@ public class ReservaDAO {
 	res.setIdFuncionario(resultados.getInt("ID_FUNCIONARIO"));
 	res.setIdHospede(resultados.getInt("ID_HOSPEDE"));
 	res.setIdQuarto(resultados.getInt("ID_QUARTO"));
-	res.setCheckIn(dataIni);
+	res.setCheckIn(resultados.getDate("DT_INICIO"));
 	res.setCheckOut(resultados.getDate("DT_FIM"));
 
 	FuncionarioDAO funcionarioBD = new FuncionarioDAO();
