@@ -275,4 +275,8 @@ public class QuartoDAO {
         }
         return -1;
     }
+
+  public Quarto getQuartoById(int idQuarto) {
+    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  }
 }

@@ -1,13 +1,11 @@
 package br.com.lebrehotel.dibreinn.controller.reservas;
 
-import br.com.lebrehotel.dibreinn.model.funcionario.Funcionario;
-import br.com.lebrehotel.dibreinn.model.funcionario.FuncionarioDAO;
 import br.com.lebrehotel.dibreinn.model.reserva.ReservaDAO;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,7 +34,7 @@ public class ReservaCheckInServlet extends HttpServlet {
 
 	request.setAttribute("exibirData", data);
 	data = data.replaceAll("%2F", "/");
-	request.setAttribute("reservasNaData", reservaBD.buscarReservas(data));
+	request.setAttribute("reservasNaData", reservaBD.listarReservasParaCheckin(data));
 
       } else {
 	
@@ -45,7 +43,7 @@ public class ReservaCheckInServlet extends HttpServlet {
 	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	dataHoje = sdf.format(dataDia);
 	request.setAttribute("exibirData", dataHoje);
-	request.setAttribute("reservasNaData", reservaBD.buscarReservas(dataHoje));
+	request.setAttribute("reservasNaData", reservaBD.listarReservasParaCheckin(dataHoje));
 
       }
 
@@ -53,7 +51,8 @@ public class ReservaCheckInServlet extends HttpServlet {
       rd.forward(request, response);
 
     } catch (Exception ex) {
-
+      
+      Logger.getLogger(ReservaDAO.class.getName()).log(Level.SEVERE, "[INFO] Erro ao gravar os dados: ", ex);
       response.sendRedirect("../erro");
 
     }

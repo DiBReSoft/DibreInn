@@ -33,10 +33,42 @@
 
     <div class="form-di">
 
-      <h4>
-        Reservas do dia ${exibirData}
-      </h4>
+      <form method="get" action="checkin"
+            accept-charset="UTF-8"
+            enctype="application/x-www-form-urlencoded">
+
+        <div class="row">
+
+          <div class="col-lg-2 col-md-3 col-sm-4">
+            <h4 class="text-right">
+              Reservas do dia:
+            </h4>
+          </div>
+
+          <div class="col-lg-2 col-md-3 col-sm-4">
+            <h4 style="margin-top: 18px;">            
+              <input type="text" class="form-control calendar"
+                     tabindex="1" name="data"
+                     value="${exibirData}" />
+            </h4>
+          </div>
+
+          <div class="col-lg-2 col-md-3 col-sm-4">
+            <h4 style="margin-top: 18px;">            
+              <button type="submit" class="btn btn-block btn-default">
+                <i class="fa fa-fw fa-lg fa-search"></i>
+                Listar
+              </button>
+            </h4>
+          </div>
+
+        </div>
+
+      </form>
+
       <hr />
+
+      <div style="padding: 10px;"></div>
 
       <c:if test="${!reservasNaData.isEmpty()}">
 
@@ -46,6 +78,10 @@
               <th>
                 <i class="fa fa-fw fa-lg fa-barcode"></i>
                 ID
+              </th>
+              <th>
+                <i class="fa fa-fw fa-lg fa-exchange"></i>
+                Status
               </th>
               <th>
                 <i class="fa fa-fw fa-lg fa-user"></i>
@@ -95,6 +131,21 @@
                 </td>
                 <td>
                   <i class="fa fa-fw fa-lg"></i>
+                  <c:if test="${reserva.status == 'A'}">
+                    Aberta
+                  </c:if>
+                  <c:if test="${reserva.status == 'P'}">
+                    Progresso
+                  </c:if>
+                  <c:if test="${reserva.status == 'F'}">
+                    Fechada
+                  </c:if>
+                  <c:if test="${reserva.status == 'C'}">
+                    Cancelada
+                  </c:if>
+                </td>
+                <td>
+                  <i class="fa fa-fw fa-lg"></i>
                   <c:out value="${reserva.hospede.nome}" />
                   <c:out value="${reserva.hospede.sobrenome}" />
                 </td>
@@ -125,13 +176,13 @@
                     </a>
                   </c:if>
                   <c:if test="${reserva.status == 'P'}">
-                    EM PROGRESSO...
+                    Progresso
                   </c:if>
                   <c:if test="${reserva.status == 'F'}">
-                    FECHADA
+                    Fechada
                   </c:if>
                   <c:if test="${reserva.status == 'C'}">
-                    CANCELADA
+                    Cancelada
                   </c:if>
                 </td>
               </tr>
@@ -141,7 +192,7 @@
 
       </c:if>
 
-      <c:if test="${reservasNaData.isEmpty()}">
+      <c:if test="${reservasNaData.isEmpty() or reservasNaData == null}">
 
         <div class="col-sm-2"></div>
 
@@ -158,7 +209,7 @@
               Desculpe.
             </h2>
             <h3>
-              Não existem reservas agendadas para hoje, dia 
+              Não existem reservas agendadas para o dia 
               <strong><c:out value="${exibirData}" /></strong>
             </h3>
           </div>

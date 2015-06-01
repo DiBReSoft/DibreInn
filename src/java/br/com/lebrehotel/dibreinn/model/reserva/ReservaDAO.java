@@ -1,6 +1,12 @@
 package br.com.lebrehotel.dibreinn.model.reserva;
 
 import br.com.lebrehotel.dibreinn.persistencia.ConectarBD;
+import br.com.lebrehotel.dibreinn.model.funcionario.Funcionario;
+import br.com.lebrehotel.dibreinn.model.funcionario.FuncionarioDAO;
+import br.com.lebrehotel.dibreinn.model.hospede.Hospede;
+import br.com.lebrehotel.dibreinn.model.hospede.HospedeDAO;
+import br.com.lebrehotel.dibreinn.model.quarto.Quarto;
+import br.com.lebrehotel.dibreinn.model.quarto.QuartoDAO;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -95,8 +101,8 @@ public class ReservaDAO {
 
     List<Reserva> listaReservas = new ArrayList<>();
 
-    String Query = "SELECT STATUS, ID_RESERVA, ID_HOSPEDE, ID_FUNCIONARIO, ID_QUARTO FROM TB_RESERVA "
-            + "WHERE DT_INICIO > ? AND DT_INICIO < ?";
+    String Query = "SELECT STATUS, ID_RESERVA, ID_HOSPEDE, ID_FUNCIONARIO, ID_QUARTO, DT_INICIO, DT_FIM FROM TB_RESERVA "
+	    + "WHERE DT_INICIO >= ? AND DT_INICIO <= ?";
 
     try {
 
@@ -119,6 +125,100 @@ public class ReservaDAO {
 	res.setIdHospede(resultados.getInt("ID_HOSPEDE"));
 	res.setIdQuarto(resultados.getInt("ID_QUARTO"));
 	res.setCheckIn(dataIni);
+	res.setCheckOut(resultados.getDate("DT_FIM"));
+
+	FuncionarioDAO funcionarioBD = new FuncionarioDAO();
+	res.setFuncionario(funcionarioBD.getFuncionarioById(res.getIdFuncionario()));
+
+	HospedeDAO hospedeBD = new HospedeDAO();
+	res.setHospede(hospedeBD.getHospedeById(res.getIdHospede()));
+
+	QuartoDAO quartoBD = new QuartoDAO();
+	res.setQuarto(quartoBD.buscarQuartoId(resultados.getString("ID_QUARTO")));
+
+	listaReservas.add(res);
+
+      }
+
+      return listaReservas;
+
+    } catch (SQLException ex) {
+      // Caso haja erro retorna 0 como ID e informa no log
+      Logger.getLogger(ReservaDAO.class.getName()).log(Level.SEVERE, "[INFO] Erro ao gravar os dados: ", ex);
+
+    } catch (ParseException ex) {
+      Logger.getLogger(ReservaDAO.class.getName()).log(Level.SEVERE, null, ex);
+    } finally {
+
+      if (stmt != null) {
+	try {
+	  stmt.close();
+	} catch (SQLException ex) {
+	  Logger.getLogger(ReservaDAO.class.getName()).log(Level.SEVERE, null, ex);
+	}
+      }
+      if (conexao != null) {
+	conexao.closeConection();
+      }
+
+    }
+
+    return null;
+
+  }
+
+  public List<Reserva> listarReservasParaCheckin(String dtInicio) throws ParseException {
+
+    ResultSet rs = null;
+
+    ConectarBD conexao = new ConectarBD();
+    PreparedStatement stmt = null;
+
+    java.util.Date dataIni = new java.util.Date();
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+    try {
+      dataIni = sdf.parse(dtInicio);
+    } catch (ParseException ex) {
+      Logger.getLogger(ReservaDAO.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    java.sql.Date sqlDataInicio = new java.sql.Date(dataIni.getTime());
+
+    List<Reserva> listaReservas = new ArrayList<>();
+
+    String Query = "SELECT STATUS, ID_RESERVA, ID_HOSPEDE, ID_FUNCIONARIO, ID_QUARTO, DT_INICIO, DT_FIM FROM TB_RESERVA "
+	    + "WHERE DT_INICIO = ? ";
+
+    try {
+
+      conexao.openConection();
+
+      stmt = conexao.conn.prepareStatement(Query);
+
+      stmt.setDate(1, sqlDataInicio);
+
+      ResultSet resultados = stmt.executeQuery();
+
+      while (resultados.next()) {
+
+	Reserva res = new Reserva();
+
+	res.setStatus(resultados.getString("STATUS"));
+	res.setId(resultados.getInt("ID_RESERVA"));
+	res.setIdFuncionario(resultados.getInt("ID_FUNCIONARIO"));
+	res.setIdHospede(resultados.getInt("ID_HOSPEDE"));
+	res.setIdQuarto(resultados.getInt("ID_QUARTO"));
+	res.setCheckIn(resultados.getDate("DT_INICIO"));
+	res.setCheckOut(resultados.getDate("DT_FIM"));
+
+	FuncionarioDAO funcionarioBD = new FuncionarioDAO();
+	res.setFuncionario(funcionarioBD.getFuncionarioById(res.getIdFuncionario()));
+
+	HospedeDAO hospedeBD = new HospedeDAO();
+	res.setHospede(hospedeBD.getHospedeById(res.getIdHospede()));
+
+	QuartoDAO quartoBD = new QuartoDAO();
+	res.setQuarto(quartoBD.buscarQuartoId(resultados.getString("ID_QUARTO")));
 
 	listaReservas.add(res);
 
