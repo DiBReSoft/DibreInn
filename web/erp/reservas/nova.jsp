@@ -27,15 +27,7 @@
     <script type="text/javascript">
       $(window).load(function () {
         var stepTwo = $("[data-target=#stepTwo]");
-        ${selecionouHospede}
-        $('#btnBuscarNome').click(function(event) {  
-            var nomeBuscar = $('#formNome').val();
-            $.get('ReservaBuscarHospedeServlet',
-            { nome: nomeBuscar },
-            function(responseText) { 
-                $('#resultado').text(responseText);
-            });
-        });
+      ${selecionouHospede}
       });
     </script>
   </jsp:attribute>
@@ -44,7 +36,6 @@
 
     <h1 class="page-title">
       Nova Reserva
-      <span id="resultado"></span>
     </h1>
 
     <ul class="nav-steps">
@@ -56,13 +47,19 @@
       <li role="presentation"
           class="${ativarTab2}"
           id="stepTwoTab">
-        #2 RESERVA
+        #2 ESTADIA
+      </li>
+      <li role="presentation"
+          class="${ativarTab3}"
+          id="stepTreeTab">
+        #3 CONFIRMAR
       </li>
     </ul>
 
     <div class="tab-content">
 
       <a class="hidden" data-toggle="tab" data-target="#stepTwo"></a>
+      <a class="hidden" data-toggle="tab" data-target="#stepTree"></a>
 
       <div role="tabpanel" class="tab-pane fade in active" id="stepOne">
 
@@ -95,7 +92,7 @@
 
                   <span class="input-group-btn">              
 
-                    <button type="button" id="btnBuscarNome" class="btn btn-default" 
+                    <button type="submit" id="btnBuscarNome" class="btn btn-default" 
                             tabindex="2">
 
                       <span class="hidden-sm hidden-xs">
@@ -304,13 +301,10 @@
 
       <div role="tabpanel" class="tab-pane fade" id="stepTwo">
 
-        <form role="form" class="form-di" method="post"
+        <form role="form" class="form-di" method="get"
               accept-charset="UTF-8"
               enctype="application/x-www-form-urlencoded"
               action="nova">
-          
-          <input type="hidden" name="reservaFuncionarioID"
-                 value="${sessionScope.usuario.id}" />
 
           <div class="steps-container">
 
@@ -361,94 +355,9 @@
                   </h4>
                 </div>
 
-                <div class="form-group">  
-
-                  <h4>
-
-                    <label for="reservaUnidade">
-                      Unidade:
-                    </label>
-
-                    <div class="input-group input-group-lg">
-
-                      <span class="input-group-addon" id="addonUnidade">
-                        <i class="fa fa-fw fa-lg fa-building"></i>
-                      </span>
-                      <input type="hidden" name="reservaUnidade" 
-                             value="${sessionScope.usuario.unidadeId}" />
-                      <input type="text" 
-                             class="form-control" tabindex="3" aria-describedby="addonUnidade"
-                             id="reservaUnidade" required="true" 
-                             readonly 
-                             value="${sessionScope.usuario.unidadeNome}"/>
-
-                    </div>
-
-                  </h4>
-
-                </div>
-
-                <div class="form-group">
-
-                  <h4>
-
-                    <label for="reservaQuarto">
-                      Quarto:
-                    </label>
-                    <div class="input-group input-group-lg">
-
-                      <span class="input-group-addon" id="addonQuarto">
-                        <i class="fa fa-fw fa-lg fa-bed"></i>
-                      </span>
-
-                      <select class="form-control" tabindex="4" aria-describedby="addonQuarto"
-                              name="reservaQuarto" id="reservaQuarto" required="true">
-                        <c:forEach items="${listaQuartos}" var="quarto" varStatus="stat">
-                          <c:if test="${sessionScope.usuario.unidadeId == quarto.idUnidade}">
-                            <option value="<c:out value="${quarto.id}" />">
-                              <c:out value="${quarto.numero}" />
-                              (Diária R$ <c:out value="${quarto.valorDiaria}" />)
-                            </option>
-                          </c:if>
-                        </c:forEach>
-                      </select>
-                    </div>
-
-                  </h4>
-
-                </div>
-
               </div>
 
               <div class="col-md-4">
-
-                <div class="form-group">
-
-                  <h4>
-                    <label for="reservaAcomodacao">
-                      Acomodação:
-                    </label>
-                    <div class="input-group input-group-lg">
-
-                      <span class="input-group-addon" id="addonAcomodacao">
-                        <i class="fa fa-fw fa-lg fa-bed"></i>
-                      </span>
-
-                      <select class="form-control" tabindex="5" aria-describedby="addonAcomodacao"
-                              name="reservaAcomodacao" id="reservaAcomodacao" required="true">
-                        <option value="casal">
-                          1 Cama de Casal
-                        </option>
-                        <option value="solteiro">
-                          2 Camas Solteiro
-                        </option>
-                      </select>
-
-                    </div>
-
-                  </h4>
-
-                </div>
 
                 <div class="form-group">
 
@@ -506,52 +415,30 @@
                   <c:forEach items="${lista}" var="pessoa" varStatus="stat">
 
                     <input type="hidden"
-                           name="reservaHospedeID"
+                           name="hospedeID"
                            value="<c:out value="${pessoa.id}" />" />
 
                     <h4>
-                      Hospede:
+                      <label>
+                        Nome Hospede:
+                      </label>
+                      <div class="input-group input-group-lg">
+                        <input type="text" class="form-control" 
+                               readonly="true"
+                               value="${pessoa.nome} ${pessoa.sobrenome}"/>
+                      </div>
                     </h4>
 
-                    <div class="input-group">
-                      <div style="padding: 5px 0px;"></div>
+                    <h4>
                       <label>
-                        ID:
+                        CPF Hospede:
                       </label>
-                      <input type="text" class="form-control" 
-                             readonly="true"
-                             value="${pessoa.id}"/>
-                    </div>
-
-                    <div class="input-group">
-                      <div style="padding: 5px 0px;"></div>
-                      <label>
-                        Nome:
-                      </label>
-                      <input type="text" class="form-control" 
-                             readonly="true"
-                             value="${pessoa.nome} ${pessoa.sobrenome}"/>
-                    </div>
-
-                    <div class="input-group">
-                      <div style="padding: 5px 0px;"></div>
-                      <label>
-                        CPF:
-                      </label>
-                      <input type="text" class="form-control" 
-                             readonly="true"
-                             value="${pessoa.cpf}"/>
-                    </div>
-
-                    <div class="input-group">
-                      <div style="padding: 5px 0px;"></div>
-                      <label>
-                        E-mail: 
-                      </label>
-                      <input type="text" class="form-control" 
-                             readonly="true"
-                             value="${pessoa.email}"/>
-                    </div>
+                      <div class="input-group input-group-lg">
+                        <input type="text" class="form-control" 
+                               readonly="true"
+                               value="${pessoa.cpf}"/>
+                      </div>
+                    </h4>
 
                   </c:forEach>
 
@@ -583,7 +470,7 @@
 
                 <button class="btn btn-lg btn-block btn-default"
                         type="submit" tabindex="8">
-                  RESERVAR
+                  CONTINUAR
                   <i class="fa fa-fw fa-lg fa-check"></i>
                 </button>
 
@@ -602,39 +489,87 @@
 
         <div class="steps-container">
 
-          <div class="row">
+          <form role="form" class="form-di" method="post"
+                accept-charset="UTF-8"
+                enctype="application/x-www-form-urlencoded"
+                action="nova">
 
-            <div class="col-sm-3"></div>
+            <input type="hidden" name="reservaFuncionarioID"
+                   value="${sessionScope.usuario.id}" />
 
-            <div class="col-sm-6 text-center">
+            <div class="steps-container">
 
-              <h4>
-                <label for="exibirReservaHospede">
-                  Hospede
-                </label>
-                <br />
-                <small id="exibirReservaHospede"></small>
-              </h4>
+              <div class="row">
 
-              <h4>
-                <label for="exibirReservaData">
-                  Data da Reserva
-                </label>
-                <br />
-                <small id="exibirReservaData"></small>
-              </h4>
+                <div class="col-md-4">
 
-              <h4>
-                <label for="exibirReservaQuarto">
-                  Quarto
-                </label>
-                <br />
-                <small id="exibirReservaQuarto"></small>
-              </h4>
+                  <div class="form-group">
 
-            </div>
+                    <h4>
 
-          </div>
+                      <label for="reservaQuarto">
+                        Quarto:
+                      </label>
+                      <div class="input-group input-group-lg">
+
+                        <span class="input-group-addon" id="addonQuarto">
+                          <i class="fa fa-fw fa-lg fa-bed"></i>
+                        </span>
+
+                        <select class="form-control" tabindex="4" aria-describedby="addonQuarto"
+                                name="reservaQuarto" id="reservaQuarto" required="true">
+                          <c:forEach items="${listaQuartos}" var="quarto" varStatus="stat">
+                            <c:if test="${sessionScope.usuario.unidadeId == quarto.idUnidade}">
+                              <option value="<c:out value="${quarto.id}" />">
+                                <c:out value="${quarto.numero}" />
+                                (Diária R$ <c:out value="${quarto.valorDiaria}" />)
+                              </option>
+                            </c:if>
+                          </c:forEach>
+                        </select>
+                      </div>
+
+                    </h4>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+              <br style="clear: both;" />
+
+              <div class="row">
+
+                <div class="col-md-3"></div>
+
+                <div class="col-md-3 col-xs-6">
+
+                  <a class="btn btn-lg btn-block btn-primary"
+                     href="<c:url value="/erp/reservas/nova" />"
+                     tabindex="9"
+                     >
+                    <i class="fa fa-fw fa-lg fa-arrow-left"></i>
+                    VOLTAR
+                  </a>
+
+                </div>
+
+                <div class="col-md-3 col-xs-6">
+
+                  <button class="btn btn-lg btn-block btn-default"
+                          type="submit" tabindex="8">
+                    RESERVAR
+                    <i class="fa fa-fw fa-lg fa-check"></i>
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>          
+
+          </form>
 
           <br style="clear: both;" />
 
