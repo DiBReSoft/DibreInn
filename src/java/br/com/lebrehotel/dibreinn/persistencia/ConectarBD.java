@@ -22,7 +22,7 @@ public class ConectarBD {
     public Statement stm;
     public ResultSet rs;
     private String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";//Esse é o nome do driver, que na internet você vai encontrar de varias maneiras, mas só esse resolveu meus problemas  
-    private String caminho = "jdbc:sqlserver://10.135.22.63:1433;databaseName=DB_DIBREINN";//se não for acessar localmente mude localhost pelo nome do servidor  
+    private String caminho = "jdbc:sqlserver://localhost:1433;databaseName=DB_DIBREINN";//se não for acessar localmente mude localhost pelo nome do servidor  
     private String usuario = "sa";//esse usuário é um sysadmin ele tem todos os poderes, é bom que se crie um login e usuário a parte  
     private String senha = "admin@123";
     public Connection conn;
