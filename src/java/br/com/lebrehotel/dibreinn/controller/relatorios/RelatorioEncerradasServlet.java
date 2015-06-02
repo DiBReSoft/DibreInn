@@ -14,45 +14,32 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jSilverize
  */
-@WebServlet(name = "RelatorioVendasServlet", urlPatterns = {"/erp/relatorios", "/erp/relatorios/vendas"})
-public class RelatorioVendasServlet extends HttpServlet {
+@WebServlet(name = "RelatorioEncerradasServlet", urlPatterns = {"/erp/relatorios/estadias-encerradas"})
+public class RelatorioEncerradasServlet extends HttpServlet {
 
-  
-  /**
-   * Handles the HTTP <code>GET</code> method.
-   *
-   * @param request servlet request
-   * @param response servlet response
-   * @throws ServletException if a servlet-specific error occurs
-   * @throws IOException if an I/O error occurs
-   */
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
-          throws ServletException, IOException {
-      
-      
-      
-    
-    String vendas = 
-            "{unidade: 'Unidade SP1', vendas: 100}, "
-            + "{unidade: 'Unidade MG1', vendas: 80}, "
-            + "{unidade: 'Unidade SC1', vendas: 90}, "
-            + "{unidade: 'Unidade BA1', vendas: 30}, ";
-    request.setAttribute("vendasVetor", vendas);
-    
-    String vendasRosquinhas = 
-            "{label: 'Unidade SP1', value: 50}, "
-            + "{label: 'Unidade MG1', value: 15}, "
-            + "{label: 'Unidade SC1', value: 25}, "
-            + "{label: 'Unidade BA1', value: 10},";
-    request.setAttribute("vendasRosquinhas", vendasRosquinhas);
-    
+	  throws ServletException, IOException {
 
-    RequestDispatcher rd = request.getRequestDispatcher("/erp/relatorios/relatorios.jsp");
+    String estadiasEncerradasPorUnidades
+	    = "{unidade: 'São Paulo I', vendas: 100}, "
+	    + "{unidade: 'Rio de Janeiro I', vendas: 180}, "
+	    + "{unidade: 'Bahia I', vendas: 90}, "
+	    + "{unidade: 'Ceará I', vendas: 30}, ";
+    request.setAttribute("estadiasEncerradasPorUnidades", estadiasEncerradasPorUnidades);
+
+    String estadiasEncerradasGeral
+	    = "{label: 'São Paulo I', value: 100}, "
+	    + "{label: 'Rio de Janeiro I', value: 180}, "
+	    + "{label: 'Bahia I', value: 90}, "
+	    + "{label: 'Ceará I', value: 30},";
+    request.setAttribute("estadiasEncerradasGeral", estadiasEncerradasGeral);
+
+    RequestDispatcher rd = request.getRequestDispatcher("/erp/relatorios/estadias-encerradas.jsp");
     rd.forward(request, response);
 
   }
-  
+
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
   /**
    * Handles the HTTP <code>POST</code> method.
@@ -64,7 +51,7 @@ public class RelatorioVendasServlet extends HttpServlet {
    */
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
-          throws ServletException, IOException {
+	  throws ServletException, IOException {
 
   }
 

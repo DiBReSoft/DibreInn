@@ -249,6 +249,76 @@ public class ReservaDAO {
 
   }
 
+  public Reserva getReservaByID(int idReserva) {
+
+    ResultSet rs = null;
+
+    ConectarBD conexao = new ConectarBD();
+    PreparedStatement stmt = null;
+
+    String Query = "SELECT STATUS, ID_RESERVA, ID_HOSPEDE, ID_FUNCIONARIO, ID_QUARTO, DT_INICIO, DT_FIM FROM TB_RESERVA "
+	    + "WHERE ID_RESERVA = ? ";
+
+    try {
+
+      Reserva res = new Reserva();
+
+      conexao.openConection();
+
+      stmt = conexao.conn.prepareStatement(Query);
+
+      stmt.setInt(1, idReserva);
+
+      ResultSet resultados = stmt.executeQuery();
+
+      while (resultados.next()) {
+
+	res.setStatus(resultados.getString("STATUS"));
+	res.setId(resultados.getInt("ID_RESERVA"));
+	res.setIdFuncionario(resultados.getInt("ID_FUNCIONARIO"));
+	res.setIdHospede(resultados.getInt("ID_HOSPEDE"));
+	res.setIdQuarto(resultados.getInt("ID_QUARTO"));
+	res.setCheckIn(resultados.getDate("DT_INICIO"));
+	res.setCheckOut(resultados.getDate("DT_FIM"));
+
+	FuncionarioDAO funcionarioBD = new FuncionarioDAO();
+	res.setFuncionario(funcionarioBD.getFuncionarioById(res.getIdFuncionario()));
+
+	HospedeDAO hospedeBD = new HospedeDAO();
+	res.setHospede(hospedeBD.getHospedeById(res.getIdHospede()));
+
+	QuartoDAO quartoBD = new QuartoDAO();
+	res.setQuarto(quartoBD.buscarQuartoId(resultados.getString("ID_QUARTO")));
+
+      }
+
+      return res;
+
+    } catch (SQLException ex) {
+      // Caso haja erro retorna 0 como ID e informa no log
+      Logger.getLogger(ReservaDAO.class.getName()).log(Level.SEVERE, "[INFO] Erro ao gravar os dados: ", ex);
+
+    } catch (ParseException ex) {
+      Logger.getLogger(ReservaDAO.class.getName()).log(Level.SEVERE, null, ex);
+    } finally {
+
+      if (stmt != null) {
+	try {
+	  stmt.close();
+	} catch (SQLException ex) {
+	  Logger.getLogger(ReservaDAO.class.getName()).log(Level.SEVERE, null, ex);
+	}
+      }
+      if (conexao != null) {
+	conexao.closeConection();
+      }
+
+    }
+
+    return null;
+
+  }
+
   public boolean alterarReserva(Reserva res) {
 
     boolean resultadoOperacao;

@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <t:defaultTemplate>
 
@@ -27,7 +28,28 @@
     <script type="text/javascript">
       $(window).load(function () {
         var stepTwo = $("[data-target=#stepTwo]");
-      ${selecionouHospede}
+        var stepTree = $("[data-target=#stepTree]");
+        ${selecionouHospede}
+            
+        /*
+        var minMilli = 1000 * 60;
+        var hrMilli = minMilli * 60;
+        var dyMilli = hrMilli * 24;
+
+        var dataCheckIn = new Date("" + $("#reservaCheckIn").val() + "");
+        var dataCheckOut = new Date("" + $("#reservaCheckOut").val() + "");
+
+        var ms = Date.parse(dataCheckIn);
+        var ms2 = Date.parse(dataCheckOut);
+        var days = Math.round(ms / dataCheckOut);
+        days = days + 1;
+
+        var valorDiaria = $("#valorDiariaQuarto2").text();
+        var valorEstadia = valorDiaria * days;
+
+        var campoValorDiaria = $("#reservaValor");
+        campoValorDiaria.val("" + valorEstadia);
+        */
       });
     </script>
   </jsp:attribute>
@@ -58,8 +80,10 @@
 
     <div class="tab-content">
 
+
       <a class="hidden" data-toggle="tab" data-target="#stepTwo"></a>
       <a class="hidden" data-toggle="tab" data-target="#stepTree"></a>
+
 
       <div role="tabpanel" class="tab-pane fade in active" id="stepOne">
 
@@ -68,7 +92,7 @@
           <!-- Início da #1 linha de GRID dos formulários -->
           <div class="row">
 
-            <div class="col-md-4 col-sm-5">
+            <div class="col-sm-4">
 
               <!-- Formulário #1 | Buscar por nome -->
               <form role="form" method="get" class="form-di"
@@ -110,6 +134,10 @@
               <!-- Formulário #1 | Buscar por nome -->
 
               <div style="padding: 5px 0px;"></div>
+
+            </div>
+
+            <div class="col-sm-4">
 
               <!-- Formulário #2 | Buscar por e-mail -->
               <form role="form" method="get" class="form-di"
@@ -153,6 +181,10 @@
 
               <div style="padding: 5px 0px;"></div>
 
+            </div>
+
+            <div class="col-sm-4">
+
               <!-- Formulário #3 | Buscar por CPF -->
               <form role="form" method="get" class="form-di"
                     accept-charset="UTF-8"
@@ -193,96 +225,99 @@
               </form>
               <!-- Formulário #3 | Buscar por CPF -->
 
-            </div>
+              <div style="padding: 5px 0px;"></div>
 
-            <div class="col-md-8 col-sm-7 form-di ${visibilidadeResultados}">
-
-              <h4 class="text-center">
-                Resultado(s) da busca
-              </h4>
-
-              <c:if test="${!lista.isEmpty()}">
-
-                <table class="table table-responsive table-hover table-striped table-condensed">
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Nome</th>
-                      <th>CPF</th>
-                      <th>E-mail</th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <c:forEach items="${lista}" var="pessoa" varStatus="stat">
-                      <tr>
-                        <td scope="row">
-                          <c:out value="${pessoa.id}" />
-                        </td>
-                        <td>
-                          <c:out value="${pessoa.nome}" />
-                          <c:out value="${pessoa.sobrenome}" />
-                        </td>
-                        <td>
-                          <c:out value="${pessoa.cpf}" />
-                        </td>
-                        <td>
-                          <c:out value="${pessoa.email}" />
-                        </td>
-                        <td>
-                          <a href="<c:url value="/erp/reservas/nova?id=${pessoa.id}" />" 
-                             class="btn btn-sm btn-default">
-                            <i class="fa fa-fw fa-lg fa-check"></i>
-                            Selecionar
-                          </a>
-                        </td>
-                      </tr>
-                    </c:forEach>
-                  </tbody>
-                </table>
-
-              </c:if>
-
-              <c:if test="${lista.isEmpty()}">
-
-                <div class="col-sm-3"></div>
-
-                <div class="col-sm-6">
-
-                  <div class="text-center">
-                    <h1>
-                      <span class="fa-stack fa-lg">
-                        <i class="fa fa-user fa-stack-1x text-success"></i>
-                        <i class="fa fa-search fa-stack-2x text-muted"></i>
-                      </span>
-                    </h1>
-                    <h2>
-                      Desculpe.
-                    </h2>
-                    <h3>
-                      Não pudemos encontrar pessoas com 
-                      <c:choose>
-                        <c:when test="${nomeBuscado != null}">
-                          o nome <div>"<c:out value="${nomeBuscado}" />"</div>
-                        </c:when>
-                        <c:when test="${emailBuscado != null}">
-                          o e-mail <div>"<c:out value="${emailBuscado}" />"</div>
-                        </c:when>
-                        <c:when test="${cpfBuscado != null}">
-                          o CPF <div>"<c:out value="${cpfBuscado}" />"</div>
-                        </c:when>
-                      </c:choose>
-                    </h3>
-                  </div>
-
-                </div>
-
-              </c:if>
-
-            </div>
+            </div>            
 
           </div>
-          <!-- Fim da #1 linha de GRID dos formulários -->
+
+          <div style="padding: 15px 0px;"></div>
+
+          <div class="form-di ${visibilidadeResultados}">
+
+            <h4>
+              Resultado(s) da busca
+            </h4>
+
+            <c:if test="${!listaHospedes.isEmpty()}">
+
+              <table class="table table-responsive table-hover table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>E-mail</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <c:forEach items="${listaHospedes}" var="hospede" varStatus="stat">
+                    <tr>
+                      <td scope="row">
+                        <c:out value="${hospede.id}" />
+                      </td>
+                      <td>
+                        <c:out value="${hospede.nome}" />
+                        <c:out value="${hospede.sobrenome}" />
+                      </td>
+                      <td>
+                        <c:out value="${hospede.cpf}" />
+                      </td>
+                      <td>
+                        <c:out value="${hospede.email}" />
+                      </td>
+                      <td>
+                        <a href="<c:url value="/erp/reservas/nova?hospedeID=${hospede.id}" />" 
+                           class="btn btn-sm btn-default">
+                          <i class="fa fa-fw fa-lg fa-check"></i>
+                          Selecionar
+                        </a>
+                      </td>
+                    </tr>
+                  </c:forEach>
+                </tbody>
+              </table>
+
+            </c:if>
+
+            <c:if test="${listaHospedes.isEmpty()}">
+
+              <div class="col-sm-2"></div>
+
+              <div class="col-sm-8">
+
+                <div class="text-center">
+                  <h1>
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-user fa-stack-1x text-success"></i>
+                      <i class="fa fa-search fa-stack-2x text-muted"></i>
+                    </span>
+                  </h1>
+                  <h2>
+                    Desculpe.
+                  </h2>
+                  <h3>
+                    Não pudemos encontrar hospedes com 
+                    <c:choose>
+                      <c:when test="${nomeBuscado != null}">
+                        o nome <div>"<c:out value="${nomeBuscado}" />"</div>
+                      </c:when>
+                      <c:when test="${emailBuscado != null}">
+                        o e-mail <div>"<c:out value="${emailBuscado}" />"</div>
+                      </c:when>
+                      <c:when test="${cpfBuscado != null}">
+                        o CPF <div>"<c:out value="${cpfBuscado}" />"</div>
+                      </c:when>
+                    </c:choose>
+                  </h3>
+                </div>
+
+              </div>
+
+            </c:if>
+
+          </div>
 
           <br style="clear: both;" />
           <br style="clear: both;" />
@@ -306,17 +341,21 @@
               enctype="application/x-www-form-urlencoded"
               action="nova">
 
+          <input type="hidden" name="hospede" value="${idHospede}" />
+
           <div class="steps-container">
 
             <div class="row">
 
-              <div class="col-md-4">
+              <div class="col-sm-4"></div>
+
+              <div class="col-sm-4">
 
                 <div class="form-group">
 
                   <h4>
                     <label for="checkIn">
-                      Check-in:
+                      Data de Check-in:
                     </label>
                     <div class="input-group input-group-lg">
 
@@ -326,7 +365,7 @@
 
                       <input type="text" class="form-control calendar" placeholder="dd/mm/aaaa"
                              tabindex="1" aria-describedby="addonCheckin"
-                             name="checkIn" id="checkIn" 
+                             name="in" id="checkIn" 
                              required="true" />
 
                     </div>
@@ -338,7 +377,7 @@
 
                   <h4>
                     <label for="checkOut">
-                      Check-out:
+                      Data de Check-out:
                     </label>
                     <div class="input-group input-group-lg">
 
@@ -348,101 +387,12 @@
 
                       <input type="text" class="form-control calendar" placeholder="dd/mm/aaaa"
                              tabindex="2" aria-describedby="addonCheckout"
-                             name="checkOut" id="checkOut" 
+                             name="out" id="checkOut" 
                              required="true" />
 
                     </div>
                   </h4>
                 </div>
-
-              </div>
-
-              <div class="col-md-4">
-
-                <div class="form-group">
-
-                  <h4>
-                    <label for="numAcompanhante">
-                      Acompanhantes:
-                    </label>
-                    <div class="input-group input-group-lg">
-
-                      <span class="input-group-addon" id="addonAcompanhantes">
-                        <i class="fa fa-fw fa-lg fa-users"></i>
-                      </span>
-
-                      <input type="number" class="form-control" min="0"
-                             tabindex="6" aria-describedby="addonAcompanhantes"
-                             name="numAcompanhante" 
-                             id="numAcompanhante" 
-                             placeholder="Ex.: 2" />
-
-                    </div>
-                  </h4>
-
-                </div>
-
-                <div class="form-group">
-
-                  <h4>
-
-                    <label for="numCriancas">
-                      Crianças:
-                    </label>
-                    <div class="input-group input-group-lg">
-
-                      <span class="input-group-addon" id="addonCriancas">
-                        <i class="fa fa-fw fa-lg fa-child"></i>
-                      </span>
-
-                      <input type="number" class="form-control" max="2" min="0"
-                             tabindex="7" aria-describedby="addonCriancas"
-                             name="numCriancas" id="numCriancas" 
-                             placeholder="Ex.: 1"/>
-
-                    </div>
-
-                  </h4>
-
-                </div>
-
-              </div>
-
-              <div class="col-md-4">
-
-                <c:if test="${!lista.isEmpty()}">
-
-                  <c:forEach items="${lista}" var="pessoa" varStatus="stat">
-
-                    <input type="hidden"
-                           name="hospedeID"
-                           value="<c:out value="${pessoa.id}" />" />
-
-                    <h4>
-                      <label>
-                        Nome Hospede:
-                      </label>
-                      <div class="input-group input-group-lg">
-                        <input type="text" class="form-control" 
-                               readonly="true"
-                               value="${pessoa.nome} ${pessoa.sobrenome}"/>
-                      </div>
-                    </h4>
-
-                    <h4>
-                      <label>
-                        CPF Hospede:
-                      </label>
-                      <div class="input-group input-group-lg">
-                        <input type="text" class="form-control" 
-                               readonly="true"
-                               value="${pessoa.cpf}"/>
-                      </div>
-                    </h4>
-
-                  </c:forEach>
-
-                </c:if>
 
               </div>
 
@@ -471,7 +421,7 @@
                 <button class="btn btn-lg btn-block btn-default"
                         type="submit" tabindex="8">
                   CONTINUAR
-                  <i class="fa fa-fw fa-lg fa-check"></i>
+                  <i class="fa fa-fw fa-lg fa-arrow-right"></i>
                 </button>
 
               </div>
@@ -497,77 +447,189 @@
             <input type="hidden" name="reservaFuncionarioID"
                    value="${sessionScope.usuario.id}" />
 
-            <div class="steps-container">
+            <input type="hidden" name="reservaHospedeID"
+                   value="${hospede}" />
 
-              <div class="row">
+            <div class="row">
 
-                <div class="col-md-4">
+              <div class="col-sm-4"></div>
 
-                  <div class="form-group">
+              <div class="col-sm-4">
 
-                    <h4>
+                <div class="form-group">
 
-                      <label for="reservaQuarto">
-                        Quarto:
-                      </label>
-                      <div class="input-group input-group-lg">
+                  <h4>
 
-                        <span class="input-group-addon" id="addonQuarto">
-                          <i class="fa fa-fw fa-lg fa-bed"></i>
-                        </span>
+                    <label for="reservaHospedeID">
+                      Hospede:
+                    </label>
+                    <div class="input-group input-group-lg">
 
-                        <select class="form-control" tabindex="4" aria-describedby="addonQuarto"
-                                name="reservaQuarto" id="reservaQuarto" required="true">
-                          <c:forEach items="${listaQuartos}" var="quarto" varStatus="stat">
-                            <c:if test="${sessionScope.usuario.unidadeId == quarto.idUnidade}">
-                              <option value="<c:out value="${quarto.id}" />">
-                                <c:out value="${quarto.numero}" />
-                                (Diária R$ <c:out value="${quarto.valorDiaria}" />)
-                              </option>
-                            </c:if>
-                          </c:forEach>
-                        </select>
-                      </div>
+                      <span class="input-group-addon" id="addonHospede">
+                        <i class="fa fa-fw fa-lg fa-user"></i>
+                      </span>
 
-                    </h4>
+                      <input type="text" class="form-control" 
+                             aria-describedby="addonHospede"
+                             id="reservaHospedeID" 
+                             readonly
+                             value="${listarHospedes.get(0).nome} ${listarHospedes.get(0).sobrenome} (ID: ${hospede})"
+                             />
+                    </div>
 
-                  </div>
+                  </h4>
+
+                </div>
+
+                <div class="form-group">
+
+                  <h4>
+
+                    <label for="reservaCheckIn">
+                      Data de Check-In:
+                    </label>
+                    <div class="input-group input-group-lg">
+
+                      <span class="input-group-addon" id="addonCheckIn3">
+                        <i class="fa fa-fw fa-lg fa-calendar"></i>
+                      </span>
+
+                      <input type="text" class="form-control" 
+                             aria-describedby="addonCheckIn3"
+                             id="reservaCheckIn" name="reservaCheckIn"
+                             readonly
+                             value="<fmt:formatDate type="date" 
+                                             value="${in}" />"
+                             />
+                    </div>
+
+                  </h4>
+
+                </div>
+
+                <div class="form-group">
+
+                  <h4>
+
+                    <label for="reservaCheckOut">
+                      Data de Check-Out:
+                    </label>
+                    <div class="input-group input-group-lg">
+
+                      <span class="input-group-addon" id="addonCheckOut3">
+                        <i class="fa fa-fw fa-lg fa-calendar"></i>
+                      </span>
+
+                      <input type="text" class="form-control" 
+                             aria-describedby="addonCheckOut3"
+                             id="reservaCheckOut" name="reservaCheckOut"
+                             readonly
+                             value="<fmt:formatDate type="date" 
+                                             value="${out}" />"
+                             />
+                    </div>
+
+                  </h4>
+
+                </div>
+
+                <div class="form-group">
+
+                  <h4>
+
+                    <label for="reservaQuarto">
+                      Quarto:
+                    </label>
+                    <div class="input-group input-group-lg">
+
+                      <span class="input-group-addon" id="addonQuarto">
+                        <i class="fa fa-fw fa-lg fa-bed"></i>
+                      </span>
+
+                      <select class="form-control" tabindex="4" aria-describedby="addonQuarto"
+                              name="reservaQuarto" id="reservaQuarto" required="true">
+                        <c:forEach items="${listaQuartos}" var="quarto" varStatus="stat">
+                          <c:if test="${sessionScope.usuario.unidadeId == quarto.idUnidade}">
+                            <option value="<c:out value="${quarto.id}" />">
+                              <c:out value="${quarto.numero}" />
+                              (Diária R$ <c:out value="${quarto.valorDiaria}" />)
+                            </option>
+                          </c:if>
+                        </c:forEach>
+                      </select>
+
+                      <c:forEach items="${listaQuartos}" var="quarto" varStatus="stat">
+                        <c:if test="${sessionScope.usuario.unidadeId == quarto.idUnidade}">
+                          <span class="hidden" id="valorDiariaQuarto${quarto.id}"
+                                >${quarto.valorDiaria}</span>
+                        </c:if>
+                      </c:forEach>
+
+                    </div>
+
+                  </h4>
+
+                </div>
+
+                <div class="form-group">
+
+                  <h4>
+
+                    <label for="reservaValor">
+                      Valor Total:
+                    </label>
+                    <div class="input-group input-group-lg">
+
+                      <span class="input-group-addon" id="addonReservaValor">
+                        <i class="fa fa-fw fa-lg fa-usd"></i>
+                      </span>
+
+                      <input type="text" class="form-control" 
+                             aria-describedby="addonReservaValor"
+                             id="reservaValor" name="reservaValor"
+                             readonly
+                             value=""
+                             />
+
+                    </div>
+
+                  </h4>
 
                 </div>
 
               </div>
 
-              <br style="clear: both;" />
+            </div>
 
-              <div class="row">
+            <br style="clear: both;" />
 
-                <div class="col-md-3"></div>
+            <div class="row">
 
-                <div class="col-md-3 col-xs-6">
+              <div class="col-md-3"></div>
 
-                  <a class="btn btn-lg btn-block btn-primary"
-                     href="<c:url value="/erp/reservas/nova" />"
-                     tabindex="9"
-                     >
-                    <i class="fa fa-fw fa-lg fa-arrow-left"></i>
-                    VOLTAR
-                  </a>
+              <div class="col-md-3 col-xs-6">
 
-                </div>
-
-                <div class="col-md-3 col-xs-6">
-
-                  <button class="btn btn-lg btn-block btn-default"
-                          type="submit" tabindex="8">
-                    RESERVAR
-                    <i class="fa fa-fw fa-lg fa-check"></i>
-                  </button>
-
-                </div>
+                <a class="btn btn-lg btn-block btn-primary"
+                   href="<c:url value="/erp/reservas/nova?hospedeID=" />${hospede}"
+                   tabindex="9"
+                   >
+                  <i class="fa fa-fw fa-lg fa-arrow-left"></i>
+                  VOLTAR
+                </a>
 
               </div>
 
-            </div>          
+              <div class="col-md-3 col-xs-6">
+
+                <button class="btn btn-lg btn-block btn-default"
+                        type="submit" tabindex="8">
+                  RESERVAR
+                  <i class="fa fa-fw fa-lg fa-check"></i>
+                </button>
+
+              </div>
+
+            </div>      
 
           </form>
 

@@ -10,7 +10,7 @@
 <t:defaultTemplate>
 
   <jsp:attribute name="paginaTitulo">
-    Relatórios: Vendas
+    Relatório de Estadias Encerradas
   </jsp:attribute>
 
   <jsp:attribute name="paginaHead">
@@ -26,24 +26,26 @@
       Morris.Bar({
         element: 'hero-bar',
         data: [
-          ${vendasVetor}
+      ${estadiasEncerradasPorUnidades}
         ],
         xkey: 'unidade',
         ykeys: ['vendas'],
         labels: ['Total de vendas'],
-        barRatio: 0.4,
-        xLabelAngle: 35,
+        barRatio: 0.2,
+        xLabelAngle: 15,
         hideHover: 'auto',
-        barColors: ['#00967D']
+        barColors: ['#2980b9']
       });
-      
+
       Morris.Donut({
         element: 'hero-donut',
         data: [
-          ${vendasRosquinhas}
+          ${estadiasEncerradasGeral}
         ],
-          colors: ['#3498db', '#2980b9', '#34495e'],
-        formatter: function (y) { return y + "%" }
+        colors: ['#3498db', '#2980b9', '#34495e'],
+        formatter: function (y) {
+          return y;
+        }
       });
     </script>
   </jsp:attribute>
@@ -51,7 +53,7 @@
   <jsp:body>
 
     <h1 class="page-title">
-      Relatórios: Vendas
+      Relatórios de Estadias Encerradas
     </h1>
 
     <div class="row">
@@ -61,7 +63,7 @@
         <div class="content-panel">
           <h4>
             <i class="fa fa-angle-right"></i> 
-            Vendas por unidades
+            Encerradas por Unidade
           </h4>
           <div class="panel-body">
             <div id="hero-bar" class="graph"></div>
@@ -75,7 +77,7 @@
         <div class="content-panel">
           <h4>
             <i class="fa fa-angle-right"></i> 
-            Vendas por unidades
+            Encerradas em Todas as Unidades
           </h4>
           <div class="panel-body">
             <div id="hero-donut" class="graph"></div>

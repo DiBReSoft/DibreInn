@@ -30,25 +30,14 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ReservaNovaServlet", urlPatterns = {"/erp/reservas/nova"})
 public class ReservaNovaServlet extends HttpServlet {
-  
+
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
-          throws ServletException, IOException {
+	  throws ServletException, IOException {
 
     try {
-      UnidadeDAO unidadesBD = new UnidadeDAO();
-      List <Unidade> listaUnidades = new ArrayList<>();
-      listaUnidades = unidadesBD.listarUnidades();
-      request.setAttribute("listaUnidades", listaUnidades);
 
-      QuartoDAO quartosBD = new QuartoDAO();
-      List <Quarto> listaQuartos = new ArrayList<>();
-      listaQuartos = quartosBD.listarQuartos(0, 0);
-      request.setAttribute("listaQuartos", listaQuartos);
-
-      FuncionarioDAO pessoasBD = new FuncionarioDAO();
       HospedeDAO hospedeBD = new HospedeDAO();
-      List <Pessoa> listaPessoas = new ArrayList<>();
 
       // Esse atributo irá esconder a DIV com os resultados da busca na página nova.jsp
       request.setAttribute("visibilidadeResultados", "hidden");
@@ -64,43 +53,96 @@ public class ReservaNovaServlet extends HttpServlet {
 
       // Se um destes campos de busca estiverem preenchidos, deixe a DIV com os resultados da busca visível
       if (nomeParaBuscar != null || buscarEmail != null || buscarCpf != null) {
-        request.setAttribute("visibilidadeResultados", null);
+	request.setAttribute("visibilidadeResultados", null);
       }
 
       if (nomeParaBuscar != null) {
-        // busca por nome, retornando uma pessoa
-        request.setAttribute("lista", hospedeBD.buscarHospedes(nomeParaBuscar, 1));
+	request.setAttribute("listaHospedes", hospedeBD.buscarHospedes(nomeParaBuscar, 1));
       } else if (buscarEmail != null) {
-        // busca por email, retornando uma pessoa
-        request.setAttribute("lista", hospedeBD.buscarHospedes(buscarEmail, 2));
+	request.setAttribute("listaHospedes", hospedeBD.buscarHospedes(buscarEmail, 2));
       } else if (buscarCpf != null) {
-        // busca por cpf, retornando uma pessoa
-        request.setAttribute("lista", hospedeBD.buscarHospedes(buscarCpf, 3));
+	request.setAttribute("listaHospedes", hospedeBD.buscarHospedes(buscarCpf, 3));
       }
 
-      String idHospedeReserva = request.getParameter("id");
+      String idHospede = request.getParameter("hospede");
+      String idHospedeReserva = request.getParameter("hospedeID");
+
+      if (idHospede == null || idHospedeReserva == null) {
+
+	String ativarTab1 = "active";
+	request.setAttribute("ativarTab1", ativarTab1);
+
+	String ativarTab2 = "disabled";
+	request.setAttribute("ativarTab2", ativarTab2);
+
+	String ativarTab3 = "disabled";
+	request.setAttribute("ativarTab3", ativarTab3);
+
+      }
 
       if (idHospedeReserva != null) {
-        request.setAttribute("lista", hospedeBD.buscarHospedes(idHospedeReserva, 4));
-        request.setAttribute("idHospede", idHospedeReserva);
-        String js = "stepTwo.click();";
-        request.setAttribute("selecionouHospede", js);
-        String ativarTab1 = "disabled";
-        request.setAttribute("ativarTab1", ativarTab1);
-        String ativarTab2 = "active";
-        request.setAttribute("ativarTab2", ativarTab2);
-      } else {
-        String ativarTab1 = "active";
-        request.setAttribute("ativarTab1", ativarTab1);
-        String ativarTab2 = "disabled";
-        request.setAttribute("ativarTab2", ativarTab2);
+
+	request.setAttribute("idHospede", idHospedeReserva);
+
+	String js = "stepTwo.click();";
+	request.setAttribute("selecionouHospede", js);
+
+	String ativarTab1 = "disabled";
+	request.setAttribute("ativarTab1", ativarTab1);
+
+	String ativarTab2 = "active";
+	request.setAttribute("ativarTab2", ativarTab2);
+
+      }
+
+      if (idHospede != null) {
+
+	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+	String checkIn = request.getParameter("in");
+	checkIn = checkIn.replaceAll("%2F", "-");
+	String checkOut = request.getParameter("out");
+	checkOut = checkOut.replaceAll("%2F", "-");
+
+	Date dataCheckIn, dataCheckOut;
+	dataCheckIn = sdf.parse(checkIn);
+	dataCheckOut = sdf.parse(checkOut);
+
+	request.setAttribute("in", dataCheckIn);
+	request.setAttribute("out", dataCheckOut);
+	request.setAttribute("hospede", idHospede);
+
+	request.setAttribute("listarHospedes", hospedeBD.buscarHospedes(idHospede, 4));
+
+	// Listar os quartos disponíveis
+	QuartoDAO quartosBD = new QuartoDAO();
+	/* LUCIANO, acho que seria o ideial criar um metodo em QuartDAO
+	 * recebendo duas datas como parâmetro e retorna a lista dos disponíveis.
+	 * Daí substituiria o metodo abaixo 'listarQuartos(0, 0)' por assim:
+	 * 'listarQuartosDisponiveis(Date dataInicio, Date dataFim)' veja linha 125
+	 */
+	request.setAttribute("listaQuartos", quartosBD.listarQuartos(0, 0));
+	// request.setAttribute("listaQuartos", quartosBD.listarQuartosDisponiveis(dataCheckIn, dataCheckOut));
+
+	String js = "stepTree.click();";
+	request.setAttribute("selecionouHospede", js);
+
+	String ativarTab1 = "disabled";
+	request.setAttribute("ativarTab1", ativarTab1);
+
+	String ativarTab2 = "disabled";
+	request.setAttribute("ativarTab2", ativarTab2);
+
+	String ativarTab3 = "active";
+	request.setAttribute("ativarTab3", ativarTab3);
+
       }
 
       RequestDispatcher rd = request.getRequestDispatcher("/erp/reservas/nova.jsp");
       rd.forward(request, response);
 
     } catch (Exception ex) {
-      
+
       System.out.println(ex);
 
       response.sendRedirect("../erro");
@@ -108,37 +150,35 @@ public class ReservaNovaServlet extends HttpServlet {
     }
 
   }
-  
-  
+
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
-          throws ServletException, IOException {    
+	  throws ServletException, IOException {
 
     String reservaStatus = "A";
     String reservaFormFuncionarioID = request.getParameter("reservaFuncionarioID");
     String reservaFormHospedeID = request.getParameter("reservaHospedeID");
+    String reservaFormDataCheckin = request.getParameter("reservaCheckIn");
+    String reservaFormDataCheckout = request.getParameter("reservaCheckOut");
     String reservaFormQuarto = request.getParameter("reservaQuarto");
-    String reservaFormDataCheckin = request.getParameter("checkIn");
-    String reservaFormDataCheckout = request.getParameter("checkOut");
 
-    System.out.println("\nDados coletados de nova reserva:".toUpperCase());
-    System.out.println("ID do Hospede: " + reservaFormHospedeID);
-    System.out.println("ID do Quarto: " + reservaFormQuarto);
-    System.out.println("Data CheckIn: " + reservaFormDataCheckin);
-    System.out.println("Data CheckOut: " + reservaFormDataCheckout);
+    System.out.println("\nDados coletados para nova reserva:".toUpperCase());
     System.out.println("ID do Responsável: " + reservaFormFuncionarioID);
+    System.out.println("ID do Hospede: " + reservaFormHospedeID);
+    System.out.println("Data Check-In: " + reservaFormDataCheckin);
+    System.out.println("Data Check-Out: " + reservaFormDataCheckout);
+    System.out.println("ID do Quarto: " + reservaFormQuarto);
     QuartoDAO q = new QuartoDAO();
     double valorQuarto = q.buscarValorQuartoId(reservaFormQuarto);
     System.out.println("Valor Estadia: " + q.buscarValorQuartoId(reservaFormQuarto));
-    
-    
+
     Reserva novaReserva = new Reserva();
-    
+
     novaReserva.setStatus(reservaStatus);
     novaReserva.setIdFuncionario(Integer.parseInt(reservaFormFuncionarioID));
     novaReserva.setIdHospede(Integer.parseInt(reservaFormHospedeID));
     novaReserva.setIdQuarto(Integer.parseInt(reservaFormQuarto));
-    
+
     Date checkin, checkout;
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -150,7 +190,7 @@ public class ReservaNovaServlet extends HttpServlet {
       checkout = sdf.parse(reservaFormDataCheckout);
       novaReserva.setCheckOut(checkout);
       novaReserva.setValorEstadia(novaReserva.valorReserva(checkin, checkout, valorQuarto));
-      
+
       ReservaDAO reservaBD = new ReservaDAO();
       reservaBD.cadastrarReserva(novaReserva);
 

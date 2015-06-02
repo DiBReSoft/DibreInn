@@ -12,7 +12,7 @@
 <t:defaultTemplate>
 
   <jsp:attribute name="paginaTitulo">
-    Efetuar Check-In de Reserva
+    Reservas para Check-In na Data
   </jsp:attribute>
 
   <jsp:attribute name="paginaHead">
@@ -28,7 +28,7 @@
   <jsp:body>
 
     <h1 class="page-title">
-      Efetuar Check-In de Reserva
+      Reservas para Check-In na Data
     </h1>
 
     <div class="form-di">
@@ -169,7 +169,7 @@
                 <td>
                   <i class="fa fa-fw fa-lg"></i>
                   <c:if test="${reserva.status == 'A'}">
-                    <a href="<c:url value="/erp/reservas/iniciar?id=${reserva.id}" />" 
+                    <a href="<c:url value="/erp/estadias/efetuar-checkin?id=${reserva.id}" />" 
                        class="btn btn-sm btn-default">
                       <i class="fa fa-fw fa-lg fa-play"></i>
                       Iniciar

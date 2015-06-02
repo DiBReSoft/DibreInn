@@ -12,7 +12,7 @@
 <t:defaultTemplate>
 
   <jsp:attribute name="paginaTitulo">
-    Buscar &amp; Editar Reservas do Período
+    Buscar &amp; Cancelar Reservas do Período
   </jsp:attribute>
 
   <jsp:attribute name="paginaHead">
@@ -35,7 +35,7 @@
   <jsp:body>
 
     <h1 class="page-title">
-      Buscar &amp; Editar Reservas no Período
+      Buscar &amp; Cancelar Reservas no Período
     </h1>
 
     <!-- Formulário #1 | Buscar por data -->
@@ -199,10 +199,10 @@
             <td>
               <i class="fa fa-fw fa-lg"></i>
               <c:if test="${reserva.status == 'A'}">
-                <a href="<c:url value="/erp/reservas/editar?id=${reserva.id}" />" 
-                   class="btn btn-sm btn-default">
-                  <i class="fa fa-fw fa-lg fa-edit"></i>
-                  Editar
+                <a href="<c:url value="/erp/reservas/cancelar?id=${reserva.id}" />" 
+                   class="btn btn-sm btn-danger">
+                  <i class="fa fa-fw fa-lg fa-times"></i>
+                  Cancelar
                 </a>
               </c:if>
               <c:if test="${reserva.status == 'P'}">
