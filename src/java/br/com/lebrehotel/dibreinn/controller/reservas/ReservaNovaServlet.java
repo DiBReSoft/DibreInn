@@ -1,7 +1,9 @@
 package br.com.lebrehotel.dibreinn.controller.reservas;
 
+import br.com.lebrehotel.dibreinn.model.email.Email;
 import br.com.lebrehotel.dibreinn.model.pessoa.Pessoa;
 import br.com.lebrehotel.dibreinn.model.funcionario.FuncionarioDAO;
+import br.com.lebrehotel.dibreinn.model.hospede.Hospede;
 import br.com.lebrehotel.dibreinn.model.hospede.HospedeDAO;
 import br.com.lebrehotel.dibreinn.model.quarto.Quarto;
 import br.com.lebrehotel.dibreinn.model.quarto.QuartoDAO;
@@ -15,8 +17,17 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.mail.Address;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -199,7 +210,7 @@ public class ReservaNovaServlet extends HttpServlet {
 
       ReservaDAO reservaBD = new ReservaDAO();
       reservaBD.cadastrarReserva(novaReserva);
-
+      montaEmail(reservaFormHospedeID,reservaFormDataCheckin,reservaFormDataCheckout);
       response.sendRedirect("../sucesso");
 
     } catch (ParseException ex) {
@@ -214,6 +225,74 @@ public class ReservaNovaServlet extends HttpServlet {
     }
 
   }
+  
+  private void montaEmail(String idHospede,String checkin,String checkout) {
+    HospedeDAO hospedeBD = new HospedeDAO();
+    Email email = new Email();
+    List<Hospede> lista = hospedeBD.buscarHospedes(idHospede, 4);
+    
+    email.setDestinatario(lista.get(0).getEmail());
+    email.setAssunto("Reserva no LebreHotel");
+    email.setMensagem(lista.get(0).getNome() + ", sua reserva foi efetuada com sucesso, com o checkin previsto para: "+checkin+" e checkout para "+checkout+" !");
+    EnviarEmail(email);
+  }
+
+  public void EnviarEmail(Email email) {
+
+    Properties props = new Properties();
+    /**
+     * Parâmetros de conexão com servidor Gmail
+     */
+    props.put("mail.smtp.host", "smtp.gmail.com");
+    props.put("mail.smtp.socketFactory.port", "465");
+    props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+    props.put("mail.smtp.auth", "true");
+    props.put("mail.smtp.port", "465");
+
+    Session session = Session.getInstance(props,
+	    new javax.mail.Authenticator() {
+	      @Override
+	      protected PasswordAuthentication getPasswordAuthentication() {
+		return new PasswordAuthentication("lebrehotel@gmail.com", "senac123");
+	      }
+	    });
+
+    /**
+     * Ativa Debug para sessão
+     */
+    session.setDebug(true);
+
+    try {
+
+      Message message = new MimeMessage(session);
+
+      // Remetente
+      message.setFrom(new InternetAddress("lebrehotel@gmail.com"));
+
+      // Destinatário(s)
+      String destinos = "";
+      for (String destinatario : email.getDestinatario()) {
+	destinos += ", " + destinatario;
+      }
+      Address[] toUser = InternetAddress.parse("lebrehotel@gmail.com,fabioernanni@hotmail.com,elvitous@gmail.com,lucianolourencoti@gmail.com" + destinos);
+      message.setRecipients(Message.RecipientType.TO, toUser);
+
+      // Assunto
+      message.setSubject(email.getAssunto());
+
+      // Montar corpo da mensagem
+      message.setText(email.getMensagem());
+
+      // Método para enviar a mensagem criada
+      Transport.send(message);
+
+    } catch (MessagingException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  
+  
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
   /**

@@ -83,7 +83,7 @@ public class HospedeCadastrarServlet extends HttpServlet {
       boolean resultadoCadastro = hospedeBD.cadastrarHospede(h);
       
       if (resultadoCadastro) {
-          //montaEmail(h);
+          montaEmail(h);
 	response.sendRedirect("../sucesso");
               
 
