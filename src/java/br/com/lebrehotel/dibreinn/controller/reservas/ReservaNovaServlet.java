@@ -121,7 +121,7 @@ public class ReservaNovaServlet extends HttpServlet {
 	 * Daí substituiria o metodo abaixo 'listarQuartos(0, 0)' por assim:
 	 * 'listarQuartosDisponiveis(Date dataInicio, Date dataFim)' veja linha 125
 	 */
-	request.setAttribute("listaQuartos", quartosBD.listarQuartos(0, 0));
+	request.setAttribute("listaQuartos", quartosBD.listarQuartos2());
 	// request.setAttribute("listaQuartos", quartosBD.listarQuartosDisponiveis(dataCheckIn, dataCheckOut));
 
 	String js = "stepTree.click();";

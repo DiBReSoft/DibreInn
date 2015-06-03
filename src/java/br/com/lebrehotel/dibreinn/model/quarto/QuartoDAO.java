@@ -117,7 +117,7 @@ public class QuartoDAO {
 
         String Query = "SELECT ID_QUARTO, ID_UNIDADE, STATUS, NUMERO, ANDAR, RAMAL, VALOR_DIARIA "
                 + "FROM TB_QUARTO ";
-        
+
         switch (tipoBusca) {
             case 1:
                 Query += "WHERE ID_UNIDADE = ?";
@@ -133,10 +133,11 @@ public class QuartoDAO {
             conexao.openConection();
 
             stmt = conexao.conn.prepareStatement(Query);
-            
-            if (tipoBusca != 0)
+
+            if (tipoBusca != 0) {
                 stmt.setInt(1, busca);
-            
+            }
+
             ResultSet resultados = stmt.executeQuery();
 
             while (resultados.next()) {
@@ -228,7 +229,7 @@ public class QuartoDAO {
         return null;
     }
 
-        public double buscarValorQuartoId(String quartoId) {
+    public double buscarValorQuartoId(String quartoId) {
 
         ResultSet rs = null;
 
@@ -248,12 +249,9 @@ public class QuartoDAO {
 
             ResultSet result = stmt.executeQuery();
 
+            result.next();
 
-           result.next();
-
-               
-           double valorDiaria = result.getDouble("VALOR_DIARIA");
-                        
+            double valorDiaria = result.getDouble("VALOR_DIARIA");
 
             return valorDiaria;
 
@@ -276,7 +274,66 @@ public class QuartoDAO {
         return -1;
     }
 
-  public Quarto getQuartoById(int idQuarto) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-  }
+    public Quarto getQuartoById(int idQuarto) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public List<Quarto> listarQuartos2() {
+        ResultSet rs = null;
+
+        ConectarBD conexao = new ConectarBD();
+        PreparedStatement stmt = null;
+
+        List<Quarto> lista = new ArrayList<>();
+
+        String Query = "SELECT q.ID_QUARTO,q.ID_UNIDADE,q.STATUS,q.NUMERO,q.ANDAR,q.RAMAL,q.VALOR_DIARIA FROM TB_QUARTO as q"
+                + " INNER JOIN TB_RESERVA as r ON q.ID_QUARTO = r.ID_QUARTO"
+                + " WHERE r.STATUS = 'F'"
+                + " UNION"
+                + " SELECT q.ID_QUARTO,q.ID_UNIDADE,q.STATUS,q.NUMERO,q.ANDAR,q.RAMAL,q.VALOR_DIARIA FROM TB_QUARTO as q"
+                + " WHERE q.ID_QUARTO NOT IN (SELECT r.ID_QUARTO FROM TB_RESERVA as r)";
+
+        try {
+            conexao.openConection();
+
+            stmt = conexao.conn.prepareStatement(Query);
+
+            ResultSet resultados = stmt.executeQuery();
+
+            while (resultados.next()) {
+                Quarto q = new Quarto();
+
+                q.setId(resultados.getInt("ID_QUARTO"));
+                q.setIdUnidade(resultados.getInt("ID_UNIDADE"));
+                q.setStatus(resultados.getInt("STATUS"));
+                q.setNumero(resultados.getInt("NUMERO"));
+                q.setAndar(resultados.getString("ANDAR"));
+                q.setRamal(resultados.getInt("RAMAL"));
+                q.setValorDiaria(resultados.getDouble("VALOR_DIARIA"));
+
+                lista.add(q);
+                System.out.println("[INFO] Dados carregados com sucesso: ");
+                       
+                
+            }
+
+            return lista;
+        } catch (SQLException ex) {
+            // Caso haja erro retorna 0 como ID e informa no log
+            Logger.getLogger(QuartoDAO.class.getName()).log(Level.SEVERE, "[INFO] Erro ao gravar os dados: ", ex);
+
+        } finally {
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(QuartoDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (conexao != null) {
+                conexao.closeConection();
+            }
+        }
+        return null;
+    }
 }

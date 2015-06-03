@@ -298,7 +298,7 @@
                     Desculpe.
                   </h2>
                   <h3>
-                    Não pudemos encontrar hospedes com 
+                    Não podemos encontrar hospedes com 
                     <c:choose>
                       <c:when test="${nomeBuscado != null}">
                         o nome <div>"<c:out value="${nomeBuscado}" />"</div>
