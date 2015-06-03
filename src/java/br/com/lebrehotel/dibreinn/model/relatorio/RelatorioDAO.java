@@ -20,72 +20,47 @@ import java.util.logging.Logger;
  * @author thiago.mlima
  */
 public class RelatorioDAO {
-    
-    
-    
-  public List<Relatorio> listarQuantidadeReservas(int unidade,Date de,Date ate) {
 
-    ResultSet rs = null;
+    public List<Relatorio> reservasStatus(String status) {
+        ConectarBD conexao = new ConectarBD();
+        List<Relatorio> busca = new ArrayList<>();
+        PreparedStatement stm = null;
+        ResultSet rs = null;
 
-    ConectarBD conexao = new ConectarBD();
-    PreparedStatement stmt = null;
+        String query = "SELECT U.NOME AS UNIDADE, COUNT(R.STATUS) AS QTDE "
+                + "FROM TB_RESERVA AS R "
+                + "JOIN TB_UNIDADE AS U "
+                + "ON U.ID_UNIDADE = R.ID_UNIDADE "
+                + "WHERE R.STATUS = '?' "
+                + "GROUP BY (U.NOME)";
 
-    List<Relatorio> lista = new ArrayList<>();
+        try {
+            conexao.openConection();
+            stm = conexao.conn.prepareStatement(query);
+            stm.setString(1, status);
 
-    String Query = "SELECT TB_UNIDADE.NOME as nome,COUNT(ID_RESERVA) as quantidade FROM TB_RESERVA "
-            + "WHERE TB_UNIDADE.ID_UNIDADE = ? and DT_INICIO BETWEEN "+de+" and "+ate+"  \n"
-            
-            
-            +"INNER JOIN TB_UNIDADE on TB_UNIDADE.ID_UNIDADE TB_RESERVA.ID_UNIDADE \n"            
-            + "GROUP BY TB_UNIDADE.NOME";
-
-    try {
-
-      conexao.openConection();
-
-      stmt = conexao.conn.prepareStatement(Query);
-
-      stmt.setInt(1, unidade);
-     
-
-      ResultSet resultados = stmt.executeQuery();
-
-      while (resultados.next()) {
-
-	Relatorio re = new Relatorio();
-
-	re.setQuantidade(resultados.getInt("quantidade"));
-        re.setUnidade(resultados.getString("nome"));
-
-	lista.add(re);
-
-      }
-
-      return lista;
-
-    } catch (SQLException ex) {
-      // Caso haja erro retorna 0 como ID e informa no log
-      Logger.getLogger(RelatorioDAO.class.getName()).log(Level.SEVERE, "[INFO] Erro ao gravar os dados: ", ex);
-
-    } finally {
-
-      if (stmt != null) {
-	try {
-	  stmt.close();
-	} catch (SQLException ex) {
-	  Logger.getLogger(RelatorioDAO.class.getName()).log(Level.SEVERE, null, ex);
-	}
-      }
-      if (conexao != null) {
-	conexao.closeConection();
-      }
-
+            ResultSet resultados = stm.executeQuery();
+            while (resultados.next()) {
+                Relatorio r = new Relatorio();
+                r.setQuantidade(resultados.getInt("QTDE"));
+                r.setUnidade(resultados.getString("UNIDADE"));
+                busca.add(r);
+            }
+        } catch (SQLException ex) {
+            // Caso haja erro retorna 0 como ID e informa no log
+            Logger.getLogger(RelatorioDAO.class.getName()).log(Level.SEVERE, "[INFO] Erro ao listar os dados: ", ex);
+        } finally {
+            if (stm != null) {
+                try {
+                    stm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(RelatorioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (conexao != null) {
+                conexao.closeConection();
+            }
+        }
+        return busca;
     }
-
-    return null;
-
-  }
-    
-    
-    
 }
