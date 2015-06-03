@@ -1026,7 +1026,7 @@ PANELS CONFIGURATIONS
 /*Panel Size*/
 
 .pn {
-  height: 250px;
+  height: 278px;
   box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
 }
 
@@ -1207,9 +1207,10 @@ PANELS CONFIGURATIONS
 
 /* Weather 1 */
 .weather {
-  background: url(../img/clima/chuva.jpg) no-repeat center top;
+  background: url(../img/clima/chuva.jpg) no-repeat;
   text-align: center;
   background-position: center center;
+  background-size: cover;
 }
 .weather i {
   color: white;

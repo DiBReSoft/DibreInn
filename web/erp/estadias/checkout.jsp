@@ -111,7 +111,7 @@
           </thead>
           <tbody>
             <c:forEach items="${reservasNaData}" var="reserva" varStatus="stat">
-              <c:if test="${reserva.idUnidade == sessionScope.usuario.unidadeId}">
+              <c:if test="${reserva.idUnidade == sessionScope.usuario.unidadeId and reserva.status != 'A' and reserva.status != 'C'}">
                 <tr 
                   <c:if test="${reserva.status == 'F'}">
                     class="success"

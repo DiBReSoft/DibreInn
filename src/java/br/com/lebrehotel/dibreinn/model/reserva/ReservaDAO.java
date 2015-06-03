@@ -342,7 +342,7 @@ public class ReservaDAO {
     ConectarBD conexao = new ConectarBD();
     PreparedStatement stmt = null;
 
-    String Query = "SELECT STATUS, ID_RESERVA, ID_UNIDADE, ID_HOSPEDE, ID_FUNCIONARIO, ID_QUARTO, DT_INICIO, DT_FIM FROM TB_RESERVA "
+    String Query = "SELECT STATUS, ID_RESERVA, ID_UNIDADE, ID_HOSPEDE, ID_FUNCIONARIO, ID_QUARTO, DT_INICIO, DT_FIM, VALOR FROM TB_RESERVA "
 	    + "WHERE ID_RESERVA = ? ";
 
     try {
@@ -367,6 +367,7 @@ public class ReservaDAO {
 	res.setIdQuarto(resultados.getInt("ID_QUARTO"));
 	res.setCheckIn(resultados.getDate("DT_INICIO"));
 	res.setCheckOut(resultados.getDate("DT_FIM"));
+	res.setValorEstadia(resultados.getDouble("VALOR"));
 
 	FuncionarioDAO funcionarioBD = new FuncionarioDAO();
 	res.setFuncionario(funcionarioBD.getFuncionarioById(res.getIdFuncionario()));
