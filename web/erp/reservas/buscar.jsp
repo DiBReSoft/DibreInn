@@ -141,82 +141,84 @@
           </thead>
           <tbody>
             <c:forEach items="${reservasNoPeriodo}" var="reserva" varStatus="stat">
-              <tr
-                <c:if test="${reserva.status == 'A'}">
-                  class="info"
-                </c:if>
-                <c:if test="${reserva.status == 'P'}">
-                  class="warning"
-                </c:if>
-                <c:if test="${reserva.status == 'F'}">
-                  class="success"
-                </c:if>
-                <c:if test="${reserva.status == 'C'}">
-                  class="danger"
-                </c:if>
-                >
-                <td scope="row">
-                  <i class="fa fa-fw fa-lg"></i>
-                  <c:out value="${reserva.id}" />
-                </td>
-                <td>
-                  <i class="fa fa-fw fa-lg"></i>
+              <c:if test="${reserva.idUnidade == sessionScope.usuario.unidadeId}">
+                <tr
                   <c:if test="${reserva.status == 'A'}">
-                    Aberta
+                    class="info"
                   </c:if>
                   <c:if test="${reserva.status == 'P'}">
-                    Progresso
+                    class="warning"
                   </c:if>
                   <c:if test="${reserva.status == 'F'}">
-                    Fechada
+                    class="success"
                   </c:if>
                   <c:if test="${reserva.status == 'C'}">
-                    Cancelada
+                    class="danger"
                   </c:if>
-                </td>
-                <td>
-                  <i class="fa fa-fw fa-lg"></i>
-                  <c:out value="${reserva.hospede.nome}" />
-                  <c:out value="${reserva.hospede.sobrenome}" />
-                </td>
-                <td>
-                  <i class="fa fa-fw fa-lg"></i>
-            <fmt:formatDate type="date" value="${reserva.checkIn}" />
-            </td>
-            <td>
-              <i class="fa fa-fw fa-lg"></i>
-            <fmt:formatDate type="date" value="${reserva.checkOut}" />
-            </td>
-            <td>
-              <i class="fa fa-fw fa-lg"></i>
-              <c:out value="${reserva.quarto.numero}" />
-            </td>
-            <td>
-              <i class="fa fa-fw fa-lg"></i>
-              <c:out value="${reserva.funcionario.nome}" />
-              <c:out value="${reserva.funcionario.sobrenome}" />
-            </td>
-            <td>
-              <i class="fa fa-fw fa-lg"></i>
-              <c:if test="${reserva.status == 'A'}">
-                <a href="<c:url value="/erp/reservas/cancelar?id=${reserva.id}" />" 
-                   class="btn btn-sm btn-danger">
-                  <i class="fa fa-fw fa-lg fa-times"></i>
-                  Cancelar
-                </a>
+                  >
+                  <td scope="row">
+                    <i class="fa fa-fw fa-lg"></i>
+                    <c:out value="${reserva.id}" />
+                  </td>
+                  <td>
+                    <i class="fa fa-fw fa-lg"></i>
+                    <c:if test="${reserva.status == 'A'}">
+                      Aberta
+                    </c:if>
+                    <c:if test="${reserva.status == 'P'}">
+                      Progresso
+                    </c:if>
+                    <c:if test="${reserva.status == 'F'}">
+                      Fechada
+                    </c:if>
+                    <c:if test="${reserva.status == 'C'}">
+                      Cancelada
+                    </c:if>
+                  </td>
+                  <td>
+                    <i class="fa fa-fw fa-lg"></i>
+                    <c:out value="${reserva.hospede.nome}" />
+                    <c:out value="${reserva.hospede.sobrenome}" />
+                  </td>
+                  <td>
+                    <i class="fa fa-fw fa-lg"></i>
+                    <fmt:formatDate type="date" value="${reserva.checkIn}" />
+                  </td>
+                  <td>
+                    <i class="fa fa-fw fa-lg"></i>
+                    <fmt:formatDate type="date" value="${reserva.checkOut}" />
+                  </td>
+                  <td>
+                    <i class="fa fa-fw fa-lg"></i>
+                    <c:out value="${reserva.quarto.numero}" />
+                  </td>
+                  <td>
+                    <i class="fa fa-fw fa-lg"></i>
+                    <c:out value="${reserva.funcionario.nome}" />
+                    <c:out value="${reserva.funcionario.sobrenome}" />
+                  </td>
+                  <td>
+                    <i class="fa fa-fw fa-lg"></i>
+                    <c:if test="${reserva.status == 'A'}">
+                      <a href="<c:url value="/erp/reservas/cancelar?id=${reserva.id}" />" 
+                         class="btn btn-sm btn-danger">
+                        <i class="fa fa-fw fa-lg fa-times"></i>
+                        Cancelar
+                      </a>
+                    </c:if>
+                    <c:if test="${reserva.status == 'P'}">
+                      Progresso
+                    </c:if>
+                    <c:if test="${reserva.status == 'F'}">
+                      Fechada
+                    </c:if>
+                    <c:if test="${reserva.status == 'C'}">
+                      Cancelada
+                    </c:if>
+                  </td>
+                </tr>
               </c:if>
-              <c:if test="${reserva.status == 'P'}">
-                Progresso
-              </c:if>
-              <c:if test="${reserva.status == 'F'}">
-                Fechada
-              </c:if>
-              <c:if test="${reserva.status == 'C'}">
-                Cancelada
-              </c:if>
-            </td>
-            </tr>
-          </c:forEach>
+            </c:forEach>
           </tbody>
         </table>
 

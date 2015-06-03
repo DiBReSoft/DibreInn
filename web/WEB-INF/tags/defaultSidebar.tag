@@ -82,12 +82,12 @@
         <ul class="sub">
           <li class="item-menu">
             <a href="<c:url value="/erp/estadias/checkin" />">
-              Efetuar CheckIn
+              Efetuar Check-In
             </a>
           </li>
           <li class="item-menu">
             <a href="<c:url value="/erp/estadias/checkout" />">
-              Efetuar CheckOut
+              Efetuar Check-Out
             </a>
           </li>
         </ul>

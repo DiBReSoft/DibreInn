@@ -12,7 +12,7 @@
 <t:defaultTemplate>
 
   <jsp:attribute name="paginaTitulo">
-    Confirmar e Efetuar Check-In de Reserva
+    Cancelar Reserva
   </jsp:attribute>
 
   <jsp:attribute name="paginaHead">
@@ -28,16 +28,16 @@
   <jsp:body>
 
     <h1 class="page-title">
-      Confirmar e Efetuar Check-In de Reserva
+      Cancelar Reserva
     </h1>
 
     <div class="form-di">
 
-      <form method="post" action="efetuar-checkin"
+      <form method="post" action="cancelar"
             accept-charset="UTF-8"
             enctype="application/x-www-form-urlencoded">
 
-        <input type="hidden" name="checkInReservaID"
+        <input type="hidden" name="cancelarReservaID"
                value="${reserva.id}" 
                />
 
@@ -50,15 +50,15 @@
             <div class="form-group">
 
               <h4>
-                <label for="checkInResponsavel">
+                <label for="cancelarResponsavel">
                   Responsável pela reserva:
                 </label>
                 <input type="text" class="form-control input-lg"
-                       id="checkInResponsavel"
+                       id="cancelarResponsavel"
                        value="${sessionScope.usuario.nome}" 
                        readonly
                        />
-                <input type="hidden" name="checkInResponsavel"
+                <input type="hidden" name="cancelarResponsavel"
                        value="${sessionScope.usuario.id}" 
                        />
               </h4>
@@ -68,15 +68,15 @@
             <div class="form-group">
 
               <h4>
-                <label for="checkInHospede">
+                <label for="cancelarHospede">
                   Hospede:
                 </label>
                 <input type="text" class="form-control input-lg"
-                       id="checkInHospede"
+                       id="cancelarHospede"
                        value="${hospede.nome} ${hospede.sobrenome} (CPF: ${hospede.cpf})" 
                        readonly
                        />
-                <input type="hidden" name="checkInHospede"
+                <input type="hidden" name="cancelarHospede"
                        value="${hospede.id}" 
                        />
               </h4>
@@ -86,16 +86,12 @@
             <div class="form-group">
 
               <h4>
-                <label for="checkInData">
+                <label for="cancelarData">
                   Data de Check-In:
                 </label>
                 <input type="text" class="form-control input-lg"
-                       id="checkInData" name="checkInData"
+                       id="cancelarData" name="cancelarData"
                        value="<fmt:formatDate type="date" value="${reserva.checkIn}" />" 
-                       readonly
-                       />
-                <input type="hidden" name="checkOut"
-                       value="<fmt:formatDate type="date" value="${reserva.checkOut}" />" 
                        readonly
                        />
               </h4>
@@ -105,16 +101,13 @@
             <div class="form-group">
 
               <h4>
-                <label for="checkInQuarto">
-                  Quarto:
+                <label for="cancelarData">
+                  Data de Check-Out:
                 </label>
                 <input type="text" class="form-control input-lg"
-                       id="checkInQuarto"
-                       value="${quarto.numero}" 
+                       id="cancelarData" name="cancelarDataCheckOut"
+                       value="<fmt:formatDate type="date" value="${reserva.checkOut}" />" 
                        readonly
-                       />
-                <input type="hidden" name="checkInQuarto"
-                       value="${quarto.id}" 
                        />
               </h4>
 
@@ -124,7 +117,7 @@
 
             <button type="submit" class="btn btn-lg btn-block btn-default">
               <i class="fa fw-fw fa-sign-in"></i>
-              INICIAR ESTADIA
+              CANCELAR RESERVA
             </button>
 
           </div>

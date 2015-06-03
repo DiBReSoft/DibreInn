@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jSilverize
  */
-@WebServlet(name = "EstadiaCheckInServlet", urlPatterns = {"/erp/estadias/checkin"})
-public class EstadiaCheckInServlet extends HttpServlet {
+@WebServlet(name = "EstadiaCheckOutServlet", urlPatterns = {"/erp/estadias/checkout"})
+public class EstadiaCheckOutServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -34,7 +34,7 @@ public class EstadiaCheckInServlet extends HttpServlet {
 
 	request.setAttribute("exibirData", data);
 	data = data.replaceAll("%2F", "/");
-	request.setAttribute("reservasNaData", reservaBD.listarReservasParaCheckIn(data));
+	request.setAttribute("reservasNaData", reservaBD.listarReservasParaCheckOut(data));
 
       } else {
 	
@@ -43,11 +43,11 @@ public class EstadiaCheckInServlet extends HttpServlet {
 	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	dataHoje = sdf.format(dataDia);
 	request.setAttribute("exibirData", dataHoje);
-	request.setAttribute("reservasNaData", reservaBD.listarReservasParaCheckIn(dataHoje));
+	request.setAttribute("reservasNaData", reservaBD.listarReservasParaCheckOut(dataHoje));
 
       }
 
-      RequestDispatcher rd = request.getRequestDispatcher("/erp/estadias/checkin.jsp");
+      RequestDispatcher rd = request.getRequestDispatcher("/erp/estadias/checkout.jsp");
       rd.forward(request, response);
 
     } catch (Exception ex) {

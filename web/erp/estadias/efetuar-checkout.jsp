@@ -12,7 +12,7 @@
 <t:defaultTemplate>
 
   <jsp:attribute name="paginaTitulo">
-    Confirmar e Efetuar Check-In de Reserva
+    Confirmar e Efetuar Check-Out de Estadia
   </jsp:attribute>
 
   <jsp:attribute name="paginaHead">
@@ -28,16 +28,16 @@
   <jsp:body>
 
     <h1 class="page-title">
-      Confirmar e Efetuar Check-In de Reserva
+      Confirmar e Efetuar Check-Out de Estadia
     </h1>
 
     <div class="form-di">
 
-      <form method="post" action="efetuar-checkin"
+      <form method="post" action="efetuar-checkout"
             accept-charset="UTF-8"
             enctype="application/x-www-form-urlencoded">
 
-        <input type="hidden" name="checkInReservaID"
+        <input type="hidden" name="checkOutReservaID"
                value="${reserva.id}" 
                />
 
@@ -50,15 +50,15 @@
             <div class="form-group">
 
               <h4>
-                <label for="checkInResponsavel">
+                <label for="checkOutResponsavel">
                   Responsável pela reserva:
                 </label>
                 <input type="text" class="form-control input-lg"
-                       id="checkInResponsavel"
+                       id="checkOutResponsavel"
                        value="${sessionScope.usuario.nome}" 
                        readonly
                        />
-                <input type="hidden" name="checkInResponsavel"
+                <input type="hidden" name="checkOutResponsavel"
                        value="${sessionScope.usuario.id}" 
                        />
               </h4>
@@ -68,15 +68,15 @@
             <div class="form-group">
 
               <h4>
-                <label for="checkInHospede">
+                <label for="checkOutHospede">
                   Hospede:
                 </label>
                 <input type="text" class="form-control input-lg"
-                       id="checkInHospede"
+                       id="checkOutHospede"
                        value="${hospede.nome} ${hospede.sobrenome} (CPF: ${hospede.cpf})" 
                        readonly
                        />
-                <input type="hidden" name="checkInHospede"
+                <input type="hidden" name="checkOutHospede"
                        value="${hospede.id}" 
                        />
               </h4>
@@ -86,15 +86,11 @@
             <div class="form-group">
 
               <h4>
-                <label for="checkInData">
-                  Data de Check-In:
+                <label for="checkOutData">
+                  Data de Check-Out:
                 </label>
                 <input type="text" class="form-control input-lg"
-                       id="checkInData" name="checkInData"
-                       value="<fmt:formatDate type="date" value="${reserva.checkIn}" />" 
-                       readonly
-                       />
-                <input type="hidden" name="checkOut"
+                       id="checkOutData" name="checkOutData"
                        value="<fmt:formatDate type="date" value="${reserva.checkOut}" />" 
                        readonly
                        />
@@ -105,15 +101,15 @@
             <div class="form-group">
 
               <h4>
-                <label for="checkInQuarto">
+                <label for="checkOutQuarto">
                   Quarto:
                 </label>
                 <input type="text" class="form-control input-lg"
-                       id="checkInQuarto"
+                       id="checkOutQuarto"
                        value="${quarto.numero}" 
                        readonly
                        />
-                <input type="hidden" name="checkInQuarto"
+                <input type="hidden" name="checkOutQuarto"
                        value="${quarto.id}" 
                        />
               </h4>
@@ -124,7 +120,7 @@
 
             <button type="submit" class="btn btn-lg btn-block btn-default">
               <i class="fa fw-fw fa-sign-in"></i>
-              INICIAR ESTADIA
+              FECHAR ESTADIA
             </button>
 
           </div>

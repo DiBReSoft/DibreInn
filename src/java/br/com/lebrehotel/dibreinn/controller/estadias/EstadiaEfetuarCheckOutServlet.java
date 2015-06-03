@@ -20,61 +20,61 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jSilverize
  */
-@WebServlet(name = "EstadiaEfetuarCheckInServlet", urlPatterns = {"/erp/estadias/efetuar-checkin"})
-public class EstadiaEfetuarCheckInServlet extends HttpServlet {
-  
+@WebServlet(name = "EstadiaEfetuarCheckOutServlet", urlPatterns = {"/erp/estadias/efetuar-checkout"})
+public class EstadiaEfetuarCheckOutServlet extends HttpServlet {
+
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	  throws ServletException, IOException {
-    
+
     try {
-      
+
       String idReserva = request.getParameter("id");
-      
+
       ReservaDAO reservaBD = new ReservaDAO();
       Reserva reserva = reservaBD.getReservaByID(Integer.parseInt(idReserva));
       request.setAttribute("reserva", reserva);
-      
+
       HospedeDAO hospedeBD = new HospedeDAO();
       request.setAttribute("hospede", hospedeBD.getHospedeById(reserva.getIdHospede()));
-      
+
       String idQuarto = reserva.getIdQuarto() + "";
       QuartoDAO quartoBD = new QuartoDAO();
       request.setAttribute("quarto", quartoBD.buscarQuartoId(idQuarto));
-      
-      RequestDispatcher rd = request.getRequestDispatcher("/erp/estadias/efetuar-checkin.jsp");
+
+      RequestDispatcher rd = request.getRequestDispatcher("/erp/estadias/efetuar-checkout.jsp");
       rd.forward(request, response);
-      
+
     } catch (Exception ex) {
-      
+
       Logger.getLogger(ReservaDAO.class.getName()).log(Level.SEVERE, "[INFO] Erro ao gravar os dados: ", ex);
       response.sendRedirect("../erro");
-      
+
     }
-    
+
   }
-  
+
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	  throws ServletException, IOException {
-    
+
     try {
-      
-      String checkInReservaID = request.getParameter("checkInReservaID");
-      
+
+      String checkOutReservaID = request.getParameter("checkOutReservaID");
+
       ReservaDAO reservaBD = new ReservaDAO();
-      reservaBD.checkInReserva(Integer.parseInt(checkInReservaID));
-      
-      response.sendRedirect("iniciada.jsp");
-      
+      reservaBD.checkOutReserva(Integer.parseInt(checkOutReservaID));
+
+      response.sendRedirect("fechada.jsp");
+
     } catch (Exception ex) {
-      
+
       System.out.println(ex);
-      
+
       response.sendRedirect("../erro");
-      
+
     }
-    
+
   }
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">  

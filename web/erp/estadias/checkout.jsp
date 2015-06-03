@@ -12,7 +12,7 @@
 <t:defaultTemplate>
 
   <jsp:attribute name="paginaTitulo">
-    Reservas para Check-In na Data
+    Check-Out de Estadias na Data
   </jsp:attribute>
 
   <jsp:attribute name="paginaHead">
@@ -28,12 +28,12 @@
   <jsp:body>
 
     <h1 class="page-title">
-      Reservas para Check-In na Data
+      Check-Out de Estadias na Data
     </h1>
 
     <div class="form-di">
 
-      <form method="get" action="checkin"
+      <form method="get" action="checkout"
             accept-charset="UTF-8"
             enctype="application/x-www-form-urlencoded">
 
@@ -41,7 +41,7 @@
 
           <div class="col-lg-2 col-md-3 col-sm-4">
             <h4 class="text-right">
-              Reservas do dia:
+              Estadias do dia:
             </h4>
           </div>
 
@@ -112,15 +112,9 @@
           <tbody>
             <c:forEach items="${reservasNaData}" var="reserva" varStatus="stat">
               <c:if test="${reserva.idUnidade == sessionScope.usuario.unidadeId}">
-                <tr
-                  <c:if test="${reserva.status == 'A'}">
-                    class="info"
-                  </c:if>
+                <tr 
                   <c:if test="${reserva.status == 'F'}">
                     class="success"
-                  </c:if>
-                  <c:if test="${reserva.status == 'C'}">
-                    class="danger"
                   </c:if>
                   >
                   <td scope="row">
@@ -129,17 +123,11 @@
                   </td>
                   <td>
                     <i class="fa fa-fw fa-lg"></i>
-                    <c:if test="${reserva.status == 'A'}">
-                      Aberta
-                    </c:if>
                     <c:if test="${reserva.status == 'P'}">
                       Progresso
                     </c:if>
                     <c:if test="${reserva.status == 'F'}">
                       Fechada
-                    </c:if>
-                    <c:if test="${reserva.status == 'C'}">
-                      Cancelada
                     </c:if>
                   </td>
                   <td>
@@ -149,13 +137,13 @@
                   </td>
                   <td>
                     <i class="fa fa-fw fa-lg"></i>
-                    <strong>
-                      <fmt:formatDate type="date" value="${reserva.checkIn}" />                    
-                    </strong>
+                    <fmt:formatDate type="date" value="${reserva.checkIn}" />
                   </td>
                   <td>
                     <i class="fa fa-fw fa-lg"></i>
-                    <fmt:formatDate type="date" value="${reserva.checkOut}" />
+                    <strong>
+                      <fmt:formatDate type="date" value="${reserva.checkOut}" />                    
+                    </strong>
                   </td>
                   <td>
                     <i class="fa fa-fw fa-lg"></i>
@@ -167,33 +155,21 @@
                     <c:out value="${reserva.funcionario.sobrenome}" />
                   </td>
                   <td>
-                    <c:if test="${reserva.status == 'A'}">
-                      <a href="<c:url value="/erp/estadias/efetuar-checkin?id=${reserva.id}" />" 
-                         class="btn btn-sm btn-block btn-default">
-                        <i class="fa fa-fw fa-lg fa-play"></i>
-                        INICIAR
-                      </a>
-                    </c:if>
                     <c:if test="${reserva.status == 'P'}">
-                      <a class="btn btn-sm btn-block btn-info disabled">
-                        <i class="fa fa-fw fa-lg fa-ellipsis-h"></i>
-                        EM PROGRESSO
+                      <a href="<c:url value="/erp/estadias/efetuar-checkout?id=${reserva.id}" />" 
+                         class="btn btn-sm btn-block btn-default">
+                        <i class="fa fa-fw fa-lg fa-sign-out"></i>
+                        FECHAR
                       </a>
                     </c:if>
                     <c:if test="${reserva.status == 'F'}">
                       <a class="btn btn-sm btn-block btn-success disabled">
-                        <i class="fa fa-fw fa-lg fa-ellipsis-h"></i>
+                        <i class="fa fa-fw fa-lg fa-check-square"></i>
                         FECHADA
                       </a>
                     </c:if>
-                    <c:if test="${reserva.status == 'C'}">
-                      <a class="btn btn-sm btn-block btn-danger disabled">
-                        <i class="fa fa-fw fa-lg fa-ellipsis-h"></i>
-                        CANCELADA
-                      </a>
-                    </c:if>
                   </td>
-                </tr>
+                </tr>                
               </c:if>
             </c:forEach>
           </tbody>
@@ -218,7 +194,7 @@
               Desculpe.
             </h2>
             <h3>
-              Não existem reservas agendadas para o dia 
+              Não existem estadias para Check-Out para o dia 
               <strong><c:out value="${exibirData}" /></strong>
             </h3>
           </div>

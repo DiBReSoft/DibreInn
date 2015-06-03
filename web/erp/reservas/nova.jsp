@@ -29,27 +29,7 @@
       $(window).load(function () {
         var stepTwo = $("[data-target=#stepTwo]");
         var stepTree = $("[data-target=#stepTree]");
-        ${selecionouHospede}
-            
-        /*
-        var minMilli = 1000 * 60;
-        var hrMilli = minMilli * 60;
-        var dyMilli = hrMilli * 24;
-
-        var dataCheckIn = new Date("" + $("#reservaCheckIn").val() + "");
-        var dataCheckOut = new Date("" + $("#reservaCheckOut").val() + "");
-
-        var ms = Date.parse(dataCheckIn);
-        var ms2 = Date.parse(dataCheckOut);
-        var days = Math.round(ms / dataCheckOut);
-        days = days + 1;
-
-        var valorDiaria = $("#valorDiariaQuarto2").text();
-        var valorEstadia = valorDiaria * days;
-
-        var campoValorDiaria = $("#reservaValor");
-        campoValorDiaria.val("" + valorEstadia);
-        */
+      ${selecionouHospede}
       });
     </script>
   </jsp:attribute>
@@ -443,6 +423,9 @@
                 accept-charset="UTF-8"
                 enctype="application/x-www-form-urlencoded"
                 action="nova">
+
+            <input type="hidden" name="reservaUnidadeID" 
+                   value="${sessionScope.usuario.unidadeId}" />
 
             <input type="hidden" name="reservaFuncionarioID"
                    value="${sessionScope.usuario.id}" />
