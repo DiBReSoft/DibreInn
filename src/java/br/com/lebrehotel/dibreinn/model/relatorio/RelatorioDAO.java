@@ -31,7 +31,7 @@ public class RelatorioDAO {
                 + "FROM TB_RESERVA AS R "
                 + "JOIN TB_UNIDADE AS U "
                 + "ON U.ID_UNIDADE = R.ID_UNIDADE "
-                + "WHERE R.STATUS = '?' "
+                + "WHERE R.STATUS = ? "
                 + "GROUP BY (U.NOME)";
 
         try {

@@ -25,26 +25,28 @@ public class RelatorioEncerradasServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        UnidadeDAO unidadeBD = new UnidadeDAO();
+
         RelatorioDAO relatorioBD = new RelatorioDAO();
-        int tu = unidadeBD.listarUnidades().size();
-        List<Relatorio> r = relatorioBD.reservasStatus("E");
+
+        List<Relatorio> r = relatorioBD.reservasStatus("F");
+        String estadiasEncerradasPorUnidades = "";
         for(Relatorio i : r){
-            
+        estadiasEncerradasPorUnidades+= "{unidade: '"+i.getUnidade()+"', vendas: "+i.getQuantidade()+"}, ";
         }
         
-        String estadiasEncerradasPorUnidades
-                = "{unidade: 'São Paulo I', vendas: 100}, "
-                + "{unidade: 'Rio de Janeiro I', vendas: 180}, "
-                + "{unidade: 'Bahia I', vendas: 90}, "
-                + "{unidade: 'Ceará I', vendas: 30}, ";
+    
         request.setAttribute("estadiasEncerradasPorUnidades", estadiasEncerradasPorUnidades);
-
-        String estadiasEncerradasGeral
-                = "{label: 'São Paulo I', value: 100}, "
-                + "{label: 'Rio de Janeiro I', value: 180}, "
-                + "{label: 'Bahia I', value: 90}, "
-                + "{label: 'Ceará I', value: 30},";
+//
+//        String estadiasEncerradasGeral
+//                = "{label: 'São Paulo I', value: 100}, "
+//                + "{label: 'Rio de Janeiro I', value: 180}, "
+//                + "{label: 'Bahia I', value: 90}, "
+//                + "{label: 'Ceará I', value: 30},";
+        
+         String estadiasEncerradasGeral= "";
+        for(Relatorio i : r){
+        estadiasEncerradasGeral+= "{label: '"+i.getUnidade()+"', value: "+i.getQuantidade()+"}, ";
+        }
         request.setAttribute("estadiasEncerradasGeral", estadiasEncerradasGeral);
 
         RequestDispatcher rd = request.getRequestDispatcher("/erp/relatorios/estadias-encerradas.jsp");
