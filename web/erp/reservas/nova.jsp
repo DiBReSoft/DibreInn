@@ -26,11 +26,24 @@
     <script type="text/javascript" src="<c:url value="/assets/js/jquery.maskedinput.min.js" />"></script>
     <script type="text/javascript" src="<c:url value="/assets/js/validacoes.js" />"></script>
     <script type="text/javascript">
-      $(window).load(function () {
+      $(document).ready(function () {
         var stepTwo = $("[data-target=#stepTwo]");
         var stepTree = $("[data-target=#stepTree]");
       ${selecionouHospede}
       });
+    </script>
+    <script type="text/javascript">
+      function atualizarPrecoReserva() {
+        console.log("GET via JS para calular preço da reserva");
+        $.get("calcularValor", {
+          "hospede": $("[name='reservaHospedeID']").val(),
+          "in": $("[name='reservaCheckIn']").val(),
+          "out": $("[name='reservaCheckOut']").val(),
+          "quarto": $("[name='reservaQuarto']").val()
+        }, function (valorReserva) {
+          $("#reservaValor").val(valorReserva);
+        });
+      }
     </script>
   </jsp:attribute>
 
@@ -456,7 +469,7 @@
                              aria-describedby="addonHospede"
                              id="reservaHospedeID" 
                              readonly
-                             value="${listarHospedes.get(0).nome} ${listarHospedes.get(0).sobrenome} (ID: ${hospede})"
+                             value="${listarHospedes.get(0).nome} ${listarHospedes.get(0).sobrenome} (CPF: ${listarHospedes.get(0).cpf})"
                              />
                     </div>
 
@@ -530,7 +543,10 @@
                       </span>
 
                       <select class="form-control" tabindex="4" aria-describedby="addonQuarto"
-                              name="reservaQuarto" id="reservaQuarto" required="true">
+                              name="reservaQuarto" id="reservaQuarto" required="true" onchange="atualizarPrecoReserva()">
+                        <option disabled selected>
+                          Selecione um quarto
+                        </option>
                         <c:forEach items="${listaQuartos}" var="quarto" varStatus="stat">
                           <c:if test="${sessionScope.usuario.unidadeId == quarto.idUnidade}">
                             <option value="<c:out value="${quarto.id}" />">
@@ -540,13 +556,6 @@
                           </c:if>
                         </c:forEach>
                       </select>
-
-                      <c:forEach items="${listaQuartos}" var="quarto" varStatus="stat">
-                        <c:if test="${sessionScope.usuario.unidadeId == quarto.idUnidade}">
-                          <span class="hidden" id="valorDiariaQuarto${quarto.id}"
-                                >${quarto.valorDiaria}</span>
-                        </c:if>
-                      </c:forEach>
 
                     </div>
 

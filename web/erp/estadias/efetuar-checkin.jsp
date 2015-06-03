@@ -120,6 +120,21 @@
 
             </div>
 
+            <div class="form-group">
+
+              <h4>
+                <label for="checkInValor">
+                  Valor tootal da estadia:
+                </label>
+                <input type="text" class="form-control input-lg"
+                       id="checkInValor"
+                       value="${reserva.valorEstadia}" 
+                       readonly
+                       />
+              </h4>
+
+            </div>
+
             <div style="padding: 10px;"></div>
 
             <button type="submit" class="btn btn-lg btn-block btn-default">

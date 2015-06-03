@@ -116,6 +116,21 @@
 
             </div>
 
+            <div class="form-group">
+
+              <h4>
+                <label for="checkOutValor">
+                  Valor total da estadia:
+                </label>
+                <input type="text" class="form-control input-lg"
+                       id="checkOutValor"
+                       value="${reserva.valorEstadia}" 
+                       readonly
+                       />
+              </h4>
+
+            </div>
+
             <div style="padding: 10px;"></div>
 
             <button type="submit" class="btn btn-lg btn-block btn-default">
