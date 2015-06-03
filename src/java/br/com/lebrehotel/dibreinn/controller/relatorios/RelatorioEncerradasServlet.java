@@ -24,28 +24,20 @@ public class RelatorioEncerradasServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
 
         RelatorioDAO relatorioBD = new RelatorioDAO();
 
         List<Relatorio> r = relatorioBD.reservasStatus("F");
         String estadiasEncerradasPorUnidades = "";
-        for(Relatorio i : r){
-        estadiasEncerradasPorUnidades+= "{unidade: '"+i.getUnidade()+"', vendas: "+i.getQuantidade()+"}, ";
+        for (Relatorio i : r) {
+            estadiasEncerradasPorUnidades += "{unidade: '" + i.getUnidade() + "', vendas: " + i.getQuantidade() + "}, ";
         }
-        
-    
+
         request.setAttribute("estadiasEncerradasPorUnidades", estadiasEncerradasPorUnidades);
-//
-//        String estadiasEncerradasGeral
-//                = "{label: 'São Paulo I', value: 100}, "
-//                + "{label: 'Rio de Janeiro I', value: 180}, "
-//                + "{label: 'Bahia I', value: 90}, "
-//                + "{label: 'Ceará I', value: 30},";
-        
-         String estadiasEncerradasGeral= "";
-        for(Relatorio i : r){
-        estadiasEncerradasGeral+= "{label: '"+i.getUnidade()+"', value: "+i.getQuantidade()+"}, ";
+
+        String estadiasEncerradasGeral = "";
+        for (Relatorio i : r) {
+            estadiasEncerradasGeral += "{label: '" + i.getUnidade() + "', value: " + i.getQuantidade() + "}, ";
         }
         request.setAttribute("estadiasEncerradasGeral", estadiasEncerradasGeral);
 

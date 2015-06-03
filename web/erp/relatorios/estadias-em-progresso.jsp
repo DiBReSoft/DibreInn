@@ -35,7 +35,7 @@
         barRatio: 0.2,
         xLabelAngle: 15,
         hideHover: 'auto',
-        barColors: ['#2980b9']
+        barColors: ['#FFFF66']
       });
 
       Morris.Donut({
@@ -43,7 +43,7 @@
         data: [
           ${estadiasProgressoGeral}
         ],
-        colors: ['#3498db', '#2980b9', '#34495e'],
+        colors: ['#FFFF00', '#FFFF66', '#FFCC00'],
         formatter: function (y) {
           return y;
         }

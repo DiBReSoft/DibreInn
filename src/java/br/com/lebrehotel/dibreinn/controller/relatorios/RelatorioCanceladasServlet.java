@@ -34,8 +34,6 @@ public class RelatorioCanceladasServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -48,23 +46,22 @@ public class RelatorioCanceladasServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-     
+
         RelatorioDAO relatorioBD = new RelatorioDAO();
-        
+
         List<Relatorio> r = relatorioBD.reservasStatus("C");
         String estadiasCanceladasPorUnidades = "";
-        for(Relatorio i : r){
-        estadiasCanceladasPorUnidades+= "{unidade: '"+i.getUnidade()+"', vendas: "+i.getQuantidade()+"}, ";
+        for (Relatorio i : r) {
+            estadiasCanceladasPorUnidades += "{unidade: '" + i.getUnidade() + "', vendas: " + i.getQuantidade() + "}, ";
         }
-        
-    
+
         request.setAttribute("estadiasCanceladasPorUnidades", estadiasCanceladasPorUnidades);
 
-        String estadiasCanceladasGeral= "";
-        for(Relatorio i : r){
-        estadiasCanceladasGeral+= "{label: '"+i.getUnidade()+"', value: "+i.getQuantidade()+"}, ";
+        String estadiasCanceladasGeral = "";
+        for (Relatorio i : r) {
+            estadiasCanceladasGeral += "{label: '" + i.getUnidade() + "', value: " + i.getQuantidade() + "}, ";
         }
-        
+
         request.setAttribute("estadiasCanceladasGeral", estadiasCanceladasGeral);
 
         RequestDispatcher rd = request.getRequestDispatcher("/erp/relatorios/estadias-canceladas.jsp");
@@ -82,7 +79,7 @@ public class RelatorioCanceladasServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     /**

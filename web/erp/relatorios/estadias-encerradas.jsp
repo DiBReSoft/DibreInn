@@ -34,7 +34,7 @@
         barRatio: 0.2,
         xLabelAngle: 15,
         hideHover: 'auto',
-        barColors: ['#2980b9']
+        barColors: ['#33CC33']
       });
 
       Morris.Donut({
@@ -42,7 +42,7 @@
         data: [
           ${estadiasEncerradasGeral}
         ],
-        colors: ['#3498db', '#2980b9', '#34495e'],
+        colors: ['#00CC00', '#33CC33', '#00CC66'],
         formatter: function (y) {
           return y;
         }

@@ -34,8 +34,6 @@ public class RelatorioProgressoServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -48,23 +46,22 @@ public class RelatorioProgressoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+
         RelatorioDAO relatorioBD = new RelatorioDAO();
-        
+
         List<Relatorio> r = relatorioBD.reservasStatus("P");
         String estadiasProgressoPorUnidades = "";
-        for(Relatorio i : r){
-        estadiasProgressoPorUnidades+= "{unidade: '"+i.getUnidade()+"', vendas: "+i.getQuantidade()+"}, ";
+        for (Relatorio i : r) {
+            estadiasProgressoPorUnidades += "{unidade: '" + i.getUnidade() + "', vendas: " + i.getQuantidade() + "}, ";
         }
-        
-    
+
         request.setAttribute("estadiasProgressoPorUnidades", estadiasProgressoPorUnidades);
 
-        String estadiasProgressoGeral= "";
-        for(Relatorio i : r){
-        estadiasProgressoGeral+= "{label: '"+i.getUnidade()+"', value: "+i.getQuantidade()+"}, ";
+        String estadiasProgressoGeral = "";
+        for (Relatorio i : r) {
+            estadiasProgressoGeral += "{label: '" + i.getUnidade() + "', value: " + i.getQuantidade() + "}, ";
         }
-        
+
         request.setAttribute("estadiasProgressoGeral", estadiasProgressoGeral);
 
         RequestDispatcher rd = request.getRequestDispatcher("/erp/relatorios/estadias-em-progresso.jsp");
@@ -82,7 +79,7 @@ public class RelatorioProgressoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     /**

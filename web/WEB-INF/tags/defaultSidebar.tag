@@ -113,12 +113,12 @@
               </a>
             </li>
             <li class="item-menu">
-              <a href="<c:url value="/erp/relatorios/reservas-agendadas" />">
+              <a href="<c:url value="/erp/relatorios/estadias-agendadas" />">
                 Reservas Agendadas
               </a>
             </li>
             <li class="item-menu">
-              <a href="<c:url value="/erp/relatorios/reservas-canceladas" />">
+              <a href="<c:url value="/erp/relatorios/estadias-canceladas" />">
                 Reservas Canceladas
               </a>
             </li>
